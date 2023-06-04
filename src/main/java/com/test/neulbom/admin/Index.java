@@ -1,4 +1,4 @@
-package com.test.neulbom;
+package com.test.neulbom.admin;
 
 import java.io.IOException;
 
@@ -9,15 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/index.do")
+@WebServlet("/admin/index.do")
 public class Index extends HttpServlet {
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// Index.java
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/index.jsp");
+		//Index.java
+
+		RequestDispatcher dispatcher = req
+				.getRequestDispatcher("/WEB-INF/views/admin/index.jsp");
 		dispatcher.forward(req, resp);
 	}
 
 }
+
