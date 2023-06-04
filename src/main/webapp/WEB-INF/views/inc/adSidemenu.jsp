@@ -8,7 +8,7 @@
             <div class="profilelevel">계정 관리자</div>
         </div>
                 <div class="menubox">
-                    <div class="menu" id="create_account">계정 부여</a></div>
+                    <div class="menu" id="create_account">계정 부여</div>
                     <div class="menu" id="manage_account">계정 관리</div>
                     <div class="menu" id="find_account">아이디/비밀번호 찾기</div>
                     <div class="menu" id="search_staff">직원 정보 조회</div>
