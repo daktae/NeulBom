@@ -33,6 +33,13 @@
 			<button type="submit" class="login primary">로그인</button>
 		</div>
 		</form>
+		<div id="temp-login">
+		<form method="POST" action="/neulbom/admin/login.do">
+			<input type="hidden" name="id" value="admin01">
+			<input type="hidden" name="pw" value="admin">
+			<input type="submit" value=" 오소수 ">
+		</form>
+		</div>
 	</main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

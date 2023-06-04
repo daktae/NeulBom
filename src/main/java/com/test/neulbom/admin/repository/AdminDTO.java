@@ -3,7 +3,7 @@ package com.test.neulbom.admin.repository;
 import lombok.Data;
 
 @Data
-public class AdminLoginDTO {
+public class AdminDTO {
 	
 	private String id;
 	private String pw;
