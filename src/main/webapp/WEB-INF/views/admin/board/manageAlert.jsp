@@ -14,10 +14,7 @@
 	width: 183px;
 	height: 47px;
 	position: relative;
-	border-top-left-radius: 30px;
-	border-top-right-radius: 30px;
-	border-bottom-left-radius: 30px;
-	border-bottom-right-radius: 30px;
+	border-radius: 30px;
 	text-align: center;
 	justify-content: center;
 	display: inline-block;
@@ -67,16 +64,45 @@
 	color: #4F4F4F;
 }
 
-#selected {
-	color: 4F4F4F;
-	font-size: 25px;
-	position: relative;
-	top: 30px;
-}
-
 .table {
 	position: relative;
 	top: 50px;
+}
+
+.table thead tr th {
+	text-align: center;
+}
+
+.table tbody tr td:nth-child(1), .table tbody tr td:nth-child(3), .table tbody tr td:nth-child(4),
+	.table tbody tr td:nth-child(5) {
+	text-align: center;
+}
+
+.table tbody tr td:nth-child(5) {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.edit {
+	background-color: rgba(39, 166, 174, 0.2);
+	border-radius: 30px;
+	width: 72px;
+	height: 30px;
+}
+
+#edit_txt {
+	color: #5888CE;
+}
+
+.delete {
+	background-color: rgba(199, 143, 0, 0.2);
+	border-radius: 30px;
+	width: 72px;
+	height: 30px;
+}
+
+#delete_txt {
+	color: #EB7257;
 }
 </style>
 </head>
@@ -103,40 +129,45 @@
 						<span id="free_txt">자유게시판</span>
 					</div>
 
-					<div id="selected">공지사항</div>
-
 					<div>
 						<table class="table table-striped">
+							<colgroup>
+								<col width=10%>
+								<col width=35%>
+								<col width=15%>
+								<col width=15%>
+								<col width=35%>
+							</colgroup>
 							<thead>
 								<tr>
 									<th scope="col">번호</th>
 									<th scope="col">제목</th>
 									<th scope="col">등록일</th>
-									<th scope="col">읽음</th>
+									<th scope="col">조회수</th>
+									<th scope="col">처리</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody>							
+							<c:forEach items="${list}" var="dto">   
 								<tr>
-									<th scope="row">1</th>
-									<td class="span2">Mark</td>
-									<td>Otto</td>
-									<td>@mdo</td>
+									<td>${dto.displayed_seq}</td>
+									<td>${dto.title}</td>
+									<td>${dto.notice_date}</td>
+									<td>${dto.read}</td>
+									<td>
+										<div class="edit">
+											<span id="edit_txt">수정</span>
+										</div>
+										<div class="delete">
+											<span id="delete_txt">삭제</span>
+										</div>
+									</td>
 								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<td>Jacob</td>
-									<td>Thornton</td>
-									<td>@fat</td>
-								</tr>
-								<tr>
-									<th scope="row">3</th>
-									<td>Larry</td>
-									<td>the Bird</td>
-									<td>@twitter</td>
-								</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>
+				
 				</div>
 				<!-- semi_title -->
 				<div class="main-box"></div>
@@ -147,14 +178,28 @@
 		<!-- content-box -->
 	</div>
 
-	<!-- JavaScript Bundle with Popper -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-		crossorigin="anonymous"></script>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
+	
+	//notice, food, life, free
+	
+/* 	$('.notice').click(function() {
+    $.ajax({
+      url: '/neulbom/admin/board/manageAlert.do',
+      method: 'GET',
+      data: {
+    	  board: 'notice'
+      },
+      dataType: 'json',
+      success: result => {
+        console.log(result);
+      },
+      error: function(a, b, c) {
+        console.log(a, b, c);
+      }
+    });
+  }); */
 		
 	</script>
 </body>
