@@ -64,16 +64,11 @@
 	color: #4F4F4F;
 }
 
-.table {
-	position: relative;
-	top: 50px;
-}
-
 .table thead tr th {
 	text-align: center;
 }
 
-.table tbody tr td:nth-child(1), .table tbody tr td:nth-child(3), .table tbody tr td:nth-child(4),
+.table tbody tr td:nth-child(1), .table tbody tr td:nth-child(2), .table tbody tr td:nth-child(3), .table tbody tr td:nth-child(4),
 	.table tbody tr td:nth-child(5) {
 	text-align: center;
 }
@@ -81,32 +76,6 @@
 .table tbody tr td:nth-child(5) {
 	display: flex;
 	justify-content: space-evenly;
-}
-
-.edit {
-	background-color: rgba(39, 166, 174, 0.2);
-	border-radius: 30px;
-	width: 72px;
-	height: 30px;
-}
-
-#edit_txt {
-	color: #5888CE;
-}
-
-.delete {
-	background-color: rgba(199, 143, 0, 0.2);
-	border-radius: 30px;
-	width: 72px;
-	height: 30px;
-}
-
-#delete_txt {
-	color: #EB7257;
-}
-
-.movable {
-	cursor: pointer;
 }
 
 </style>
@@ -120,11 +89,11 @@
 				<div class="semititle">
 
 					<div class="select_boards notice movable"
-						onclick="location.href='/neulbom/admin/board/manageNotice.do';">
+						onclick="location.href='/neulbom/admin/board/managenotice.do';">
 						<span id="notice_txt">공지사항</span>
 					</div>
 					<div class="select_boards food movable"
-						onclick="location.href='/neulbom/admin/board/manageFood.do';">
+						onclick="location.href='/neulbom/admin/board/managefood.do';">
 						<span id="food_txt">식단표</span>
 					</div>
 
@@ -159,7 +128,7 @@
 									<tr>
 										<td>${dto.displayed_seq}</td>
 										<td class="movable"
-											onclick="location.href='/neulbom/admin/board/viewNotice.do?seq=${dto.notice_seq}'">${dto.title}</td>
+											onclick="location.href='/neulbom/admin/board/viewnotice.do?seq=${dto.notice_seq}'">${dto.title}</td>
 										<td>${dto.notice_date}</td>
 										<td>${dto.read}</td>
 										<td>

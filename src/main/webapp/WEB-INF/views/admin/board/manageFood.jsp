@@ -115,11 +115,11 @@
 				<div class="semititle">
 
 					<div class="select_boards notice"
-						onclick="location.href='/neulbom/admin/board/manageNotice.do';">
+						onclick="location.href='/neulbom/admin/board/managenotice.do';">
 						<span id="notice_txt">공지사항</span>
 					</div>
 					<div class="select_boards food"
-						onclick="location.href='/neulbom/admin/board/manageFood.do';">
+						onclick="location.href='/neulbom/admin/board/managefood.do';">
 						<span id="food_txt">식단표</span>
 					</div>
 

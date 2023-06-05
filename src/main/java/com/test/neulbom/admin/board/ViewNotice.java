@@ -1,7 +1,6 @@
 package com.test.neulbom.admin.board;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.test.neulbom.admin.repository.AdminDAO;
 import com.test.neulbom.admin.repository.NoticeDTO;
 
-@WebServlet("/admin/board/viewNotice.do")
+@WebServlet("/admin/board/viewnotice.do")
 public class ViewNotice extends HttpServlet {
 
 	@Override
@@ -22,13 +21,23 @@ public class ViewNotice extends HttpServlet {
 		String seq = req.getParameter("seq");
 
 		AdminDAO dao = new AdminDAO();
-		List <NoticeDTO> list = dao.showNotice(seq);
+		NoticeDTO dto = dao.showNotice(seq);
+
+		String content = dto.getContent();
+
+		// HTML 태그 이스케이프
+		content = content.replace("<", "&lt;").replace(">", "&gt;");
+
+		// 글 내용 개행 문자 처리
+		content = content.replace("\r\n", "<br>");
+		content = content.replace("\r", "<br>");
+		dto.setContent(content);
 		
-		req.setAttribute("list", list);
+		req.setAttribute("dto", dto);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/viewNotice.jsp");
 		dispatcher.forward(req, resp);
-		
+
 	}
 
 }

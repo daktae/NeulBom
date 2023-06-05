@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.test.neulbom.admin.repository.AdminDAO;
 import com.test.neulbom.admin.repository.FoodDTO;
 
-@WebServlet("/admin/board/manageFood.do")
+@WebServlet("/admin/board/managefood.do")
 public class ManageFood extends HttpServlet {
 
 	@Override
