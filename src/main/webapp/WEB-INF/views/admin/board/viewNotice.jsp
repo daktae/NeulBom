@@ -10,11 +10,6 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp"%>
 
 <style>
-#content-tr {
-	height: 400px;
-	 vertical-align: middle;
-}
-
 #content {
 	text-align: left;
 	padding: 13px 25px;
@@ -73,7 +68,7 @@
 							<td>조회수</td>
 							<td>${dto.read}</td>
 						</tr>
-						<tr id="content-tr">
+						<tr>
 							<td id="content" colspan="4">${dto.content}</td>
 						</tr>
 						<tr>
@@ -82,8 +77,7 @@
 									<div class="edit movable">
 										<span id="edit_txt">수정</span>
 									</div>
-									<div class="delete movable"
-										onclick="location.href='/neulbom/admin/board/deletenotice.do?seq=${dto.notice_seq}'">
+									<div class="delete movable">
 										<span id="delete_txt">삭제</span>
 									</div>
 									<div class="back movable" onclick='history.back();'>
