@@ -14,14 +14,14 @@
                     <div class="menu" id="search_staff">직원 정보 조회</div>
                     <!-- <div class="menu" id="staff_attend">직원 근태 관리</div> -->
                     <div class="menu" id="staff_salary">직원 급여 관리</div>
-                    <div class="menu" id="manage_equip">비품 관리</div>
-                    <div class="menu" id="manage_money">재무 관리</div>
-                    <div class="menu" id="manage_program">복지 프로그램 관리</div>
+                    <div class="menu" id="manage_equip" onclick="location.href='/neulbom/admin/manage/manageEquip.do';">비품 관리</div>
+                    <div class="menu" id="manage_money" onclick="location.href='/neulbom/admin/manage/manageMoney.do';">재무 관리</div>
+                    <div class="menu" id="manage_program" onclick="location.href='/neulbom/admin/manage/manageProgram.do';">복지 프로그램 관리</div>
                     <!-- <div class="menu" id="staff_chat">직원용 채팅</div> -->
                     <div class="menu" id="manage_pay">결제 관리</div>
                     <div class="menu" id="manage_meet">면회 관리</div>
                     <!-- <span id="">연계 병원 진료 내역</span> -->
-                    <div class="menu" id="manage_alert">게시판 관리</div>
+                    <div class="menu" id="manage_alert" onclick="location.href='/neulbom/admin/board/manageNotice.do';">게시판 관리</div>
                     <div class="menu" id="manage_qna_consult">문의 및 입주상담 관리</div>
                 </div>
                 <div class="logout">
