@@ -9,9 +9,8 @@
 <meta charset="UTF-8">
 <title>늘봄 관리자</title>
 <%@ include file="/WEB-INF/views/inc/asset.jsp" %>
-
 <style>
-
+	
 </style>
 </head>
 <body>
@@ -32,7 +31,6 @@
                 <input type="text" class="search_input" value="조회할 직원 정보">
             </div><!-- semi_title -->
             <div class="main-box">
-
             </div><!-- main-box -->
         </div><!-- inner-box -->
     </div><!-- content-box -->

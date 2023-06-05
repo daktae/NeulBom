@@ -46,7 +46,7 @@ public class Login extends HttpServlet {
 			
 			//로그인 성공
 			req.getSession().setAttribute("id", id); //인증 티켓 발급
-			req.getSession().setAttribute("lv", result.getLev()); //레벨
+			req.getSession().setAttribute("lv", result.getLv()); //레벨
 			
 			resp.sendRedirect("/neulbom/admin/index.do");
 			
