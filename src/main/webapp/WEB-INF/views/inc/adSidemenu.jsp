@@ -21,7 +21,11 @@
                     <div class="menu" id="manage_pay">결제 관리</div>
                     <div class="menu" id="manage_meet">면회 관리</div>
                     <!-- <span id="">연계 병원 진료 내역</span> -->
+<<<<<<< HEAD
                     <div class="menu" id="manage_alert" onclick="location.href='/neulbom/admin/board/managenotice.do';">게시판 관리</div>
+=======
+                    <div class="menu" id="manage_alert" onclick="location.href='/neulbom/admin/board/manageNotice.do';">게시판 관리</div>
+>>>>>>> cc4a0cb12f72d311763001f412488f8cd99d7bad
                     <div class="menu" id="manage_qna_consult">문의 및 입주상담 관리</div>
                 </div>
                 <div class="logout">
