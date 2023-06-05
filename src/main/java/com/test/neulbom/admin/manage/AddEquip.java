@@ -1,4 +1,4 @@
-package com.test.neulbom.admin.board;
+package com.test.neulbom.admin.manage;
 
 import java.io.IOException;
 
