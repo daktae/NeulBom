@@ -114,10 +114,12 @@
 			<div id="inner-box">
 				<div class="semititle">
 
-					<div class="select_boards notice">
+					<div class="select_boards notice"
+						onclick="location.href='/neulbom/admin/board/manageNotice.do';">
 						<span id="notice_txt">공지사항</span>
 					</div>
-					<div class="select_boards food">
+					<div class="select_boards food"
+						onclick="location.href='/neulbom/admin/board/manageFood.do';">
 						<span id="food_txt">식단표</span>
 					</div>
 
@@ -147,27 +149,28 @@
 									<th scope="col">처리</th>
 								</tr>
 							</thead>
-							<tbody>							
-							<c:forEach items="${list}" var="dto">   
-								<tr>
-									<td>${dto.displayed_seq}</td>
-									<td>${dto.title}</td>
-									<td>${dto.notice_date}</td>
-									<td>${dto.read}</td>
-									<td>
-										<div class="edit">
-											<span id="edit_txt">수정</span>
-										</div>
-										<div class="delete">
-											<span id="delete_txt">삭제</span>
-										</div>
-									</td>
-								</tr>
+							<tbody>
+								<c:forEach items="${list}" var="dto">								
+								
+									<tr>
+										<td>${dto.displayed_seq}</td>
+										<td>${dto.food_month}월의 식단</td>
+										<td>${dto.food_date}</td>
+										<td>${dto.read}</td>
+										<td>
+											<div class="edit">
+												<span id="edit_txt">수정</span>
+											</div>
+											<div class="delete">
+												<span id="delete_txt">삭제</span>
+											</div>
+										</td>
+									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
-				
+
 				</div>
 				<!-- semi_title -->
 				<div class="main-box"></div>
@@ -181,25 +184,6 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
-	
-	//notice, food, life, free
-	
-/* 	$('.notice').click(function() {
-    $.ajax({
-      url: '/neulbom/admin/board/manageAlert.do',
-      method: 'GET',
-      data: {
-    	  board: 'notice'
-      },
-      dataType: 'json',
-      success: result => {
-        console.log(result);
-      },
-      error: function(a, b, c) {
-        console.log(a, b, c);
-      }
-    });
-  }); */
 		
 	</script>
 </body>
