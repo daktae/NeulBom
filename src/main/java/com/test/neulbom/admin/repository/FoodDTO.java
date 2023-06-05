@@ -3,13 +3,13 @@ package com.test.neulbom.admin.repository;
 import lombok.Data;
 
 @Data
-public class NoticeDTO {
-	
-	String notice_seq;
+public class FoodDTO {
+
+	String food_seq;
 	String displayed_seq;
-	String title;
+	String food_month;
+	String food_date;
 	String content;
-	String notice_date;
 	String read;
-	
+
 }

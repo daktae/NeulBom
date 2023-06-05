@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/board/manageAlert.do")
-public class ManageAlert extends HttpServlet {
+@WebServlet("/admin/board/deletenotice.do")
+public class DeleteNotice extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		//
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/manageAlert.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/deleteNotice.jsp");
 		dispatcher.forward(req, resp);
 	}
 

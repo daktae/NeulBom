@@ -13,9 +13,31 @@ body {
     margin: 0;
 }
 
+thead {
+	text-align: center;
+}
+	
+table{
+	position:relative;
+	top: 50px;
+}
+
+table td {
+	text-align: center;
+}
+
 .main {
     display: flex;
     align-items: flex-start;
+}
+
+.menu:hover {
+	cursor: pointer;
+	
+}
+
+.semititle:hover {
+	cursor: pointer;
 }
 
 .sidebox { 
@@ -163,6 +185,51 @@ body {
     top: 50px;
     margin-bottom: 20px;
     
+}
+
+
+.edit {
+	background-color: rgba(39, 166, 174, 0.2);
+	border-radius: 30px;
+	width: 72px;
+	height: 30px;
+}
+
+#edit_txt {
+	position: relative;
+	top: 3px;
+	color: #5888CE;
+}
+
+.delete {
+	background-color: rgba(199, 143, 0, 0.2);
+	border-radius: 30px;
+	width: 72px;
+	height: 30px;
+}
+
+#delete_txt {
+	position: relative;
+	top: 3px;
+	color: #EB7257;
+}
+
+.back {
+	background-color: rgba(105,105,105,0.2);
+	border-radius: 30px;
+	width: 72px;
+	height: 30px;
+}
+
+#back_txt {
+	position: relative;
+	top: 3px;
+	color: #474747;
+}
+
+
+.movable {
+	cursor: pointer;
 }
 
 .search_input {
