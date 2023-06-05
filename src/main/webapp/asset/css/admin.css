@@ -26,8 +26,6 @@ table td {
 	text-align: center;
 }
 
-
-
 .main {
     display: flex;
     align-items: flex-start;
@@ -198,6 +196,8 @@ table td {
 }
 
 #edit_txt {
+	position: relative;
+	top: 3px;
 	color: #5888CE;
 }
 
@@ -209,8 +209,24 @@ table td {
 }
 
 #delete_txt {
+	position: relative;
+	top: 3px;
 	color: #EB7257;
 }
+
+.back {
+	background-color: rgba(105,105,105,0.2);
+	border-radius: 30px;
+	width: 72px;
+	height: 30px;
+}
+
+#back_txt {
+	position: relative;
+	top: 3px;
+	color: #474747;
+}
+
 
 .movable {
 	cursor: pointer;
