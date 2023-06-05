@@ -29,8 +29,8 @@ public class ViewNotice extends HttpServlet {
 		content = content.replace("<", "&lt;").replace(">", "&gt;");
 
 		// 글 내용 개행 문자 처리
+		content = content.replace("\r", "<br><br>");
 		content = content.replace("\r\n", "<br>");
-		content = content.replace("\r", "<br>");
 		dto.setContent(content);
 		
 		req.setAttribute("dto", dto);

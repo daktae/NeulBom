@@ -68,8 +68,8 @@
 	text-align: center;
 }
 
-.table tbody tr td:nth-child(1), .table tbody tr td:nth-child(2), .table tbody tr td:nth-child(3), .table tbody tr td:nth-child(4),
-	.table tbody tr td:nth-child(5) {
+.table tbody tr td:nth-child(1), .table tbody tr td:nth-child(2), .table tbody tr td:nth-child(3),
+	.table tbody tr td:nth-child(4), .table tbody tr td:nth-child(5) {
 	text-align: center;
 }
 
@@ -77,7 +77,6 @@
 	display: flex;
 	justify-content: space-evenly;
 }
-
 </style>
 </head>
 <body>
@@ -135,7 +134,8 @@
 											<div class="edit movable">
 												<span id="edit_txt">수정</span>
 											</div>
-											<div class="delete movable">
+											<div class="delete movable"
+												onclick="location.href='/neulbom/admin/board/deletenotice.do?seq=${dto.notice_seq}'">
 												<span id="delete_txt">삭제</span>
 											</div>
 										</td>
