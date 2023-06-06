@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%@ include file="/WEB-INF/views/inc/assetclient.jsp" %>
 <link rel="stylesheet" href="https://me2.do/5BvBFJ57">
 <style>
 
@@ -89,6 +90,7 @@
             </div>
             <hr>
             <button type="button" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:left;">돌아가기</button>
+        </div>
         </div>
         
 <%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
