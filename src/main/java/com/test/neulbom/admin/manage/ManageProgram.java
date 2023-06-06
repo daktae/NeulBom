@@ -26,8 +26,6 @@ public class ManageProgram extends HttpServlet {
 		
 		req.setAttribute("progList", progList);
 		
-		System.out.println(progList.get(0));
-
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/manageProgram.jsp");
 		dispatcher.forward(req, resp);
 	}
