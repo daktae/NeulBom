@@ -1,4 +1,4 @@
-package com.test.neulbom.admin.repository;
+package com.test.neulbom.admin.board.repository;
 
 import lombok.Data;
 
