@@ -249,8 +249,9 @@ table td {
     height: 90%;
     
 }
-.menu > .a {
-    text-decoration: none;
+
+.menu:hover {
+	color: red;
 }
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
 

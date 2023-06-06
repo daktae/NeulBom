@@ -1,4 +1,4 @@
-package com.test.neulbom.admin.repository;
+package com.test.neulbom.admin.manage.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

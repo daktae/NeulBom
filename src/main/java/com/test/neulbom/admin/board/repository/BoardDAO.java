@@ -1,4 +1,4 @@
-package com.test.neulbom.admin.repository;
+package com.test.neulbom.admin.board.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,68 +7,63 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.test.neulbom.admin.repository.FoodDTO;
+import com.test.neulbom.admin.repository.NoticeDTO;
 import com.test.neulbom.mylib.DBUtil3;
 
-public class AdminDAO {
+public class BoardDAO {
 	private Connection conn;
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
 	
-	public AdminDAO() {
+	public BoardDAO() {
 		this.conn = DBUtil3.open();
 	}
-	public AdminDTO login(AdminDTO dto) {
+	public int deleteNotice(String seq) {
+
 		try {
 
-			String sql = "select * from tblAdmin where id = ? and pw = ?";
+			updateTblAlert(seq);
+
+			String sql = "DELETE FROM tblNotice where notice_seq = ?";
 
 			pstat = conn.prepareStatement(sql);
 
-			pstat.setString(1, dto.getId());
-			pstat.setString(2, dto.getPw());			
+			pstat.setString(1, seq);
 
-			rs = pstat.executeQuery();
+			int d_result = pstat.executeUpdate();
 
-			if (rs.next()) {
+			return d_result;
 
-				AdminDTO result = new AdminDTO();
+		} catch (
 
-				result.setId(rs.getString("id"));
-				result.setLv(rs.getString("lv"));
-
-				return result;
-			}
-
-		} catch (Exception e) {
+		Exception e) {
 			e.printStackTrace();
 		}
-		
-		return null;
-	}
-	public int register(AdminDTO dto) {
-		try {
-
-			String sql = "insert into tblAdmin (admin_seq, id, pw, name, ssn, tel, email, pic, lv) values (admin_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-			pstat = conn.prepareStatement(sql);
-
-			pstat.setString(1, dto.getId());
-			pstat.setString(2, dto.getPw());
-			pstat.setString(3, dto.getName());
-			pstat.setString(4, dto.getSsn());
-			pstat.setString(5, dto.getTel());
-			pstat.setString(6, dto.getEmail());
-			pstat.setString(7, dto.getPic());
-			pstat.setString(8, dto.getLv());
-
-			return pstat.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 		return 0;
+	}
+
+	private int updateTblAlert(String seq) {
+
+		try {
+
+			String sql = "UPDATE tblAlert SET notice_seq = null WHERE notice_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, seq);
+
+			int result = pstat.executeUpdate();
+
+			return result;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+
 	}
 	public List<NoticeDTO> getNotice() {
 
@@ -177,5 +172,4 @@ public class AdminDAO {
 
 		return null;
 	}
-
 }
