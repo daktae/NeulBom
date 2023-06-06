@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.test.neulbom.admin.repository.AdminDAO;
+import com.test.neulbom.admin.board.repository.BoardDAO;
 import com.test.neulbom.admin.repository.FoodDTO;
 
 @WebServlet("/admin/board/managefood.do")
@@ -19,7 +19,7 @@ public class ManageFood extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		AdminDAO dao = new AdminDAO();
+		BoardDAO dao = new BoardDAO();
 
 		List<FoodDTO> list = dao.getFood();
 		req.setAttribute("list", list);
