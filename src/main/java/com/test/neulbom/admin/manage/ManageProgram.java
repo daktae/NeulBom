@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.test.neulbom.admin.repository.ProgramDAO;
-import com.test.neulbom.admin.repository.ProgramDTO;
+import com.test.neulbom.admin.manage.repository.ProgramDAO;
+import com.test.neulbom.admin.manage.repository.ProgramDTO;
 
 @WebServlet("/admin/manage/manageProgram.do")
 public class ManageProgram extends HttpServlet {

@@ -28,6 +28,7 @@
 	            </div><!-- semi_title -->
 	            <div class="main-box">
 					<div>
+						<span onclick="location.href='/neulbom/admin/account/findid.do'">아이디 찾기</span> | <span onclick="location.href='/neulbom/admin/account/findpw.do'">비밀번호 찾기</span>
 						
 					</div>
 	            </div><!-- main-box -->
