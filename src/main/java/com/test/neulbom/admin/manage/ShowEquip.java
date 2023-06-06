@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.test.neulbom.admin.repository.EqDAO;
-import com.test.neulbom.admin.repository.EqDTO;
+import com.test.neulbom.admin.manage.repository.EqDAO;
+import com.test.neulbom.admin.manage.repository.EqDTO;
 
 @WebServlet("/admin/manage/showEquip.do")
 public class ShowEquip extends HttpServlet {
