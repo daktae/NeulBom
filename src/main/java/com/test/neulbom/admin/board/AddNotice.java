@@ -12,27 +12,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.test.neulbom.admin.board.repository.BoardDAO;
 
-@WebServlet("/admin/board/deletenotice.do")
-public class DeleteNotice extends HttpServlet {
+@WebServlet("/admin/board/addnotice.do")
+public class AddNotice extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String seq = req.getParameter("seq");
-		req.setAttribute("seq", seq);
-
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/deleteNotice.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/addNotice.jsp");
 		dispatcher.forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String seq = req.getParameter("seq");
-
+		req.setCharacterEncoding("UTF-8");
+		
 		BoardDAO dao = new BoardDAO();
 
-		int result = dao.deleteNotice(seq);
+		String title = req.getParameter("title");
+		String content = req.getParameter("content");
+
+		int result = dao.addNotice(title, content);
 
 		if (result >= 1) {
 			resp.sendRedirect("/neulbom/admin/board/notice.do");

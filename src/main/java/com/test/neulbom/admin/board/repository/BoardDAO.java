@@ -7,8 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.test.neulbom.admin.repository.FoodDTO;
-import com.test.neulbom.admin.repository.NoticeDTO;
 import com.test.neulbom.mylib.DBUtil3;
 
 public class BoardDAO {
@@ -16,10 +14,11 @@ public class BoardDAO {
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
-	
+
 	public BoardDAO() {
 		this.conn = DBUtil3.open();
 	}
+
 	public int deleteNotice(String seq) {
 
 		try {
@@ -65,6 +64,7 @@ public class BoardDAO {
 		return 0;
 
 	}
+
 	public List<NoticeDTO> getNotice() {
 
 		try {
@@ -171,5 +171,148 @@ public class BoardDAO {
 		}
 
 		return null;
+	}
+
+	public int addNotice(String title, String content) {
+
+		try {
+
+			String sql = "INSERT INTO tblNotice VALUES (notice_seq.nextVal, ?, ?, sysdate, 0)";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, title);
+			pstat.setString(2, content);
+
+			int result = pstat.executeUpdate();
+
+			return result;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
+	public NoticeDTO editNotice(String seq) {
+
+		try {
+
+			String sql = "SELECT * FROM tblNotice WHERE notice_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, seq);
+
+			rs = pstat.executeQuery();
+
+			NoticeDTO dto = new NoticeDTO();
+
+			while (rs.next()) {
+
+				dto.setNotice_seq(rs.getString("notice_seq"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setNotice_date(rs.getString("notice_date"));
+				dto.setRead(rs.getString("read"));
+
+			}
+
+			return dto;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public int editNotice(String seq, String title, String content) {
+		try {
+
+			String sql = "UPDATE tblNotice SET title=?, content=? WHERE notice_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, title);
+			pstat.setString(2, content);
+			pstat.setString(3, seq);
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+
+		return 0;
+	}
+
+	public List<LifeDTO> getLife() {
+
+		try {
+
+			String sql = "select * from tblLife order by life_date desc";
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			List<LifeDTO> list = new ArrayList<LifeDTO>();
+			int i = 1;
+
+			while (rs.next()) {
+
+				LifeDTO dto = new LifeDTO();
+
+				dto.setLife_seq(rs.getString("life_seq"));
+				dto.setDisplayed_seq(i + "");
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setRead(rs.getString("read"));
+				dto.setLife_date(rs.getString("life_date").substring(0, 10));
+
+				list.add(dto);
+				i++;
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public LifeDTO showLife(String seq) {
+		
+		try {
+
+			String sql = "select * from tblLife where life_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, seq);
+
+			rs = pstat.executeQuery();
+			LifeDTO dto = new LifeDTO();
+
+			while (rs.next()) {
+
+				dto.setLife_seq(rs.getString("life_seq"));
+				dto.setDisplayed_seq("-1");
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setLife_date(rs.getString("life_date").substring(0, 10));
+				dto.setRead(rs.getString("read"));
+			}
+
+			return dto;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+		
 	}
 }

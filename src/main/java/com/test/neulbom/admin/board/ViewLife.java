@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.test.neulbom.admin.board.repository.BoardDAO;
-import com.test.neulbom.admin.board.repository.NoticeDTO;
+import com.test.neulbom.admin.board.repository.LifeDTO;
 
-@WebServlet("/admin/board/viewnotice.do")
-public class ViewNotice extends HttpServlet {
+@WebServlet("/admin/board/viewlife.do")
+public class ViewLife extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -21,7 +21,7 @@ public class ViewNotice extends HttpServlet {
 		String seq = req.getParameter("seq");
 
 		BoardDAO dao = new BoardDAO();
-		NoticeDTO dto = dao.showNotice(seq);
+		LifeDTO dto = dao.showLife(seq);
 
 		String content = dto.getContent();
 
@@ -35,7 +35,7 @@ public class ViewNotice extends HttpServlet {
 		dto.setContent(content);
 		req.setAttribute("dto", dto);
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/viewNotice.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/viewLife.jsp");
 		dispatcher.forward(req, resp);
 
 	}

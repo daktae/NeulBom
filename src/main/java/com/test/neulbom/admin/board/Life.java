@@ -11,22 +11,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.test.neulbom.admin.board.repository.BoardDAO;
-import com.test.neulbom.admin.repository.NoticeDTO;
+import com.test.neulbom.admin.board.repository.LifeDTO;
 
-@WebServlet("/admin/board/managenotice.do")
-public class ManageNotice extends HttpServlet {
+@WebServlet("/admin/board/life.do")
+public class Life extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		BoardDAO dao = new BoardDAO();
 
-		List<NoticeDTO> list = dao.getNotice();
+		List<LifeDTO> list = dao.getLife();
+
+		for (int i = 0; i < list.size(); i++) {
+			
+			LifeDTO dto = new LifeDTO();
+			dto = list.get(i);
+
+			String title = dto.getTitle();
+
+			if (title.length() >= 23)
+				title = title.substring(0, 23) + " ...";
+			dto.setTitle(title);
+			
+		}
+
 		req.setAttribute("list", list);
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/manageNotice.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/life.jsp");
 		dispatcher.forward(req, resp);
-
 	}
 
 }

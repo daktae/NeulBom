@@ -77,6 +77,17 @@
 	display: flex;
 	justify-content: space-evenly;
 }
+
+.add {
+	position: relative;
+	top: 50px;
+	text-align: center;
+	display: inline-block;
+}
+
+#add_div {
+	float: right;
+}
 </style>
 </head>
 <body>
@@ -88,15 +99,16 @@
 				<div class="semititle">
 
 					<div class="select_boards notice movable"
-						onclick="location.href='/neulbom/admin/board/managenotice.do';">
+						onclick="location.href='/neulbom/admin/board/notice.do';">
 						<span id="notice_txt">공지사항</span>
 					</div>
 					<div class="select_boards food movable"
-						onclick="location.href='/neulbom/admin/board/managefood.do';">
+						onclick="location.href='/neulbom/admin/board/food.do';">
 						<span id="food_txt">식단표</span>
 					</div>
 
-					<div class="select_boards life movable">
+					<div class="select_boards life movable"
+					onclick="location.href='/neulbom/admin/board/life.do';">
 						<span id="life_txt">생활게시판</span>
 					</div>
 
@@ -131,7 +143,8 @@
 										<td>${dto.notice_date}</td>
 										<td>${dto.read}</td>
 										<td>
-											<div class="edit movable">
+											<div class="edit movable"
+											onclick="location.href='/neulbom/admin/board/editnotice.do?seq=${dto.notice_seq}'">
 												<span id="edit_txt">수정</span>
 											</div>
 											<div class="delete movable"
@@ -143,6 +156,13 @@
 								</c:forEach>
 							</tbody>
 						</table>
+					</div>
+
+					<div id="add_div">
+						<div class="add movable"
+							onclick="location.href='/neulbom/admin/board/addnotice.do'">
+							<span id="add_txt">등록</span>
+						</div>
 					</div>
 
 				</div>
