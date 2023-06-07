@@ -35,9 +35,13 @@
 	white-space: nowrap;
 }
 
-.table tbody tr td:nth-child(6) {
+.table tbody tr td:nth-child(7) {
 	display: flex;
 	justify-content: space-evenly;
+}
+
+.programPreview {
+	cursor: pointer;
 }
 
 
@@ -51,10 +55,10 @@
     <div class="content-box">
         <div id="inner-box">
             <div class="semititle">
-                <div class="selected_menu" onclick="location.href='/neulbom/admin/manage/manageProgram.do'">
+                <div class="selected_menu" onclick="location.href='/neulbom/admin/manage/manageProgram.do';">
                     <span id="selected_menu_text">프로그램 조회</span>
                 </div><!-- selected_menu -->
-                <div class="selected_menu" id="registerProgram" onclick="location.href='/neulbom/admin/manage/registerProgram.do'">
+                <div class="selected_menu" id="registerProgram" onclick="location.href='/neulbom/admin/manage/registerProgram.do';">
                     <span id="selected_menu_text">프로그램 등록</span>
                 </div><!-- selected_menu -->
 
@@ -62,15 +66,17 @@
             <div class="main-box">
             <table class="table table-striped table-hover table-bordered" style="table-layout: fixed">
             <colgroup>
+            	<col width=5%>
 				<col width=15%>
+				<col width=20%>
 				<col width=25%>
-				<col width=35%>
 				<col width=10%>
 				<col width=5%>
 				<col width=20%>
 			</colgroup>
             <thead>
             	<tr>	
+            		<th>번호</th>
             		<th>날짜</th>
             		<th>제목</th>
             		<th>내용</th>
@@ -82,17 +88,18 @@
             <tbody>
             	<c:forEach items="${progList}" var="progDto">
             	<tr>
-            		<td></td>
-            		<td>${progDto.prog_date }</td>
-            		<td>${progDto.title}</td>
-            		<td>${progDto.content }</td>
-            		<td>${progDto.place }</td>
-            		<td>${progDto.people }</td>
+
+            		<td class="programPreview">${progDto.prog_seq}</td>
+            		<td class="programPreview">${progDto.prog_date }</td>
+            		<td class="programPreview">${progDto.title}</td>
+            		<td class="programPreview">${progDto.content }</td>
+            		<td class="programPreview">${progDto.place }</td>
+            		<td class="programPreview">${progDto.people }</td>
             		<td>
-            			<div class="edit">
+            			<div class="edit movable" onclick="location.href='/neulbom/admin/manage/detailProgram.do';" >
             				<span id="edit_txt">수정</span>
             			</div>
-            			<div class="delete" data-bs-toggle="modal" data-bs-target="#delProgramModal" onclick="setProgramSeq(${progDto.prog_seq})">
+            			<div class="delete movable" data-bs-toggle="modal" data-bs-target="#delProgramModal" onclick="setProgramSeq(${progDto.prog_seq})">
             				<span id="delete_txt">삭제</span>
             			</div>
             		</td>
@@ -122,7 +129,6 @@
     </div>
   </div>
 </div>
-
             </div><!-- main-box -->
         </div><!-- inner-box -->
     </div><!-- content-box -->

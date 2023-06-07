@@ -20,6 +20,7 @@ public class DelProgram extends HttpServlet {
 		// DelProgram.java
 		
 		String prog_seq = req.getParameter("prog_seq");
+		req.setAttribute("prog_seq", prog_seq);
 		
 		ProgramDAO dao = new ProgramDAO();
 		
@@ -32,10 +33,6 @@ public class DelProgram extends HttpServlet {
 			writer.print("<script>alert('[Delete Program] failed');history.back();</script>");
 			writer.close();
 		} 
-		
-
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/delProgram.jsp");
-		dispatcher.forward(req, resp);
 	}
 
 }
