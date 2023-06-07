@@ -101,7 +101,7 @@
 <body>
 	<!-- findid.jsp 아이디를 찾음 -->
 	
-	<%@ include file="/asset/css/headerclient.jsp" %>
+<%@ include file="/WEB-INF/views/inc/headerclient.jsp" %>
 	
 	<form method="POST" name="findid" action="">
 	
@@ -118,14 +118,14 @@
     </table>
 
     <div id="btn">
-    	<!-- 왜 아무도 location 주소로 가지 않는거지? -->
-        <input type="button" value="로그인" class="btn" id="search" onClick="location.href='/client/account/login.do';"> 
+    	<!-- 왜 아무도 location 주소로 가지 않는거지? > root인 neulbom을 안했었음 -->
+        <input type="button" value="로그인" class="btn" id="search" onclick="location.href='/neulbom/client/account/login.do';"> 
     	<input type="button" value="비밀번호 찾기" class="btn" id="pw">
-        <input type="button" value="다시찾기" class="btn" id="return" onClick="location.href='/client/account/searchid.do';">
+        <input type="button" value="다시찾기" class="btn" id="return" onclick="location.href='/neulbom/client/account/searchid.do';">
     </div>
  </form>
  
-  <%@ include file="/asset/css/footerclient.jsp" %>    
+<%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>아이디 찾기</title>
 <%@ include file="/WEB-INF/views/inc/assetclient.jsp" %>
 <style>
  
@@ -101,7 +101,7 @@
 <body>
 	<!-- seachid.jsp 아이디 찾기 -->
 	
-<%@ include file="/asset/css/headerclient.jsp" %>
+<%@ include file="/WEB-INF/views/inc/headerclient.jsp" %>
 	
 	
     <form method="POST" name="searchid" action="/views/client/account/findid.do">
@@ -133,7 +133,7 @@
     
  </form>
  
- <%@ include file="/asset/css/footerclient.jsp" %>    
+<%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>   
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>

@@ -18,7 +18,7 @@
                 </svg>
                 <div style="width:300px; display: flex;">
                     <span style="display: flex; align-items: center;">
-                        <img src="/neulbom/asset/logo/clover.png" style="width:40px; height:40px; margin-right:10px;">
+                        <img src="/neulbom/asset/image/logo.png" style="width:40px; height:40px; margin-right:10px;">
                         <h1 style="display: inline; margin: 0;">늘봄</h1>
                     </span>
                 </div>

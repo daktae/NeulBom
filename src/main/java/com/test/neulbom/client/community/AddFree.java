@@ -24,7 +24,6 @@ public class AddFree extends HttpServlet {
 		//Free.java
 		
 		String mode = req.getParameter("mode");
-		
 		String thread = req.getParameter("thread");
 		String depth = req.getParameter("depth");
 		
@@ -62,6 +61,7 @@ public class AddFree extends HttpServlet {
 		ClientDAO dao = new ClientDAO();
 		
 		dto.setId((String)session.getAttribute("id"));	//로그인 id 전송
+		dto.setLv((Integer)session.getAttribute("lv"));	//로그인 lv 전송
 		dto.setTitle(title);
 		dto.setContent(content);
 		dto.setFile(pic);
@@ -87,7 +87,7 @@ public class AddFree extends HttpServlet {
 			//	> 부모글의 thread와 depth를 알아내야하고, 이전 새글의 thread값 필요
 			int parentThread = Integer.parseInt(req.getParameter("thread"));
 			int parentDepth = Integer.parseInt(req.getParameter("depth"));
-			int previousThread = (int)Math.floor((parentThread - 1) / 1000) * 1000;
+			int previousThread = (int)Math.floor((parentThread - 1) / 10) * 10;
 			
 			HashMap<String, Integer> map = new HashMap<String, Integer>();
 			
