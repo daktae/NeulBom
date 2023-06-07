@@ -23,7 +23,7 @@ public class ProgramDAO {
 		
 		try {
 			
-			String sql = "select title, to_char(prog_date, 'yyyy-mm-dd') as prog_date, content, place, people from tblProgram order by prog_seq asc, prog_date asc";
+			String sql = "select prog_seq, title, to_char(prog_date, 'yyyy-mm-dd') as prog_date, content, place, people from tblProgram order by prog_seq asc, prog_date asc";
 			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -33,6 +33,7 @@ public class ProgramDAO {
 			while (rs.next()) {
 				ProgramDTO progDto = new ProgramDTO();
 				
+				progDto.setProg_seq(rs.getString("prog_seq"));
 				progDto.setTitle(rs.getString("title"));
 				progDto.setProg_date(rs.getString("prog_date"));
 				progDto.setContent(rs.getString("content"));
@@ -101,7 +102,7 @@ public class ProgramDAO {
 	}
 
 	public int delProgram(String prog_seq) {
-		
+
 		try {
 			
 			String sql = "delete from tblProgram where prog_seq = ?";
@@ -118,6 +119,31 @@ public class ProgramDAO {
 		
 		return 0;
 	}
+
+	public int progDetailList(String prog_seq) {
+		
+		try {
+			
+			String sql = "select prog_seq, title, to_char(prog_date, 'yyyy-mm-dd') as prog_date, content, place, people from tblProgram where prog_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, prog_seq);
+			
+			return pstat.executeUpdate();
+			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return 0;
+	}
+
+
+
 
 }
 
