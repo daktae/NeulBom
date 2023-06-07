@@ -300,6 +300,10 @@ table td {
     border-radius: var(--calendar-border-radius);
 }
 
+#content > pre {
+	    font-family: 'IBMPlexSansKR-Regular';
+}
+
 .calendar-inner {
     padding: 10px 10px;
 }
