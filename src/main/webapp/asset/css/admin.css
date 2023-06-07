@@ -227,6 +227,18 @@ table td {
 	color: #474747;
 }
 
+.add {
+	background-color: rgba(39, 174, 96, 0.2);
+	border-radius: 30px;
+	width: 72px;
+	height: 30px;
+}
+
+#add_txt {
+	position: relative;
+	top: 3px;
+	color: #27AE60;
+}
 
 .movable {
 	cursor: pointer;
@@ -286,6 +298,10 @@ table td {
     overflow: hidden;
     font-weight: normal;
     border-radius: var(--calendar-border-radius);
+}
+
+#content > pre {
+	    font-family: 'IBMPlexSansKR-Regular';
 }
 
 .calendar-inner {

@@ -10,22 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.test.neulbom.admin.repository.AdminDAO;
-import com.test.neulbom.admin.repository.FoodDTO;
+import com.test.neulbom.admin.board.repository.BoardDAO;
+import com.test.neulbom.admin.board.repository.NoticeDTO;
 
-@WebServlet("/admin/board/managefood.do")
-public class ManageFood extends HttpServlet {
+@WebServlet("/admin/board/notice.do")
+public class Notice extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		AdminDAO dao = new AdminDAO();
+		BoardDAO dao = new BoardDAO();
 
-		List<FoodDTO> list = dao.getFood();
+		List<NoticeDTO> list = dao.getNotice();
 		req.setAttribute("list", list);
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/manageFood.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/notice.jsp");
 		dispatcher.forward(req, resp);
+
 	}
 
 }

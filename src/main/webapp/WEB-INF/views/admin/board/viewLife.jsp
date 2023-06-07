@@ -10,6 +10,7 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp"%>
 
 <style>
+
 #content-tr {
 	height: 400px;
 	vertical-align: middle;
@@ -46,9 +47,6 @@
 </head>
 <body>
 
-
-
-
 	<div class="main">
 		<%@ include file="/WEB-INF/views/inc/adSidemenu.jsp"%>
 		<div class="content-box">
@@ -75,7 +73,7 @@
 						</tr>
 						<tr>
 							<td>등록일</td>
-							<td>${dto.notice_date}</td>
+							<td>${dto.life_date}</td>
 							<td>조회수</td>
 							<td>${dto.read}</td>
 						</tr>
@@ -87,11 +85,11 @@
 							<td colspan="4" id="button-td">
 								<div id="button">
 									<div class="edit movable"
-										onclick="location.href='/neulbom/admin/board/editnotice.do?seq=${dto.notice_seq}'">
+										onclick="location.href='/neulbom/admin/board/editlife.do?seq=${dto.life_seq}'">
 										<span id="edit_txt">수정</span>
 									</div>
 									<div class="delete movable"
-										onclick="location.href='/neulbom/admin/board/deletenotice.do?seq=${dto.notice_seq}'">
+										onclick="location.href='/neulbom/admin/board/deletelife.do?seq=${dto.life_seq}'">
 										<span id="delete_txt">삭제</span>
 									</div>
 									<div class="back movable" onclick='history.back();'>
