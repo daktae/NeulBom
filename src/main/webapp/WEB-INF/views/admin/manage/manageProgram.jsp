@@ -82,6 +82,7 @@
             <tbody>
             	<c:forEach items="${progList}" var="progDto">
             	<tr>
+            		<td></td>
             		<td>${progDto.prog_date }</td>
             		<td>${progDto.title}</td>
             		<td>${progDto.content }</td>
@@ -91,7 +92,7 @@
             			<div class="edit">
             				<span id="edit_txt">수정</span>
             			</div>
-            			<div class="delete">
+            			<div class="delete" data-bs-toggle="modal" data-bs-target="#delProgramModal" onclick="setProgramSeq(${progDto.prog_seq})">
             				<span id="delete_txt">삭제</span>
             			</div>
             		</td>
@@ -99,6 +100,28 @@
             	</c:forEach>
             </tbody>
             </table>
+
+					<!-- Modal -->
+<div class="modal fade" id="delProgramModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">경고!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        해당 프로그램을 정말 삭제하시겠습니까?
+      </div>
+      <div class="modal-footer">
+      <form method="GET" action="/neulbom/admin/manage/delProgram.do">
+        <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="취소">
+        <input type="submit" class="btn btn-primary" value="삭제" onclick="location.href='/neulbom/admin/manage/delProgram.do'">
+        <input type="hidden" name="prog_seq">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
             </div><!-- main-box -->
         </div><!-- inner-box -->
@@ -109,7 +132,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-
+	function setProgramSeq(prog_seq) {
+		$('input[name=prog_seq]').val(prog_seq);
+	}
 </script>
 </body>
 </html>

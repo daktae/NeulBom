@@ -28,7 +28,10 @@
 	            </div><!-- semi_title -->
 	            <div class="main-box">
 					<div>
-						<span onclick="location.href='/neulbom/admin/account/findid.do'">아이디 찾기</span> | <span onclick="location.href='/neulbom/admin/account/findpw.do'">비밀번호 찾기</span>
+						<div onclick="location.href='/neulbom/admin/account/searchadid.do'">관리자 아이디 찾기</div>
+						<div onclick="location.href='/neulbom/admin/account/searchadpw.do'">관리자 비밀번호 찾기</div>
+						<div onclick="location.href='/neulbom/admin/account/searchreid.do'">입주자 아이디 찾기</div>
+						<div onclick="location.href='/neulbom/admin/account/searchrepw.do'">입주자 비밀번호 찾기</div>
 						
 					</div>
 	            </div><!-- main-box -->

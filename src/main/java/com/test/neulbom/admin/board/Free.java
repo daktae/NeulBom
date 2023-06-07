@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.test.neulbom.admin.board.repository.BoardDAO;
+import com.test.neulbom.admin.board.repository.FreeDTO;
 import com.test.neulbom.admin.board.repository.LifeDTO;
 
 @WebServlet("/admin/board/free.do")
@@ -25,14 +26,14 @@ public class Free extends HttpServlet {
 
 		for (int i = 0; i < list.size(); i++) {
 
-//			FreeDTO dto = new FreeDTO();
-			dto = list.get(i);
+			FreeDTO dto = new FreeDTO();
+			//dto = list.get(i);
 
-			String title = dto.getTitle();
+			//String title = dto.getTitle();
 
-			if (title.length() >= 23)
-				title = title.substring(0, 23) + " ...";
-			dto.setTitle(title);
+			//if (title.length() >= 23)
+				//title = title.substring(0, 23) + " ...";
+			//dto.setTitle(title);
 
 		}
 
