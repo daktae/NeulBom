@@ -85,24 +85,20 @@
 	                
 	            </div><!-- semi_title -->
 	            <div class="main-box">
-	                <form method="POST" action="/neulbom/admin/account/findid.do" enctype="multipart/form-data">
+	                <form method="POST" action="/neulbom/admin/account/findreid.do">
 						<div id="addresi">
 	                		<div class="emp-box">
-	                			<select class="form-select" aria-label="Default select example">
-								  <option value="1" selected>직원</option>
-								  <option value="2">입주자</option>
-								</select>
+	                			<div id="inner-list">
+									<h1>입주자</h1>
+								</div>
 								<div id="inner-list">
 									<span id="add-cate">이름:</span><input type="text" placeholder="이름" class="add-info" id="name" name="name">			
 								</div>
 								<div id="inner-list">
-									<span id="add-cate">주민번호:</span><input type="text" placeholder="주민번호"class="add-info" id="email" name="email">			
+									<span id="add-cate">주민번호:</span><input type="text" placeholder="주민번호"class="add-info" id="ssn" name="ssn">			
 								</div>
 								<div id="inner-list">
-									<span id="add-cate">이메일:</span><input type="text" placeholder="이메일" class="add-info" id="email" name="email">			
-								</div>
-								<div id="inner-list">
-									<button class="btn btn-primary" type="submit" style="margin-left: 20px;">찾기</button>
+									<input type="submit" value="찾기" class="btn" id="search" onclick="id_search()">
 								</div>
 							</div>
 						</div>
@@ -116,7 +112,33 @@
 <script src="/neulbom/asset/js/bootstrap.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-
+	function id_search() {
+		
+		var f = document.searchadid;
+		
+		if (!f.name.value) {
+			alert("이름을 입력하세요");
+			f.name.focus();
+			return;
+		}
+		
+		if (!f.ssn.value) {
+			alert("주민등록번호를 입력하세요");
+			f.ssn.focus();
+			return;
+		}  
+		
+		if (f.ssn.value.length > 14 || f.ssn.value.length < 14) {
+			alert("올바른 주민등록번호를 입력하세요")
+			f.ssn.focus();
+			return;
+		}
+		
+		f.action = "<%=request.getContextPath()%>/admin/account/findreid.do ";
+		f.submit();
+		
+		location.href="/views/admin/account/findreid.do";
+	}
 </script>
 </body>
 </html>

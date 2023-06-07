@@ -9,17 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/account/find.do")
-public class Find extends HttpServlet {
-	
+@WebServlet("/admin/account/searchreid.do")
+public class SearchReId extends HttpServlet {
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		//Find.java
+		//SearchReId.java
 
 		RequestDispatcher dispatcher = req
-				.getRequestDispatcher("/WEB-INF/views/admin/account/find.jsp");
+				.getRequestDispatcher("/WEB-INF/views/admin/account/searchreid.jsp");
 		dispatcher.forward(req, resp);
 	}
 
