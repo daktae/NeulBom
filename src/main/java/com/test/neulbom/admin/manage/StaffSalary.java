@@ -27,6 +27,8 @@ public class StaffSalary extends HttpServlet {
 		
 		List<AdminDTO> salaryList = dao.getSalaryList();
 		
+		req.setAttribute("salaryList", salaryList);
+		
 		
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/staffSalary.jsp");

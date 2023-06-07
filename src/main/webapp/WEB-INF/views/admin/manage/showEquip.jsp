@@ -47,7 +47,7 @@
 	.table tbody tr td:nth-child(4) {
 	display: flex;
 	justify-content: space-evenly;
-}
+	}
 	
 	
 </style>

@@ -11,7 +11,10 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp" %>
 
 <style>
-
+	.table tbody tr td:nth-child(7) {
+		display: flex;
+		justify-content: space-evenly;
+	}
 </style>
 </head>
 <body>
@@ -29,10 +32,48 @@
 	                    <option>이름</option>
 	                    <option>부서</option>
 	                </select><!-- select_search_item -->
-	                <input type="text" class="search_input" value="조회할 직원 정보">
+	                <input type="text" class="search_input" placeholder="조회할 직원 정보">
 	            </div><!-- semi_title -->
 	            <div class="main-box">
-	
+				<table class="table table-striped table-bordered table-hover">
+				<colgroup>
+					<col width=5%>
+					<col width=10%>
+					<col width=10%>
+					<col width=15%>
+					<col width=20%>
+					<col width=20%>
+					<col width=20%>
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col">사번</th>
+						<th scope="col">이름</th>
+						<th scope="col">입금은행</th>
+						<th scope="col">계좌번호</th>
+						<th scope="col">급여(원)</th>
+						<th scope="col">연락처</th>
+						<th scope="col">처리</th>
+					</tr>
+				</thead>
+				<tbody>
+				<c:forEach items="${salaryList}" var="salaryDto">
+					<tr>
+						<td>${salaryDto.admin_seq }</td>
+						<td>${salaryDto.name}</td>
+						<td>${salaryDto.bank }</td>
+						<td>${salaryDto.bank_account }</td>
+						<td>${salaryDto.salary }</td>
+						<td>${salaryDto.tel }</td>
+						<td>
+            				<div class="edit movable">
+            					<span id="edit_txt">수정</span>
+            				</div>
+            			</td>
+					</tr>
+				</c:forEach>
+				</tbody>
+				</table>
 	            </div><!-- main-box -->
 	        </div><!-- inner-box -->
 	    </div><!-- content-box -->
