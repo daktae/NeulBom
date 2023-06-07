@@ -123,7 +123,8 @@
 						<span id="food_txt">식단표</span>
 					</div>
 
-					<div class="select_boards life">
+					<div class="select_boards life movable"
+					onclick="location.href='/neulbom/admin/board/life.do';">
 						<span id="life_txt">생활게시판</span>
 					</div>
 
@@ -154,7 +155,7 @@
 								
 									<tr>
 										<td>${dto.displayed_seq}</td>
-										<td>${dto.food_month}월의 식단</td>
+										<td>${dto.food_month}월 식단표</td>
 										<td>${dto.food_date}</td>
 										<td>${dto.read}</td>
 										<td>

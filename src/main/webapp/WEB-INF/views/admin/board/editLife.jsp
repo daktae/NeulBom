@@ -53,6 +53,7 @@
 .semititle {
 	cursor: default;
 }
+
 </style>
 </head>
 <body>
@@ -63,14 +64,15 @@
 			<div id="inner-box">
 				<div class="semititle">
 					<div class="selected_menu">
-						<span id="selected_menu_text">새 글 쓰기</span>
+						<span id="selected_menu_text">생활 수정</span>
 					</div>
 					<!-- selected_menu -->
 
 				</div>
 				<!-- semi_title -->
 				<div class="main-box">
-					<form method="POST" action="/neulbom/admin/board/addnotice.do">
+					<form method="POST" action="/neulbom/admin/board/editlife.do">
+						<input type="hidden" name="seq" value="${dto.life_seq}">
 						<table class="table">
 							<colgroup>
 								<col width=25%>
@@ -78,18 +80,17 @@
 							</colgroup>
 							<tr id="title">
 								<td>제목</td>
-								<td id="title-input"><textarea name="title" autofocus
-										placeholder="제목을 입력하세요."></textarea></td>
+								<td id="title-input"><textarea name="title" autofocus></textarea></td>
 							</tr>
 							<tr id="content">
 								<td>내용</td>
-								<td id="content-input"><textarea name="content" placeholder="내용을 작성하세요."></textarea></td>
+								<td id="content-input"><textarea name="content"></textarea></td>
 							</tr>
 							<tr>
 								<td colspan="4" id="button-td">
 									<div id="button">
 										<div class="add movable" id="add">
-											<span id="add_txt">등록</span>
+											<span id="add_txt">수정</span>
 										</div>
 										<div class="back movable" onclick='history.back();'>
 											<span id="back_txt">돌아가기</span>
@@ -110,6 +111,9 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
+		$('#title-input textarea').val('${dto.title}');
+		$('#content-input textarea').val('${dto.content}');
+
 		$('#add').click(function() {
 			$('form').submit();
 		});

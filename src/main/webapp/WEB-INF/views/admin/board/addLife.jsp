@@ -70,7 +70,7 @@
 				</div>
 				<!-- semi_title -->
 				<div class="main-box">
-					<form method="POST" action="/neulbom/admin/board/addnotice.do">
+					<form method="POST" action="/neulbom/admin/board/addlife.do">
 						<table class="table">
 							<colgroup>
 								<col width=25%>

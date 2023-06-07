@@ -10,14 +10,15 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp"%>
 
 <style>
+
 #content-tr {
 	height: 400px;
 	vertical-align: middle;
 }
 
 #content {
-	text-align: left;
-	padding: 30px 25px;
+	text-align: justify;
+	padding: 30px 45px 30px 15px;
 }
 
 #button {
@@ -45,9 +46,6 @@
 </style>
 </head>
 <body>
-
-
-
 
 	<div class="main">
 		<%@ include file="/WEB-INF/views/inc/adSidemenu.jsp"%>

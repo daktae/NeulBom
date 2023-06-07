@@ -10,15 +10,14 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp"%>
 
 <style>
-
 #content-tr {
 	height: 400px;
 	vertical-align: middle;
 }
 
 #content {
-	text-align: left;
-	padding: 30px 25px;
+	text-align: justify;
+	padding: 30px 45px 30px 15px;
 }
 
 #button {
@@ -39,10 +38,9 @@
 }
 
 #content pre {
-  white-space: pre-wrap;  /* Preserve line breaks */
-  overflow: auto;         /* Add scrollbars when necessary */
+	white-space: pre-wrap; /* Preserve line breaks */
+	overflow: auto; /* Add scrollbars when necessary */
 }
-
 </style>
 </head>
 <body>
