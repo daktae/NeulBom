@@ -10,17 +10,16 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp"%>
 
 <style>
-
 #content-tr {
 	height: 400px;
 	vertical-align: middle;
 }
 
 #content {
-padding: 30px 15px 30px 15px;
+	padding: 30px 15px 30px 15px;
 }
 
-#content > pre {
+#content>pre {
 	text-align: justify;
 	padding: 30px 45px 30px 15px;
 }
@@ -46,8 +45,8 @@ padding: 30px 15px 30px 15px;
 	text-align: center;
 }
 
-#attachment > img {
-max-width: 400px;
+#attachment>img {
+	max-width: 400px;
 }
 
 #content pre {
@@ -83,27 +82,23 @@ max-width: 400px;
 							<td colspan="3"><b>${dto.title}</b></td>
 						</tr>
 						<tr>
+							<td>글쓴이</td>
+							<td colspan="3">${dto.writer_name}(${dto.writer_type})</td>
+						</tr>
+						<tr>
 							<td>등록일</td>
 							<td>${dto.free_date}</td>
 							<td>조회수</td>
 							<td>${dto.read}</td>
 						</tr>
-						<tr>
-							<td>글쓴이</td>
-							<td>${dto.writer_name}</td>
-							<td>분류</td>
-							<td>${dto.writer_type}</td>
-						</tr>
 						<tr id="content-tr">
 							<td>내용</td>
-							<td id="content" colspan="3">
-							<c:if test="${not empty dto.fname}">
-							<div id="attachment">
-									<img src="/neulbom/asset/image/${dto.fname}">
+							<td id="content" colspan="3"><c:if
+									test="${not empty dto.fname}">
+									<div id="attachment">
+										<img src="/neulbom/asset/image/${dto.fname}">
 									</div>
-								</c:if>
-								<pre>${dto.content}</pre>
-								</td>
+								</c:if> <pre>${dto.content}</pre></td>
 						</tr>
 						<tr>
 							<td colspan="4" id="button-td">
