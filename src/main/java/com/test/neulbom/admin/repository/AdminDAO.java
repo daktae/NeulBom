@@ -137,6 +137,43 @@ public class AdminDAO {
 	}
 	
 	
-	
+	   public List<AdminDTO> getSalaryList() {
+		      
+		      try {
+		         
+		         String sql = "select admin_seq, name, bank, bank_account, to_char(5000000, 'FM9,999,999') || '원' as salary, tel, email from tblAdmin";
+		         
+		         stat = conn.createStatement();
+		         rs = stat.executeQuery(sql);
+		         
+		         List<AdminDTO> adminSalaryList = new ArrayList<AdminDTO>();
+		         
+		         while (rs.next()) {
+		            AdminDTO dto = new AdminDTO();
+		            
+		            dto.setAdmin_seq(rs.getString("admin_seq"));
+		            dto.setName(rs.getString("name"));
+		            dto.setBank(rs.getString("bank"));
+		            dto.setBank_account(rs.getString("bank_account"));
+		            dto.setSalary(rs.getString("salary"));
+		            dto.setTel(rs.getString("tel"));
+		            dto.setEmail(rs.getString("email"));
+		            
+		            adminSalaryList.add(dto);
+		            
+		         }
+		         
+		         return adminSalaryList;
+		         
+		         
+		      } catch (Exception e) {
+		         e.printStackTrace();
+		      }
+		      
+		      
+		      return null;
+		   }
+		   
+		   
 
 }
