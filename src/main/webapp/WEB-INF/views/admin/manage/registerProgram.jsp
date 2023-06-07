@@ -75,18 +75,18 @@
 				<input type="text" name="title" class="form-control registerProgram-form" placeholder="프로그램 제목을 입력하세요." required maxlength="15">
             	<div>내용</div>
 <!-- 				<input type="text" name="content" class="form-control registerProgram-form" placeholder="프로그램 내용을 입력하세요." required maxlength="15"> -->
-				<textarea name="content" class="form-control registerProgram-form" maxlength="100" required style="resize: none"></textarea>
+				<textarea name="content" class="form-control registerProgram-form" maxlength="100" required style="resize: none" placeholder="프로그램 내용을 입력하세요."></textarea>
             	<div>프로그램 날짜</div>
 				<input type="date" name="prog_date" id="register-date" class="form-control registerProgram-form" required>
             	
             	<div>강의실</div>
 				<select id="place" name="place" class="place form-select">
-					<option value="1">늘봄</option>
-					<option value="2">광장</option>
-					<option value="3">늘봄 식당</option>
-					<option value="4">늘봄문화홀</option>
+					<option value="늘봄">늘봄</option>
+					<option value="광장">광장</option>
+					<option value="늘봄 식당">늘봄 식당</option>
+					<option value="늘봄문화홀">늘봄문화홀</option>
 				</select>
-            	<div>수용인원</div>
+            	<div>정원</div>
 				<input type="number" name="people" class="form-control registerProgram-form" min="1" max="100" value="1" required>
 				<input class="btn btn-primary" type="submit" value="등록하기">
 			</form>

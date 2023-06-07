@@ -54,19 +54,22 @@
                 <div class="selected_menu" id="showEquip" onclick="location.href='/neulbom/admin/manage/showEquip.do'">
                     <span id="selected_menu_text">비품현황</span>
                 </div><!-- selected_menu -->
-                <div class="selected_menu" id="registerEquip" onclick="location.href='/neulbom/admin/manage/addEquip.do'">
+                <div class="selected_menu" id="registerEquip" onclick="location.href='/neulbom/admin/manage/registerEquip.do'">
                     <span id="selected_menu_text">비품등록</span>
                 </div><!-- selected_menu -->
             </div><!-- semi_title -->
             <div class="main-box">
-            <form method="POST" action="">
+            <form method="POST" action="/neulbom/admin/manage/registerEquip.do">
             <div>비품번호</div>
-			<input type="text" class="form-control registerEquip-form" placeholder="등록할 비품 번호를 입력하세요." required maxlength="5">
+			<input type="text" class="form-control registerEquip-form" placeholder="${eq_seq}" disabled readonly>
             <div>비품명</div>
-			<input type="text" class="form-control registerEquip-form" placeholder="등록할 비품 이름을 입력하세요." required maxlength="15">
+			<input type="text" name="name" class="form-control registerEquip-form" placeholder="등록할 비품 이름을 입력하세요." required maxlength="10">
             <div>수량</div>
-			<input type="number" class="form-control registerEquip-form" min="1" max="50" value="1" required>
+			<input type="number" name="quantity" class="form-control registerEquip-form" min="1" max="50" value="1" required>
 			<input class="btn btn-primary" type="submit" value="등록하기">
+			
+			
+			<input type="hidden" name="eq_seq" value="${eq_seq}">
 			</form>
             </div><!-- main-box -->
         </div><!-- inner-box -->

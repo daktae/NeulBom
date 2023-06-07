@@ -1,7 +1,7 @@
 package com.test.neulbom.admin.manage;
 
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,27 +11,38 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.test.neulbom.admin.manage.repository.EqDAO;
-import com.test.neulbom.admin.manage.repository.RegEqDTO;
 
-@WebServlet("/admin/manage/manageEquip.do")
-public class ManageEquip extends HttpServlet {
+@WebServlet("/admin/manage/delEquip.do")
+public class DelEquip extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// ManageEquip.java
+		// DelEquip.java
+		
+		
+		String eq_seq = req.getParameter("eq_seq");
+		req.setAttribute("eq_seq", eq_seq);
+		System.out.println(eq_seq);
 		
 		EqDAO dao = new EqDAO();
 		
-		List<RegEqDTO> regList = dao.regList();
 		
-		req.setAttribute("regList", regList);
+		int result = dao.delEquip(eq_seq);
+		
+		if (result == 1) {
+			resp.sendRedirect("/neulbom/admin/manage/showEquip.do");
+		} else {
+			PrintWriter writer = resp.getWriter();
+			writer.print("<script>alert('[Delete Equip] failed');history.back();</script>");
+			writer.close();
+		} 
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/manageEquip.jsp");
-		dispatcher.forward(req, resp);
 	}
-	
-	
+
 }
+
+
+
 
 
 

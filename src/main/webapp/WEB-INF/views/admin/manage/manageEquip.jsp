@@ -60,7 +60,7 @@
                 <div class="selected_menu" id="showEquip" onclick="location.href='/neulbom/admin/manage/showEquip.do'">
                     <span id="selected_menu_text">비품현황</span>
                 </div><!-- selected_menu -->
-                <div class="selected_menu" id="registerEquip" onclick="location.href='/neulbom/admin/manage/addEquip.do'">
+                <div class="selected_menu" id="registerEquip" onclick="location.href='/neulbom/admin/manage/registerEquip.do'">
                     <span id="selected_menu_text">비품등록</span>
                 </div><!-- selected_menu -->
             </div><!-- semi_title -->

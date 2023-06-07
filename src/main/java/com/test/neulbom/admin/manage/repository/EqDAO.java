@@ -83,6 +83,70 @@ public class EqDAO {
 		
 		return null;
 	}
+
+	public String getEqSeq() {
+		
+		try {
+			
+			String sql = "select max(eq_seq)+1 as eq_seq from tblEq";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			if (rs.next()) {
+				return rs.getString("eq_seq");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+
+	public int registerEquip(EqDTO eqDto) {
+		
+		try {
+			
+			String sql = "insert into tblEq(eq_seq, name, quantity) values(?, ?, ?)";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, eqDto.getEq_seq());
+			pstat.setString(2, eqDto.getName());
+			pstat.setInt(3, eqDto.getQuantity());
+			
+			return pstat.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return 0;
+	}
+
+	public int delEquip(String eq_seq) {
+		
+//		System.out.println(eq_seq);
+		try {
+			
+			String sql = "delete from tblEq where eq_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, eq_seq);
+			
+			return pstat.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
 	
 	
 	

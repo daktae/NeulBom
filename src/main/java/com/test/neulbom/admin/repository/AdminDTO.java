@@ -14,5 +14,8 @@ public class AdminDTO {
 	private String pic;
 	private String lv;
 	
+	private String bank;
+	private String bank_account;
+	
 	
 }

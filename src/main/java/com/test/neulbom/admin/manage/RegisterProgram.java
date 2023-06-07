@@ -28,6 +28,8 @@ public class RegisterProgram extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		req.setCharacterEncoding("UTF-8");
+		
 		ProgramDAO dao = new ProgramDAO();
 		
 		// 1. 새로 등록할 시퀀스 구하기
@@ -53,7 +55,7 @@ public class RegisterProgram extends HttpServlet {
 		
 		if (result==1) {
 			// insert 성공
-			resp.sendRedirect("/neulbom/admin/manage/programManage.do");
+			resp.sendRedirect("/neulbom/admin/manage/manageProgram.do");
 		} else {
 			PrintWriter writer = resp.getWriter();
 			writer.print("<script>alert('[Resiter Program] failed');history.back();</script>");
