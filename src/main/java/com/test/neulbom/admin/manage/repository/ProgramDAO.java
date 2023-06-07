@@ -100,6 +100,25 @@ public class ProgramDAO {
 		return null;
 	}
 
+	public int delProgram(String prog_seq) {
+		
+		try {
+			
+			String sql = "delete from tblProgram where prog_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, prog_seq);
+			
+			return pstat.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
 }
 
 
