@@ -11,6 +11,7 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp" %>
 
 <style>
+
 	.table tbody tr td:nth-child(7) {
 		display: flex;
 		justify-content: space-evenly;
@@ -32,7 +33,9 @@
 	                    <option>이름</option>
 	                    <option>부서</option>
 	                </select><!-- select_search_item -->
-	                <input type="text" class="search_input" placeholder="조회할 직원 정보">
+	                <input type="text" class="search_input" placeholder="조회할 직원 정보를 입력하세요.">
+	            	<input class="btn btn-primary search_button" type="button" value="검색하기">
+	            
 	            </div><!-- semi_title -->
 	            <div class="main-box">
 				<table class="table table-striped table-bordered table-hover">

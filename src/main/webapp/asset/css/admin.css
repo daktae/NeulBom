@@ -256,6 +256,13 @@ table td {
     border-bottom-right-radius: 5px;
     margin-left: 10px;
 }
+
+.search_button {
+	position: relative;
+	top: -1px;
+	height: 36px;
+}
+
 .main-box {
     width: 100%;
     height: 90%;
