@@ -29,5 +29,18 @@ public class ManageEquip extends HttpServlet {
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/manageEquip.jsp");
 		dispatcher.forward(req, resp);
 	}
-
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+

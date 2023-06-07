@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class AdminDTO {
-	
+	private String admin_seq;
 	private String id;
 	private String pw;
 	private String name;
@@ -13,6 +13,10 @@ public class AdminDTO {
 	private String email;
 	private String pic;
 	private String lv;
+	
+	private String bank;
+	private String bank_account;
+	private String salary;
 	
 	
 }

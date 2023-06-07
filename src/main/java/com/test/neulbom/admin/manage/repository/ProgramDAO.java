@@ -23,7 +23,7 @@ public class ProgramDAO {
 		
 		try {
 			
-			String sql = "select title, to_char(prog_date, 'yyyy-mm-dd') as prog_date, content, place, people from tblProgram order by prog_date asc";
+			String sql = "select title, to_char(prog_date, 'yyyy-mm-dd') as prog_date, content, place, people from tblProgram order by prog_seq asc, prog_date asc";
 			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -57,7 +57,7 @@ public class ProgramDAO {
 		
 		try {
 			
-			String sql = "insert into tblProgram(prog_seq, title, prog_date, content, place, people) values(?, ?, to_char(?, 'yyyy-mm-dd'), ?, ?, ?)";
+			String sql = "insert into tblProgram(prog_seq, title, prog_date, content, place, people) values(?, ?, to_date(?, 'yyyy-mm-dd hh24:mi:ss'), ?, ?, ?)";
 			
 			pstat = conn.prepareStatement(sql);
 			
@@ -68,7 +68,7 @@ public class ProgramDAO {
 			pstat.setString(5, progDto.getPlace());
 			pstat.setString(6, progDto.getPeople());
 			
-			
+			return pstat.executeUpdate();
 			
 			
 		} catch (Exception e) {
@@ -83,7 +83,7 @@ public class ProgramDAO {
 		
 		try {
 			
-			String sql = "select max(prog_seq) as prog_seq from tblProgram";
+			String sql = "select max(prog_seq)+1 as prog_seq from tblProgram";
 			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);

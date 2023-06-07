@@ -10,9 +10,15 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp"%>
 
 <style>
+
+#content-tr {
+	height: 400px;
+	vertical-align: middle;
+}
+
 #content {
-	text-align: left;
-	padding: 13px 25px;
+	text-align: justify;
+	padding: 30px 45px 30px 15px;
 }
 
 #button {
@@ -31,12 +37,15 @@
 .selected_menu {
 	cursor: default;
 }
+
+#content pre {
+  white-space: pre-wrap;  /* Preserve line breaks */
+  overflow: auto;         /* Add scrollbars when necessary */
+}
+
 </style>
 </head>
 <body>
-
-
-
 
 	<div class="main">
 		<%@ include file="/WEB-INF/views/inc/adSidemenu.jsp"%>
@@ -68,16 +77,19 @@
 							<td>조회수</td>
 							<td>${dto.read}</td>
 						</tr>
-						<tr>
-							<td id="content" colspan="4">${dto.content}</td>
+						<tr id="content-tr">
+							<td>내용</td>
+							<td id="content" colspan="3"><pre>${dto.content}</pre></td>
 						</tr>
 						<tr>
 							<td colspan="4" id="button-td">
 								<div id="button">
-									<div class="edit movable">
+									<div class="edit movable"
+										onclick="location.href='/neulbom/admin/board/editnotice.do?seq=${dto.notice_seq}'">
 										<span id="edit_txt">수정</span>
 									</div>
-									<div class="delete movable">
+									<div class="delete movable"
+										onclick="location.href='/neulbom/admin/board/deletenotice.do?seq=${dto.notice_seq}'">
 										<span id="delete_txt">삭제</span>
 									</div>
 									<div class="back movable" onclick='history.back();'>
