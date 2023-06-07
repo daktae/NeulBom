@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.test.neulbom.mylib.DBUtil3;
@@ -173,6 +174,78 @@ public class AdminDAO {
 		      
 		      return null;
 		   }
+	   
+	public List<AdminDTO> list(HashMap<String, String> map) {
+		
+		List<AdminDTO> list = new ArrayList<AdminDTO>();
+		
+		try {
+			
+			String where = "";
+			
+			//10 %% 5 = 
+			if (map.get("search").equals("y")) {
+				where = String.format("where %s like '%%%s%%'"
+										, map.get("column")
+										, map.get("word"));
+			}
+
+			String sql = String.format("select * from (select a.*, rownum as rnum from vwAdmin a %s) where rnum between %s and %s "
+										, where
+										, map.get("begin")
+										, map.get("end")
+										);
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			
+
+			while (rs.next()) {
+
+				AdminDTO dto = new AdminDTO();
+
+				dto.setAdmin_seq(rs.getString("admin_seq"));
+				dto.setName(rs.getString("name"));
+				dto.setId(rs.getString("id"));
+				dto.setPw(rs.getString("pw"));
+
+				list.add(dto);
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+		
+	}
+	public int getTotalCount(HashMap<String, String> map) {
+
+		 try {
+
+	         String where = "";
+
+	         if (map.get("search").equals("y")) {
+	            where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
+	         }
+
+	         String sql = String.format("select count(*) as cnt from vwAdmin %s", where);
+
+	         pstat = conn.prepareStatement(sql);
+	         rs = pstat.executeQuery();
+
+	         if (rs.next()) {
+	            return rs.getInt("cnt");
+	         }
+
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      return 0;
+	}
 		   
 		   
 
