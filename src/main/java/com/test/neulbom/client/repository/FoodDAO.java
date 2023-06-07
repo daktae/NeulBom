@@ -23,7 +23,7 @@ public class FoodDAO {
 
 		try {
 
-			String sql = "select * from tblfood";
+			String sql = "SELECT * FROM tblfood ORDER BY food_date DESC";
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -33,8 +33,12 @@ public class FoodDAO {
 			while (rs.next()) {
 
 				FoodDTO dto = new FoodDTO();
-
 				
+				dto.setFood_seq(rs.getString("food_seq"));
+				dto.setFood_date(rs.getString("food_date"));
+				dto.setContent(rs.getString("content"));
+				dto.setRead(rs.getString("read"));
+				dto.setTitle(rs.getString("title"));
 
 				list.add(dto);
 			}
@@ -48,47 +52,7 @@ public class FoodDAO {
 		return null;
 	}
 	
-	public List<FoodDTO> getFood() {
-		try {
 
-			String sql = "select * from tblfood order by food_date desc";
-
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-
-			List<FoodDTO> list = new ArrayList<FoodDTO>();
-			int i = 1;
-
-			while (rs.next()) {
-
-				FoodDTO dto = new FoodDTO();
-
-				dto.setFood_seq(rs.getString("food_seq"));
-				dto.setDisplayed_seq(i + "");
-
-				String temp = rs.getString("food_date").substring(5, 7);
-				if (temp.startsWith("0"))
-					temp = temp.substring(1);
-
-				dto.setFood_month(temp);
-				dto.setFood_date(rs.getString("food_date"));
-				dto.setContent(rs.getString("content"));
-				dto.setFood_date(rs.getString("food_date").substring(0, 10));
-				dto.setRead(rs.getString("read"));
-
-				list.add(dto);
-				i++;
-			}
-
-			return list;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-	
 	
 	
 }

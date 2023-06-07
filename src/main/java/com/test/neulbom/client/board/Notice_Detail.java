@@ -23,20 +23,7 @@ public class Notice_Detail extends HttpServlet {
 		String notice_seq = req.getParameter("notice_seq");
 		
 		Notice_DetailDAO dao = new Notice_DetailDAO();
-		Notice_DetailDTO dto = dao.get(notice_seq);
 
-		
-		
-		/*
-		 * String keyword = req.getParameter("keyword");
-		 * 
-		 * List<Notice_DetailDTO> searchResult = dao.searchByTitle(keyword);
-		 * 
-		 * 
-		 */
-
-
-		    
 		
 		    
 		    
@@ -44,7 +31,8 @@ public class Notice_Detail extends HttpServlet {
 		// 조회수 증가 메서드 호출
 		String noticeSeq = req.getParameter("notice_seq");
 	    dao.increaseReadCount(noticeSeq);
-		
+
+		Notice_DetailDTO dto = dao.get(notice_seq);
 		
 		//개행문자
 		String content = dto.getContent();
@@ -58,25 +46,10 @@ public class Notice_Detail extends HttpServlet {
 		
 		//글 내용 개행문자 처리
 		content = content.replace("/r/n", "<br>");
-		
-		
-		/*
-		 * //내용으로 검색 시 검색어 강조 if (search.equals("y") && column.equals("content")) {
-		 * 
-		 * content = content.replace(word,
-		 * "<span style=\"background-color:gold;color:tomato;\">" + word + "</span>");
-		 * 
-		 * 
-		 * }
-		 */
-		
-		
-		
+	
 		dto.setContent(content);
 		
-		
-		/* req.setAttribute("searchResult", searchResult); */
-		
+	
 		
 		req.setAttribute("dto", dto);
 		

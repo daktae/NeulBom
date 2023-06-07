@@ -52,6 +52,8 @@ public class NoticeDAO {
 		}
 		return null;
 	}
+	
+	
 	public List<Notice_DetailDTO> searchByTitle(String keyword) {
 	    List<Notice_DetailDTO> result = new ArrayList<>();
 	    try {
