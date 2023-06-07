@@ -9,37 +9,36 @@ import java.util.List;
 
 import com.test.my.DBUtil;
 
-public class Notice_DetailDAO {
+public class Food_DetailDAO {
 	private Connection conn;
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
 
-	public Notice_DetailDAO() {
+	public Food_DetailDAO() {
 		this.conn = DBUtil.open("180.68.11.121", "hr", "java1234");
 	}
 
-
-	public Notice_DetailDTO get(String notice_seq) {
+	public Food_DetailDTO get(String food_seq) {
 
 		try {
 
-			String sql = "select * from tblnotice where notice_seq = ?";
+			String sql = "select * from tblfood where food_seq = ?";
 
 			pstat = conn.prepareStatement(sql);
 
-			pstat.setString(1, notice_seq);
+			pstat.setString(1, food_seq);
 
 			rs = pstat.executeQuery();
 
 			if (rs.next()) {
 
-				Notice_DetailDTO dto = new Notice_DetailDTO();
+				Food_DetailDTO dto = new Food_DetailDTO();
 				
-				dto.setNotice_seq(rs.getString("notice_seq"));
+				dto.setFood_seq(rs.getString("food_seq"));
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
-				dto.setNotice_date(rs.getString("notice_date"));
+				dto.setFood_date(rs.getString("food_date"));
 				dto.setRead(rs.getString("read"));
 
 				return dto;
@@ -52,11 +51,11 @@ public class Notice_DetailDAO {
 		return null;
 	}
 
-	public void increaseReadCount(String noticeSeq) {
+	public void increaseReadCount(String foodSeq) {
 	    try {
-	        String sql = "UPDATE tblnotice SET read = read + 1 WHERE notice_seq = ?";
+	        String sql = "UPDATE tblfood SET read = read + 1 WHERE food_seq = ?";
 	        PreparedStatement pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, noticeSeq);
+	        pstmt.setString(1, foodSeq);
 	        pstmt.executeUpdate();
 	        
 	        pstmt.close();
@@ -64,5 +63,6 @@ public class Notice_DetailDAO {
 	        e.printStackTrace();
 	    }
 	}
-
+	
+	
 }
