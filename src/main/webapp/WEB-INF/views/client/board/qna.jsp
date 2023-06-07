@@ -74,7 +74,7 @@
                 </thead>
                 <tbody>
 				    <c:forEach items="${list}" var="dto">
-				        <tr class="qna-row" data-qna-seq="${dto.qna_seq}">
+				        <tr class="qna-row">
 				            <td>${dto.qna_seq}</td> <!-- qna_seq -->
 				            <td style="text-align: left;">${dto.title}</td> <!-- title -->
 				            <td>${dto.fname}</td> <!-- fname -->
@@ -88,9 +88,13 @@
         
     </div>
 	   
-	<form action="http://localhost:8090/neulbom/client/board/qnaregist.do" style="text-align: right; margin-top: 50px; margin-bottom: 50px; margin-right: 300px;">
-	  	<button type="submit" class="btn btn-primary">등록하기</button>
-	</form>
+	<div style="text-align: right; margin-top: 50px; margin-bottom: 50px; margin-right: 300px;">
+	  	 <% if (session.getAttribute("id") == null) {%>
+        <button type="submit" class="btn btn-primary" style="display: none;">등록하기</button>
+    <% } else { %>
+        <button type="submit" class="btn btn-primary" onclick="location.href='http://localhost:8090/neulbom/client/board/qnaadd.do'">등록하기</button>
+    <% } %>
+	</div>
     
     <nav aria-label="Page navigation example ">
         <ul class="pagination justify-content-center">
@@ -118,7 +122,7 @@
 	    tr.addEventListener('click', () => {
 	        const qnaSeq = tr.querySelector('td:first-child').innerText;
 	        if (qnaSeq) {
-	            const link = `http://localhost:8090/neulbom/client/board/qnaregist.do?qna_seq=${qnaSeq}`;
+	            const link = `http://localhost:8090/neulbom/client/board/qnaview.do?qna_seq=` + qnaSeq;
 	            window.location.href = link; // 링크로 이동
 	        }
 	    });

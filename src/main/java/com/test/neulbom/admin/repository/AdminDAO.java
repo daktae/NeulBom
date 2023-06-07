@@ -33,7 +33,7 @@ public class AdminDAO {
 				AdminDTO result = new AdminDTO();
 
 				result.setId(rs.getString("id"));
-				result.setLev(rs.getString("lv"));
+				result.setLv(rs.getString("lv"));
 
 				return result;
 			}

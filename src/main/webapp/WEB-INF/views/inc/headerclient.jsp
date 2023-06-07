@@ -5,8 +5,14 @@
        <div class="container" style="margin-right:0px; margin-left:0px; max-width:100%; padding-right:100px; padding-left:50px; margin-bottom: 20px; border-bottom: 1px solid #A6AEB7; padding-bottom:20px;">
         <div class="userinfo_wj">
             <div class="userinfo_item">
-                <button type="button" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px;">로그인</button>
-                <button type="button" class="btn btn-secondary btn-sm btn-light" style="width:100px; height:40px; font-size: 20px;">회원가입</button>
+	            	<c:if test="${sessionScope.id == null}">
+		                <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/account/login.do'" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px;">로그인</button>
+		                <button type="button" class="btn btn-secondary btn-sm btn-light" style="width:100px; height:40px; font-size: 20px;">회원가입</button>
+	                </c:if>
+	                <c:if test="${sessionScope.id != null}">
+	                	${sessionScope.name} (${sessionScope.id})님 환영합니다.
+		                <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/account/logout.do'" class="btn btn-secondary btn-sm btn-light" style="width:100px; height:40px; font-size: 20px;">로그아웃</button>
+	                </c:if>
             </div>
         </div>
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 

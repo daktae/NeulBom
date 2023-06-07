@@ -21,25 +21,25 @@ public class QnaView extends HttpServlet {
 
 		//QnaView.java
 
-		QnaDTO dto = new QnaDTO();
+		String qna_seq = req.getParameter("qna_seq"); // qna_seq 파라미터 가져오기
 		
-		QnaDAO dao = new QnaDAO();
-		
-		List<QnaDTO> list = dao.list();
-		
-		for (QnaDTO qna : list) {
-	        String qna_seq = qna.getQna_seq(); // qna_seq 추출
-	        String fname = dao.getFnameByProtect(qna_seq); // name 값 가져오기
-	        qna.setFname(fname); // name 값 설정
-	        
-	        if (fname == null) {
-	        	fname = dao.getFnameByResi(qna_seq);
-	        	qna.setFname(fname);
-	        }
-	        
-	    }
-		
-		req.setAttribute("list", list);
+        QnaDTO dto = new QnaDTO();
+        QnaDAO dao = new QnaDAO();
+        
+        // qna_seq에 해당하는 내용 가져오기
+        dao.qnaView(qna_seq, dto);
+        
+        String fname = dao.getFnameByProtect(qna_seq); // name 값 가져오기
+        dto.setFname(fname); // name 값 설정
+        
+        if (fname == null) {
+        	fname = dao.getFnameByResi(qna_seq);
+        	dto.setFname(fname);
+        }
+        
+        
+        req.setAttribute("dto", dto);
+        
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/board/qnaview.jsp");
 		dispatcher.forward(req, resp);

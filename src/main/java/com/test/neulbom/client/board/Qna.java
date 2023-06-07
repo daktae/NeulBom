@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.test.neulbom.client.repository.QnaDAO;
 import com.test.neulbom.client.repository.QnaDTO;
@@ -21,6 +22,8 @@ public class Qna extends HttpServlet {
 
 		//Qna.java
 		
+		HttpSession session = req.getSession();
+			
 		QnaDTO dto = new QnaDTO();
 		
 		QnaDAO dao = new QnaDAO();
@@ -40,13 +43,7 @@ public class Qna extends HttpServlet {
 	    }
 		
 		
-		
-		
-		
-		
 		req.setAttribute("list", list);
-				
-		
 		
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/board/qna.jsp");
