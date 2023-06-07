@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,10 +74,10 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${list}" var="dto" varStatus="status">
-                    <tr>
-                        <td>${dto.food_seq}</td>
-                        <td>제목</td>
-                        <td>${dto.food_date}</td>
+                    <tr onclick="location.href='/neulbom/client/board/food_detail.do?food_seq=${dto.food_seq }';">
+                        <td>${fn:length(list) - status.index}</td>
+                        <td>${dto.title}</td>
+                        <td>${fn:substring(dto.food_date.toString(), 0, 10)}</td>
                         <td>${dto.read}</td>
                     </tr>
                     </c:forEach>
@@ -105,7 +106,7 @@
         </ul>
     </nav>
 
-    </div>
+    
 	 
 	<%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
 <script>
