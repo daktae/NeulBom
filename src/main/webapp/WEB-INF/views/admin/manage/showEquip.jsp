@@ -83,7 +83,7 @@
 						<th scope="col">비품번호</th>
 						<th scope="col">비품명</th>
 						<th scope="col">수량</th>
-						<th scope="col"'>처리</th>
+						<th scope="col">처리</th>
 					</tr>
 				</thead>
 				<tbody>

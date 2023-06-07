@@ -3,7 +3,6 @@ package com.test.neulbom.admin.manage;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +21,6 @@ public class DelEquip extends HttpServlet {
 		
 		String eq_seq = req.getParameter("eq_seq");
 		req.setAttribute("eq_seq", eq_seq);
-		System.out.println(eq_seq);
 		
 		EqDAO dao = new EqDAO();
 		
