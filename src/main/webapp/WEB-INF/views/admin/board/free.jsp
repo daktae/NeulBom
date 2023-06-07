@@ -64,46 +64,21 @@
 	color: #4F4F4F;
 }
 
-.table {
-	position: relative;
-	top: 50px;
-}
-
 .table thead tr th {
 	text-align: center;
 }
 
-.table tbody tr td:nth-child(1), .table tbody tr td:nth-child(3), .table tbody tr td:nth-child(4),
-	.table tbody tr td:nth-child(5) {
+.table tbody tr td:nth-child(1), .table tbody tr td:nth-child(2), .table tbody tr td:nth-child(3),
+	.table tbody tr td:nth-child(4), .table tbody tr td:nth-child(5), .table tbody tr td:nth-child(6) {
 	text-align: center;
 }
 
-.table tbody tr td:nth-child(5) {
-	display: flex;
-	justify-content: space-evenly;
+.table tbody tr td:nth-child(6) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.edit {
-	background-color: rgba(39, 166, 174, 0.2);
-	border-radius: 30px;
-	width: 72px;
-	height: 30px;
-}
-
-#edit_txt {
-	color: #5888CE;
-}
-
-.delete {
-	background-color: rgba(199, 143, 0, 0.2);
-	border-radius: 30px;
-	width: 72px;
-	height: 30px;
-}
-
-#delete_txt {
-	color: #EB7257;
-}
 </style>
 </head>
 <body>
@@ -138,14 +113,16 @@
 							<colgroup>
 								<col width=10%>
 								<col width=35%>
-								<col width=15%>
-								<col width=15%>
-								<col width=35%>
+								<col width=18%>
+								<col width=13%>
+								<col width=12%>
+								<col width=12%>
 							</colgroup>
 							<thead>
 								<tr>
 									<th scope="col">번호</th>
 									<th scope="col">제목</th>
+									<th scope="col">글쓴이</th>
 									<th scope="col">등록일</th>
 									<th scope="col">조회수</th>
 									<th scope="col">처리</th>
@@ -153,19 +130,16 @@
 							</thead>
 							<tbody>
 								<c:forEach items="${list}" var="dto">
-
 									<tr>
 										<td>${dto.displayed_seq}</td>
-										<td onclick="location.href='/neulbom/admin/board/viewfood.do?seq=${dto.food_seq}'">
-											${dto.title}</td>
-										<td>${dto.food_date}</td>
+										<td class="movable"
+											onclick="location.href='/neulbom/admin/board/viewfree.do?seq=${dto.free_seq}'">${dto.title}</td>
+										<td>${dto.writer_name}</td>
+										<td>${dto.free_date}</td>
 										<td>${dto.read}</td>
 										<td>
-											<div class="edit">
-												<span id="edit_txt">수정</span>
-											</div>
-											<div class="delete" 
-											onclick="location.href='/neulbom/admin/board/deletefood.do?seq=${dto.food_seq}'">
+											<div class="delete movable"
+												onclick="location.href='/neulbom/admin/board/deletefree.do?seq=${dto.free_seq}'">
 												<span id="delete_txt">삭제</span>
 											</div>
 										</td>

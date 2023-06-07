@@ -14,17 +14,18 @@ public class BoardDAO {
 	private Statement stat;
 	private PreparedStatement pstat;
 	private ResultSet rs;
+	private ResultSet rs2;
 
 	public BoardDAO() {
 		this.conn = DBUtil3.open();
 	}
-	
-	//TODO
+
+	// TODO
 	// 글쓰기: 각 게시판-관리자 관계 테이블 참조 데이터 생성
 	private int createWriter(String writer, String seq, String table) {
 		return 0;
 	}
-	
+
 	// 글 삭제: 각 게시판-관리자 관계 테이블 참조 데이터 null화
 	private int updateWriter(String seq, String table) {
 
@@ -116,6 +117,7 @@ public class BoardDAO {
 		return null;
 	}
 
+	// 식단표 게시판 전체 글 출력
 	public List<FoodDTO> getFood() {
 		try {
 
@@ -133,12 +135,7 @@ public class BoardDAO {
 
 				dto.setFood_seq(rs.getString("food_seq"));
 				dto.setDisplayed_seq(i + "");
-
-				String temp = rs.getString("food_date").substring(5, 7);
-				if (temp.startsWith("0"))
-					temp = temp.substring(1);
-
-				dto.setFood_month(temp);
+				dto.setTitle(rs.getString("title"));
 				dto.setFood_date(rs.getString("food_date"));
 				dto.setContent(rs.getString("content"));
 				dto.setFood_date(rs.getString("food_date").substring(0, 10));
@@ -418,7 +415,7 @@ public class BoardDAO {
 
 	// 생활게시판 글 삭제
 	public int deleteLife(String seq) {
-		
+
 		try {
 
 			updateWriter(seq, "life");
@@ -438,4 +435,207 @@ public class BoardDAO {
 		}
 		return 0;
 	}
+
+	// 자유게시판 전체 게시물 출력
+	public List<FreeDTO> getFree() {
+
+		try {
+
+			String sql = "SELECT * FROM tblFree ORDER BY free_date DESC";
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			List<FreeDTO> list = new ArrayList<FreeDTO>();
+			int i = 1;
+
+			while (rs.next()) {
+
+				FreeDTO dto = new FreeDTO();
+
+				dto.setFree_seq(rs.getString("free_seq"));
+				dto.setDisplayed_seq(i + "");
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setFree_date(rs.getString("free_date").substring(0, 10));
+				dto.setFname(rs.getString("fname"));
+				dto.setRead(rs.getString("read"));
+
+				String pseq = rs.getString("protect_seq");
+				String rseq = rs.getString("resi_seq");
+
+				dto.setProtect_seq(pseq);
+				dto.setResi_seq(rseq);
+
+				List<String> temp = getWriter(dto.getFree_seq());
+				dto.setWriter_type(temp.get(0));
+				dto.setWriter_name(temp.get(1));
+
+				list.add(dto);
+				i++;
+
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	// 자유게시판 작성자 이름 출력
+	private List<String> getWriter(String seq) {
+
+		try {
+
+			String sql = "SELECT p.name as pname, r.name as rname, title FROM tblFree f LEFT OUTER JOIN tblProtect p ON f.protect_seq = p.protect_seq LEFT OUTER JOIN tblResident r ON f.resi_seq = r.resi_seq WHERE free_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, seq);
+
+			rs2 = pstat.executeQuery();
+
+			List<String> temp = new ArrayList<String>();
+
+			if (rs2.next()) {
+				if (rs2.getString("pname") != null) {
+					temp.add("보호자");
+					temp.add(rs2.getString("pname"));
+				} else {
+					temp.add("입주자");
+					temp.add(rs2.getString("rname"));
+				}
+			}
+
+			return temp;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+
+	public FoodDTO showFood(String seq) {
+
+		try {
+
+			String sql = "select * from tblFood where food_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, seq);
+
+			rs = pstat.executeQuery();
+			FoodDTO dto = new FoodDTO();
+
+			while (rs.next()) {
+
+				dto.setFood_seq(rs.getString("food_seq"));
+				dto.setTitle(rs.getString("title"));
+				dto.setFood_date(rs.getString("food_date"));
+				dto.setContent(rs.getString("content"));
+				dto.setFood_date(rs.getString("food_date").substring(0, 10));
+				dto.setRead(rs.getString("read"));
+
+			}
+
+			return dto;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	// 자유게시판 글 조회
+	public FreeDTO showFree(String seq) {
+
+		try {
+
+			String sql = "select * from tblFree where free_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, seq);
+
+			rs = pstat.executeQuery();
+			FreeDTO dto = new FreeDTO();
+
+			while (rs.next()) {
+
+				dto.setFree_seq(rs.getString("free_seq"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setFree_date(rs.getString("free_date").substring(0, 10));
+				dto.setFname(rs.getString("fname"));
+				dto.setRead(rs.getString("read"));
+
+				String pseq = rs.getString("protect_seq");
+				String rseq = rs.getString("resi_seq");
+
+				dto.setProtect_seq(pseq);
+				dto.setResi_seq(rseq);
+
+				List<String> temp = getWriter(dto.getFree_seq());
+				dto.setWriter_type(temp.get(0));
+				dto.setWriter_name(temp.get(1));
+
+			}
+
+			return dto;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	// 자유게시판 글 삭제
+	public int deleteFree(String seq) {
+
+		try {
+
+			String sql = "DELETE FROM tblFree where free_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, seq);
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+
+		return 0;
+	}
+
+	public int deleteFood(String seq) {
+
+		try {
+
+			String sql = "DELETE FROM tblFood where food_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, seq);
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+
+		return 0;
+	}
+
 }

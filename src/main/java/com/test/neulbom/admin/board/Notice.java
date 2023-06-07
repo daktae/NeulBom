@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.test.neulbom.admin.board.repository.BoardDAO;
+import com.test.neulbom.admin.board.repository.LifeDTO;
 import com.test.neulbom.admin.board.repository.NoticeDTO;
 
 @WebServlet("/admin/board/notice.do")
@@ -22,6 +23,20 @@ public class Notice extends HttpServlet {
 		BoardDAO dao = new BoardDAO();
 
 		List<NoticeDTO> list = dao.getNotice();
+
+		for (int i = 0; i < list.size(); i++) {
+
+			NoticeDTO dto = new NoticeDTO();
+			dto = list.get(i);
+
+			String title = dto.getTitle();
+
+			if (title.length() >= 23)
+				title = title.substring(0, 23) + " ...";
+			dto.setTitle(title);
+
+		}
+
 		req.setAttribute("list", list);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/notice.jsp");

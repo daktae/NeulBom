@@ -112,7 +112,8 @@
 						<span id="life_txt">생활게시판</span>
 					</div>
 
-					<div class="select_boards free movable">
+					<div class="select_boards free movable"
+					onclick="location.href='/neulbom/admin/board/free.do';">
 						<span id="free_txt">자유게시판</span>
 					</div>
 
