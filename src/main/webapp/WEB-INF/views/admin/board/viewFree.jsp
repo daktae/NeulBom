@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@
     taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,7 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp"%>
 
 <style>
+
 #content-tr {
 	height: 400px;
 	vertical-align: middle;
@@ -53,6 +55,32 @@
 	white-space: pre-wrap; /* Preserve line breaks */
 	overflow: auto; /* Add scrollbars when necessary */
 }
+
+td.comment {
+	vertical-align: middle;
+	text-align: center;
+}
+
+#comment pre {
+	font-family: 'IBMPlexSansKR-Regular';
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+#comment-content {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#comment-content pre {
+	white-space: wrap;
+	text-align: justify;
+}
+
+.main {
+	height:100vh !important;
+}
 </style>
 </head>
 <body>
@@ -70,7 +98,7 @@
 				</div>
 				<!-- semi_title -->
 				<div class="main-box">
-					<table class="table">
+					<table class="table" style="table-layout:fixed;">
 						<colgroup>
 							<col width=25%>
 							<col width=25%>
@@ -100,6 +128,22 @@
 									</div>
 								</c:if> <pre>${dto.content}</pre></td>
 						</tr>
+						
+						
+						<c:if test="${not empty clist}">
+							<c:forEach items="${clist}" var="dto" varStatus="status">
+								<tr id="comment">
+									<c:if test="${status.index == 0}">
+										<td rowspan="${fn:length(clist)}" class="comment">댓글</td>
+									</c:if>
+
+									<td colspan="2" id="comment-content"><pre>${dto.content}</pre></td>
+									<td><pre>${dto.writer_name}(${dto.writer_type})</pre></td>
+								</tr>
+							</c:forEach>
+						</c:if>
+
+
 						<tr>
 							<td colspan="4" id="button-td">
 								<div id="button">
@@ -121,6 +165,7 @@
 		</div>
 		<!-- content-box -->
 	</div>
+	
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

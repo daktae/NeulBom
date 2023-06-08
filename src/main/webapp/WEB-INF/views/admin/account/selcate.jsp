@@ -58,12 +58,13 @@
 	}
 	.main-box {
 		background-color: rgba(221, 236, 227, 1);
-		padding-top: 20px;
-		padding-bottom: 20px;
 		padding-left: 50px;
 		padding-right: 50px;
 		border-radius: 15px;
 		height: 520px;
+		display: flex;
+		justify-content: space-around;
+		align-content: center;
 		
 	}
 	.emp-box {
@@ -75,6 +76,23 @@
 		border-radius: 5px;
 		border-style: none;
 		height: 120px;
+	}
+	
+	#selicon1, #selicon2 {
+		width:300px;
+	}
+	
+	#iconbox {
+		position: relative;
+		margin: 50px;
+		top: 50px;
+	}
+	
+	#icontext {
+		text-align: center;
+		font-size: 25px;
+		margin-top: 30px;
+		font-weight: bold;
 	}
 	
 
@@ -91,8 +109,14 @@
 	                </div><!-- selected_menu -->
 	            </div><!-- semi_title -->
 	            <div class="main-box">
-					<input type="button" value="관리자" onclick="location.href='/neulbom/admin/account/adminacc.do';">
-					<input type="button" value="입주자" onclick="location.href='/neulbom/admin/account/resiacc.do';">
+		            <div id="iconbox">
+						<img src="/neulbom/asset/image/admin.png" id="selicon1" onclick="location.href='/neulbom/admin/account/adminacc.do';">
+						<div id="icontext">관리자</div>         
+		            </div>
+		            <div id="iconbox">
+						<img src="/neulbom/asset/image/resident.png" id="selicon2" onclick="location.href='/neulbom/admin/account/resiacc.do';">
+						<div id="icontext">입주자</div>         
+		            </div>
 	       	 	</div>
 	    	</div>
 		</div>
@@ -102,7 +126,23 @@
 <script src="/neulbom/asset/js/bootstrap.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-
+	$("#selicon1").hover(
+			function () { // mouseover
+				$(this).attr("src","/neulbom/asset/image/adminh.png");
+			},
+			function () { // mouseout
+				$(this).attr("src","/neulbom/asset/image/admin.png");
+			}
+	);
+	
+	$("#selicon2").hover(
+			function () { // mouseover
+				$(this).attr("src","/neulbom/asset/image/residenth.png");
+			},
+			function () { // mouseout
+				$(this).attr("src","/neulbom/asset/image/resident.png");
+			}
+	);
 </script>
 </body>
 </html>
