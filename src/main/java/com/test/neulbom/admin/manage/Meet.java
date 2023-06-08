@@ -1,6 +1,7 @@
 package com.test.neulbom.admin.manage;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -20,13 +21,15 @@ public class Meet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		ManageDAO dao = new ManageDAO();
-		
-		List <MeetDTO> list = dao.getMeet();
-				
+
+		List<MeetDTO> list = dao.getMeet();
+
 		req.setAttribute("list", list);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/meet.jsp");
 		dispatcher.forward(req, resp);
+
 	}
+
 
 }

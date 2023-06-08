@@ -64,7 +64,7 @@
 	color: #4F4F4F;
 }
 
-.table thead tr th {
+.table thead tr th { 
 	text-align: center;
 }
 

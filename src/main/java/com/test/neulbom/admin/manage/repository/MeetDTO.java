@@ -16,5 +16,7 @@ public class MeetDTO {
 	String rname;
 	
 	String displayed_seq;
+	
+	int isRevisable;
 
 }
