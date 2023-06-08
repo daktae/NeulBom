@@ -467,7 +467,7 @@ public class BoardDAO {
 				dto.setProtect_seq(pseq);
 				dto.setResi_seq(rseq);
 
-				List<String> temp = getWriter(dto.getFree_seq());
+				List<String> temp = getWriter(dto.getFree_seq(), "free");
 				dto.setWriter_type(temp.get(0));
 				dto.setWriter_name(temp.get(1));
 
@@ -485,15 +485,28 @@ public class BoardDAO {
 		return null;
 	}
 
-	// 자유게시판 작성자 이름 출력
-	private List<String> getWriter(String seq) {
+// 자유게시판 작성자 이름 출력	
+	private List<String> getWriter(String seq, String table) {
+		String tbl = "";
+		String column = "";
+
+		switch (table) {
+		case "free":
+			tbl = "tblFree";
+			column = "free_seq";
+			break;
+		case "comment":
+			tbl = "tblComment";
+			column = "comment_seq";
+			break;
+		}
 
 		try {
-
-			String sql = "SELECT p.name as pname, r.name as rname, title FROM tblFree f LEFT OUTER JOIN tblProtect p ON f.protect_seq = p.protect_seq LEFT OUTER JOIN tblResident r ON f.resi_seq = r.resi_seq WHERE free_seq = ?";
+			String sql = "SELECT p.name as pname, r.name as rname " + "FROM " + tbl + " f "
+					+ "LEFT OUTER JOIN tblProtect p ON f.protect_seq = p.protect_seq "
+					+ "LEFT OUTER JOIN tblResident r ON f.resi_seq = r.resi_seq " + "WHERE f." + column + "= ?";
 
 			pstat = conn.prepareStatement(sql);
-
 			pstat.setString(1, seq);
 
 			rs2 = pstat.executeQuery();
@@ -511,13 +524,11 @@ public class BoardDAO {
 			}
 
 			return temp;
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return null;
-
 	}
 
 	public FoodDTO showFood(String seq) {
@@ -580,7 +591,7 @@ public class BoardDAO {
 				dto.setProtect_seq(pseq);
 				dto.setResi_seq(rseq);
 
-				List<String> temp = getWriter(dto.getFree_seq());
+				List<String> temp = getWriter(dto.getFree_seq(), "free");
 				dto.setWriter_type(temp.get(0));
 				dto.setWriter_name(temp.get(1));
 
@@ -617,6 +628,7 @@ public class BoardDAO {
 		return 0;
 	}
 
+	// 식단 게시판 글 삭제
 	public int deleteFood(String seq) {
 
 		try {
@@ -636,6 +648,52 @@ public class BoardDAO {
 		}
 
 		return 0;
+	}
+
+	// 자유게시판 댓글 조회
+	public List<CommentDTO> getComment(String seq) {
+		try {
+
+			String sql = "SELECT * FROM tblComment WHERE free_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, seq);
+
+			rs = pstat.executeQuery();
+
+			List<CommentDTO> list = new ArrayList<CommentDTO>();
+
+			while (rs.next()) {
+
+				CommentDTO dto = new CommentDTO();
+
+				dto.setComment_seq(rs.getString("comment_seq"));
+				dto.setContent(rs.getString("content"));
+				dto.setFree_seq(rs.getString("free_seq"));
+
+				String pseq = rs.getString("protect_seq");
+				String rseq = rs.getString("resi_seq");
+
+				dto.setProtect_seq(pseq);
+				dto.setResi_seq(rseq);
+
+				List<String> temp = getWriter(dto.getComment_seq(), "comment");
+				if (temp != null) {
+					dto.setWriter_type(temp.get(0));
+					dto.setWriter_name(temp.get(1));
+				}
+
+				list.add(dto);
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 }
