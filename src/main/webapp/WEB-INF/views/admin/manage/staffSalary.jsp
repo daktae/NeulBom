@@ -30,7 +30,11 @@
    	margin: auto auto;
    	top: 60px;
    }
-   
+
+	#searchResult {
+		font-weight: bold;
+		font-size: 20px;
+	}
    
 </style>
 </head>
@@ -59,7 +63,7 @@
                <div class="main-box">
 		<c:if test="${map.search == 'y'}">
 		<div style="text-align: center;">
-			'${map.word}'(으)로 검색한 결과입니다.
+			<span id="searchResult">'${map.word}'(으)로 검색한 결과입니다.</span>
 		</div>
 		</c:if>
             <table class="table table-striped table-bordered table-hover">
