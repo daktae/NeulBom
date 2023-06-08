@@ -22,19 +22,28 @@ public class QnaView extends HttpServlet {
 		//QnaView.java
 
 		String qna_seq = req.getParameter("qna_seq"); // qna_seq 파라미터 가져오기
+
+		QnaDAO dao = new QnaDAO();
+		
 		
         QnaDTO dto = new QnaDTO();
-        QnaDAO dao = new QnaDAO();
         
-        // qna_seq에 해당하는 내용 가져오기
+        
+        
+        
+        
         dao.qnaView(qna_seq, dto);
+        // qna_seq에 해당하는 내용 가져오기
+        dao.increaseReadCount(qna_seq);
+
         
-        String fname = dao.getFnameByProtect(qna_seq); // name 값 가져오기
-        dto.setFname(fname); // name 값 설정
         
-        if (fname == null) {
-        	fname = dao.getFnameByResi(qna_seq);
-        	dto.setFname(fname);
+        String name = dao.getnameByProtect(qna_seq); // name 값 가져오기
+        dto.setName(name); // name 값 설정
+        
+        if (name == null) {
+        	name = dao.getnameByResi(qna_seq);
+        	dto.setName(name);
         }
         
         

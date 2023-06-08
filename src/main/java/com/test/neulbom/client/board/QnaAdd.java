@@ -53,15 +53,18 @@ public class QnaAdd extends HttpServlet {
 	                           );
 	         
 	         
-	         //System.out.println(req.getRealPath("/asset/place"));
+	         //System.out.println(req.getRealPath("/asset/qna"));
 	         
 	         HttpSession session = req.getSession();
 	         
 	         String title = multi.getParameter("title");
 	         String content = multi.getParameter("content");
 	         String category = multi.getParameter("category");
-	         String id = multi.getParameter("id");
 	 		 String fname = multi.getFilesystemName("fname");
+	 		 
+	 		 
+	 		 String resi_seq = (String) session.getAttribute("resi_seq");
+	 		 String protect_seq = (String) session.getAttribute("protect_seq");
 	         
 	 		 QnaDTO dto = new QnaDTO();
 	         
@@ -69,23 +72,40 @@ public class QnaAdd extends HttpServlet {
 	         dto.setContent(content);
 	         dto.setCategory(category);
 	         dto.setFname(fname);
+	         dto.setId((String)session.getAttribute("id"));
+	         dto.setResi_seq(resi_seq);
+	         dto.setProtect_seq(protect_seq);
 	         
-	         String resiSeq = dao.getResiSeq(id);
+	         System.out.println(title);
+	         System.out.println(content);
+	         System.out.println(category);
+	         System.out.println(fname);
+	         System.out.println((String)session.getAttribute("id"));
+	         System.out.println(resi_seq);
+	         System.out.println(protect_seq);
+	         
+	         int result = 0;
 	 		
-	 		 if (resiSeq != null) {
-	 			dao.qnaResiAdd(title, content, fname, category, resiSeq);
-	 		 } else if (resiSeq == null) {
-	 			 String protectSeq = dao.getProtectSeq(id);
-	 			
-	 			 dao.qnaProtectAdd(title, content, fname, category, protectSeq);
+	 		 if (resi_seq != null && protect_seq == null) {
+	 			result = dao.qnaResiAdd(title, content, fname, category, resi_seq);
+	 		 } else if (protect_seq != null && resi_seq == null) {
+	 			result = dao.qnaProtectAdd(title, content, fname, category, protect_seq);
 	 		 }
-	      } catch (Exception e) {
+	 		 
+	 		 if(result == 1) {
+	 			 resp.sendRedirect("/neulbom/client/board/qna.do");
+	 		 } else {
+	 			 PrintWriter writer = resp.getWriter();
+	 			 writer.print("<script>alert('failed');history.back();</script>");
+	 			 writer.close();
+	 		 }
+
+		} catch (Exception e) {
 	         e.printStackTrace();
 	      }
 		
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/board/qnaadd.jsp");
-		dispatcher.forward(req, resp);
+		
 	}
 
 }

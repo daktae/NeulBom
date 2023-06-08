@@ -11,6 +11,12 @@
 
 <style>
 
+	#pic {
+		width: 300px;
+		height: 300px;
+		display: block;
+		}
+
 </style>
 </head>
 
@@ -52,14 +58,18 @@
                     <tr>
                       <th>${dto.qna_seq}</th>
                       <th style="text-align: left;">${dto.title}</th>
-                      <th>${dto.fname}</th>
+                      <th>${dto.name}</th>
                       <th>${dto.qna_date}</th>
                       <th>${dto.read}</th>
                     </tr>
                 </thead>
             </table>
             
-            <div class="content_wj">
+            <div style="display: inline-block; margin-bottom: 50px;">
+				<img src="/neulbom/asset/qna/${dto.fname}" id="pic">
+			</div>
+            <div class="content_wj" style="text-align:center;">
+				
               	${dto.content}
             </div>
      
@@ -68,8 +78,9 @@
             <button type="submit" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:left;">돌아가기</button>
 			</form>
         </div>
+        </div>
         
-<%-- <%@ include file="/WEB-INF/views/inc/footerclient.jsp" %> --%>
+<%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
 <script>
 
 	

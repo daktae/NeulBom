@@ -77,9 +77,10 @@
 				        <tr class="qna-row">
 				            <td>${dto.qna_seq}</td> <!-- qna_seq -->
 				            <td style="text-align: left;">${dto.title}</td> <!-- title -->
-				            <td>${dto.fname}</td> <!-- fname -->
+				            <td>${dto.name}</td> <!-- fname -->
 				            <td>${dto.qna_date}</td> <!-- qna_date -->
 				            <td>${dto.read}</td> <!-- read -->
+				            <td style="display: none;">${dto.id}</td>
 				        </tr>
 				    </c:forEach>
 				</tbody>
@@ -96,23 +97,32 @@
     <% } %>
 	</div>
     
-    <nav aria-label="Page navigation example ">
+    
+    
+    <div class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
+    
+    
+    <%-- <nav aria-label="Page navigation example ">
         <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
+            <li>
+                ${dlwjs}            
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
+            <c:forEach begin="1" end="${totalPage}" var="pageNumber">
+	            <li class="page-item">
+	                <a class="page-link" href="/neulbom/client/board/qna.do?page=${pageNumber}">${pageNumber}</a>
+	            </li>
+	        </c:forEach>
+            <li>
+                ${ekdma}
             </li>
         </ul>
-    </nav>
+    </nav> --%>
+    
+   <!--  <nav aria-label="Page navigation example "><ul class="pagination justify-content-center"><li class="page-item"><a class="page-link" href="/neulbom/client/board/qna.do?page=%d" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+            <li class="page-item"><a class="page-link" href="/neulbom/client/board/qna.do?page=%d">%d</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="/neulbom/client/board/qna.do?page=%d" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li></ul></nav> -->
 	 
 	<%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
 <script>
@@ -121,9 +131,17 @@
 	trElements.forEach(tr => {
 	    tr.addEventListener('click', () => {
 	        const qnaSeq = tr.querySelector('td:first-child').innerText;
+	        const id = tr.querySelector('td:last-child').innerText;
+	        const sessionId = '${sessionScope.id}';
+	        const sessionLv = '${sessionScope.lv}';
 	        if (qnaSeq) {
-	            const link = `http://localhost:8090/neulbom/client/board/qnaview.do?qna_seq=` + qnaSeq;
-	            window.location.href = link; // 링크로 이동
+	        	if (id === sessionId || sessionLv === '1' || sessionLv === '2') {
+	            	const link = `http://localhost:8090/neulbom/client/board/qnaview.do?qna_seq=` + qnaSeq;
+	            	window.location.href = link; // 링크로 이동
+	        	} else {
+	        		alert('권한이 없습니다.');
+	        		window.location.href = '/neulbom/client/board/qna.do';
+	        	}
 	        }
 	    });
 	});

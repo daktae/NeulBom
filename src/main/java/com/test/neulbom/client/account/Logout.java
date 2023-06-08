@@ -18,6 +18,10 @@ public class Logout extends HttpServlet {
 
 		req.getSession().removeAttribute("id");
 		req.getSession().removeAttribute("lv");
+		req.getSession().removeAttribute("resi_seq");
+		req.getSession().removeAttribute("protect_seq");
+		req.getSession().removeAttribute("admin_seq");
+		req.getSession().removeAttribute("name");
 		
 		
 		resp.sendRedirect("/neulbom/client/board/qna.do");

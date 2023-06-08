@@ -72,6 +72,7 @@ public class Login extends HttpServlet {
 				req.getSession().setAttribute("id", resiId); //인증 티켓 발급
 				req.getSession().setAttribute("lv", result.getLv()); //레벨
 				req.getSession().setAttribute("name", result.getName()); //이름
+				req.getSession().setAttribute("resi_seq", result.getResi_seq()); //번호
 				
 				resp.sendRedirect("/neulbom/client/board/qna.do");
 				return;
@@ -93,6 +94,7 @@ public class Login extends HttpServlet {
 				req.getSession().setAttribute("id", protectId); //인증 티켓 발급
 				req.getSession().setAttribute("lv", result.getLv()); //레벨
 				req.getSession().setAttribute("name", result.getName()); //이름
+				req.getSession().setAttribute("protect_seq", result.getProtect_seq()); //번호
 				
 				resp.sendRedirect("/neulbom/client/board/qna.do");
 				return;
@@ -114,6 +116,7 @@ public class Login extends HttpServlet {
 				req.getSession().setAttribute("id", adminId); //인증 티켓 발급
 				req.getSession().setAttribute("lv", result.getLv()); //레벨
 				req.getSession().setAttribute("name", result.getName()); //이름
+				req.getSession().setAttribute("admin_seq", result.getAdmin_seq()); //번호
 				
 				resp.sendRedirect("/neulbom/client/board/qna.do");
 				return;

@@ -47,7 +47,7 @@
                 </div>
             </nav>
             <hr>
-            <form action="/client/board/qnaadd.do" method="post" enctype="multipart/form-data" style="text-align: right; margin-top: 50px; margin-bottom: 50px; margin-right: 300px;">
+            <form action="/neulbom/client/board/qnaadd.do" method="post" enctype="multipart/form-data" style="text-align: right; margin-top: 50px; margin-bottom: 50px; margin-right: 300px;">
             <table class="table table-bordered table-hover content-head_wj">
                 <thead>
                     <tr>

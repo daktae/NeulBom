@@ -7,5 +7,6 @@ public class UserDTO {
 
 	private String id;
 	private String lv;
+	private String name;
 	
 }

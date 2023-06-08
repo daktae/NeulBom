@@ -39,6 +39,7 @@ public class UserDAO {
 				result.setId(rs.getString("id"));
 				result.setLv(rs.getString("lv"));
 				result.setName(rs.getString("name"));
+				result.setResi_seq(rs.getString("resi_seq"));
 				
 				return result;
 			}
@@ -70,6 +71,7 @@ public class UserDAO {
 				result.setId(rs.getString("id"));
 				result.setLv(rs.getString("lv"));
 				result.setName(rs.getString("name"));
+				result.setProtect_seq(rs.getString("protect_seq"));
 				
 				return result;
 			}
@@ -101,6 +103,7 @@ public class UserDAO {
 				result.setId(rs.getString("id"));
 				result.setLv(rs.getString("lv"));
 				result.setName(rs.getString("name"));
+				result.setAdmin_seq(rs.getString("admin_seq"));
 				
 				return result;
 			}

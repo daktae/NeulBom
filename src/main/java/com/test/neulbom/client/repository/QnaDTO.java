@@ -12,4 +12,9 @@ public class QnaDTO {
 	private String fname; 
 	private String category;
 	private String read;
+	private String protect_seq; 
+	private String resi_seq;
+	
+	private String name;
+	private String id;
 }
