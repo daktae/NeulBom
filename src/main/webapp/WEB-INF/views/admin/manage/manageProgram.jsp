@@ -91,12 +91,12 @@
 
             		<td class="programPreview">${progDto.prog_seq}</td>
             		<td class="programPreview">${progDto.prog_date }</td>
-            		<td class="programPreview">${progDto.title}</td>
-            		<td class="programPreview">${progDto.content }</td>
+            		<td class="programPreview" onclick="location.href='/neulbom/admin/manage/detailProgram.do?prog_seq=${progDto.prog_seq}';">${progDto.title}</td>
+            		<td class="programPreview" onclick="location.href='/neulbom/admin/manage/detailProgram.do?prog_seq=${progDto.prog_seq}';">${progDto.content }</td>
             		<td class="programPreview">${progDto.place }</td>
             		<td class="programPreview">${progDto.people }</td>
             		<td>
-            			<div class="edit movable" onclick="location.href='/neulbom/admin/manage/detailProgram.do';" >
+            			<div class="edit movable" onclick="location.href='/neulbom/admin/manage/editProgram.do?prog_seq=${progDto.prog_seq}';" >
             				<span id="edit_txt">수정</span>
             			</div>
             			<div class="delete movable" data-bs-toggle="modal" data-bs-target="#delProgramModal" onclick="setProgramSeq(${progDto.prog_seq})">

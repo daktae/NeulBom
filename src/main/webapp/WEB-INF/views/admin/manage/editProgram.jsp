@@ -40,38 +40,34 @@
 	        <div id="inner-box">
 	            <div class="semititle">
 	                <div class="selected_menu" onclick="location.href='/neulbom/admin/manage/manageProgram.do';">
-	                    <span id="selected_menu_text">프로그램 조회</span>
+	                    <span id="selected_menu_text">프로그램 수정</span>
 	                </div><!-- selected_menu -->
-	            <div class="selected_menu" id="registerProgram" onclick="location.href='/neulbom/admin/manage/registerProgram.do'">
-                    <span id="selected_menu_text">프로그램 등록</span>
-                </div><!-- selected_menu -->
-
 	            </div><!-- semi_title -->
 	            <div class="main-box">
 	            
-	            <form method="POST" action="/admin/manage/editProgram.do">
-	            <input type="hidden" name="prog_seq" value="${progDto.prog_seq }">
+	            <form method="POST" action="/neulbom/admin/manage/editProgram.do">
+	            <input type="hidden" name="prog_seq" value="${prog_seq }">
             	<div>제목</div>
-				<input type="text" name="title" id="program-title" class="form-control detailProgram-form" readonly disabled required maxlength="15">
+				<input type="text" name="title" id="program-title" class="form-control detailProgram-form" required maxlength="15">
             	<div>내용</div>
 <!-- 				<input type="text" name="content" class="form-control registerProgram-form" placeholder="프로그램 내용을 입력하세요." required maxlength="15"> -->
-				<textarea name="content" class="form-control detailProgram-form" id="program-content" readonly disabled maxlength="100" required style="resize: none"></textarea>
+				<textarea name="content" class="form-control detailProgram-form" id="program-content" maxlength="100" required style="resize: none"></textarea>
             	<div>프로그램 날짜</div>
-				<input type="date" name="prog_date" id="program-date" class="form-control detailProgram-form" readonly disabled  required>
+				<input type="date" name="prog_date" id="program-date" class="form-control detailProgram-form" required>
             	
             	<div>강의실</div>
-				<select id="program-place" name="place" class="place form-select" disabled>
+				<select id="program-place" name="place" class="place form-select">
 					<option value="늘봄">늘봄</option>
 					<option value="광장">광장</option>
 					<option value="늘봄 식당">늘봄 식당</option>
 					<option value="늘봄문화홀">늘봄문화홀</option>
 				</select>
             	<div>정원</div>
-				<input type="number" name="people" id="program-people" class="form-control detailProgram-form"  readonly disabled min="1" max="100" required>
+				<input type="number" name="people" id="program-people" class="form-control detailProgram-form" min="1" max="100" required>
 				
 				
 				<input class="btn btn-secondary" type="button" value="돌아가기" onclick="history.back();">
-
+				<input class="btn btn-primary" type="submit" id="edit" value="수정하기">
 				</form>
 	
 	            </div><!-- main-box -->
@@ -89,7 +85,9 @@
 	$('#program-place').val('${progDto.place}');
 	$('#program-people').val('${progDto.people}');
 
-
+	$('#edit').click(function() {
+		$('form').submit();
+	});
 </script>
 </body>
 </html>

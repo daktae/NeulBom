@@ -137,7 +137,7 @@ public class AdminDAO {
 		return null;
 	}
 	
-	
+		// 직원 급여 목록 조회
 	   public List<AdminDTO> getSalaryList() {
 		      
 		      try {
@@ -175,6 +175,7 @@ public class AdminDAO {
 		      return null;
 		   }
 	   
+<<<<<<< HEAD
 	public List<AdminDTO> alist(HashMap<String, String> map) {
 		
 		List<AdminDTO> list = new ArrayList<AdminDTO>();
@@ -256,11 +257,66 @@ public class AdminDAO {
 			return pstat.executeUpdate();
 
 		} catch (Exception e) {
+=======
+	   
+	// 직원 급여, 계좌번호 상세보기
+	public AdminDTO detailBankAccount(String admin_seq) {
+		
+		try {
+		
+			String sql = "select admin_seq, name, bank, bank_account, tel, email from tblAdmin where admin_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, admin_seq);
+			
+			rs = pstat.executeQuery();
+			
+			if (rs.next()) {
+				
+				AdminDTO adminDto = new AdminDTO();
+				
+				adminDto.setAdmin_seq(rs.getString("admin_seq"));
+				adminDto.setName(rs.getString("name"));
+				adminDto.setBank(rs.getString("bank"));
+				adminDto.setBank_account(rs.getString("bank_account"));
+				adminDto.setTel(rs.getString("tel"));
+				adminDto.setEmail(rs.getString("email"));
+				
+				return adminDto;
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	// 직원 급여 中 입금은행, 계좌번호 수정
+	public int editBankAccount(AdminDTO adminDto) {
+		
+		try {
+			
+			String sql = "update tblAdmin set bank = ?, bank_account = ? where admin_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, adminDto.getBank());
+			pstat.setString(2, adminDto.getBank_account());
+			pstat.setString(3, adminDto.getAdmin_seq());
+			
+			return pstat.executeUpdate();
+			
+		} catch(Exception e) {
+>>>>>>> 2f5b4fad6bdcfe1a09113421a58219667ff8a8ce
 			e.printStackTrace();
 		}
 		
 		return 0;
 	}
+<<<<<<< HEAD
     
     
     
@@ -322,5 +378,25 @@ public class AdminDAO {
 	 }
 		   
 		   
+=======
+>>>>>>> 2f5b4fad6bdcfe1a09113421a58219667ff8a8ce
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
