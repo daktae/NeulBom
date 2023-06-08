@@ -64,6 +64,9 @@
                     <span id="selected_menu_text">비품등록</span>
                 </div><!-- selected_menu -->
             </div><!-- semi_title -->
+
+               
+            
             <div class="main-box">
 				<table class="table table-striped table-hover table-bordered">
 				<colgroup>

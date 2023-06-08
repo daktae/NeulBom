@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.test.neulbom.mylib.DBUtil3;
@@ -56,35 +57,35 @@ public class EqDAO {
 	}
 
 	// 등록된 비품 목록 조회
-	public List<EqDTO> eqList() {
-
-		try {
-			
-			String sql = "select * from tblEq order by eq_seq asc";
-			
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-			
-			List<EqDTO> eqList = new ArrayList<EqDTO>();
-			
-			while (rs.next()) {
-				EqDTO eqDto = new EqDTO();
-				
-				eqDto.setEq_seq(rs.getString("eq_seq"));
-				eqDto.setName(rs.getString("name"));
-				eqDto.setQuantity(rs.getInt("quantity"));
-				
-				eqList.add(eqDto);
-			}
-			
-			return eqList;
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
+//	public List<EqDTO> eqList() {
+//
+//		try {
+//			
+//			String sql = "select * from tblEq order by eq_seq asc";
+//			
+//			stat = conn.createStatement();
+//			rs = stat.executeQuery(sql);
+//			
+//			List<EqDTO> eqList = new ArrayList<EqDTO>();
+//			
+//			while (rs.next()) {
+//				EqDTO eqDto = new EqDTO();
+//				
+//				eqDto.setEq_seq(rs.getString("eq_seq"));
+//				eqDto.setName(rs.getString("name"));
+//				eqDto.setQuantity(rs.getInt("quantity"));
+//				
+//				eqList.add(eqDto);
+//			}
+//			
+//			return eqList;
+//			
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return null;
+//	}
 
 	// 새로 등록할 비품 seq 구하기
 	public String getEqSeq() {
@@ -201,6 +202,49 @@ public class EqDAO {
 		}
 		
 		return 0;
+	}
+
+	public List<EqDTO> getEqList(HashMap<String, String> map) {
+		
+		try {
+			
+			String where = "";
+			
+            if (map.get("search").equals("y")) {
+                where = String.format("where name like '%%%s%%'"
+                                     , map.get("word"));
+             }
+            
+            String sql = String.format("select * from tblEq %s order by eq_seq asc"
+            							, where);
+            
+            stat = conn.createStatement();
+            rs = stat.executeQuery(sql);
+            
+            List<EqDTO> eqList = new ArrayList<EqDTO>();
+            
+            while (rs.next()) {
+            	EqDTO eqDto = new EqDTO();
+            	
+            	eqDto.setEq_seq(rs.getString("eq_seq"));
+            	eqDto.setName(rs.getString("name"));
+            	eqDto.setQuantity(Integer.parseInt(rs.getString("quantity")));
+            	
+            	eqList.add(eqDto);
+            	
+            }
+            
+            return eqList;
+            
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return null;
 	}
 	
 	
