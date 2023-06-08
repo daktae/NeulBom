@@ -55,12 +55,14 @@
             <div class="main-box">
             <form method="POST" action="/neulbom/admin/manage/editEquip.do">
             <div>비품번호</div>
-			<input type="text" class="form-control registerEquip-form" placeholder="${eq_seq}" disabled readonly>
+			<input type="text" id="eq-seq" class="form-control registerEquip-form" disabled readonly>
             <div>비품명</div>
-			<input type="text" name="name" class="form-control registerEquip-form" placeholder="등록할 비품 이름을 입력하세요." required maxlength="10">
+			<input type="text" id="eq-name" name="name" class="form-control registerEquip-form" readonly disabled>
             <div>수량</div>
-			<input type="number" name="quantity" class="form-control registerEquip-form" min="1" max="50" value="1" required>
-			<input class="btn btn-primary" type="submit" value="등록하기">
+			<input type="number" id="eq-quantity" name="quantity" class="form-control registerEquip-form" min="1" max="50" value="1" required>
+			
+							<input class="btn btn-secondary" type="button" value="돌아가기" onclick="history.back();">
+			<input class="btn btn-primary" type="submit" value="수정하기">
 			
 			
 			<input type="hidden" name="eq_seq" value="${eq_seq}">
@@ -74,7 +76,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-
+	$('#eq-seq').val('${eqDto.eq_seq}');
+	$('#eq-name').val('${eqDto.name}');
+	$('#eq-quantity').val('${eqDto.quantity}');
 </script>
 </body>
 </html>

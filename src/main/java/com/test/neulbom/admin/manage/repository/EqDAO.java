@@ -152,6 +152,56 @@ public class EqDAO {
 
 		return 0;
 	}
+
+	
+	// 등록된 비품 상세보기
+	public EqDTO detailEquip(String eq_seq) {
+		
+		try {
+			
+			String sql = "select eq_seq, name, quantity from tblEq where eq_seq = ?";
+			 
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, eq_seq);
+			rs = pstat.executeQuery();
+			
+			if (rs.next()) {
+				EqDTO eqDto = new EqDTO();
+				
+				eqDto.setEq_seq(rs.getString("eq_seq"));
+				eqDto.setName(rs.getString("name"));
+				eqDto.setQuantity(rs.getInt("quantity"));
+				
+				return eqDto;
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	
+		return null;
+	}
+
+	public int editEquip(EqDTO eqDto) {
+		
+		try {
+			
+			String sql = "update tblEq set quantity = ? where eq_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setInt(1, eqDto.getQuantity());
+			pstat.setString(2, eqDto.getEq_seq());
+			
+			return pstat.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
 	
 	
 	
