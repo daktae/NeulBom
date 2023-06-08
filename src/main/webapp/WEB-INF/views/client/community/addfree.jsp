@@ -175,7 +175,7 @@
             
             <hr>
            
-            <form method="POST" action="/client/community/addfree.do">
+            <form method="POST" action="">
 
                 <table id="table">
                     <tr>
@@ -193,14 +193,14 @@
                     </table>
                     
                     
+                    <input type="hidden" name="mode" value=${mode }>
+                    <input type="hidden" name="thread" value=${thread }>
+                    <input type="hidden" name="depth" value=${depth }>
+                    
                     <div class="btn1">
                     <input type="submit" name="writefree" id="writefree" value="글쓰기" onclick="writefree()"> 
                     <input type="button" name="canclefree" id="canclefree" value="취소하기" onclick="history.back();"> 
                     </div>
-                    
-                    <input type="hidden" name="mode" value=${mode }>
-                    <input type="hidden" name="thread" value=${thread }>
-                    <input type="hidden" name="depth" value=${depth }>
                     
             </form>
 
@@ -244,7 +244,7 @@ function writefree() {
 	f.submit();
 	
 	var free_seq = ${dto.free_seq};	//free_seq에 글 번호 저장
-	var url = "/views/client/account/viewfree.do?free_seq=" + free_seq;
+	var url = "/neulbom/client/account/viewfree.do?viewfree_seq=" + free_seq;
 	location.href = url;
 }
 

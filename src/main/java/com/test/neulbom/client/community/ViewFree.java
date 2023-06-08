@@ -1,6 +1,7 @@
 package com.test.neulbom.client.community;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.test.neulbom.client.repository.ClientDAO;
+import com.test.neulbom.client.repository.CommentDTO;
 import com.test.neulbom.client.repository.FreeDTO;
 
 @WebServlet("/client/community/viewfree.do")
@@ -55,10 +57,18 @@ public class ViewFree extends HttpServlet {
 		//HTML 태그 이스케이프 > 꺽쇠 처리 > 엔터 처리 보다 먼저 처리해야함
 		content = content.replace("<", "&lt;").replace(">", "&gt;");
 		
+		dto.setId((String)session.getAttribute("id"));
 		dto.setContent(content);
 		dto.setTitle(title);
 		
 		req.setAttribute("dto", dto);
+		
+		
+		
+		//댓글 목록 가져오기
+		List<CommentDTO> clist = dao.clist(free_seq);
+		
+		req.setAttribute("clist", clist);
 		
 		
 

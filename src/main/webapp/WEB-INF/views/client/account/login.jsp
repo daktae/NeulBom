@@ -76,12 +76,12 @@ html,
   
         <!-- Email input -->
         <div class="form-outline mb-4">
-          <input type="text" id="id" name="resiId" class="form-control" value="아이디"/>
+          <input type="text" id="id" name="resiId" class="form-control" placeholder="아이디" value="124afs2"/>
         </div>
   
         <!-- Password input -->
         <div class="form-outline mb-4">
-          <input type="password" id="pw" name="resiPw" class="form-control" value="비밀번호"/>
+          <input type="password" id="pw" name="resiPw" class="form-control" placeholder="비밀번호" value="zxc123!"/>
           <!-- <label class="form-label" for="loginPassword">비밀번호</label> -->
         </div>
   

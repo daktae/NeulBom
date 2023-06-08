@@ -52,44 +52,47 @@ public class ClientDAO {
 		try {
 
 			String sql = "";
+			int nextFreeSeq = getMaxFreeSeq();
 
-			if (dto.getLv() == 5 || dto.getLv() == 6) {
+			if (dto.getLv().equals("5") || dto.getLv().equals("6")) {
 
-				sql = "insert into tblFree(free_seq, title, content, free_date, fname, read, thread, depth, protect_seq, resi_seq) values(max(free_seq) +1, ?, ?, default, ?, default, ?, ?, null, ?)";
-
-				pstat = conn.prepareStatement(sql);
-
-				pstat.setString(1, dto.getTitle());
-				pstat.setString(2, dto.getContent());
-				// 스스로는 현재 접속자의 아이디를 알아낼 수 있는 방법 X > DTO에 글 쓴 사람 id를 담아서 넘겨야 함 > Add.java가 DAO에
-				// 일을 의뢰할 때 session안에 들어있는 id값도 넘겨야 함
-				pstat.setString(3, dto.getFile());
-
-				pstat.setInt(4, dto.getThread());
-				pstat.setInt(5, dto.getDepth());
-
-				// 가져온 아이디가 insert할 tblFree 테이블의 protect_seq 혹은 resi_seq와 일치하는 회원의 id면 삽입
-				pstat.setString(6, dto.getResident_seq());
-				pstat.setInt(getMaxThread(), getMaxThread());
-
-			} else if (dto.getLv() == 7) {
-
-				sql = "insert into tblFree(free_seq, title, content, free_date, fname, read, thread, depth, protect_seq, resi_seq) values(max(free_seq) +1, ?, ?, default, ?, default, ?, ?, ?, null)";
+				sql = "insert into tblFree(free_seq, title, content, free_date, fname, read, thread, depth, protect_seq, resi_seq) values(?, ?, ?, default, ?, default, ?, ?, null, ?)";
 
 				pstat = conn.prepareStatement(sql);
 
-				pstat.setString(1, dto.getTitle());
-				pstat.setString(2, dto.getContent());
+				pstat.setInt(1, nextFreeSeq);
+				pstat.setString(2, dto.getTitle());
+				pstat.setString(3, dto.getContent());
 				// 스스로는 현재 접속자의 아이디를 알아낼 수 있는 방법 X > DTO에 글 쓴 사람 id를 담아서 넘겨야 함 > Add.java가 DAO에
 				// 일을 의뢰할 때 session안에 들어있는 id값도 넘겨야 함
-				pstat.setString(3, dto.getFile());
+				pstat.setString(4, dto.getFile());
 
-				pstat.setInt(4, dto.getThread());
-				pstat.setInt(5, dto.getDepth());
+				pstat.setInt(5, dto.getThread());
+				pstat.setInt(6, dto.getDepth());
 
 				// 가져온 아이디가 insert할 tblFree 테이블의 protect_seq 혹은 resi_seq와 일치하는 회원의 id면 삽입
-				pstat.setString(6, dto.getProtect_seq());
-				pstat.setInt(getMaxThread(), getMaxThread());
+				pstat.setString(7, dto.getResi_seq());
+//				pstat.setInt(getMaxThread(), getMaxThread());
+
+			} else if (dto.getLv().equals("7")) {
+
+				sql = "insert into tblFree(free_seq, title, content, free_date, fname, read, thread, depth, protect_seq, resi_seq) values(?, ?, ?, default, ?, default, ?, ?, ?, null)";
+
+				pstat = conn.prepareStatement(sql);
+
+				pstat.setInt(1, nextFreeSeq);
+				pstat.setString(2, dto.getTitle());
+				pstat.setString(3, dto.getContent());
+				// 스스로는 현재 접속자의 아이디를 알아낼 수 있는 방법 X > DTO에 글 쓴 사람 id를 담아서 넘겨야 함 > Add.java가 DAO에
+				// 일을 의뢰할 때 session안에 들어있는 id값도 넘겨야 함
+				pstat.setString(4, dto.getFile());
+
+				pstat.setInt(5, dto.getThread());
+				pstat.setInt(6, dto.getDepth());
+
+				// 가져온 아이디가 insert할 tblFree 테이블의 protect_seq 혹은 resi_seq와 일치하는 회원의 id면 삽입
+				pstat.setString(7, dto.getProtect_seq());
+//				pstat.setInt(getMaxThread(), getMaxThread());
 
 			}
 
@@ -99,6 +102,28 @@ public class ClientDAO {
 			e.printStackTrace();
 		}
 
+		return 0;
+	}
+
+	private int getMaxFreeSeq() {
+
+		try {
+			
+			String sql = "select max(free_seq) + 1 from tblFree";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			if (rs.next()) {
+				
+				return rs.getInt(1);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return 0;
 	}
 
@@ -168,15 +193,14 @@ public class ClientDAO {
 		List<FreeDTO> list = new ArrayList<FreeDTO>();
 
 		try {
-			System.out.println(dto.getLv());
-			if (dto.getLv() == 5 || dto.getLv() == 6) {
+			if (dto.getLv().equals("5") || dto.getLv().equals("6")) {
 
 				String sql = "select free_seq, title, resident as name, free_date, read from vwFree";
 
 				stat = conn.createStatement();
 				rs = stat.executeQuery(sql);
 
-			} else if (dto.getLv() == 7) {
+			} else if (dto.getLv().equals("7")) {
 
 				String sql = "select free_seq, title, protect as name, free_date, read from vwFree";
 
@@ -243,13 +267,15 @@ public class ClientDAO {
 	}
 
 	public FreeDTO fcontent(String free_seq) {
-
+		System.out.println(free_seq);
 		try {
 			String sql = "select tblFree.*, case when (select name from tblResident where resi_seq = tblFree.resi_seq) is not null then (select name from tblResident where resi_seq = tblFree.resi_seq) else (select name from tblProtect where protect_seq = tblFree.protect_seq) end as name from tblFree where free_seq = ?";
 
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, free_seq);
 			rs = pstat.executeQuery();
+			
+			
 
 			if (rs.next()) {
 
@@ -261,7 +287,12 @@ public class ClientDAO {
 				dto.setContent(rs.getString("content"));
 				dto.setFree_date(rs.getString("free_date").substring(0, 10));
 				dto.setRead(rs.getString("read"));
+				
+				dto.setThread(rs.getInt("thread"));
+				dto.setDepth(rs.getInt("depth"));
 
+				
+				
 				return dto;
 			}
 
@@ -270,6 +301,136 @@ public class ClientDAO {
 		}
 
 		return null;
+	}
+
+	//DB의 seq를 가져와서 +1씩 시켜주기
+	public String addSeq() {
+
+		try {
+			
+			String sql = "select max(free_seq) + 1 as free_seq from tblFree";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			if(rs.next()) {
+				return rs.getString("free_seq");
+			
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+
+	public ResiDTO get(String seq) {
+
+		
+		
+		return null;
+	}
+
+	//댓글 목록 가져오기
+	public List<CommentDTO> clist(String free_seq) {
+
+		try {
+			
+			String sql = "select tblComment.*, case when (select id from tblResident where resi_seq = tblComment.resi_seq) is not null then (select id from tblResident where resi_seq = tblComment.resi_seq) else (select id from tblProtect where protect_seq = tblComment.protect_seq) end as id, case when (select name from tblResident where resi_seq = tblComment.resi_seq) is not null then (select name from tblResident where resi_seq = tblComment.resi_seq) else (select name from tblProtect where protect_seq = tblComment.protect_seq) end as name from tblComment where free_seq = ? order by comment_seq asc";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, free_seq);
+			rs = pstat.executeQuery();
+			
+			List<CommentDTO> clist = new ArrayList<CommentDTO>();
+			
+			while (rs.next()) {
+				
+				CommentDTO cdto = new CommentDTO();
+				
+				cdto.setComment_seq(rs.getString("comment_seq"));
+				cdto.setContent(rs.getString("content"));
+				cdto.setName(rs.getString("name"));
+				cdto.setId(rs.getString("id"));
+				cdto.setResi_seq(rs.getString("resi_seq"));
+				cdto.setProtect_seq(rs.getString("protect_seq"));
+			
+				clist.add(cdto);
+			}
+			
+			return clist;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	//자유게시판 > 댓글 작성
+	public int addComment(CommentDTO cdto) {
+		
+		String sql = "";
+		int nextCommentSeq = getNextCommnetSeq();	//max(comment_seq) + 1;
+		
+		try {
+			
+			if (cdto.getLv().equals("5") || cdto.getLv().equals("6")) {
+
+				sql = "insert into tblComment(comment_seq, content, free_seq, resi_seq, protect_seq) values(?, ?, ?, ?, null)";
+
+				
+				pstat = conn.prepareStatement(sql);
+				
+				pstat.setInt(1, nextCommentSeq);
+				pstat.setString(2, cdto.getContent());
+				pstat.setString(3, cdto.getFree_seq());
+				pstat.setString(4, cdto.getResi_seq());
+
+				return pstat.executeUpdate();
+
+			} else if (cdto.getLv().equals("7")) {
+
+				sql = "insert into tblComment(comment_seq, content, free_seq, resi_seq, protect_seq) values(?, ?, ?, null, ?)";
+
+				pstat = conn.prepareStatement(sql);
+
+				pstat.setInt(1, nextCommentSeq);
+				pstat.setString(2, cdto.getContent());
+				pstat.setString(3, cdto.getFree_seq());
+				pstat.setString(4, cdto.getProtect_seq());
+				
+				return pstat.executeUpdate();
+
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return 0;
+	}
+
+	private int getNextCommnetSeq() {
+
+		try {
+			String sql = "select max(comment_seq) + 1 from tblComment";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
 	}
 
 }

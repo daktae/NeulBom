@@ -13,6 +13,6 @@ public class AdminDTO {
 	private String email;
 	private String pic;
 	private String lv;
-	
+	private String admin_seq;
 	
 }

@@ -44,6 +44,8 @@ public class AddFree extends HttpServlet {
 		//1. 데이터 가져오기
 		//2. DB 작업 > insert
 		//3. 결과
+		
+		req.setCharacterEncoding("utf-8");
 
 		//로그인 한 사람만 글 작성/수정/삭제 가능 > session에서 id 가져오기
 		HttpSession session = req.getSession();
@@ -60,11 +62,16 @@ public class AddFree extends HttpServlet {
 		FreeDTO dto = new FreeDTO();
 		ClientDAO dao = new ClientDAO();
 		
+		String free_seq = dao.addSeq();
+		
+		dto.setFree_seq(free_seq); //DB에 있는 free_seq 최대값 + 1
 		dto.setId((String)session.getAttribute("id"));	//로그인 id 
-		dto.setLv((Integer)session.getAttribute("lv"));	//로그인 lv 
+		dto.setLv((String)session.getAttribute("lv"));	//로그인 lv 
 		dto.setTitle(title);
 		dto.setContent(content);
 		dto.setFile(pic);
+		dto.setResi_seq((String)session.getAttribute("resi_seq"));
+		dto.setProtect_seq((String)session.getAttribute("protect_seq"));
 		
 		int thread = -1;
 		int depth = -1;
@@ -113,7 +120,7 @@ public class AddFree extends HttpServlet {
 		int result = dao.add(dto);
 		
 		if (result == 1) {
-			resp.sendRedirect("/client/community/free.do");
+			resp.sendRedirect("/neulbom/client/community/viewfree.do?free_seq=" + dto.getFree_seq());
 		} else {
 			PrintWriter writer = resp.getWriter();
 			writer.print("<script>alert('failed');history.back();</script>");

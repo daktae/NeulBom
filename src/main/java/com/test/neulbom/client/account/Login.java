@@ -72,8 +72,9 @@ public class Login extends HttpServlet {
 				req.getSession().setAttribute("id", resiId); //인증 티켓 발급
 				req.getSession().setAttribute("lv", result.getLv()); //레벨
 				req.getSession().setAttribute("name", result.getName()); //이름
+				req.getSession().setAttribute("resi_seq", result.getResi_seq()); //입주자 seq
 				
-				resp.sendRedirect("/neulbom/client/board/qna.do");
+				resp.sendRedirect("/neulbom/client/community/free.do");
 				return;
 				
 			} else {
@@ -86,15 +87,16 @@ public class Login extends HttpServlet {
 			}
 		} else if (resiId == null && adminId == null) {
 			ProtectDTO result = dao.login(pdto);
-						
+						System.out.println(result);
 			if (result != null) {
 				
 				//로그인 성공
 				req.getSession().setAttribute("id", protectId); //인증 티켓 발급
 				req.getSession().setAttribute("lv", result.getLv()); //레벨
 				req.getSession().setAttribute("name", result.getName()); //이름
+				req.getSession().setAttribute("protect_seq", result.getProtect_seq()); //보호자 seq
 				
-				resp.sendRedirect("/neulbom/client/board/qna.do");
+				resp.sendRedirect("/neulbom/client/community/free.do");
 				return;
 				
 			} else {
@@ -114,8 +116,9 @@ public class Login extends HttpServlet {
 				req.getSession().setAttribute("id", adminId); //인증 티켓 발급
 				req.getSession().setAttribute("lv", result.getLv()); //레벨
 				req.getSession().setAttribute("name", result.getName()); //이름
+				req.getSession().setAttribute("Admin_seq", result.getAdmin_seq()); //관리자 seq
 				
-				resp.sendRedirect("/neulbom/client/board/qna.do");
+				resp.sendRedirect("/neulbom/client/community/free.do");
 				return;
 				
 			} else {
@@ -128,9 +131,6 @@ public class Login extends HttpServlet {
 			}
 		}
 		
-		
-
-		resp.sendRedirect("/neulbom/client/board/qna.do");
 		
 //		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/account/login.jsp");
 //		dispatcher.forward(req, resp);

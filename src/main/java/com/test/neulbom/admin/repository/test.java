@@ -40,6 +40,13 @@ public class test {
 
 		}
 		
+		for (int i=51; i<=70; i++) {
+			
+			int rnd = (int)(Maht.random())
+			
+			
+		}
+		
 		
 		
 		

@@ -12,10 +12,10 @@ public class FreeDTO {
 	
 	private String id;			//자유게시판 글 작성자 ID
 	private String protect_seq;	//자유게시판 글 작성자 seq(보호자)
-	private String resident_seq;	//자유게시판 글 작성자 seq(입주자)
+	private String resi_seq;	//자유게시판 글 작성자 seq(입주자)
 	
 	private String name;		//자유게시판 글 작성자 이름
-	private int lv;				//자유게시판 글 작성자 레벨
+	private String lv;			//자유게시판 글 작성자 레벨
 	
 	private String read;		//자유게시판 글 조회수
 	private String free_date;	//자유게시판 작성날짜

@@ -128,7 +128,7 @@ a {
                         </c:if>
                         </td>
                         <td>
-                        	<a href="/neulbom/client/community/viewfree.do?free_seq=${dto.free_seq}">${dto.title }</a>
+                        	<a href="/neulbom/client/community/viewfree.do?free_seq=${dto.free_seq}" style="text-align: left;">${dto.title }</a>
                         </td>
                         <td>${dto.name }</td>
                         <td>${dto.free_date }</td>
@@ -138,9 +138,9 @@ a {
                 </tbody>
             </table>
             
-            <%-- <c:if test="${not empty id }"> --%>
+            <c:if test="${not empty id }">
     			<input type="button" id="addbtn" value="글쓰기" onclick="location.href='/neulbom/client/community/addfree.do?mode=new';">
-    		<%-- </c:if> --%>
+    		</c:if>
             
         <!-- 페이지 넘버 -->    
         <br>
