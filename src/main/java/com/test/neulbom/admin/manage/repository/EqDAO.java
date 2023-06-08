@@ -19,6 +19,7 @@ public class EqDAO {
 		this.conn = DBUtil3.open(); 
 	}
 
+	// 비품 신청 내역 조회
 	public List<RegEqDTO> regList() {
 		
 		try {
@@ -54,6 +55,7 @@ public class EqDAO {
 		return null;
 	}
 
+	// 등록된 비품 목록 조회
 	public List<EqDTO> eqList() {
 
 		try {
@@ -84,6 +86,7 @@ public class EqDAO {
 		return null;
 	}
 
+	// 새로 등록할 비품 seq 구하기
 	public String getEqSeq() {
 		
 		try {
@@ -105,6 +108,7 @@ public class EqDAO {
 		return null;
 	}
 
+	// 비품 등록하기
 	public int registerEquip(EqDTO eqDto) {
 		
 		try {
@@ -128,6 +132,7 @@ public class EqDAO {
 		return 0;
 	}
 
+	// 비품 삭제하기
 	public int delEquip(String eq_seq) {
 		
 //		System.out.println(eq_seq);
@@ -145,6 +150,56 @@ public class EqDAO {
 			e.printStackTrace();
 		}
 
+		return 0;
+	}
+
+	
+	// 등록된 비품 상세보기
+	public EqDTO detailEquip(String eq_seq) {
+		
+		try {
+			
+			String sql = "select eq_seq, name, quantity from tblEq where eq_seq = ?";
+			 
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, eq_seq);
+			rs = pstat.executeQuery();
+			
+			if (rs.next()) {
+				EqDTO eqDto = new EqDTO();
+				
+				eqDto.setEq_seq(rs.getString("eq_seq"));
+				eqDto.setName(rs.getString("name"));
+				eqDto.setQuantity(rs.getInt("quantity"));
+				
+				return eqDto;
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	
+		return null;
+	}
+
+	public int editEquip(EqDTO eqDto) {
+		
+		try {
+			
+			String sql = "update tblEq set quantity = ? where eq_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setInt(1, eqDto.getQuantity());
+			pstat.setString(2, eqDto.getEq_seq());
+			
+			return pstat.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return 0;
 	}
 	

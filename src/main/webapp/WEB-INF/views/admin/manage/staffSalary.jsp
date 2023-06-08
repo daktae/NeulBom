@@ -20,9 +20,22 @@
       display: flex;
       justify-content: space-evenly;
    }
+   
+   #search-form {
+	  display: inline-block;
+   }
+   
+   #back {
+   	position: relative;
+   	margin: auto auto;
+   	top: 60px;
+   }
+   
+   
 </style>
 </head>
 <body>
+
 
 
     <div class="main">
@@ -31,17 +44,24 @@
            <div id="inner-box">
                <div class="semititle">
                    <div class="selected_menu">
-                       <span id="selected_menu_text">직원급여관리</span>
+                       <span id="selected_menu_text" onclick="location.href='/neulbom/admin/manage/staffSalary.do';">직원급여관리</span>
                    </div><!-- selected_menu -->
-                   <select class="select_search_item">
-                       <option>이름</option>
-                       <option>부서</option>
+                   <form method="GET" action="/neulbom/admin/manage/staffSalary.do" id="search-form">
+                   <select name="column" class="select_search_item">
+                       <option value="name">이름</option>
+                       <option value="bank">입금은행</option>
                    </select><!-- select_search_item -->
-                   <input type="text" class="search_input" placeholder="조회할 직원 정보를 입력하세요.">
-                  <input class="btn btn-primary search_button" type="button" value="검색하기">
+                   <input type="text" name="word" class="search_input" placeholder="조회할 직원 정보를 입력하세요." required>
+                  <input class="btn btn-primary search_button" type="submit" value="검색하기">
+                  </form>
                
                </div><!-- semi_title -->
                <div class="main-box">
+		<c:if test="${map.search == 'y'}">
+		<div style="text-align: center;">
+			'${map.word}'(으)로 검색한 결과입니다.
+		</div>
+		</c:if>
             <table class="table table-striped table-bordered table-hover">
             <colgroup>
                <col width=5%>
@@ -63,7 +83,15 @@
                   <th scope="col">처리</th>
                </tr>
             </thead>
+            <c:if test="${salaryList.size()==0 }">
             <tbody>
+            <tr>
+            	<td colspan="7">검색한 정보와 일치하는 직원이 없습니다.</td>
+            </tr>
+            </c:if>
+            
+            
+            
             <c:forEach items="${salaryList}" var="salaryDto">
                <tr>
                   <td>${salaryDto.admin_seq }</td>
@@ -81,6 +109,11 @@
             </c:forEach>
             </tbody>
             </table>
+            
+
+			<input class="btn btn-secondary" type="button" id="back" value="돌아가기" onclick="location.href='/neulbom/admin/manage/staffSalary.do';">
+
+            
                </div><!-- main-box -->
            </div><!-- inner-box -->
        </div><!-- content-box -->

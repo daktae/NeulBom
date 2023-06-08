@@ -93,7 +93,7 @@
 						<td>${eqDto.name}</td>
 						<td>${eqDto.quantity }</td>
 						<td>
-            				<div class="edit movable">
+            				<div class="edit movable" onclick="location.href='/neulbom/admin/manage/editEquip.do?eq_seq=${eqDto.eq_seq}'">
             					<span id="edit_txt">수정</span>
             				</div>
             				<div class="delete movable"  data-bs-toggle="modal" data-bs-target="#delEquipModal" onclick="setSeq(${eqDto.eq_seq });">
