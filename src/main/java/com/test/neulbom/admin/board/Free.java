@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.test.neulbom.admin.board.repository.BoardDAO;
+import com.test.neulbom.admin.board.repository.CommentDTO;
 import com.test.neulbom.admin.board.repository.FreeDTO;
-import com.test.neulbom.admin.board.repository.LifeDTO;
 
 @WebServlet("/admin/board/free.do")
 public class Free extends HttpServlet {
@@ -35,7 +35,7 @@ public class Free extends HttpServlet {
 			dto.setTitle(title);
 
 		}
-
+		
 		req.setAttribute("list", list);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/free.jsp");
