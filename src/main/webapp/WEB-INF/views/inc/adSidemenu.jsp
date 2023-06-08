@@ -18,7 +18,7 @@
                     <div class="menu" id="manage_money" onclick="location.href='/neulbom/admin/manage/manageMoney.do';">재무 관리</div>
                     <div class="menu" id="manage_program" onclick="location.href='/neulbom/admin/manage/manageProgram.do';">복지 프로그램 관리</div>
                     <!-- <div class="menu" id="staff_chat">직원용 채팅</div> -->
-                    <div class="menu" id="manage_pay">결제 관리</div>
+                    <div class="menu" id="manage_pay" onclick="location.href='/neulbom/admin/manage/pay.do';">결제 관리</div>
                     <div class="menu" id="manage_meet" onclick="location.href='/neulbom/admin/manage/meet.do';">면회 관리</div>
                     <!-- <span id="">연계 병원 진료 내역</span> -->
                     <div class="menu" id="manage_alert" onclick="location.href='/neulbom/admin/board/notice.do';">게시판 관리</div>
