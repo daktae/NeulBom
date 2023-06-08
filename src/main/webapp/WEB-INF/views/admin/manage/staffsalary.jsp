@@ -12,6 +12,10 @@
 
 <style>
 
+	.edit {
+		width: 120px;
+	}
+
 	.table tbody tr td:nth-child(7) {
 		display: flex;
 		justify-content: space-evenly;
@@ -43,10 +47,10 @@
 					<col width=5%>
 					<col width=10%>
 					<col width=10%>
+					<col width=20%>
+					<col width=20%>
+					<col width=20%>
 					<col width=15%>
-					<col width=20%>
-					<col width=20%>
-					<col width=20%>
 				</colgroup>
 				<thead>
 					<tr>
@@ -69,9 +73,9 @@
 						<td>${salaryDto.salary }</td>
 						<td>${salaryDto.tel }</td>
 						<td>
-            				<div class="edit movable">
-            					<span id="edit_txt">수정</span>
-            				</div>
+            			<div class="edit movable" onclick="location.href='/neulbom/admin/manage/editBankAccount.do?admin_seq=${salaryDto.admin_seq}';" >
+            				<span id="edit_txt">계좌 정보 수정</span>
+            			</div>
             			</td>
 					</tr>
 				</c:forEach>

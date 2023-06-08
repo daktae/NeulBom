@@ -19,6 +19,8 @@ public class ProgramDAO {
 		this.conn = DBUtil3.open();
 	}
 
+	
+	// 프로그램 목록 보기
 	public List<ProgramDTO> progList() {
 		
 		try {
@@ -54,6 +56,7 @@ public class ProgramDAO {
 		return null;
 	}
 
+	// 프로그램 신규 등록하기
 	public int registerProgram(ProgramDTO progDto) {
 		
 		try {
@@ -80,6 +83,7 @@ public class ProgramDAO {
 		return 0;
 	}
 
+	// 프로그램 seq 구하기
 	public String getProgSeq() {
 		
 		try {
@@ -101,6 +105,7 @@ public class ProgramDAO {
 		return null;
 	}
 
+	// 프로그램 삭제하기
 	public int delProgram(String prog_seq) {
 
 		try {
@@ -120,17 +125,59 @@ public class ProgramDAO {
 		return 0;
 	}
 
-	public int progDetailList(String prog_seq) {
+	
+	// 프로그램 수정하기
+	public int editProgram(ProgramDTO dto) {
 		
 		try {
 			
-			String sql = "select prog_seq, title, to_char(prog_date, 'yyyy-mm-dd') as prog_date, content, place, people from tblProgram where prog_seq = ?";
+			String sql ="update tblProgram set title=?, content=?, prog_date = to_date(?, 'yyyy-mm-dd hh24:mi:ss'), place=?, people=? where prog_seq=?";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, dto.getTitle());
+			pstat.setString(2, dto.getContent());
+			pstat.setString(3, dto.getProg_date());
+			pstat.setString(4, dto.getPlace());
+			pstat.setString(5, dto.getPeople());
+			pstat.setString(6, dto.getProg_seq());
+		
+			
+			return pstat.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+
+	// 프로그램 상세보기
+	public ProgramDTO getDetailProgram(String prog_seq) {
+		
+		try {
+			
+			String sql = "select title, content, to_char(prog_date, 'yyyy-mm-dd') as prog_date, place, people from tblProgram where prog_seq = ?";
 			
 			pstat = conn.prepareStatement(sql);
 			
 			pstat.setString(1, prog_seq);
 			
-			return pstat.executeUpdate();
+			rs = pstat.executeQuery();
+			
+			if (rs.next()) {
+				ProgramDTO progDto = new ProgramDTO();
+				
+				progDto.setTitle(rs.getString("title"));
+				progDto.setContent(rs.getString("content"));
+				progDto.setProg_date(rs.getString("prog_date"));
+				progDto.setPlace(rs.getString("place"));
+				progDto.setPeople(rs.getString("people"));
+				
+				return progDto;
+				
+			}
 			
 			
 		} catch(Exception e) {
@@ -139,8 +186,10 @@ public class ProgramDAO {
 		
 		
 		
-		return 0;
+		
+		return null;
 	}
+
 
 
 
