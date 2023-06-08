@@ -22,10 +22,12 @@ public class ViewFree extends HttpServlet {
 		//ViewFree.java
 		
 		String free_seq = req.getParameter("free_seq");
-		String title = req.getParameter("title");
-		String name = req.getParameter("name");
-		String free_date = req.getParameter("free_date");
-		String read = req.getParameter("read");
+		
+		String pageNum = req.getParameter("pageNum");
+		
+		String column = req.getParameter("column");
+		String word = req.getParameter("word");
+		String search = req.getParameter("search");
 		
 		//로그인 계정 가져오기 
 		HttpSession session = req.getSession();
@@ -34,10 +36,29 @@ public class ViewFree extends HttpServlet {
 		FreeDTO dto = new FreeDTO();
 		
 		
-		dto	= dao.fcontent(seq);
+		dto	= dao.fcontent(free_seq);
+		String content = dto.getContent();
 		
+		//HTML 태그 이스케이프 > 꺽쇠 처리 > 엔터 처리 보다 먼저 처리해야함
+		content = content.replace("<", "&lt;").replace(">", "&gt;");
 		
+		//글 내용 엔터 처리
+		content = content.replace("\r\n", "<br>");
 		
+		//내용으로 검색 시 검색어 강조
+		if (search != null && column != null && search.equals("y") && column.equals("content")) {
+			content = content.replace(word, "<span style=\"background-color:gold;color:tomato;\">" + word + "</span>");
+		}
+		
+		String title = dto.getTitle();
+		
+		//HTML 태그 이스케이프 > 꺽쇠 처리 > 엔터 처리 보다 먼저 처리해야함
+		content = content.replace("<", "&lt;").replace(">", "&gt;");
+		
+		dto.setContent(content);
+		dto.setTitle(title);
+		
+		req.setAttribute("dto", dto);
 		
 		
 

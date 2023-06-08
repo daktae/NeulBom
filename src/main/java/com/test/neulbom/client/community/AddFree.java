@@ -60,8 +60,8 @@ public class AddFree extends HttpServlet {
 		FreeDTO dto = new FreeDTO();
 		ClientDAO dao = new ClientDAO();
 		
-		dto.setId((String)session.getAttribute("id"));	//로그인 id 전송
-		dto.setLv((Integer)session.getAttribute("lv"));	//로그인 lv 전송
+		dto.setId((String)session.getAttribute("id"));	//로그인 id 
+		dto.setLv((Integer)session.getAttribute("lv"));	//로그인 lv 
 		dto.setTitle(title);
 		dto.setContent(content);
 		dto.setFile(pic);

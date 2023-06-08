@@ -16,7 +16,7 @@
 }
 .content_wj {
 	
-	padding: 10px 20px;
+	padding: 10px 40px;
 	text-align: justify;
 }
 

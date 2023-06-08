@@ -194,8 +194,8 @@
                     
                     
                     <div class="btn1">
-                    <input type="submit" name="write" id="write" value="글쓰기" onclick="location.href='/neulbom/client/community/viewfree.do';"> 
-                    <input type="button" name="cancle" id="cancle" value="취소하기" onclick="location.href='/neulbom/client/community/free.do';"> 
+                    <input type="submit" name="writefree" id="writefree" value="글쓰기" onclick="writefree()"> 
+                    <input type="button" name="canclefree" id="canclefree" value="취소하기" onclick="history.back();"> 
                     </div>
                     
                     <input type="hidden" name="mode" value=${mode }>
@@ -223,6 +223,30 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
+
+function writefree() {
+	
+	var f = document.getElementById('writefree');
+	
+	if (!f.title.value) {
+		alert("제목을 입력하세요");
+		f.title.focus();
+		return;
+	}
+	
+	if (!f.content.value) {
+		alert("내용을 입력하세요");
+		f.content.focus();
+		return;
+	}  
+		
+	f.action = "<%=request.getContextPath()%>/client/account/viewfree.do";
+	f.submit();
+	
+	var free_seq = ${dto.free_seq};	//free_seq에 글 번호 저장
+	var url = "/views/client/account/viewfree.do?free_seq=" + free_seq;
+	location.href = url;
+}
 
 </script>
 

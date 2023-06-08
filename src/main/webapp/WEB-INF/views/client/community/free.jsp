@@ -36,6 +36,10 @@ tr:hover {
     border-radius: 10%;
 }
 
+a {
+	border: none;
+}
+
 </style>
 </head>
 
@@ -74,13 +78,18 @@ tr:hover {
             <hr>
             <div style="display: flex; justify-content: end; margin-bottom: 15px;">
             
-            <%-- <c:if test="${not empty id }"> --%>
-    			<input type="button" id="addbtn" value="글쓰기" onclick="location.href='/neulbom/client/community/addfree.do';">
-    		<%-- </c:if> --%>
             
+    		
+    		<c:if test="${map.search == 'y' }">
+    		<div style="text-align: center;">
+    			'${map.word }'(으)로 검색한 결과 ${totalCount }건이 있습니다.
+    		</div>
+    		</c:if>
+    		
+    		            
                 <form class="d-flex" role="search" style="max-width: 50%;">
                     <select class="form-select" aria-label="Default select example" style="margin-right: 10px;">
-                        <option selected>제목</option>
+                        <option selected value="0">제목</option>
                         <option value="1">번호</option>
                         <option value="2">작성자</option>
                         <option value="3">내용</option>
@@ -118,7 +127,9 @@ tr:hover {
                         <td>답글</td>
                         </c:if>
                         </td>
-                        <td>${dto.title }</td>
+                        <td>
+                        	<a href="/neulbom/client/community/viewfree.do?free_seq=${dto.free_seq}">${dto.title }</a>
+                        </td>
                         <td>${dto.name }</td>
                         <td>${dto.free_date }</td>
                         <td>${dto.read }</td>
@@ -126,8 +137,32 @@ tr:hover {
                  </c:forEach>
                 </tbody>
             </table>
+            
+            <%-- <c:if test="${not empty id }"> --%>
+    			<input type="button" id="addbtn" value="글쓰기" onclick="location.href='/neulbom/client/community/addfree.do?mode=new';">
+    		<%-- </c:if> --%>
+            
+        <!-- 페이지 넘버 -->    
+        <br>
+        <div id="pageForm">
+        	<c:if test="${startPage != 1 }">
+        		<a href='/neulbom/client/community/viewfree.do?page=${startPage - 1 }'>[ 이전 ]</a>    
+            </c:if>
+            
+            <c:forEach var="pageNum" begin="${startPage }" end="${endPage }">
+            	<c:if test="${pageNum == fpage }">
+            		${pageNum }&nbsp;
+            	</c:if>
+            	<c:if test="${pageNum != fpage }">
+            		<a href='/neulbom/client/community/viewfree.do?page=${pageNum }'>${pageNum }&nbsp;</a>
+            	</c:if>
+            </c:forEach>
+            
+            <c:if test="${endPage != maxPage }">
+            	<a href='/neulbom/client/community/viewfree.do?page=${endPage + 1 }'>[ 다음 ]</a>
+            </c:if>
         </div>
-        
+        </div>
     </div>
     
 
