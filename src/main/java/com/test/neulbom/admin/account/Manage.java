@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.tribes.tipis.AbstractReplicatedMap.MapEntry;
+
 import com.test.neulbom.admin.repository.AdminDAO;
 import com.test.neulbom.admin.repository.AdminDTO;
 import com.test.neulbom.admin.repository.ResiDAO;
@@ -62,6 +64,7 @@ public class Manage extends HttpServlet {
 		
 		String column = req.getParameter("column");
 		String word = req.getParameter("word");
+		String tab = req.getParameter("tab");
 		String search = "n"; //검색중(O,X)
 		
 		HashMap<String, String> map
@@ -74,11 +77,10 @@ public class Manage extends HttpServlet {
 			search = "y";
 		}
 		
-		System.out.println("search" +  search);
-		
 		map.put("column", column);
 		map.put("word", word);
 		map.put("search", search);
+		map.put("tab", tab);
 		
 		
 		AdminDAO adao = new AdminDAO();
@@ -129,6 +131,7 @@ public class Manage extends HttpServlet {
 				subject = subject.replace(word, "<span>" + word + "</span>");
 			}
 			
+			
 			rdto.setName(subject);
 			
 		}
@@ -136,7 +139,6 @@ public class Manage extends HttpServlet {
 		req.setAttribute("alist", alist);
 		req.setAttribute("rlist", rlist);
 		req.setAttribute("map", map);
-		
 		//JSP 페이지 알 수 있는 정보
 		//1. req를 통해서 전달된 정보
 		//2. session/cookie
