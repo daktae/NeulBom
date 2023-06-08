@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import com.test.neulbom.mylib.DBUtil3;
 
@@ -107,5 +110,68 @@ public class ResiDAO {
 		
 		return null;
 		
+	}
+	public List<ResiDTO> rlist(HashMap<String, String> map) {
+		
+List<ResiDTO> list = new ArrayList<ResiDTO>();
+		
+		try {
+			
+			String where = "";
+			
+			//10 %% 5 = 
+			if (map.get("search").equals("y")) {
+				where = String.format("where %s like '%%%s%%'"
+										, map.get("column")
+										, map.get("word"));
+			}
+
+			String sql = String.format("select * from (select a.* from vwResident a %s) order by resi_seq asc"
+										, where
+										);
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			
+
+			while (rs.next()) {
+
+				ResiDTO dto = new ResiDTO();
+
+				dto.setResi_seq(rs.getString("resi_seq"));
+				dto.setName(rs.getString("name"));
+				dto.setId(rs.getString("id"));
+				dto.setPw(rs.getString("pw"));
+
+				list.add(dto);
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+		
+		
+	}
+	public int del(String resi_seq) {
+		try {
+
+			String sql = "delete from tblresident where resi_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, resi_seq);
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
 	}
 }

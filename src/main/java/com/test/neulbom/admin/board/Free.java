@@ -21,19 +21,18 @@ public class Free extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		BoardDAO dao = new BoardDAO();
-
-		List<LifeDTO> list = dao.getLife();
+		List<FreeDTO> list = dao.getFree();
 
 		for (int i = 0; i < list.size(); i++) {
 
 			FreeDTO dto = new FreeDTO();
-			//dto = list.get(i);
+			dto = list.get(i);
 
-			//String title = dto.getTitle();
+			String title = dto.getTitle();
 
-			//if (title.length() >= 23)
-				//title = title.substring(0, 23) + " ...";
-			//dto.setTitle(title);
+			if (title.length() >= 23)
+				title = title.substring(0, 23) + " ...";
+			dto.setTitle(title);
 
 		}
 
@@ -41,6 +40,7 @@ public class Free extends HttpServlet {
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/free.jsp");
 		dispatcher.forward(req, resp);
+		
 	}
 
 }

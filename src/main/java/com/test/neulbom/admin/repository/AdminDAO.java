@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.test.neulbom.mylib.DBUtil3;
@@ -174,64 +175,151 @@ public class AdminDAO {
 		      return null;
 		   }
 	   
-	   
-	// 직원 급여, 계좌번호 상세보기
-	public AdminDTO detailBankAccount(String admin_seq) {
+	public List<AdminDTO> alist(HashMap<String, String> map) {
+		
+		List<AdminDTO> list = new ArrayList<AdminDTO>();
 		
 		try {
-		
-			String sql = "select admin_seq, name, bank, bank_account, tel, email from tblAdmin where admin_seq = ?";
 			
-			pstat = conn.prepareStatement(sql);
+			String where = "";
 			
-			pstat.setString(1, admin_seq);
-			
-			rs = pstat.executeQuery();
-			
-			if (rs.next()) {
-				
-				AdminDTO adminDto = new AdminDTO();
-				
-				adminDto.setAdmin_seq(rs.getString("admin_seq"));
-				adminDto.setName(rs.getString("name"));
-				adminDto.setBank(rs.getString("bank"));
-				adminDto.setBank_account(rs.getString("bank_account"));
-				adminDto.setTel(rs.getString("tel"));
-				adminDto.setEmail(rs.getString("email"));
-				
-				return adminDto;
-				
+			//10 %% 5 = 
+			if (map.get("search").equals("y")) {
+				where = String.format("where %s like '%%%s%%'"
+										, map.get("column")
+										, map.get("word"));
 			}
+
+			String sql = String.format("select * from (select a.*, rownum as rnum from vwAdmin a %s)"
+										, where
+										);
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
 			
+
+			while (rs.next()) {
+
+				AdminDTO dto = new AdminDTO();
+
+				dto.setAdmin_seq(rs.getString("admin_seq"));
+				dto.setName(rs.getString("name"));
+				dto.setId(rs.getString("id"));
+				dto.setPw(rs.getString("pw"));
+
+				list.add(dto);
+			}
+
+			return list;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
-	}
-	
-	
-	// 직원 급여 中 입금은행, 계좌번호 수정
-	public int editBankAccount(AdminDTO adminDto) {
 		
+		return list;
+		
+	}
+	public int getTotalCount(HashMap<String, String> map) {
+
+		 try {
+
+	         String where = "";
+
+	         if (map.get("search").equals("y")) {
+	            where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
+	         }
+
+	         String sql = String.format("select count(*) as cnt from vwAdmin %s", where);
+
+	         pstat = conn.prepareStatement(sql);
+	         rs = pstat.executeQuery();
+
+	         if (rs.next()) {
+	            return rs.getInt("cnt");
+	         }
+
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      return 0;
+	}
+	public int del(String admin_seq) {
 		try {
-			
-			String sql = "update tblAdmin set bank = ?, bank_account = ? where admin_seq = ?";
-			
+
+			String sql = "delete from tbladmin where admin_seq = ?";
+
 			pstat = conn.prepareStatement(sql);
-			
-			pstat.setString(1, adminDto.getBank());
-			pstat.setString(2, adminDto.getBank_account());
-			pstat.setString(3, adminDto.getAdmin_seq());
-			
+
+			pstat.setString(1, admin_seq);
+
 			return pstat.executeUpdate();
-			
-		} catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return 0;
 	}
-
+    
+    
+    
+	 // 직원 급여, 계좌번호 상세보기
+	 public AdminDTO detailBankAccount(String admin_seq) {
+	    
+	    try {
+	    
+	       String sql = "select admin_seq, name, bank, bank_account, tel, email from tblAdmin where admin_seq = ?";
+	       
+	       pstat = conn.prepareStatement(sql);
+	       
+	       pstat.setString(1, admin_seq);
+	       
+	       rs = pstat.executeQuery();
+	       
+	       if (rs.next()) {
+	          
+	          AdminDTO adminDto = new AdminDTO();
+	          
+	          adminDto.setAdmin_seq(rs.getString("admin_seq"));
+	          adminDto.setName(rs.getString("name"));
+	          adminDto.setBank(rs.getString("bank"));
+	          adminDto.setBank_account(rs.getString("bank_account"));
+	          adminDto.setTel(rs.getString("tel"));
+	          adminDto.setEmail(rs.getString("email"));
+	          
+	          return adminDto;
+	          
+	       }
+	       
+	    } catch (Exception e) {
+	       e.printStackTrace();
+	    }
+	    return null;
+	 }
+	 
+	 
+	 // 직원 급여 中 입금은행, 계좌번호 수정
+	 public int editBankAccount(AdminDTO adminDto) {
+	    
+	    try {
+	       
+	       String sql = "update tblAdmin set bank = ?, bank_account = ? where admin_seq = ?";
+	       
+	       pstat = conn.prepareStatement(sql);
+	       
+	       pstat.setString(1, adminDto.getBank());
+	       pstat.setString(2, adminDto.getBank_account());
+	       pstat.setString(3, adminDto.getAdmin_seq());
+	       
+	       return pstat.executeUpdate();
+	       
+	    } catch(Exception e) {
+	       e.printStackTrace();
+	    }
+	    
+	    return 0;
+	 }
+		   
 }
 
 
