@@ -71,6 +71,19 @@
 	margin-bottom: 10px;
 	margin-right: 5px;
 }
+
+.reject {
+	background-color: rgba(235, 87, 87, 0.2);
+	border-radius: 30px;
+	width: 72px;
+	height: 30px;
+}
+
+#reject_txt {
+	position: relative;
+	top: 3px;
+	color: #EB5757;
+}
 </style>
 </head>
 <body>
