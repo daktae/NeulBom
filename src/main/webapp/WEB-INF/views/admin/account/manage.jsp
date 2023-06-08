@@ -15,20 +15,24 @@
 		position: relative;
 		margin-bottom: 15px;
 		text-align: center;
-		top: 100px;
+		top: 60px;
+	}
+	#accountcate {
+		background-color: cornflowerblue;
+	}
+	.hidden {
+		display:none;
 	}
 </style>
 </head>
 <body>
-
-
     <div class="main">	
 	    <%@ include file="/WEB-INF/views/inc/adSidemenu.jsp" %>
 	    <div class="content-box">
 	        <div id="inner-box">
 	            <div class="semititle">
 	                <div class="selected_menu">
-	                    <span id="selected_menu_text" style="font-size: 19px; padding-top:4px;">아이디/비밀번호 찾기</span>
+	                    <span id="selected_menu_text" style="font-size: 19px; padding-top:4px;">계정 관리</span>
 	                </div><!-- selected_menu -->
 	            </div><!-- semi_title -->
 	            <div class="main-box">
@@ -41,74 +45,115 @@
 						<small>검색</small>
 						</c:if>
 						
-						<%-- 
-						<span id="pagebar" style="float: right;margin-top:-5px;">
-							<input type="number" id="page" class="short" min="1" max="${totalPage}" value="${nowPage}">
-							<input type="button" value="이동" onclick="location.href='/toy/board/board.do?page=' + $('#page').val() + '&column=${map.column}&word=${map.word}';">
-						</span> 
-						--%>
-						
-						
-						
-						<span id="pagebar" style="float: right;">
-							<select onchange="location.href='/neulbom/admin/account/manage.do?page=' + $(this).val() + '&column=${map.column}&word=${map.word}';">
-								<c:forEach var="i" begin="1" end="${totalPage}">
-								<option value="${i}" <c:if test="${i == nowPage}">selected</c:if>>${i}페이지</option>
-								</c:forEach>
-							</select>
-						</span>
 						
 					</h1>
-					
-					<div>
-					<table id="list" class="table">
-						<tr>
-							<th>번호</th>
-							<th>이름</th>
-							<th>아이디</th>
-							<th>비밀번호</th>
-						</tr>
-						<c:if test="${list.size() == 0}">
-						<tr>
-							<td colspan="5">게시물이 없습니다.</td>
-						</tr>	
-						</c:if>
-						<c:forEach items="${list}" var="dto">
-						<tr>
-							<th>
-								${dto.admin_seq}
-							</th>
-							<th>
-								${dto.name}
-							</th>
-							<th>${dto.id}</th>
-							<th>${dto.pw}</th>
-						</tr>
-						</c:forEach>
-					</table>
+					<button id="showAdminList">관리자 목록</button>
+  					<button id="showResidentList">입주자 목록</button>
+					<div id="alist">
+						<table id="list" class="table" style="text-align:center;">
+							<tr>
+								<th style="width: 15%;">번호</th>
+								<th style="width: 20%;">이름</th>
+								<th style="width: 25%;">아이디</th>
+								<th style="width: 25%;">비밀번호</th>
+								<th style="width: auto;">삭제</th>
+							</tr>
+							<c:if test="${alist.size() == 0}">
+							<tr>
+								<td colspan="5">게시물이 없습니다.</td>
+							</tr>	
+							</c:if>
+							<c:forEach items="${alist}" var="adto">
+							<tr>
+								<td>
+									${adto.admin_seq}
+								</td>
+								<td>
+									${adto.name}
+								</td>
+								<td>${adto.id}</td>
+								<td>${adto.pw}</td>
+								<td style="display:flex; justify-content: center;">
+									<div class="delete movable" style="text-align: center;" onclick="location.href='/neulbom/admin/account/deladmin.do?admin_seq=${adto.admin_seq}';">
+										<span id="delete_txt">삭제</span>
+									</div>		
+								</td>
+							</tr>
+							</c:forEach>
+						</table>
+						<form id="searchForm" action="/neulbom/admin/account/manage.do" method="GET">
+							<select name="column">
+								<option value="name">이름</option>
+							</select>
+							<input type="text" name="word" class="long" required>
+							<input type="submit" value="검색하기">
+						</form>
 					</div>
-					
-					
+					<div id="rlist" class="hidden">
+						<table id="list" class="table" style="text-align:center;">
+							<tr>
+								<th style="width: 15%;">번호</th>
+								<th style="width: 20%;">이름</th>
+								<th style="width: 25%;">아이디</th>
+								<th style="width: 25%;">비밀번호</th>
+								<th style="width: auto;">삭제</th>
+							</tr>
+							<c:if test="${rlist.size() == 0}">
+							<tr>
+								<td colspan="5">게시물이 없습니다.</td>
+							</tr>	
+							</c:if>
+							<c:forEach items="${rlist}" var="rdto">
+							<tr>
+								<td>
+									${rdto.resi_seq}
+								</td>
+								<td>
+									${rdto.name}
+								</td>
+								<td>${rdto.id}</td>
+								<td>${rdto.pw}</td>
+								<td style="display:flex; justify-content: center;"> 
+									<div class="delete movable" style="text-align: center;">
+										<span id="delete_txt" onclick="location.href='/neulbom/admin/account/delresi.do?resi_seq=${rdto.resi_seq}';">삭제</span>
+									</div>		
+								</td>
+							</tr>
+							</c:forEach>
+						</table>
+						<form id="searchForm" action="/neulbom/admin/account/manage.do" method="GET">
+							<select name="column">
+								<option value="name" id="rname">이름</option>
+							</select>
+							<input type="text" name="word" class="long" required>
+							<input type="submit" value="검색하기">
+						</form>
+					</div>
+				</div>
 					<!-- <form method="GET"> 사용 사례 -->
-					<form id="searchForm" action="/neulbom/admin/account/manage.do" method="GET">
-						<select name="column">
-							<option value="name">이름</option>
-							<option value="subject">아이디</option>
-						</select>
-						<input type="text" name="word" class="long" required>
-						<input type="submit" value="검색하기">
-					</form>
 		
 	            </div><!-- main-box -->
 	        </div><!-- inner-box -->
 	    </div><!-- content-box -->
-	</div>
 
 <!-- JavaScript Bundle with Popper -->
 <script src="/asset/js/bootstrap.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-
+	$(document).ready(function() {
+	    // 관리자 목록 보여주는 버튼 클릭 시
+	    $("#showAdminList").click(function() {
+	      $("#alist").removeClass("hidden"); // 관리자 목록 표시
+	      $("#rlist").addClass("hidden"); // 입주자 목록 감춤
+	    });
+	
+	    // 입주자 목록 보여주는 버튼 클릭 시
+	    $("#showResidentList").click(function() {
+	      $("#alist").addClass("hidden"); // 관리자 목록 감춤
+	      $("#rlist").removeClass("hidden"); // 입주자 목록 표시
+	    });
+	
+	});
 </script>
 </body>
 </html>

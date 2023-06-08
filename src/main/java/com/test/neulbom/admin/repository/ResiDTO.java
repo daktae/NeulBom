@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ResiDTO {
+	private String resi_seq;
 	private String id;
 	private String pw;
 	private String name;
