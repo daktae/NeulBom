@@ -5,6 +5,7 @@
        <div class="container" style="margin-right:0px; margin-left:0px; max-width:100%; padding-right:100px; padding-left:50px; margin-bottom: 20px; border-bottom: 1px solid #A6AEB7; padding-bottom:20px;">
         <div class="userinfo_wj">
             <div class="userinfo_item">
+<<<<<<< HEAD
                <c:if test="${sessionScope.id == null}">
                       <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/account/login.do'" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px;">로그인</button>
                       <button type="button" class="btn btn-secondary btn-sm btn-light" style="width:100px; height:40px; font-size: 20px;" onclick="location.href='/neulbom/client/register/register.do'">회원가입</button>
@@ -14,6 +15,11 @@
                       <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/account/logout.do'" class="btn btn-secondary btn-sm btn-light" style="width:100px; height:40px; font-size: 20px;">로그아웃</button>
                    </c:if>
                
+=======
+                <button type="button" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px;" onclick="location.href='/neulbom/client/account/login.do';">로그인</button>
+                ${id }
+               <button type="button" class="btn btn-secondary btn-sm btn-light" style="width:100px; height:40px; font-size: 20px;" onclick="location.href='/neulbom/client/register/register.do'">회원가입</button>
+>>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb
             </div>
         </div>
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 
@@ -61,7 +67,11 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/neulbom/client/board/resiconsult.do">입주상담게시판</a></li>
                         <li><a class="dropdown-item" href="#">문의게시판</a></li>
+<<<<<<< HEAD
                         <li><a class="dropdown-item" href="#">자유게시판</a></li>
+=======
+                        <li><a class="dropdown-item" href="/neulbom/client/community/free.do">자유게시판</a></li>
+>>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb
                     </ul>
                 </li>
                
@@ -69,4 +79,8 @@
             </ul>
         </header>
     </div>
+<<<<<<< HEAD
    </header>
+=======
+   </header>
+>>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb

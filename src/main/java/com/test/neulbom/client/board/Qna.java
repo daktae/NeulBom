@@ -1,8 +1,11 @@
 package com.test.neulbom.client.board;
 
 import java.io.IOException;
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
+=======
+>>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,10 +13,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
 
 import com.test.neulbom.client.repository.QnaDAO;
 import com.test.neulbom.client.repository.QnaDTO;
+=======
+>>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb
 
 @WebServlet("/client/board/qna.do")
 public class Qna extends HttpServlet {
@@ -21,6 +27,7 @@ public class Qna extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+<<<<<<< HEAD
 		// Qna.java
 
 		HttpSession session = req.getSession();
@@ -149,10 +156,16 @@ public class Qna extends HttpServlet {
 		req.setAttribute("nowPage", nowPage);
 		req.setAttribute("list", list);
 		req.setAttribute("pagination", sb);
+=======
+		//Qna.java
+>>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/board/qna.jsp");
 		dispatcher.forward(req, resp);
 	}
 
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb
 }

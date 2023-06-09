@@ -76,12 +76,20 @@ html,
   
         <!-- Email input -->
         <div class="form-outline mb-4">
+<<<<<<< HEAD
           <input type="text" id="id" name="resiId" class="form-control" place-holder="아이디" value="41ciyi72f001"/>
+=======
+          <input type="text" id="id" name="resiId" class="form-control" placeholder="아이디" value="124afs2"/>
+>>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb
         </div>
   
         <!-- Password input -->
         <div class="form-outline mb-4">
+<<<<<<< HEAD
           <input type="password" id="pw" name="resiPw" class="form-control" place-holder="비밀번호" value="rzeu7i29"/>
+=======
+          <input type="password" id="pw" name="resiPw" class="form-control" placeholder="비밀번호" value="zxc123!"/>
+>>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb
           <!-- <label class="form-label" for="loginPassword">비밀번호</label> -->
         </div>
   

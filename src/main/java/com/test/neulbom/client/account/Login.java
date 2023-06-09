@@ -72,9 +72,15 @@ public class Login extends HttpServlet {
 				req.getSession().setAttribute("id", resiId); //인증 티켓 발급
 				req.getSession().setAttribute("lv", result.getLv()); //레벨
 				req.getSession().setAttribute("name", result.getName()); //이름
+<<<<<<< HEAD
 				req.getSession().setAttribute("resi_seq", result.getResi_seq()); //번호
 				
 				resp.sendRedirect("/neulbom/client/board/qna.do");
+=======
+				req.getSession().setAttribute("resi_seq", result.getResi_seq()); //입주자 seq
+				
+				resp.sendRedirect("/neulbom/client/community/free.do");
+>>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb
 				return;
 				
 			} else {
@@ -87,16 +93,26 @@ public class Login extends HttpServlet {
 			}
 		} else if (resiId == null && adminId == null) {
 			ProtectDTO result = dao.login(pdto);
+<<<<<<< HEAD
 						
+=======
+						System.out.println(result);
+>>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb
 			if (result != null) {
 				
 				//로그인 성공
 				req.getSession().setAttribute("id", protectId); //인증 티켓 발급
 				req.getSession().setAttribute("lv", result.getLv()); //레벨
 				req.getSession().setAttribute("name", result.getName()); //이름
+<<<<<<< HEAD
 				req.getSession().setAttribute("protect_seq", result.getProtect_seq()); //번호
 				
 				resp.sendRedirect("/neulbom/client/board/qna.do");
+=======
+				req.getSession().setAttribute("protect_seq", result.getProtect_seq()); //보호자 seq
+				
+				resp.sendRedirect("/neulbom/client/community/free.do");
+>>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb
 				return;
 				
 			} else {
@@ -116,9 +132,15 @@ public class Login extends HttpServlet {
 				req.getSession().setAttribute("id", adminId); //인증 티켓 발급
 				req.getSession().setAttribute("lv", result.getLv()); //레벨
 				req.getSession().setAttribute("name", result.getName()); //이름
+<<<<<<< HEAD
 				req.getSession().setAttribute("admin_seq", result.getAdmin_seq()); //번호
 				
 				resp.sendRedirect("/neulbom/client/board/qna.do");
+=======
+				req.getSession().setAttribute("Admin_seq", result.getAdmin_seq()); //관리자 seq
+				
+				resp.sendRedirect("/neulbom/client/community/free.do");
+>>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb
 				return;
 				
 			} else {
@@ -132,9 +154,12 @@ public class Login extends HttpServlet {
 		}
 		
 		
+<<<<<<< HEAD
 
 		resp.sendRedirect("/neulbom/client/board/qna.do");
 		
+=======
+>>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb
 //		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/account/login.jsp");
 //		dispatcher.forward(req, resp);
 	}
