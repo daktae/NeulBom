@@ -51,38 +51,6 @@ public class FoodDAO {
 		
 		return null;
 	}
-
-	public List<FoodDTO> search(String searchType, String keyword) {
-		try {
-
-			String sql = String.format("SELECT * FROM tblfood where %s like '%%%s%%' ORDER BY food_date DESC", searchType, keyword);
-
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-
-			List<FoodDTO> list = new ArrayList<FoodDTO>();
-
-			while (rs.next()) {
-
-				FoodDTO dto = new FoodDTO();
-				
-				dto.setFood_seq(rs.getString("food_seq"));
-				dto.setFood_date(rs.getString("food_date"));
-				dto.setContent(rs.getString("content"));
-				dto.setRead(rs.getString("read"));
-				dto.setTitle(rs.getString("title"));
-
-				list.add(dto);
-			}
-
-			return list;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
 	
 
 	

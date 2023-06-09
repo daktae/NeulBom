@@ -65,40 +65,4 @@ public class Notice_DetailDAO {
 	    }
 	}
 
-	
-	
-	 public List<NoticeDTO> searchByTitle(String keyword) {
-	        List<NoticeDTO> resultList = new ArrayList<>();
-
-	        try {
-	            String sql = "SELECT * FROM tblnotice WHERE title LIKE ?";
-	            pstat = conn.prepareStatement(sql);
-	            pstat.setString(1, "%" + keyword + "%");
-	            rs = pstat.executeQuery();
-
-	            while (rs.next()) {
-	            	NoticeDTO dto = new NoticeDTO();
-	                dto.setTitle(rs.getString("title"));
-	                dto.setContent(rs.getString("notice_date"));
-	                // 필요한 속성들을 설정
-	                resultList.add(dto);
-	            }
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        } finally {
-	            close();
-	        }
-
-	        return resultList;
-	    }
-
-	    private void close() {
-	        try {
-	            if (rs != null) rs.close();
-	            if (pstat != null) pstat.close();
-	            if (conn != null) conn.close();
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    }
 }

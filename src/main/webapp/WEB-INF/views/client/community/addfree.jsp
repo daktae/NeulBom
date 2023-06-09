@@ -70,7 +70,7 @@
         resize: none;
     }
 
-    #file {
+    #pic {
         width: 97%;
         height: 50px;
         border: 1px solid #c7c8c9;
@@ -143,22 +143,11 @@
 <body>
 	<!-- free.jsp 자유게시판 -->
 	
-<%@ include file="/WEB-INF/views/inc/headerclient.jsp" %>
+<%@ include file="/asset/css/headerclient.jsp" %>
     
     <div class="introducetitle">커뮤니티</div>
-    
-    <div class="mainmenu text-center">
-        <span class="sidebar" >
-            <div class="bg-light border-right">
-                <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action active" style="background-color: #043886;">커뮤니티</a>
-                    <a href="#" class="list-group-item list-group-item-action">입주상담 게시판</a>
-                    <a href="#" class="list-group-item list-group-item-action">문의게시판</a>
-                    <a href="#" class="list-group-item list-group-item-action" onclick="location.href='/neulbom/client/community/free.do';">자유게시판</a>
-                </div>
-            </div>
-        </span>
 
+    <div class="mainmenu text-center">
 
         <div id="deepmenu">
             <nav class="navbar bg-light">
@@ -175,7 +164,7 @@
             
             <hr>
            
-            <form method="POST" enctype="multipart/form-data" action="">
+            <form method="POST" action="/client/community/addfree.do">
 
                 <table id="table">
                     <tr>
@@ -184,7 +173,7 @@
                     </tr>
                     <tr>
                         <th class="th">내용</th>
-                        <td class="td"><textarea name="content" id="content" required class="full"" placeholder="내용을 입력하세요." maxlength="900"></textarea></td>
+                        <td class="td"><textarea name="content" id="content" required class="full"" placeholder="내용을 입력하세요." maxlength="900"></textarea>
                     </tr>
                     <tr>
                         <th class="th">첨부파일</th>
@@ -193,14 +182,19 @@
                     </table>
                     
                     
+                    <div class="btn1">
+                    <input type="submit" name="write" id="write" value="글쓰기"> 
+                    <input type="button" name="cancle" id="cancle" value="취소하기" onclick="location.href='/client/community/free.do';"> 
+                    </div>
+                    
                     <input type="hidden" name="mode" value=${mode }>
                     <input type="hidden" name="thread" value=${thread }>
                     <input type="hidden" name="depth" value=${depth }>
                     
-                    <div class="btn1">
-                    <input type="submit" name="writefree" id="writefree" value="글쓰기" onclick="writefree()"> 
-                    <input type="button" name="canclefree" id="canclefree" value="취소하기" onclick="history.back();"> 
-                    </div>
+                    
+                    <input type="hidden" name="mode" value="${mode }">
+					<input type="hidden" name="thread" value="${thread }">
+					<input type="hidden" name="depth" value="${depth }">
                     
             </form>
 
@@ -218,35 +212,11 @@
 
 
     
-<%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>  
+<%@ include file="/asset/css/footerclient.jsp" %>    
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-
-function writefree() {
-	
-	var f = document.getElementById('writefree');
-	
-	if (!f.title.value) {
-		alert("제목을 입력하세요");
-		f.title.focus();
-		return;
-	}
-	
-	if (!f.content.value) {
-		alert("내용을 입력하세요");
-		f.content.focus();
-		return;
-	}  
-		
-	f.action = "<%=request.getContextPath()%>/client/account/viewfree.do";
-	f.submit();
-	
-	var free_seq = ${dto.free_seq};	//free_seq에 글 번호 저장
-	var url = "/neulbom/client/account/viewfree.do?viewfree_seq=" + free_seq;
-	location.href = url;
-}
 
 </script>
 

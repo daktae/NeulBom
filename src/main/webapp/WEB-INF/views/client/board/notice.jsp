@@ -28,10 +28,8 @@
 						style="background-color: #043886;">알림 게시판</a> <a
 						href="/neulbom/client/board/notice.do"
 						class="list-group-item list-group-item-action">공지사항</a> <a
-						href="/neulbom/client/board/food.do"
-						class="list-group-item list-group-item-action">식단표</a> <a
-						href="/neulbom/client/board/life.do"
-						class="list-group-item list-group-item-action">생활</a>
+						href="/neulbom/client/board/food.do" class="list-group-item list-group-item-action">식단표</a> <a
+						href="#" class="list-group-item list-group-item-action">생활</a>
 				</div>
 			</div>
 		</span>
@@ -51,20 +49,38 @@
 			<hr>
 			<div
 				style="display: flex; justify-content: end; margin-bottom: 15px;">
-				<form class="d-flex" role="search" style="max-width: 50%;"
-					action="/neulbom/client/board/notice.do">
+				<!-- <form class="d-flex" role="search" style="max-width: 50%;">
 					<select class="form-select" aria-label="Default select example"
-						style="margin-right: 10px;" name="searchType">
-						<option value="title"
-							<c:if test="${searchType == 'title'}">selected</c:if>>제목</option>
-						<option value="content"
-							<c:if test="${searchType == 'content'}">selected</c:if>>내용</option>
+						style="margin-right: 10px;">
+						<option selected>제목</option>
+						<option value="1">작성자</option>
+						<option value="2">날짜</option>
 					</select> <input class="form-control_wj" type="search" placeholder="Search"
-						aria-label="Search" name="keyword" value="${keyword}">
+						aria-label="Search">
+					<button class="btn btn-light" type="submit"
+						style="width: 74px !important; height: 38px !important; white-space: nowrap;">검색</button>
+				</form> -->
+				<form class="d-flex" role="search" style="max-width: 50%;"
+					action="/neulbom/client/board/search_notice.do" method="GET">
+					<select class="form-select" aria-label="Default select example"
+						name="searchType" style="margin-right: 10px;">
+						<option value="title" selected>제목</option>
+						<option value="date">날짜</option>
+					</select> <input class="form-control_wj" type="search" name="keyword"
+						placeholder="Search" aria-label="Search">
 					<button class="btn btn-light" type="submit"
 						style="width: 74px !important; height: 38px !important; white-space: nowrap;">검색</button>
 				</form>
-
+<%-- 				<c:forEach items="${searchResult}" var="dto">
+					<tr
+						onclick="location.href='/neulbom/client/board/notice_detail.do?notice_seq=${dto.notice_seq }';">
+						<td>${dto.notice_seq }</td>
+						<td>${dto.title}</td>
+						<td>${dto.content}</td>
+						<td>${dto.notice_date}</td>
+						<td>${dto.read}</td>
+					</tr>
+				</c:forEach> --%>
 
 
 			</div>
@@ -73,6 +89,7 @@
 				<thead>
 					<tr>
 						<th>번호</th>
+						<!-- <th style="text-align: left;">제목</th> -->
 						<th>제목</th>
 						<th>내용</th>
 						<th>날짜</th>
@@ -80,7 +97,18 @@
 					</tr>
 				</thead>
 				<tbody>
-
+					<%-- <c:forEach items="${list}" var="dto">
+						<tr onclick="location.href='/neulbom/client/board/notice_detail.do?notice_seq=${dto.notice_seq }';">
+							<td>${dto.notice_seq }</td>
+							<td>${dto.title}</td>
+							<td><c:choose>
+									<c:when test="${fn:length(dto.content) <= 50}">${dto.content}</c:when>
+									<c:otherwise>${fn:substring(dto.content, 0, 50)}...</c:otherwise>
+								</c:choose></td>
+							<td>${fn:substring(dto.notice_date.toString(), 0, 10)}</td>
+							<td>${dto.read}</td>
+						</tr>
+					</c:forEach> --%>
 					<c:forEach items="${list}" var="dto" varStatus="status">
 						<tr
 							onclick="location.href='/neulbom/client/board/notice_detail.do?notice_seq=${dto.notice_seq }';">
@@ -106,11 +134,9 @@
 			<li class="page-item"><a class="page-link" href="#"
 				aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 			</a></li>
-			<c:forEach begin="1" end="${totalPage}" var="pageNumber">
-				<li class="page-item"><a class="page-link"
-					href="<%=request.getContextPath() %>/client/board/notice.do?page=${pageNumber}">${pageNumber}</a>
-				</li>
-			</c:forEach>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+			<li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item"><a class="page-link" href="#">3</a></li>
 			<li class="page-item"><a class="page-link" href="#"
 				aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 			</a></li>

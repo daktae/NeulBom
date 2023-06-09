@@ -31,7 +31,7 @@
                     <a href="#" class="list-group-item list-group-item-action active" style="background-color: #043886;">알림게시판</a>
                     <a href="/neulbom/client/board/notice.do" class="list-group-item list-group-item-action">공지사항</a>
                     <a href="/neulbom/client/board/food.do" class="list-group-item list-group-item-action">식단표</a>
-                    <a href="/neulbom/client/board/life.do" class="list-group-item list-group-item-action">생활</a>
+                    <a href="#" class="list-group-item list-group-item-action">생활</a>
                 </div>
             </div>
         </span>

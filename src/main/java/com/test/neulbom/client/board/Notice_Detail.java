@@ -34,19 +34,20 @@ public class Notice_Detail extends HttpServlet {
 
 		Notice_DetailDTO dto = dao.get(notice_seq);
 		
-		 
-		 
-		 String content = dto.getContent();
-
-			// HTML 태그 이스케이프
-			content = content.replace("<", "&lt;").replace(">", "&gt;");
-
-			// 글 내용 개행 문자 처리
-			content = content.replace("\r", "<br><br>");
-			content = content.replace("\r\n", "<br>");
-			
-			dto.setContent(content);
-			req.setAttribute("dto", dto);
+		//개행문자
+		String content = dto.getContent();
+		
+		//HTML 태그 이스케이프
+		//얘를 먼저해야 내용상의 br태그를 어쩌구 먼저 처리?
+		//이거 안해놓으면 태그를 읽음?
+		content = content.replace("<", "&lt")
+						.replace(">","&gt");
+		
+		
+		//글 내용 개행문자 처리
+		content = content.replace("/r/n", "<br>");
+	
+		dto.setContent(content);
 		
 	
 		

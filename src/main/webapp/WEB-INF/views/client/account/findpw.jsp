@@ -91,7 +91,7 @@
 <body>
 	<!-- findpw.jsp 비밀번호 찾음 -->
 	
-<%@ include file="/WEB-INF/views/inc/headerclient.jsp" %>
+	<%@ include file="/asset/css/headerclient.jsp" %>
 	
 	<form method="POST" action="">
 	
@@ -108,12 +108,12 @@
     </table>
 
     <div id="btn">
-		<input type="button" value="로그인" class="btn" id="search" onclick="location.href='/neulbom/client/account/login.do';"> 
-        <input type="button" value="다시찾기" class="btn" id="return" onclick="location.href='/neulbom/client/account/searchid.do';">    
+		<input type="button" value="로그인" class="btn" id="search" onclick="location.href='/client/account/login.do';"> 
+        <input type="button" value="다시찾기" class="btn" id="return" onclick="location.href='/client/account/searchid.do';">    
     </div>
  </form>
  
-<%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>   
+  <%@ include file="/asset/css/footerclient.jsp" %>    
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
