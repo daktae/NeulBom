@@ -37,6 +37,8 @@ a{
             </div>
         </span>
 
+		<div>
+		</div>
         
 
         <div id="deepmenu">
@@ -47,61 +49,21 @@ a{
                         <span class="material-symbols-outlined">
 help
 </span>
-                        > 입주상담게시판 > 입주 문의글
+                        > 입주상담게시판 > 입주 문의글 > 내 문의글
                     </div>
                 </div>
             </nav>
             <hr>
-            <div style="display: flex; justify-content: end; margin-bottom: 15px;">
-                <form class="d-flex" role="search" style="max-width: 50%;">
-                    <select class="form-select" aria-label="Default select example" style="margin-right: 10px;" >
-                            <option value="title">제목</option>
-  <option value="author">작성자</option>
-  <option value="date">날짜</option>
-                    </select>
-        
-                    <input class="form-control_wj" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-light" type="submit"
-                        style="width:74px !important; height:38px !important;white-space:nowrap;">검색</button>
-                </form>
-            </div>
 
-            <hr>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th style="text-align: left;">제목</th>
-                        <th>작성자</th>
-                        <th>날짜</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="dto" items="${list}">
-                    <tr>
-  <td>${dto.con_seq}</td>
-  <td style="text-align: left;"><a href="/neulbom/client/board/detailwj.do?con_seq=${dto.con_seq}">${dto.con_title}</a></td>
-  <td>${dto.nomem_name}</td>
-  <td>${dto.con_date}</td>
-</tr>
-                </c:forEach>    
-                </tbody>
-            </table>
              <div style="display: flex; justify-content: flex-end;">
-<button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 40px; margin-right: 10px; font-size: 20px;" onclick="location.href='/neulbom/client/board/unmem.do'">등록하기</button>
+<button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 40px; margin-right: 10px; font-size: 20px;" onclick="location.href='/neulbom/client/board/unmem.do'">수정하기</button>
+<button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 40px; margin-right: 10px; font-size: 20px;" onclick="location.href='/neulbom/client/board/unmem.do'">삭제하기</button>
 
 </div>
     </div>
         </div>
-        
-   
-   
-
-    <div>
     
-  <div class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
 
-    </div>
 	 
 	<%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
 <script>
