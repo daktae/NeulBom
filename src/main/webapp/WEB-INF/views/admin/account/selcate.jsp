@@ -61,6 +61,7 @@
 		padding-left: 50px;
 		padding-right: 50px;
 		border-radius: 15px;
+		width: 800px;
 		height: 520px;
 		display: flex;
 		justify-content: space-around;
@@ -79,7 +80,7 @@
 	}
 	
 	#selicon1, #selicon2 {
-		width:300px;
+		width:200px;
 	}
 	
 	#iconbox {
@@ -115,7 +116,7 @@
 		            </div>
 		            <div id="iconbox">
 						<img src="/neulbom/asset/image/resident.png" id="selicon2" onclick="location.href='/neulbom/admin/account/resiacc.do';">
-						<div id="icontext">입주자</div>         
+						<div id="icontext">입주자</div>       
 		            </div>
 	       	 	</div>
 	    	</div>
