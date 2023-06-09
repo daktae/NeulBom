@@ -10,6 +10,7 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp"%>
 
 <style>
+
 .select_boards {
 	width: 183px;
 	height: 47px;
@@ -62,11 +63,6 @@
 
 #free_txt {
 	color: #4F4F4F;
-}
-
-.table {
-	position: relative;
-	top: 50px;
 }
 
 .table thead tr th {

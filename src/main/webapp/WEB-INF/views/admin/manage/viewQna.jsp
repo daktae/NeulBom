@@ -87,7 +87,11 @@ td.comment {
 }
 
 #headline {
-	background-color: rgba(39, 174, 96, 0.2);
+	background-color: rgba(39, 166, 174, 0.2);
+}
+
+#headline > span {
+	color: #5888CE;
 }
 
 #rcontent {
@@ -172,7 +176,7 @@ td.comment {
 							</tr>
 
 							<tr>
-								<td colspan="4" id="headline">답글</td>
+								<td colspan="4" id="headline"><span>답글</span></td>
 							</tr>
 							
 							<c:if test="${dto.isReply eq 'y'}">
