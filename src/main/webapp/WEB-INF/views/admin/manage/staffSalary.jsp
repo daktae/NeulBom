@@ -40,6 +40,11 @@
 		font-weight: bold;
 		font-size: 18px;
 	}
+	
+	#paging {
+		position: relative;
+		top: 50px;
+	}
    
    
 </style>
@@ -119,6 +124,10 @@
             </c:forEach>
             </tbody>
             </table>
+            
+            <!-- 페이징 -->
+            <div id="paging" class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
+            
             
 			<c:if test="${map.search == 'y' }">
 				<input class="btn btn-secondary" type="button" id="back" value="돌아가기" onclick="location.href='/neulbom/admin/manage/staffSalary.do';">

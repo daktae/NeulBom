@@ -21,15 +21,21 @@ public class EqDAO {
 	}
 
 	// 비품 신청 내역 조회
-	public List<RegEqDTO> regList() {
+	public List<RegEqDTO> regList(HashMap<String, String> map) {
 		
+		List<RegEqDTO> regList = new ArrayList<RegEqDTO>();
+
 		try {
-			String sql = "select to_char(reg_date, 'yyyy-mm-dd') as reg_date, content, name, quantity, price, admin_seq, isAccept from tblRegEq order by reg_date asc";
+//			String sql = "select to_char(reg_date, 'yyyy-mm-dd') as reg_date, content, name, quantity, price, admin_seq, isAccept from tblRegEq order by reg_date asc";
+			
+	         String sql = String.format("select * from (select rownum as rnum, a.* from (select to_char(reg_date, 'yyyy-mm-dd') as reg_date, content, name, quantity, price, admin_seq, isAccept from tblRegEq order by reg_date asc) a) where rnum between %s and %s"
+                     , map.get("begin")
+                     , map.get("end")
+                     );
 			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 			
-			List<RegEqDTO> regList = new ArrayList<RegEqDTO>();
 			
 			while (rs.next()) {
 				RegEqDTO regEqDto = new RegEqDTO();
@@ -53,7 +59,7 @@ public class EqDAO {
 		
 		
 		
-		return null;
+		return regList;
 	}
 
 	// 등록된 비품 목록 조회
@@ -206,6 +212,8 @@ public class EqDAO {
 
 	public List<EqDTO> getEqList(HashMap<String, String> map) {
 		
+		List<EqDTO> eqList = new ArrayList<EqDTO>();
+		
 		try {
 			
 			String where = "";
@@ -214,14 +222,19 @@ public class EqDAO {
                 where = String.format("where name like '%%%s%%'"
                                      , map.get("word"));
              }
+//            
+//            String sql = String.format("select * from tblEq %s order by eq_seq asc"
+//            							, where);
             
-            String sql = String.format("select * from tblEq %s order by eq_seq asc"
-            							, where);
+            String sql = String.format("select * from (select rownum as rnum, a.* from (select * from tblEq %s order by eq_seq asc) a) where rnum between %s and %s"
+                    , where
+            		, map.get("begin")
+                    , map.get("end")
+                    );
             
             stat = conn.createStatement();
             rs = stat.executeQuery(sql);
             
-            List<EqDTO> eqList = new ArrayList<EqDTO>();
             
             while (rs.next()) {
             	EqDTO eqDto = new EqDTO();
@@ -244,10 +257,37 @@ public class EqDAO {
 		
 		
 		
-		return null;
+		return eqList;
 	}
 	
 	
+	//DAO > getTotalCount 메소드
+	//자기 게시물에 맞게 수정
+	public int getTotalCount(HashMap<String, String> map, int size) {
+		
+		try {
+			
+
+			String sql = "select count(*) as cnt from tblEq";
+
+			pstat = conn.prepareStatement(sql);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+				
+				System.out.println("지금 한 페이지에 출력되는 게시물 수: " + size);
+				System.out.println("전체 게시물 수: " + rs.getInt("cnt"));
+				
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
 	
 	
 }

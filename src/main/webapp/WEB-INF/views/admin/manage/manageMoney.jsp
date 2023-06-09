@@ -27,9 +27,14 @@
                 </div><!-- selected_menu -->
             </div><!-- semi_title -->
             <div class="main-box">
-				  <div class="container">
-   					 <canvas id="myChart"></canvas>
-  					</div>
+			<div style="width: 300px; height: 300px;">
+				<canvas id="myChartPie"></canvas>
+			</div>
+			<div style="width: 800px; height: 500px;">
+				<!--차트가 그려질 부분-->
+				<canvas id="myChart"></canvas>
+			</div>
+					
             </div><!-- main-box -->
         </div><!-- inner-box -->
     </div><!-- content-box -->
@@ -37,47 +42,132 @@
 
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-	var ctx = document.getElementById('myChart');
-	
-	const colors = ['red','yellow','blue','#c3e6cb','#dc3545','#6c757d'];
-	var chBar = document.getElementById("myChart");
-	  var chartData = {
-	    labels: ["S", "M", "T", "W", "T", "F", "S"],
-	    datasets: [{
-	    data: [589, 445, 483, 503, 689, 692, 634],
-	    backgroundColor: colors[0]
-	    },
-	    {
-	      data: [209, 245, 383, 403, 589, 692, 580],
-	      backgroundColor: colors[1]
-	    },
-	    {
-	      data: [489, 135, 483, 290, 189, 603, 600],
-	      backgroundColor: colors[2]
-	    },
-	    {
-	      data: [639, 465, 493, 478, 589, 632, 674],
-	      backgroundColor: colors[4]
-	    }]
-	  };
-	  var myChart = new Chart(chBar, {
-	    // 챠트 종류를 선택
-	    type: 'bar',
 
-	    // 챠트를 그릴 데이타
-	    data: chartData,
-
-	    // 옵션
-	    options: {
-	      legend: {
-	        display: false
-	      }
-	    }
-	  });
+	var context = document
+	.getElementById('myChartPie')
+	.getContext('2d');
+	var myChartPie = new Chart(context, {
+	type: 'pie', // 차트의 형태
+	data: { // 차트에 들어갈 데이터
+	    labels: [
+	        //x 축
+	        '실버타운', '요양원'
+	    ],
+	    datasets: [
+	        { //데이터
+	            label: '입주자 현황', //차트 제목
+	            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+	            data: [
+	              	${silverCount}, ${centerCount}
+	            ],
+	            backgroundColor: [
+	                //색상
+	/*                       'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)', */
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)'
+	            ],
+	            borderColor: [
+	                //경계선 색상
+	/*                       'rgba(255, 99, 132, 1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)', */
+	                'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)'
+	            ],
+	            borderWidth: 1 //경계선 굵기
+	        }/* ,
+	        {
+	            label: 'test2',
+	            fill: false,
+	            data: [
+	                8, 34, 12, 24
+	            ],
+	            backgroundColor: 'rgb(157, 109, 12)',
+	            borderColor: 'rgb(157, 109, 12)'
+	        } */
+	    ]
+	},
+	options: {
+		    plugins: {
+		        title: {
+		          display: true,
+		          text: '입주자 비율',
+		          fullSize: true,
+		          position: 'bottom',
+		          
+		          font: {
+		        	  size: 20
+		          }
+		        }
 	
+		      }  
+		  
+	}
+	});
+
+	var context = document
+      .getElementById('myChart')
+      .getContext('2d');
+  	
+	var myChart = new Chart(context, {
+      type: 'bar', // 차트의 형태
+      data: { // 차트에 들어갈 데이터
+          labels: [
+              //x 축
+              '1','2','3','4','5','6','7'
+          ],
+          datasets: [
+              { //데이터
+                  label: 'test1', //차트 제목
+                  fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+                  data: [
+                      21,19,25,20,23,26,25 //x축 label에 대응되는 데이터 값
+                  ],
+                  backgroundColor: [
+                      //색상
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)'
+                  ],
+                  borderColor: [
+                      //경계선 색상
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                  ],
+                  borderWidth: 1 //경계선 굵기
+              }
+          ]
+      },
+      options: {
+          scales: {
+              yAxes: [
+                  {
+                      ticks: {
+                          beginAtZero: true
+                      }
+                  }
+              ]
+          }
+      }
+  });
+	  
+
+	  
 </script>
 </body>
 </html>

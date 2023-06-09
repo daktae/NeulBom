@@ -154,6 +154,8 @@ public class ProgramDAO {
 	// 프로그램 목록보기 & 검색
 	public List<ProgramDTO> getProgList(HashMap<String, String> map) {
 		
+		List<ProgramDTO> progList = new ArrayList<ProgramDTO>();
+
 		try {
 		
 			String where = "";
@@ -165,13 +167,14 @@ public class ProgramDAO {
              }
 			
 			
-			String sql = String.format("select prog_seq, title, to_char(prog_date, 'yyyy-mm-dd') as prog_date, content, place, people from tblProgram %s order by prog_seq asc, prog_date asc"
-									, where);
+			String sql = String.format("select * from (select rownum as rnum, a.* from  (select prog_seq, title, to_char(prog_date, 'yyyy-mm-dd') as prog_date, content, place, people from tblProgram %s order by prog_seq asc, prog_date asc) a) where rnum between %s and %s"
+									, where
+									, map.get("begin")
+									, map.get("end"));
 			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 			
-			List<ProgramDTO> progList = new ArrayList<ProgramDTO>();
 			
 			while (rs.next()) {
 				ProgramDTO progDto = new ProgramDTO();
@@ -191,11 +194,34 @@ public class ProgramDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return progList;
 	}
 
 
+	//DAO > getTotalCount 메소드
+	//자기 게시물에 맞게 수정
+	public int getTotalCount(HashMap<String, String> map) {
+		
+		try {
 
+			String sql = "select count(*) as cnt from tblProgram";
+
+			pstat = conn.prepareStatement(sql);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
 
 
 }

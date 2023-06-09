@@ -73,6 +73,11 @@
 		font-weight: bold;
 		font-size: 18px;
 	}
+	
+	#paging {
+		position: relative;
+		top: 50px;
+	}
    
 	
 </style>
@@ -150,6 +155,12 @@
 				</c:forEach>
 				</tbody>
 				</table>
+		
+		<!-- 페이징 -->
+		<c:if test="${eqList.size() != 0 }">
+		<div id="paging" class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
+		</c:if>
+		
 					<!-- Modal -->
 <div class="modal fade" id="delEquipModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
