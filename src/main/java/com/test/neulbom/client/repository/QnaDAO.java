@@ -22,7 +22,7 @@ public class QnaDAO {
 		this.conn = DBUtil3.open();
 	}
 	
-	//페이징 안했을 때 다불러오기
+	//페이징 안했을 때 다불러오기 완료
 	public List<QnaDTO> list() {
 		try {
 			
