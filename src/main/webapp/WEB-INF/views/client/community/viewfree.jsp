@@ -230,7 +230,7 @@
             
             <c:if test="${not empty id && (id == dto.id)}">
             <div>
-			<button type="button" class="btn del" onclick="delfree()">삭제하기</button>
+			<button type="button" class="btn del" onclick="delfree();">삭제하기</button>
            	<button type="button" class="btn edit" onclick="location.href='/neulbom/client/community/editfree.do?free_seq=${dto.free_seq}';">수정하기</button>
         	</div>
         	</c:if>
