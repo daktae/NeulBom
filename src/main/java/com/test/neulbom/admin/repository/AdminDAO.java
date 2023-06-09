@@ -201,8 +201,10 @@ public class AdminDAO {
                               , map.get("word"));
          }
 
-         String sql = String.format("select * from (select a.*, rownum as rnum from vwAdmin a %s)"
+         String sql = String.format("select * from (select a.*, rownum as rnum from vwAdmin a %s order by admin_seq asc) where rnum between %s and %s"
                               , where
+                              , map.get("begin")
+                              , map.get("end")
                               );
 
          stat = conn.createStatement();
@@ -218,6 +220,7 @@ public class AdminDAO {
             dto.setName(rs.getString("name"));
             dto.setId(rs.getString("id"));
             dto.setPw(rs.getString("pw"));
+            dto.setLv(rs.getString("lv"));
 
             list.add(dto);
          }
@@ -232,45 +235,34 @@ public class AdminDAO {
       
    }
    public int getTotalCount(HashMap<String, String> map) {
-
+       
        try {
 
-            String where = "";
+          String where ="";
+          
+          
+          if (map.get("search").equals("y")) {
+             where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word") );
+          }
+          
 
-            if (map.get("search").equals("y")) {
-               where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word"));
-            }
+          String sql = String.format("select count(*) as cnt from tblAdmin %s", where);
 
-            String sql = String.format("select count(*) as cnt from vwAdmin %s", where);
+          pstat = conn.prepareStatement(sql);
 
-            pstat = conn.prepareStatement(sql);
-            rs = pstat.executeQuery();
+          rs = pstat.executeQuery();
 
-            if (rs.next()) {
-               return rs.getInt("cnt");
-            }
+          if (rs.next()) {
 
-         } catch (Exception e) {
-            e.printStackTrace();
-         }
-         return 0;
-   }
-   public int del(String admin_seq) {
-      try {
+             return rs.getInt("cnt");
+          }
 
-         String sql = "delete from tbladmin where admin_seq = ?";
-
-         pstat = conn.prepareStatement(sql);
-
-         pstat.setString(1, admin_seq);
-
-         return pstat.executeUpdate();
-
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
-      return 0;
-   }
+       } catch (Exception e) {
+          e.printStackTrace();
+       }
+       
+       return 0;
+    }
     
     
     
@@ -330,6 +322,57 @@ public class AdminDAO {
        
        return 0;
     }
+	public AdminDTO get(String admin_seq) {
+		
+		try {
+
+			String sql = "select *  from tblAdmin where admin_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, admin_seq);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+
+				AdminDTO dto = new AdminDTO();
+
+				dto.setAdmin_seq(rs.getString("admin_seq"));
+				dto.setName(rs.getString("name"));
+				dto.setSsn(rs.getString("ssn"));
+				dto.setId(rs.getString("id"));
+				dto.setTel(rs.getString("tel"));
+				dto.setEmail(rs.getString("email"));
+				dto.setLv(rs.getString("lv"));
+				dto.setPic(rs.getString("pic"));
+
+				return dto;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public int del(String admin_seq) {
+	      try {
+
+	         String sql = "delete from tbladmin where admin_seq = ?";
+
+	         pstat = conn.prepareStatement(sql);
+
+	         pstat.setString(1, admin_seq);
+
+	         return pstat.executeUpdate();
+
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      return 0;
+	   }
 
          
 }
