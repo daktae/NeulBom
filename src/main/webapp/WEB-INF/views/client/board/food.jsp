@@ -18,7 +18,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/inc/headerclient.jsp" %>
 	
-	    <div class="introducetitle">알림게시판</div>
+	    <div class="introducetitle">식단표</div>
 
 
     <div class="mainmenu text-center">
@@ -30,7 +30,7 @@
 						href="/neulbom/client/board/notice.do"
 						class="list-group-item list-group-item-action">공지사항</a> <a
 						href="/neulbom/client/board/food.do" class="list-group-item list-group-item-action">식단표</a> <a
-						href="#" class="list-group-item list-group-item-action">생활</a>
+						href="/neulbom/client/board/life.do" class="list-group-item list-group-item-action">생활</a>
 				</div>
 			</div>
 		</span>
@@ -51,13 +51,12 @@
             </nav>
             <hr>
             <div style="display: flex; justify-content: end; margin-bottom: 15px;">
-                <form class="d-flex" role="search" style="max-width: 50%;">
-                    <select class="form-select" aria-label="Default select example" style="margin-right: 10px;">
-                        <option selected>제목</option>
-                        <option value="1">날짜</option>
+                <form class="d-flex" role="search" style="max-width: 50%;" action="/neulbom/client/board/food.do">
+                    <select class="form-select" aria-label="Default select example" style="margin-right: 10px;" name="searchType">
+                        <option value="title" selected>제목</option>
                     </select>
         
-                    <input class="form-control_wj" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control_wj" type="search" placeholder="Search" aria-label="Search" name="keyword" value="${keyword}">
                     <button class="btn btn-light" type="submit"
                         style="width:74px !important; height:38px !important;white-space:nowrap;">검색</button>
                 </form>

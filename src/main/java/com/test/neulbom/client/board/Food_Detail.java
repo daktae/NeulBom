@@ -23,7 +23,6 @@ public class Food_Detail extends HttpServlet {
 		String food_seq = req.getParameter("food_seq");
 		Food_DetailDAO dao = new Food_DetailDAO();
 
-		System.out.println(food_seq);
 
 		String foodSeq = req.getParameter("food_seq");
 	    dao.increaseReadCount(foodSeq);

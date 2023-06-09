@@ -20,7 +20,6 @@ public class SearchId extends HttpServlet {
 
 		//SearchId.java
 
-		//공유
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/account/searchid.jsp");
 		dispatcher.forward(req, resp);
 

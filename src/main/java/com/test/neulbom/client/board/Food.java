@@ -21,9 +21,18 @@ public class Food extends HttpServlet {
 
 		//Food.java
 		
+		String searchType = req.getParameter("searchType");
+		String keyword = req.getParameter("keyword");
+		
 		FoodDAO dao = new FoodDAO();
 		
-		List<FoodDTO> list = dao.list();
+		List<FoodDTO> list = null; 
+				
+		if(searchType == null && keyword == null) {
+			list = dao.list();
+		}else {
+			list = dao.search(searchType, keyword);
+		}
 		
 		req.setAttribute("list", list);
 		
