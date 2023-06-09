@@ -1,6 +1,8 @@
 package com.test.neulbom.admin.manage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.test.neulbom.admin.manage.repository.MoneyDAO;
+import com.test.neulbom.admin.manage.repository.SpendDTO;
 import com.test.neulbom.admin.repository.ResiDAO;
 
 @WebServlet("/admin/manage/manageMoney.do")
@@ -28,6 +32,13 @@ public class ManageMoney extends HttpServlet {
 		
 		req.setAttribute("silverCount", silverCount);
 		req.setAttribute("centerCount", centerCount);
+		
+		
+		MoneyDAO moneyDao = new MoneyDAO();
+		
+		List<SpendDTO> latestSpendList = moneyDao.getLatestSpend();
+		
+		req.setAttribute("latestSpendList", latestSpendList);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/manageMoney.jsp");
 		dispatcher.forward(req, resp);
