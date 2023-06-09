@@ -208,8 +208,11 @@ public class AdminDAO {
                               , map.get("word"));
          }
 
-         String sql = String.format("select * from (select a.*, rownum as rnum from vwAdmin a %s)"
+         String sql = String.format("select * from (select a.*, rownum as rnum from vwAdmin a %s order by admin_seq asc) where rnum between %s and %s"
                               , where
+                              , map.get("begin")
+                              , map.get("end")
+
                               );
 
          stat = conn.createStatement();
