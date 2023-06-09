@@ -230,7 +230,7 @@
             
             <c:if test="${not empty id && (id == dto.id)}">
             <div>
-			<button type="button" class="btn del" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="delfree()">삭제하기</button>
+			<button type="button" class="btn del" onclick="delfree()">삭제하기</button>
            	<button type="button" class="btn edit" onclick="location.href='/neulbom/client/community/editfree.do?free_seq=${dto.free_seq}';">수정하기</button>
         	</div>
         	</c:if>
@@ -260,6 +260,21 @@
         <%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
+
+	//글 삭제
+	function delfree() {
+		alert();
+		
+		if (confirm('작성하신 글을 삭제하시겠습니까?')) {
+			location.href='/neulbom/client/community/delfree.do?seq=' + ${dto.free_seq};
+		}
+		
+	}
+	
+	
+	
+	
+	
 
 	function editComment(comment_seq) {
 		
@@ -310,14 +325,6 @@
 	}
 	
 	
-	function delfree() {
-		alert();
-		
-		if (confirm('delete?')) {
-			location.href='/neulbom/client/community/delfree.do?seq=' + ${dto.free_seq};
-		}
-		
-	}
 
 </script>
 </body>

@@ -14,12 +14,49 @@
 <body>
 	<!-- delfree.jsp 내가 쓴 글 삭제 -->
 	<%@ include file="/WEB-INF/views/inc/headerclient.jsp" %>
+	<div class="introducetitle">커뮤니티</div>
+
+
+    <div class="mainmenu text-center">
+        <span class="sidebar" >
+            <div class="bg-light border-right">
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action active" style="background-color: #043886;">커뮤니티</a>
+                    <a href="#" class="list-group-item list-group-item-action">입주상담 게시판</a>
+                    <a href="#" class="list-group-item list-group-item-action">문의게시판</a>
+                    <a href="/neulbom/client/community/free.do" class="list-group-item list-group-item-action">자유게시판</a>
+                </div>
+            </div>
+        </span>
+        
+        
+        
+        <div id="deepmenu">
+            <nav class="navbar bg-light">
+                <div class="container-fluid">
+                    <h3 style="font-weight: 400;">자유게시판</h3>
+                    <div style="display: flex;">
+                        <span class="material-symbols-outlined" style="display: block;">
+                            home
+                        </span>
+                        > 커뮤니티 > 자유게시판
+                    </div>
+                </div>
+            </nav>
+            <hr>
+            <table class="table table-bordered table-hover content-head_wj">
+                <thead>
+                    <tr>
+                      <td id="id">게시글이 존재하지 않습니다.</td>
+                    </tr>
+                </thead>
+            </table>
+            </div>
+            </div>
 	
 	<form method="POST" action="/neulbom/client/community/delfree.do">
 	<div>
-		<p>작성하신 게시글을 삭제하시겠습니까?</p>
-		<input type="submit" value="삭제">
-		<input type="button" value="취소" onclick="history.back();">
+		<input type="button" onclick="history.back(); value="돌아가기">
 	</div>
 	
 	<input type="hidden" name="free_seq" value="${free_seq }">

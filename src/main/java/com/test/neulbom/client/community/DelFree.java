@@ -28,9 +28,8 @@ public class DelFree extends HttpServlet {
 		
 		req.setAttribute("free_seq", free_seq);
 		
-		
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/community/delfee.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/community/delfree.jsp");
 		dispatcher.forward(req, resp);
 
 	}
@@ -39,7 +38,7 @@ public class DelFree extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String free_seq = req.getParameter("free_seq");
-		
+
 		ClientDAO dao = new ClientDAO();
 		
 		int result = 0;
