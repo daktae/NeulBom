@@ -155,7 +155,7 @@ body {
 						<hr>
 						<br>
 						<div class="d-grid gap-2 col-6 mx-auto">
-								<button class="btn btn-outline-primary" type="submit" onclick="location.href='/client/mypage/mypage_payment_update.do'">결제신청</button>
+								<button class="btn btn-outline-primary" type="submit" onclick="location.href='/neulbom/client/mypage/mypage_payment_update.do?resi_seq=${dto.resi_seq}&pay_seq=${dto.pay_seq}';">결제신청</button>
 							<button class="btn btn-outline-primary" type="button" onclick="history.back()">취소</button>
 						</div>
 
@@ -169,7 +169,6 @@ body {
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
-		
 	</script>
 </body>
 </html>

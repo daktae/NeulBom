@@ -27,8 +27,7 @@ public class Mypage_PaymentDAO {
 					+ "FROM tblPay a " + "INNER JOIN tblresident b ON a.resi_seq = b.resi_seq "
 					+ "INNER JOIN tblprotect c ON b.resi_seq = c.resi_seq " + "WHERE a.resi_seq = ? and a.pay_seq = ?";
 
-			System.out.println("resi_seq : " + seq);
-			System.out.println("pay_seq : " + pay_seq);
+			
 
 			pstat = conn.prepareStatement(sql);
 

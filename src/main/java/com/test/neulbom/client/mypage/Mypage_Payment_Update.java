@@ -28,6 +28,8 @@ public class Mypage_Payment_Update extends HttpServlet {
 
 		String seq = (String) session.getAttribute("resi_seq");
 		String pay_seq = req.getParameter("pay_seq");
+		
+		
 				
 		Mypage_Payment_UpdateDAO dao = new Mypage_Payment_UpdateDAO();
 		
@@ -35,8 +37,11 @@ public class Mypage_Payment_Update extends HttpServlet {
 		req.setAttribute("result", result);
 		
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/mypage/mypage_payment_update.jsp");
-		dispatcher.forward(req, resp);
+		//RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/mypage/mypage_payment_update.jsp");
+		//dispatcher.forward(req, resp);
+		
+		resp.sendRedirect("/neulbom/client/mypage/mypage_payment_details.do");
+		
 	}
 
 }

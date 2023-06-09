@@ -171,6 +171,19 @@ body {
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
+	
+	
+	
+	 
+	  function movePeriod() {
+		  //alert(event.target.value);
+		  location.href = "aaa.do?date=" + event.target.value;
+	  }
+	
+	
+	
+	
+	
 function CalendarControl() {
     const calendar = new Date();
     const calendarControl = {
@@ -393,11 +406,7 @@ function CalendarControl() {
   
   const calendarControl = new CalendarControl(); 
   
-  
-  function movePeriod() {
-	  //alert(event.target.value);
-	  location.href = "aaa.do?date=" + event.target.value;
-  }
+ 
   
   
 </script>
