@@ -128,9 +128,10 @@
 						<form id="searchForm" action="/neulbom/admin/account/manage.do?tab=${tab}" method="GET">
 							<select name="column">
 								<option value="name">이름</option>
+								<option value="id">아이디</option>
 							</select>
-							<input type="text" name="word" class="long" required>
-							<input type="submit" value="검색하기" id="showAdminList">
+							<input type="text" name="word" class="search_input" placeholder="정보를 입력하세요." required maxlength="15">
+                   			<input class="btn btn-primary search_button" type="submit" value="검색하기" id="showAdminList">
 							<input type="hidden" name="tab" value="1">
 						</form>
 					</div>
@@ -169,10 +170,11 @@
 						</table>
 						<form id="searchForm" action="/neulbom/admin/account/manage.do?tab=${tab}" method="GET">
 							<select name="column">
-								<option value="name" id="rname">이름</option>
+								<option value="name">이름</option>
+								<option value="id">아이디</option>
 							</select>
-							<input type="text" name="word" class="long" required>
-							<input type="submit" value="검색하기">
+							<input type="text" name="word" class="search_input" placeholder="정보를 입력하세요." required maxlength="15">
+                   			<input class="btn btn-primary search_button" type="submit" value="검색하기" id="showAdminList">
 							<input type="hidden" name="tab" value="2">
 						</form>
 					</div>
