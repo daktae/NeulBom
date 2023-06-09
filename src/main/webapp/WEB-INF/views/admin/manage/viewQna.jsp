@@ -174,13 +174,13 @@ td.comment {
 							<tr>
 								<td colspan="4" id="headline">답글</td>
 							</tr>
-							
+
 							<c:if test="${dto.isReply eq 'y'}">
 								<tr>
 									<td>제목</td>
 									<td>${qdto.title}</td>
-									<td>조회수</td>
-									<td>${qdto.read}</td>
+									<td>작성자</td>
+									<td>${qdto.replier}</td>
 								</tr>
 								<tr id="comment">
 									<td>내용</td>
@@ -190,16 +190,16 @@ td.comment {
 							</c:if>
 
 							<c:if test="${dto.isReply eq 'n'}">
-
+								<input type="hidden" name="seq" value="${dto.qna_seq}">
 								<tr>
 									<td>제목</td>
-									<td colspan="3" id="rtitle-input"><textarea id="rtitle" name="rtitle" 
-											autofocus></textarea></td>
+									<td colspan="3" id="rtitle-input"><textarea id="rtitle"
+											name="rtitle" autofocus></textarea></td>
 								</tr>
 								<tr>
 									<td>내용</td>
-									<td colspan="3" id="rcontent-input"><textarea id="rcontent"
-											name="rcontent"></textarea></td>
+									<td colspan="3" id="rcontent-input"><textarea
+											id="rcontent" name="rcontent"></textarea></td>
 								</tr>
 
 							</c:if>
@@ -235,13 +235,12 @@ td.comment {
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
-	
-	 var rtitle = document.getElementById("rtitle");
-	  rtitle.placeholder = "제목을 입력하세요";
-	  
-		 var rcontent = document.getElementById("rcontent");
-		  rcontent.placeholder = "내용을 입력하세요";
-	
+		var rtitle = document.getElementById("rtitle");
+		rtitle.placeholder = "제목을 입력하세요";
+
+		var rcontent = document.getElementById("rcontent");
+		rcontent.placeholder = "내용을 입력하세요";
+
 		$('#reply').click(function() {
 			$('form').submit();
 		});

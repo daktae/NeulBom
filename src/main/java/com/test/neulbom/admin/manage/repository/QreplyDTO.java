@@ -11,5 +11,7 @@ public class QreplyDTO {
 	String admin_seq;
 	String qna_seq;
 	String read;
+	
+	String replier;
 
 }
