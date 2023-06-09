@@ -40,10 +40,10 @@ public class ManageDAO {
 
 				dto.setMeet_seq(rs.getString("meet_seq"));
 				dto.setDisplayed_seq(i + "");
-				
+
 				String date = rs.getString("meet_date").substring(0, 10);
 				dto.setMeet_date(date);
-				
+
 				String time = rs.getString("meet_time");
 
 				String[] temp = time.split("~");
@@ -58,20 +58,22 @@ public class ManageDAO {
 
 				dto.setPname(rs.getString("pname"));
 				dto.setRname(rs.getString("rname"));
-				
-				//현재보다 미래 시점인지 날짜 비교
-				
+
+				// 현재보다 미래 시점인지 날짜 비교
+
 				String[] dateTemp = date.trim().split("-");
 				int year = Integer.parseInt(dateTemp[0]);
 				int month = Integer.parseInt(dateTemp[1]);
 				int day = Integer.parseInt(dateTemp[2]);
-				
+
 				LocalDate mdate = LocalDate.of(year, month, day);
 				LocalDate now = LocalDate.now();
-				
-				if(mdate.isAfter(now)) dto.setIsRevisable(1);
-				else dto.setIsRevisable(0);
-				
+
+				if (mdate.isAfter(now))
+					dto.setIsRevisable(1);
+				else
+					dto.setIsRevisable(0);
+
 				list.add(dto);
 				i++;
 			}
@@ -85,7 +87,6 @@ public class ManageDAO {
 		return null;
 	}
 
-	
 	// 면회 승인
 	public int confirmMeeting(String seq) {
 
@@ -107,7 +108,6 @@ public class ManageDAO {
 		return 0;
 	}
 
-	
 	// 면회 반려
 	public int rejectMeeting(String seq) {
 		try {
@@ -128,44 +128,45 @@ public class ManageDAO {
 		return 0;
 	}
 
-	
 	// 결제 기록 조회
 	public List<PayDTO> getPayRecord(HashMap<String, String> map) {
-		
-		try {
-			
-			String where = "";
-			
-			if(map.get("search").equals("y")) where = String.format("WHERE r.name LIKE '%%%s%%'", map.get("name"));
 
-			String sql = "SELECT p.pay_seq, p.resi_seq, p.ispay, p.pay_date, r.id, r.name, m.kind, p.price, r.tel From tblPay p INNER JOIN tblResident r ON p.resi_seq = r.resi_seq INNER JOIN tblMove m ON p.resi_seq = m.resi_seq " + where + "ORDER BY CASE WHEN p.ispay = 'n' THEN 0 ELSE 1 END, p.pay_date DESC";
+		try {
+
+			String where = "";
+
+			if (map.get("search").equals("y"))
+				where = String.format("WHERE r.name LIKE '%%%s%%'", map.get("name"));
+
+			String sql = "SELECT p.pay_seq, p.resi_seq, p.ispay, p.pay_date, r.id, r.name, m.kind, p.price, r.tel From tblPay p INNER JOIN tblResident r ON p.resi_seq = r.resi_seq INNER JOIN tblMove m ON p.resi_seq = m.resi_seq "
+					+ where + "ORDER BY CASE WHEN p.ispay = 'n' THEN 0 ELSE 1 END, p.pay_date DESC";
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
 			List<PayDTO> list = new ArrayList<PayDTO>();
-			
-			int i=1;
+
+			int i = 1;
 
 			while (rs.next()) {
 
 				PayDTO dto = new PayDTO();
-				
+
 				dto.setPay_seq(rs.getString("pay_seq"));
 				dto.setResi_seq(rs.getString("resi_seq"));
 				dto.setIsPay(rs.getString("isPay"));
 				dto.setPay_date(rs.getString("pay_date").substring(0, 10));
-				
-				dto.setDisplayed_seq(i+"");
-				
+
+				dto.setDisplayed_seq(i + "");
+
 				dto.setId(rs.getString("id"));
 				dto.setName(rs.getString("name"));
 				dto.setKind(rs.getString("kind"));
-				
+
 				int price = rs.getInt("price");
 				dto.setPrice(price);
-				
-				dto.setTel(rs.getString("tel"));				
+
+				dto.setTel(rs.getString("tel"));
 
 				list.add(dto);
 				i++;
@@ -176,9 +177,129 @@ public class ManageDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-	
-	return null;
 
+		return null;
+
+	}
+
+	// 일반 문의 전체 조회
+	public List<QnaDTO> getQna() {
+
+		try {
+
+			String sql = "SELECT q.*, r.name AS rname, p.name AS pname FROM tblQna q LEFT OUTER JOIN tblResident r ON r.resi_seq = q.resi_seq LEFT OUTER JOIN tblProtect p ON p.protect_seq = q.protect_seq ORDER BY CASE WHEN q.isReply = 'n' THEN q.qna_date END ASC, CASE WHEN q.isReply = 'y' THEN q.qna_date END DESC";
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			List<QnaDTO> list = new ArrayList<QnaDTO>();
+			int i = 1;
+
+			while (rs.next()) {
+
+				QnaDTO dto = new QnaDTO();
+
+				dto.setQna_seq(rs.getString("qna_seq"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setQna_date(rs.getString("qna_date").substring(0, 10));
+				dto.setIsReply(rs.getString("isReply"));
+				dto.setFname(rs.getString("fname"));
+				dto.setCategory(rs.getString("category"));
+				dto.setRead(rs.getString("read"));
+
+				dto.setDisplayed_seq(i + "");
+
+				if (rs.getString("rname") != null) {
+					dto.setType("입주자");
+					dto.setRname(rs.getString("rname"));
+				} else if (rs.getString("pname") != null) {
+					dto.setType("보호자");
+					dto.setPname(rs.getString("pname"));
+				}
+
+				list.add(dto);
+				i++;
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public QnaDTO getQna(String seq) {
+
+		try {
+
+			String sql = "SELECT q.*, r.name AS rname, p.name AS pname FROM tblQna q LEFT OUTER JOIN tblResident r ON r.resi_seq = q.resi_seq LEFT OUTER JOIN tblProtect p ON p.protect_seq = q.protect_seq WHERE q.qna_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, seq);
+			rs = pstat.executeQuery();
+
+			QnaDTO dto = new QnaDTO();
+
+			while (rs.next()) {
+
+				dto.setQna_seq(rs.getString("qna_seq"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setQna_date(rs.getString("qna_date").substring(0, 10));
+				dto.setIsReply(rs.getString("isReply"));
+				dto.setFname(rs.getString("fname"));
+				dto.setCategory(rs.getString("category"));
+				dto.setRead(rs.getString("read"));
+
+				if (rs.getString("rname") != null) {
+					dto.setType("입주자");
+					dto.setRname(rs.getString("rname"));
+				} else if (rs.getString("pname") != null) {
+					dto.setType("보호자");
+					dto.setPname(rs.getString("pname"));
+				}
+			}
+
+			return dto;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public QreplyDTO getQReply(String seq) {
+
+		try {
+
+			String sql = "SELECT * FROM tblQreply where qna_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, seq);
+			rs = pstat.executeQuery();
+
+			QreplyDTO dto = new QreplyDTO();
+
+			while (rs.next()) {
+
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setFname(rs.getString("fname"));
+				dto.setAdmin_seq(rs.getString("admin_seq"));
+				dto.setQna_seq(rs.getString("qna_seq"));
+				dto.setRead(rs.getString("read"));		
+					
+			}
+			
+			return dto;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 }

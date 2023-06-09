@@ -113,7 +113,7 @@ public class ResiDAO {
 	}
 	public List<ResiDTO> rlist(HashMap<String, String> map) {
 		
-List<ResiDTO> list = new ArrayList<ResiDTO>();
+		List<ResiDTO> list = new ArrayList<ResiDTO>();
 		
 		try {
 			
@@ -174,4 +174,60 @@ List<ResiDTO> list = new ArrayList<ResiDTO>();
 		
 		return 0;
 	}
+	
+	// 소엽 - 재무관리 中 실버타운 입주자 수 구하기
+	public int getSilverCount() {
+		
+		try {
+			
+			String sql = "select count(*) as silverCount from tblResident where lv = 5 group by lv order by lv asc";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			if (rs.next()) {
+				
+				return rs.getInt("silverCount");
+				
+			}
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return 0;
+	}
+	
+	
+	// 소엽 - 재무관리 中 요양원 입주자 수 구하기
+	public int getCenterCount() {
+	
+		try {
+			
+			String sql = "select count(*) as centerCount from tblResident where lv = 6 group by lv order by lv asc";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			if (rs.next()) {
+				
+				return rs.getInt("centerCount");
+				
+			}
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return 0;
+	}
+
+		
+		
 }
+
+
