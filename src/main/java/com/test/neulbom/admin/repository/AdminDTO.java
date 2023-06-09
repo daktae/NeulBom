@@ -14,9 +14,5 @@ public class AdminDTO {
 	private String email;
 	private String pic;
 	private String lv;
-<<<<<<< HEAD
-=======
-	private String admin_seq;
->>>>>>> 8bcf6e8984d0866a2ee8a4b53e40e1b5c3142dfb
 	
 }
