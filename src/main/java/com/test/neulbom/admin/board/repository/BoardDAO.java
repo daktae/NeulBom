@@ -485,7 +485,7 @@ public class BoardDAO {
 		return null;
 	}
 
-// 자유게시판 작성자 이름 출력	
+// 자유게시판/댓글 작성자 이름 출력	
 	private List<String> getWriter(String seq, String table) {
 		String tbl = "";
 		String column = "";

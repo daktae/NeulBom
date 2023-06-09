@@ -22,7 +22,7 @@
                     <div class="menu" id="manage_meet" onclick="location.href='/neulbom/admin/manage/meet.do';">면회 관리</div>
                     <!-- <span id="">연계 병원 진료 내역</span> -->
                     <div class="menu" id="manage_alert" onclick="location.href='/neulbom/admin/board/notice.do';">게시판 관리</div>
-                    <div class="menu" id="manage_qna_consult">문의 및 입주상담 관리</div>
+                    <div class="menu" id="manage_qna_consult" onclick="location.href='/neulbom/admin/manage/qna.do';">문의 및 입주상담 관리</div>
                 </div>
                 <div class="logout">
                         로그아웃
