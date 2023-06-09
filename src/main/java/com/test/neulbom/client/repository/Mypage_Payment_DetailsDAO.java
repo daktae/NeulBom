@@ -28,7 +28,7 @@ public class Mypage_Payment_DetailsDAO {
 			        + "INNER JOIN tblresident b ON a.resi_seq = b.resi_seq "
 			        + "INNER JOIN tblprotect c ON b.resi_seq = c.resi_seq "
 			        + "WHERE a.resi_seq = ? "
-			        + "ORDER BY a.ispay ASC";
+			        + "ORDER BY a.ispay ASC, a.pay_date desc";
 
 
 			pstat = conn.prepareStatement(sql);
