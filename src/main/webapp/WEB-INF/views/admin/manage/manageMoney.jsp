@@ -11,7 +11,21 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp" %>
 
 <style>
-
+	#pie-chart {
+		display: inline-block;
+		float: left;
+		margin: 20px;
+		
+		width: 300px; 
+		height: 300px;"
+	}
+	
+	#line-chart {
+		width: 800px; 
+		height: 500px;
+		float: left;
+	}
+	
 </style>
 </head>
 <body>
@@ -26,11 +40,40 @@
                     <span id="selected_menu_text">재무관리</span>
                 </div><!-- selected_menu -->
             </div><!-- semi_title -->
+            
+            
             <div class="main-box">
-			<div style="width: 300px; height: 300px;">
+            <table class="table table-striped table-hover table-bordered">
+				<tbody>
+					<c:forEach items="${latestSpendList}" var="spendDto">
+					<tr>
+						<th>번호</th>
+						<td>${spendDto.rownum }</td>
+					</tr>
+					<tr>
+						<th>날짜</th>
+						<td>${spendDto.sdate}</td>
+					</tr>
+					<tr>
+						<th>지출항목</th>
+						<td>${spendDto.title}</td>
+					</tr>
+					<tr>
+						<th>분류</th>
+						<td>${spendDto.category}</td>
+					</tr>
+					<tr>
+						<th>지출금액</th>
+						<td>${spendDto.money}</td>
+					</tr>
+					</c:forEach>
+				</tbody>
+				</table>
+	
+			<div id="pie-chart">
 				<canvas id="myChartPie"></canvas>
 			</div>
-			<div style="width: 800px; height: 500px;">
+			<div id="line-chart">
 				<!--차트가 그려질 부분-->
 				<canvas id="myChart"></canvas>
 			</div>
@@ -83,35 +126,31 @@
 	                'rgba(255, 159, 64, 1)'
 	            ],
 	            borderWidth: 1 //경계선 굵기
-	        }/* ,
-	        {
-	            label: 'test2',
-	            fill: false,
-	            data: [
-	                8, 34, 12, 24
-	            ],
-	            backgroundColor: 'rgb(157, 109, 12)',
-	            borderColor: 'rgb(157, 109, 12)'
-	        } */
+	        }
 	    ]
 	},
 	options: {
 		    plugins: {
+		    	
+		    	legend: {
+		    		position: 'bottom'
+		    	},
+		    	
 		        title: {
 		          display: true,
-		          text: '입주자 비율',
+		          text: '입주자 현황',
 		          fullSize: true,
-		          position: 'bottom',
 		          
 		          font: {
 		        	  size: 20
 		          }
 		        }
-	
 		      }  
 		  
 	}
 	});
+	
+	
 
 	var context = document
       .getElementById('myChart')
