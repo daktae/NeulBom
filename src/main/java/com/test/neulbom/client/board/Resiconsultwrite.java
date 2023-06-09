@@ -45,7 +45,7 @@ public class Resiconsultwrite extends HttpServlet {
     	int result = dao.add(dto);
     	
     	if (result == 1) {
-    		resp.sendRedirect("/client/board/resiconsult.do");
+    		resp.sendRedirect("/neulbom/client/board/resiconsult.do");
     	} else {
     		PrintWriter writer = resp.getWriter();
     		writer.write("<script>alert('failed'); history.back();</script>");
