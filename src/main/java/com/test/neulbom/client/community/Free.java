@@ -30,6 +30,8 @@ public class Free extends HttpServlet {
 		session.setAttribute("read", "n");
 		
 		
+		
+		
 		//글 가져오기
 		FreeDTO dto = new FreeDTO();
 		ClientDAO dao = new ClientDAO();

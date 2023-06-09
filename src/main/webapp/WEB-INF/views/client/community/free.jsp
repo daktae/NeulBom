@@ -143,7 +143,7 @@ a {
     		</c:if>
             
         <!-- 페이지 넘버 -->    
-        <br>
+        <%-- <br>
         <div id="pageForm">
         	<c:if test="${startPage != 1 }">
         		<a href='/neulbom/client/community/viewfree.do?page=${startPage - 1 }'>[ 이전 ]</a>    
@@ -161,7 +161,7 @@ a {
             <c:if test="${endPage != maxPage }">
             	<a href='/neulbom/client/community/viewfree.do?page=${endPage + 1 }'>[ 다음 ]</a>
             </c:if>
-        </div>
+        </div> --%>
         </div>
     </div>
     

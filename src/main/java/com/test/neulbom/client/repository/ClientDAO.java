@@ -212,7 +212,7 @@ public class ClientDAO {
 			while (rs.next()) {
 
 				FreeDTO fdto = new FreeDTO();
-
+				
 				fdto.setFree_seq(rs.getString("free_seq"));
 				fdto.setTitle(rs.getString("title"));
 				fdto.setName(rs.getString("name"));
@@ -267,9 +267,9 @@ public class ClientDAO {
 	}
 
 	public FreeDTO fcontent(String free_seq) {
-		System.out.println(free_seq);
+
 		try {
-			String sql = "select tblFree.*, case when (select name from tblResident where resi_seq = tblFree.resi_seq) is not null then (select name from tblResident where resi_seq = tblFree.resi_seq) else (select name from tblProtect where protect_seq = tblFree.protect_seq) end as name from tblFree where free_seq = ?";
+			String sql = "select tblFree.*, case when (select name from tblResident where resi_seq = tblFree.resi_seq) is not null then (select name from tblResident where resi_seq = tblFree.resi_seq) else (select name from tblProtect where protect_seq = tblFree.protect_seq) end as name, case when (select id from tblResident where resi_seq = tblFree.resi_seq) is not null then (select id from tblResident where resi_seq = tblFree.resi_seq) else (select id from tblProtect where protect_seq = tblFree.protect_seq) end as id from tblFree where free_seq = ?";
 
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, free_seq);
@@ -280,13 +280,15 @@ public class ClientDAO {
 			if (rs.next()) {
 
 				FreeDTO dto = new FreeDTO();
-
+				
+				dto.setId(rs.getString("id"));	//글쓴이의 id를 받아오기
 				dto.setFree_seq(rs.getString("free_seq"));
 				dto.setTitle(rs.getString("title"));
 				dto.setName(rs.getString("name"));
 				dto.setContent(rs.getString("content"));
 				dto.setFree_date(rs.getString("free_date").substring(0, 10));
 				dto.setRead(rs.getString("read"));
+				dto.setFile(rs.getString("fname"));
 				
 				dto.setThread(rs.getInt("thread"));
 				dto.setDepth(rs.getInt("depth"));
@@ -429,6 +431,87 @@ public class ClientDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return 0;
+	}
+
+	public int delFree(String free_seq) {
+
+		try {
+			
+			String sql = "delete from tblFree where free_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, free_seq);
+			
+			return pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+		
+	}
+
+	public int defComment(String free_seq) {
+
+		try {
+			
+			String sql = "delete from tblComment where free_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, free_seq);
+			
+			return pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return 0;
+	}
+
+	
+	//조회수 증가
+	public void increaseReadCount(String free_seq) {
+		
+	            try {
+	            	
+	                String sql = "update tblfree set read = read + 1 where free_seq = ?";
+	                
+	                pstat = conn.prepareStatement(sql);
+	                pstat.setString(1, free_seq);
+	                pstat.executeUpdate();
+	                
+	                pstat.close();
+	                
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
+
+	public int editFree(FreeDTO dto) {
+
+		try {
+			
+			String sql = "update tblFree set title = ?, content = ?, fname = ? where free_seq = ?";
+			System.out.println( dto.getFree_seq());
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getTitle());
+			pstat.setString(2, dto.getContent());
+			pstat.setString(3, dto.getFile());
+			pstat.setString(4, dto.getFree_seq());
+			
+			return pstat.executeUpdate();
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		
+		}
+		
 		
 		return 0;
 	}

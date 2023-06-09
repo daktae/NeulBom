@@ -70,7 +70,7 @@
         resize: none;
     }
 
-    #pic {
+    #file {
         width: 97%;
         height: 50px;
         border: 1px solid #c7c8c9;
@@ -175,7 +175,7 @@
             
             <hr>
            
-            <form method="POST" action="">
+            <form method="POST" enctype="multipart/form-data" action="">
 
                 <table id="table">
                     <tr>
@@ -184,7 +184,7 @@
                     </tr>
                     <tr>
                         <th class="th">내용</th>
-                        <td class="td"><textarea name="content" id="content" required class="full"" placeholder="내용을 입력하세요." maxlength="900"></textarea>
+                        <td class="td"><textarea name="content" id="content" required class="full"" placeholder="내용을 입력하세요." maxlength="900"></textarea></td>
                     </tr>
                     <tr>
                         <th class="th">첨부파일</th>

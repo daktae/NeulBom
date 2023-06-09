@@ -116,7 +116,7 @@
                     <a href="#" class="list-group-item list-group-item-action active" style="background-color: #043886;">커뮤니티</a>
                     <a href="#" class="list-group-item list-group-item-action">입주상담 게시판</a>
                     <a href="#" class="list-group-item list-group-item-action">문의게시판</a>
-                    <a href="#" class="list-group-item list-group-item-action">자유게시판</a>
+                    <a href="/neulbom/client/community/free.do" class="list-group-item list-group-item-action">자유게시판</a>
                 </div>
             </div>
         </span>
@@ -147,6 +147,7 @@
                     </tr>
                 </thead>
             </table>
+            <div><img src="/neulbom/asset/pic/${dto.file}"></div>
             <div class="content_wj">${dto.content }</div>
             <hr>
             
@@ -165,8 +166,8 @@
             				<div style="width: 500px"><c:out value="${cdto.content }" /></div>
             			<c:if test="${not empty id && (id == cdto.id)}">
             			<div>
-            				<input type="button" class="edit" value="수정" onclick="editComment(${cdto.free_seq});">
             				<input type="button" class="del" value="삭제" onclick="delComment(${cdto.free_seq});">
+            				<input type="button" class="edit" value="수정" onclick="editComment(${cdto.free_seq});">
             			</div>
             			</c:if>
             			</div>
@@ -191,6 +192,27 @@
             </table>
             <input type="hidden" name="free_seq" value="${dto.free_seq }">
             
+            
+			
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h1 class="modal-title fs-5" id="exampleModalLabel">게시글 삭제</h1>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      </div>
+			      <div class="modal-body">
+			        ...
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary">Save changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+            
             <c:forEach var="cdto" items="${clist }">
             <input type="hidden" name="resi_seq" value="${cdto.resi_seq }">
             <input type="hidden" name="protect_seq" value="${cdto.protect_seq }">
@@ -207,8 +229,10 @@
             </c:if>
             
             <c:if test="${not empty id && (id == dto.id)}">
-			<button type="button" class="btn del" onclick="location.href='/neulbom/client/community/delfree.do?seq=${dto.free_seq}';">삭제하기</button>
-           	<button type="button" class="btn edit" onclick="location.href='/neulbom/client/community/editfree.do?seq=${dto.free_seq}';">수정하기</button>
+            <div>
+			<button type="button" class="btn del" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="delfree()">삭제하기</button>
+           	<button type="button" class="btn edit" onclick="location.href='/neulbom/client/community/editfree.do?free_seq=${dto.free_seq}';">수정하기</button>
+        	</div>
         	</c:if>
 
         </div>
@@ -282,6 +306,16 @@
 		location.href='/neulbom/client/commentfree.do?free_seq=' + ${dto.free_seq} '&comment_seq=' + comment_seq;
 		
 		
+		
+	}
+	
+	
+	function delfree() {
+		alert();
+		
+		if (confirm('delete?')) {
+			location.href='/neulbom/client/community/delfree.do?seq=' + ${dto.free_seq};
+		}
 		
 	}
 

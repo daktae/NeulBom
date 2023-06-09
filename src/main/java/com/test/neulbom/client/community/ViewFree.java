@@ -35,6 +35,22 @@ public class ViewFree extends HttpServlet {
 		HttpSession session = req.getSession();
 		
 		ClientDAO dao = new ClientDAO();
+		
+		
+		
+		
+		//session의 read가 null이거나 n이면 아직 해당 계정이 그 글을 보지 못한 것
+		if (session.getAttribute("read") == null || session.getAttribute("read").toString().equals("n")) {
+			
+			//read 증가 메소드
+			dao.increaseReadCount(free_seq);
+			//read를 y로 바꿔서 새로고침 시 무한 조회수 증가 방지
+			session.setAttribute("read", "y");
+			
+		}
+		
+		
+		
 		FreeDTO dto = new FreeDTO();
 		
 		
@@ -52,18 +68,17 @@ public class ViewFree extends HttpServlet {
 			content = content.replace(word, "<span style=\"background-color:gold;color:tomato;\">" + word + "</span>");
 		}
 		
-		String title = dto.getTitle();
+		
 		
 		//HTML 태그 이스케이프 > 꺽쇠 처리 > 엔터 처리 보다 먼저 처리해야함
 		content = content.replace("<", "&lt;").replace(">", "&gt;");
 		
-		dto.setId((String)session.getAttribute("id"));
+//		dto.setId((String)session.getAttribute("id"));	//로그인 한 사람의 ID > 세션안에 있는거라 아무데서나 쓸 수 있음
 		dto.setContent(content);
-		dto.setTitle(title);
-		
 		req.setAttribute("dto", dto);
 		
-		
+		System.out.println(dto.getFile());
+//		String protId = dao.getProtId(free_seq);
 		
 		//댓글 목록 가져오기
 		List<CommentDTO> clist = dao.clist(free_seq);
