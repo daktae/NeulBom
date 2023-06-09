@@ -25,7 +25,7 @@ public class MoneyDAO {
 		
 		try {
 			
-			String sql = "select a.* from (select to_char(sdate, 'yyyy-mm-dd') as sdate, title, category, to_char(money, 'FM9,999,999') || '원' as money from tblSpend order by sdate desc) a where rownum <=5";
+			String sql = "select rownum a.* from (select to_char(sdate, 'yyyy-mm-dd') as sdate, title, category, to_char(money, 'FM9,999,999') || '원' as money from tblSpend order by sdate desc) a where rownum <=5";
 			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
