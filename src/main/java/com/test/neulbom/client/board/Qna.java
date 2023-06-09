@@ -55,33 +55,37 @@ public class Qna extends HttpServlet {
 		// 2. 검색 결과 보기
 
 		// 1. 
-		/* 나중에 검색할때
-			String column = req.getParameter("column");
-			String word = req.getParameter("word");
-			String search = "n"; // 검색중(O,X)
-		*/
+		//검색
+		String column = req.getParameter("column");
+		String word = req.getParameter("word");
+		String search = "n"; // 검색중(O,X)
+		
 
 		HashMap<String, String> map = new HashMap<String, String>();
 
-		/*
-		 * //얜 나중에 검색할 때 해야됨 if ((column == null && word == null) ||
-		 * (column.endsWith("") && word.equals(""))) { search = "n"; } else { search =
-		 * "y"; }
-		 */
+		
+		if ((column == null && word == null) ||
+				  (column.endsWith("") && word.equals(""))) { 
+			search = "n"; 
+		} else { 
+			search ="y"; 
+		}
+		 
 
-		/*
-		 * 나중에 검색할때 할거 map.put("column", column); map.put("word", word);
-		 * map.put("search", search);
-		 */
+		//검색
+		map.put("column", column); 
+		map.put("word", word);
+		map.put("search", search);
+		 
 
 		map.put("begin", begin + "");
 		map.put("end", end + "");
 
 		QnaDAO dao = new QnaDAO();
 
-		List<QnaDTO> list = dao.list(map);
 
 	
+		List<QnaDTO> list = dao.list(map);
 		
 		for (QnaDTO qna : list) { 
 			String qna_seq = qna.getQna_seq(); // qna_seq 추출

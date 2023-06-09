@@ -24,13 +24,7 @@ public class QnaView extends HttpServlet {
 		String qna_seq = req.getParameter("qna_seq"); // qna_seq 파라미터 가져오기
 
 		QnaDAO dao = new QnaDAO();
-		
-		
         QnaDTO dto = new QnaDTO();
-        
-        
-        
-        
         
         dao.qnaView(qna_seq, dto);
         // qna_seq에 해당하는 내용 가져오기

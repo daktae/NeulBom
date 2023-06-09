@@ -62,21 +62,29 @@
                       <th>${dto.qna_date}</th>
                       <th>${dto.read}</th>
                     </tr>
+                    <tr>
+                    	<th text-align="center" colspan=5>${dto.category}</th>
+                    </tr>
                 </thead>
             </table>
             
+            <c:if test="${not empty dto.fname}">
             <div style="display: inline-block; margin-bottom: 50px;">
 				<img src="/neulbom/asset/qna/${dto.fname}" id="pic">
 			</div>
+			</c:if>
             <div class="content_wj" style="text-align:center;">
-				
               	${dto.content}
             </div>
      
             <hr>
-            <form action="http://localhost:8090/neulbom/client/board/qna.do" style="text-align: right; margin-top: 50px; margin-bottom: 50px; margin-right: 300px;">
-            <button type="submit" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:left;">돌아가기</button>
-			</form>
+            
+            <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/board/qna.do'" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:left;">돌아가기</button>
+            <c:if test="${dto.isreply == 'n'}">
+            <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/board/qnaedit.do?qna_seq=${dto.qna_seq}'" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:left;">수정하기</button>
+            <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/board/qnadel.do?qna_seq=${dto.qna_seq}'" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:left;">삭제하기</button>
+            </c:if>
+            
         </div>
         </div>
         

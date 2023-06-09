@@ -26,7 +26,7 @@
                 <div class="list-group list-group-flush">
                     <a href="#" class="list-group-item list-group-item-action active" style="background-color: #043886;">커뮤니티</a>
                     <a href="#" class="list-group-item list-group-item-action">입주상담 게시판</a>
-                    <a href="#" class="list-group-item list-group-item-action">문의 게시판</a>
+                    <a href="http://localhost:8090/neulbom/client/board/qna.do" class="list-group-item list-group-item-action">문의 게시판</a>
                     <a href="#" class="list-group-item list-group-item-action">자유 게시판</a>
                 </div>
             </div>
@@ -48,15 +48,17 @@
             </nav>
             <hr>
             <div style="display: flex; justify-content: end; margin-bottom: 15px;">
-                <form class="d-flex" role="search" style="max-width: 50%;">
-                    <select class="form-select" aria-label="Default select example" style="margin-right: 10px;">
-                        <option selected>제목</option>
-                        <option value="1">One</option>
+                <form class="d-flex" role="search" action="/neulbom/client/board/qna.do" method="GET" style="max-width: 50%;">
+                    <select name="column" class="form-select" aria-label="Default select example" style="margin-right: 10px;">
+                        <option value="title" selected>제목</option>
+                        <option value="content">내용</option>
+                        <!-- <option value="1">One</option>
                         <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="3">Three</option> -->
                     </select>
         
-                    <input class="form-control_wj" type="search" placeholder="Search" aria-label="Search">
+        			<!-- <form method="GET"> 사용 사례 -->
+                    <input class="form-control_wj" type="search" placeholder="검색어를 입력해주세요." aria-label="Search" name="word" required>
                     <button class="btn btn-light" type="submit"
                         style="width:74px !important; height:38px !important;white-space:nowrap;">검색</button>
                 </form>

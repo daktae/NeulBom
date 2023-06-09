@@ -6,7 +6,11 @@
 }
 
 html {
-    font-family: 'IBMPlexSansKR-Regular';
+    font-family: 'IBMPlexSansKR-Regular' !important;
+}
+
+body {
+	font-family: 'IBMPlexSansKR-Regular' !important;
 }
 
 body {

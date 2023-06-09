@@ -1,6 +1,7 @@
 package com.test.neulbom.client.repository;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -64,19 +65,21 @@ public class QnaDAO {
 			
 			String where ="";
 			
-			 /* 검색할때 
+			 
 			 if (map.get("search").equals("y")) {
 	            where = String.format("where %s like '%%%s%%'"
 	                              , map.get("column")
 	                              , map.get("word"));
 	         }
-	         */
+			 
 
-	         String sql = String.format("select * from (select rownum as rnum, a.* from (select * from tblqna order by qna_seq desc) a) where rnum between %s and %s"
+	         String sql = String.format("select * from (select rownum as rnum, a.* from (select * from tblqna order by qna_seq desc) a %s) where rnum between %s and %s"
+	                              , where
 	                              , map.get("begin")
 	                              , map.get("end")
 	                              );
 
+	         
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
@@ -107,7 +110,7 @@ public class QnaDAO {
 		
 		return list;
 
-	}
+	}	
 
 	public String getnameByProtect(String qna_seq) {
 
@@ -341,13 +344,13 @@ public class QnaDAO {
 
 				String where ="";
 				
-				/* 검색할때
+				
 				if (map.get("search").equals("y")) {
 					where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word") );
 				}
-				*/
+				
 
-				String sql = "select count(*) as cnt from tblQna";
+				String sql = String.format("select count(*) as cnt from tblQna %s", where);
 
 				pstat = conn.prepareStatement(sql);
 
@@ -365,6 +368,7 @@ public class QnaDAO {
 			return 0;
 		}
 
+		//조회수 증가
 		public void increaseReadCount(String qna_seq) {
             try {
                 String sql = "UPDATE tblqna SET read = read + 1 WHERE qna_seq = ?";
@@ -377,6 +381,29 @@ public class QnaDAO {
                 e.printStackTrace();
             }
         }
+		
+		//Edit 서블릿이 DTO를 건내주면, 수정
+		public int edit(QnaDTO dto) {
+			
+			try {
+
+				String sql = "update tblQna set title = ?, content = ?, category = ? where qna_seq = ?";
+
+				pstat = conn.prepareStatement(sql);
+
+				pstat.setString(1, dto.getTitle());
+				pstat.setString(2, dto.getContent());
+				pstat.setString(3, dto.getCategory());
+				pstat.setString(4, dto.getQna_seq());
+
+				return pstat.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return 0;
+		}
 
 	
 	
