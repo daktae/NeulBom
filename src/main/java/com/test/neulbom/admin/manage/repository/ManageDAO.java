@@ -231,6 +231,7 @@ public class ManageDAO {
 		return null;
 	}
 
+	// 일반 문의 상세 보기
 	public QnaDTO getQna(String seq) {
 
 		try {
@@ -271,11 +272,12 @@ public class ManageDAO {
 		return null;
 	}
 
+	// 문의 답글 조회
 	public QreplyDTO getQReply(String seq) {
 
 		try {
 
-			String sql = "SELECT * FROM tblQreply where qna_seq = ?";
+			String sql = "SELECT * FROM tblQreply q INNER JOIN tblAdmin a ON q.admin_seq = a.admin_seq where qna_seq = ?";
 
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, seq);
@@ -290,10 +292,12 @@ public class ManageDAO {
 				dto.setFname(rs.getString("fname"));
 				dto.setAdmin_seq(rs.getString("admin_seq"));
 				dto.setQna_seq(rs.getString("qna_seq"));
-				dto.setRead(rs.getString("read"));		
-					
+				dto.setRead(rs.getString("read"));
+
+				dto.setReplier(rs.getString("name"));
+
 			}
-			
+
 			return dto;
 
 		} catch (Exception e) {
@@ -301,5 +305,180 @@ public class ManageDAO {
 		}
 
 		return null;
+	}
+
+	// 입주 문의 전체 조회
+	public List<ConsultDTO> getConsult() {
+
+		try {
+
+			String sql = "SELECT c.*, n.name, n.tel FROM tblConsult c INNER JOIN tblNomem n ON c.nomem_seq = n.nomem_seq ORDER BY CASE WHEN c.isReply = 'n' THEN c.con_date END ASC, CASE WHEN c.isReply = 'y' THEN c.con_date END DESC";
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			List<ConsultDTO> list = new ArrayList<ConsultDTO>();
+			int i = 1;
+
+			while (rs.next()) {
+
+				ConsultDTO dto = new ConsultDTO();
+
+				dto.setCon_seq(rs.getString("con_seq"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setCon_date(rs.getString("con_date").substring(0, 10));
+				dto.setIsReply(rs.getString("isReply"));
+				dto.setNomem_seq(rs.getString("nomem_seq"));
+				dto.setWriter_name(rs.getString("name"));
+				dto.setWriter_tel(rs.getString("tel"));
+
+				dto.setDisplayed_seq(i + "");
+
+				list.add(dto);
+				i++;
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return null;
+	}
+
+	// 일반 문의 답글 달기
+	public int replyToQna(String seq, String title, String content) {
+
+		try {
+			// TODO
+			// 관리자 세션값 얻어와 번호 넣어주는 작업, 첨부파일 작업 필요
+			String sql = "INSERT INTO tblqreply VALUES (qReplySeq.nextVal, ?, ?, null, 5, ?, 0, 0, 0)";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, title);
+			pstat.setString(2, content);
+			pstat.setString(3, seq);
+
+			if (updateIsReply("tblQna", "qna_seq", seq) == 1) {
+				return pstat.executeUpdate();
+			} else
+				return 0;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
+	// 문의 답변 여부 컬럼 업데이트
+	private int updateIsReply(String tbl, String column, String seq) {
+		try {
+
+			String sql = String.format("UPDATE %s isReply = 'y' WHERE %s = %s", tbl, column, seq);
+
+			stat = conn.createStatement();
+			return stat.executeUpdate(sql);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
+	public ConsultDTO getConsult(String seq) {
+
+		try {
+
+			String sql = "SELECT c.*, n.name, n.tel FROM tblConsult c INNER JOIN tblNomem n ON c.nomem_seq = n.nomem_seq WHERE c.con_seq = "
+					+ seq;
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			ConsultDTO dto = new ConsultDTO();
+
+			while (rs.next()) {
+
+				dto.setCon_seq(rs.getString("con_seq"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+
+				dto.setNomem_seq(rs.getString("nomem_seq"));
+				dto.setWriter_name(rs.getString("name"));
+				dto.setWriter_tel(rs.getString("tel"));
+
+			}
+
+			return dto;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public CreplyDTO getCReply(String seq) {
+
+		try {
+
+			String sql = "SELECT * FROM tblCreply c INNER JOIN tblAdmin a ON c.admin_seq = a.admin_seq where con_seq = "
+					+ seq;
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			CreplyDTO dto = new CreplyDTO();
+
+			while (rs.next()) {
+
+				dto.setCreply_seq(rs.getString("creply_seq"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+
+				dto.setCfile(rs.getString("cfile"));
+				dto.setAdmin_seq(rs.getString("admin_seq"));
+				dto.setCon_seq(rs.getString("con_seq"));
+
+				dto.setReplier(rs.getString("name"));
+
+			}
+
+			return dto;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public int replyToConsult(String seq, String title, String content) {
+		try {
+			// TODO
+			// 관리자 세션값 얻어와 번호 넣어주는 작업, 첨부파일 작업 필요
+			String sql = "INSERT INTO tblcreply VALUES (creply_seq.nextVal, ?, ?, null, 1, ?, 0, 0)";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, title);
+			pstat.setString(2, content);
+			pstat.setString(3, seq);
+
+			if (updateIsReply("tblConsult", "con_seq", seq) == 1) {
+				return pstat.executeUpdate();
+			} else
+				return 0;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
 	}
 }

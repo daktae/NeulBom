@@ -129,7 +129,10 @@
 						<span id="free_txt">자유게시판</span>
 					</div>
 
-					<div>
+				</div>
+				<!-- semi_title -->
+				<div class="main-box">
+				<div>
 						<table class="table table-striped">
 							<colgroup>
 								<col width=10%>
@@ -170,10 +173,7 @@
 							</tbody>
 						</table>
 					</div>
-
 				</div>
-				<!-- semi_title -->
-				<div class="main-box"></div>
 				<!-- main-box -->
 			</div>
 			<!-- inner-box -->

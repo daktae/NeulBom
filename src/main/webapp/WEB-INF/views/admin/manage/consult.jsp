@@ -10,6 +10,23 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp"%>
 
 <style>
+.qna {
+	background-color: rgba(227.37499594688416, 232.89999067783356, 255, 0.75);
+}
+
+.qna>span {
+	color: rgba(100.00000163912773, 119.00000050663948, 219.0000021457672, 1);
+}
+
+.c_enquiry {
+	background-color: #EE9696;
+	opacity: 0.75;
+}
+
+.c_enquiry>span {
+	color: #A61123;
+}
+
 .select_boards {
 	width: 183px;
 	height: 47px;
@@ -29,27 +46,14 @@
 	letter-spacing: 0;
 }
 
-.meet {
-	background-color: rgba(227.37499594688416, 232.89999067783356, 255, 0.75);
-}
-
-#meet_txt {
-	color: rgba(100.00000163912773, 119.00000050663948, 219.0000021457672, 1);
-}
-
-.meet_calendar {
-	background-color: #EE9696;
-	opacity: 0.75;
-}
-
-.meet_calendar>span {
-	color: #A61123;
+.delete {
+	width: 78px;
 }
 
 .back {
 	background-color: rgba(105, 105, 105, 0.2);
 	border-radius: 30px;
-	width: 72px;
+	width: 78px;
 	height: 30px;
 }
 
@@ -59,30 +63,9 @@
 	color: #474747;
 }
 
-.table tbody tr td:nth-child(8) {
+.table tbody tr td:nth-child(5) {
 	display: flex;
 	justify-content: space-evenly;
-}
-
-#buttons {
-	float: right;
-	display: flex;
-	text-align: center;
-	margin-bottom: 10px;
-	margin-right: 5px;
-}
-
-.reject {
-	background-color: rgba(235, 87, 87, 0.2);
-	border-radius: 30px;
-	width: 72px;
-	height: 30px;
-}
-
-#reject_txt {
-	position: relative;
-	top: 3px;
-	color: #EB5757;
 }
 </style>
 </head>
@@ -94,11 +77,11 @@
 			<div id="inner-box">
 				<div class="semititle">
 
-					<div class="select_boards meet movable"
+					<div class="select_boards qna movable"
 						onclick="location.href='/neulbom/admin/manage/qna.do';">
-						<span id="meet_txt">일반 문의</span>
+						<span>일반 문의</span>
 					</div>
-					<div class="select_boards meet_calendar movable"
+					<div class="select_boards c_enquiry movable"
 						onclick="location.href='/neulbom/admin/manage/consult.do';">
 						<span>입주 문의</span>
 					</div>
@@ -108,87 +91,53 @@
 
 				<div class="main-box">
 
-<table class="table table-striped">
-    <colgroup>
-        <col width="10%">
-        <col width="12%">
-        <col width="10%">
-        <col width="10%">
-        <col width="10%">
-        <col width="10%">
-        <col width="10%">
-        <col width="18%">
-    </colgroup>
-    <thead>
-        <tr>
-            <th scope="col">번호</th>
-            <th scope="col">면회 날짜</th>
-            <th scope="col">면회 시간</th>
-            <th scope="col">입주자 번호</th>
-            <th scope="col">입주자 이름</th>
-            <th scope="col">보호자 번호</th>
-            <th scope="col">보호자 이름</th>
-            <th scope="col">처리</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach items="${list}" var="dto">
-            <tr>
-                <td>${dto.displayed_seq}</td>
-                <td>${dto.meet_date}</td>
-                <td>${dto.meet_time}</td>
-                <td>${dto.resi_seq}</td>
-                <td>${dto.rname}</td>
-                <td>${dto.protect_seq}</td>
-                <td>${dto.pname}</td>
-                <td>
-                    <!-- 승인 여부 없음 -->
-                    <c:if test="${empty dto.confirmation}">
-                        <div class="add movable" id="confirm" onclick="location.href='/neulbom/admin/manage/meetconfirmation.do?seq=${dto.meet_seq}'">
-                            <span id="add_txt">승인</span>
-                        </div>
-                        <div class="reject movable" id="reject" onclick="location.href='/neulbom/admin/manage/meetrejection.do?seq=${dto.meet_seq}'">
-                            <span id="reject_txt">반려</span>
-                        </div>
-                    </c:if>
-                    <!-- 승인 여부 있음 -->
-                    <c:if test="${not empty dto.confirmation}">
-                        <!-- 승인된 면회 -->
-                        <c:if test="${dto.confirmation eq 'y'}">
-                            <!-- 변경 가능한 승인(미래 시점) -->
-                            <c:if test="${dto.isRevisable eq 1}">
-                                <div class="add movable" onclick="location.href='/neulbom/admin/manage/meetrevision.do?seq=${dto.meet_seq}'">
-                                    <span id="add_txt">승인</span>
-                                </div>
-                            </c:if>
-                            <!-- 변경 불가한 승인(과거 시점) -->
-                            <c:if test="${dto.isRevisable eq 0}">
-                                <div class="back">
-                                    <span id="back_txt">승인</span>
-                                </div>
-                            </c:if>
-                        </c:if>
-                        <!-- 반려된 면회 -->
-                        <c:if test="${dto.confirmation eq 'n'}">
-                            <!-- 변경 가능한 반려(미래 시점) -->
-                            <c:if test="${dto.isRevisable eq 1}">
-                                <div class="reject movable" onclick="location.href='/neulbom/admin/manage/meetrevision.do?seq=${dto.meet_seq}'">
-                                    <span id="reject_txt">반려</span>
-                                </div>
-                            </c:if>
-                            <!-- 변경 불가한 반려(과거 시점) -->
-                            <c:if test="${dto.isRevisable eq 0}">
-                                <div class="back">
-                                    <span id="back_txt">반려</span>
-                                </div>
-                            </c:if>
-                        </c:if>
-                    </c:if>
-                </td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
+					<table class="table table-striped">
+						<colgroup>
+							<col width="15%">
+							<col width="35%">
+							<col width="13%">
+							<col width="14%">
+							<col width="13%">
+						</colgroup>
+						<thead>
+							<tr>
+	 
+								<th scope="col">번호</th>
+								<th scope="col">제목</th>
+								<th scope="col">작성자</th>
+								<th scope="col">등록일</th>
+								<th scope="col">처리</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${list}" var="dto">
+								<tr>
+
+									<td>${dto.displayed_seq}</td>
+									<td class="movable"
+										onclick="location.href='/neulbom/admin/manage/viewconsult.do?seq=${dto.con_seq}'">${dto.title}</td>
+									<td>${dto.writer_name}</td>
+									<td>${dto.con_date}</td>
+									<td id="buttons">
+										<!-- 미처리된 문의 -->
+										<c:if test="${dto.isReply eq 'n'}">
+											<div class="delete movable"
+												onclick="location.href='/neulbom/admin/board/viewconsult.do?seq=${dto.con_seq}'">
+												<span id="delete_txt">답변하기</span>
+											</div>
+										</c:if>
+										<!-- 처리된 문의 -->
+										<c:if test="${dto.isReply eq 'y'}">
+											<div class="back">
+												<span id="back_txt">완료</span>
+											</div>
+										</c:if>
+									</td>
+
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 
 
 				</div>

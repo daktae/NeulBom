@@ -69,16 +69,16 @@
 }
 
 .table tbody tr td:nth-child(1), .table tbody tr td:nth-child(2), .table tbody tr td:nth-child(3),
-	.table tbody tr td:nth-child(4), .table tbody tr td:nth-child(5), .table tbody tr td:nth-child(6) {
+	.table tbody tr td:nth-child(4), .table tbody tr td:nth-child(5),
+	.table tbody tr td:nth-child(6) {
 	text-align: center;
 }
 
 .table tbody tr td:nth-child(6) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
-
 </style>
 </head>
 <body>
@@ -108,6 +108,9 @@
 						<span id="free_txt">자유게시판</span>
 					</div>
 
+				</div>
+				<!-- semi_title -->
+				<div class="main-box">
 					<div>
 						<table class="table table-striped">
 							<colgroup>
@@ -148,10 +151,7 @@
 							</tbody>
 						</table>
 					</div>
-
 				</div>
-				<!-- semi_title -->
-				<div class="main-box"></div>
 				<!-- main-box -->
 			</div>
 			<!-- inner-box -->
