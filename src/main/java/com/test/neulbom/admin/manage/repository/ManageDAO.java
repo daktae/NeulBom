@@ -3,6 +3,7 @@ package com.test.neulbom.admin.manage.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -288,10 +289,13 @@ public class ManageDAO {
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
 				dto.setFname(rs.getString("fname"));
-				dto.setAdmin_seq(rs.getString("admin_seq"));
+				String admin_seq = rs.getString("admin_seq");
+				dto.setAdmin_seq(admin_seq);
 				dto.setQna_seq(rs.getString("qna_seq"));
 				dto.setRead(rs.getString("read"));		
-					
+				
+				String replier = getReplier(admin_seq);
+				dto.setReplier(replier);			
 			}
 			
 			return dto;
@@ -301,5 +305,69 @@ public class ManageDAO {
 		}
 
 		return null;
+	}
+
+	private String getReplier(String admin_seq) {
+		try {
+			
+			String sql = "SELECT name FROM tblAdmin WHERE admin_seq = " + admin_seq;
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			if (rs.next()) {
+				return rs.getString("name");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "";
+	}
+
+	public int replyToQna(String seq, String title, String content) {
+		
+		try {
+			
+			String sql = "INSERT INTO tblQreply VALUES (qReplySeq.nextVal, ?, ?, null, 5, ?, 0, 0, 0)"; //이후 첨부파일 filename, admin_Seq 등 처리 필요
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, title);
+			pstat.setString(2, content);
+			pstat.setString(3, seq);
+			
+			if(updateIsReply(seq)==1) 
+				return pstat.executeUpdate();
+			else return 0;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	private int updateIsReply(String seq) {
+		
+		
+		try {
+
+			String sql = "UPDATE tblqna SET isReply = 'y' WHERE qna_seq = ?";
+			
+			PreparedStatement pstat2;
+		
+			pstat2 = conn.prepareStatement(sql);
+			pstat2.setString(1, seq);
+			
+			return pstat2.executeUpdate();
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		return 0;
 	}
 }

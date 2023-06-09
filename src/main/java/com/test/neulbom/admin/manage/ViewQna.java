@@ -1,6 +1,7 @@
 package com.test.neulbom.admin.manage;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,15 +36,37 @@ public class ViewQna extends HttpServlet {
 		
 		dto.setContent(content);
 		
+		// 답글 가져오기
 		QreplyDTO qdto = dao.getQReply(seq);
-		
-		System.out.println("qdto: " + qdto.getContent());
 		
 		req.setAttribute("dto", dto);
 		req.setAttribute("qdto", qdto);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/viewQna.jsp");
 		dispatcher.forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		req.setCharacterEncoding("UTF-8");
+
+		ManageDAO dao = new ManageDAO();
+
+		String title = req.getParameter("rtitle");
+		String content = req.getParameter("rcontent");
+		String seq = req.getParameter("qna_seq");
+
+		int result = dao.replyToQna(seq, title, content);
+
+		if (result >= 1) {
+			resp.sendRedirect("/neulbom/admin/manage/qna.do");
+		} else {
+			PrintWriter writer = resp.getWriter();
+			writer.print("<script>alert('failed'); history.back();</script>");
+			writer.close();
+		}
+	
 	}
 
 }
