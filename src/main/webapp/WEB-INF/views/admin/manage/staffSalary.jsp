@@ -30,6 +30,16 @@
    	margin: auto auto;
    	top: 60px;
    }
+
+	#searchResult {
+
+
+	}
+   
+   	#searchResult > span {
+		font-weight: bold;
+		font-size: 18px;
+	}
    
    
 </style>
@@ -51,15 +61,15 @@
                        <option value="name">이름</option>
                        <option value="bank">입금은행</option>
                    </select><!-- select_search_item -->
-                   <input type="text" name="word" class="search_input" placeholder="조회할 직원 정보를 입력하세요." required>
+                   <input type="text" name="word" class="search_input" placeholder="조회할 직원 정보를 입력하세요." required maxlength="15">
                   <input class="btn btn-primary search_button" type="submit" value="검색하기">
                   </form>
                
                </div><!-- semi_title -->
                <div class="main-box">
 		<c:if test="${map.search == 'y'}">
-		<div style="text-align: center;">
-			'${map.word}'(으)로 검색한 결과입니다.
+		<div id="searchResult">
+			<span>'${map.word}'(으)로 검색한 결과입니다.</span>
 		</div>
 		</c:if>
             <table class="table table-striped table-bordered table-hover">
@@ -110,9 +120,9 @@
             </tbody>
             </table>
             
-
-			<input class="btn btn-secondary" type="button" id="back" value="돌아가기" onclick="location.href='/neulbom/admin/manage/staffSalary.do';">
-
+			<c:if test="${map.search == 'y' }">
+				<input class="btn btn-secondary" type="button" id="back" value="돌아가기" onclick="location.href='/neulbom/admin/manage/staffSalary.do';">
+			</c:if>
             
                </div><!-- main-box -->
            </div><!-- inner-box -->

@@ -41,10 +41,7 @@ public class StaffSalary extends HttpServlet {
 		map.put("column", column);
 		map.put("word", word);
 		map.put("search", search);
-		
-		
-		System.out.println(map.get("search"));
-		
+				
 		AdminDAO dao = new AdminDAO();
 		
 		List<AdminDTO> salaryList = dao.getSalaryList(map);

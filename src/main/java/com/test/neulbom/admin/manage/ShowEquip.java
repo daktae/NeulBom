@@ -1,6 +1,7 @@
 package com.test.neulbom.admin.manage;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -19,15 +20,37 @@ public class ShowEquip extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// ShowEquip.java
+	
+		String word = req.getParameter("word");
+		String search = "n";
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+
+		if ((word == null) || word.equals("")) {
+			
+			search = "n";
+			
+		} else {
+			
+			search = "y";
+			
+		}
+		
+		
+		map.put("word", word);
+		map.put("search", search);
 		
 		EqDAO dao = new EqDAO();
 		
-		List<EqDTO> eqList = dao.eqList();
+		List<EqDTO> eqList = dao.getEqList(map);
 		
 		req.setAttribute("eqList", eqList);
+		req.setAttribute("map", map);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/showEquip.jsp");
 		dispatcher.forward(req, resp);
+		
+		
 	}
 
 }

@@ -49,6 +49,31 @@
 	justify-content: space-evenly;
 	}
 	
+	#search-form {
+		float: right;
+		/* text-align: right; */
+		/* position: relative; */
+		/* right: 20px; */	
+	}
+	
+	#back {
+   		position: relative;
+   		top: 60px;
+   }
+	
+	#searchResult {
+		display: inline-block;
+		width: auto;
+		height: 37px;
+		
+		padding: 5px 0 5px 0;
+	}
+	
+	#searchResult > span {
+		font-weight: bold;
+		font-size: 18px;
+	}
+   
 	
 </style>
 </head>
@@ -70,7 +95,21 @@
                     <span id="selected_menu_text">비품등록</span>
                 </div><!-- selected_menu -->
             </div><!-- semi_title -->
+            
+  			<form method="GET" action="/neulbom/admin/manage/showEquip.do" id="search-form">
+            <input type="text" name="word" class="search_input" placeholder="비품 이름을 입력하세요." required maxlength="10"	>
+            <input class="btn btn-primary search_button" type="submit" value="검색하기">
+            </form>
+                        
+            
             <div class="main-box">
+          	
+          	<c:if test="${map.search == 'y'}">
+			<div id="searchResult">
+				<span>'${map.word}'(으)로 검색한 결과입니다.</span>
+			</div>
+			</c:if>
+          	
           	<table class="table table-striped table-bordered table-hover">
 				<colgroup>
 					<col width=10%>
@@ -86,6 +125,13 @@
 						<th scope="col">처리</th>
 					</tr>
 				</thead>
+				<c:if test="${eqList.size()==0 }">
+            	<tbody>
+            	<tr>
+            		<td colspan="4">검색한 정보와 일치하는 비품이 없습니다.</td>
+            	</tr>
+            	</c:if>
+            
 				<tbody>
 				<c:forEach items="${eqList}" var="eqDto">
 					<tr>
@@ -125,6 +171,10 @@
     </div>
   </div>
 </div>
+
+	<c:if test="${map.search == 'y' }">
+		<input class="btn btn-secondary" type="button" id="back" value="돌아가기" onclick="location.href='/neulbom/admin/manage/showEquip.do';">
+	</c:if>
             </div><!-- main-box -->
         </div><!-- inner-box -->
     </div><!-- content-box -->

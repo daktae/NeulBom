@@ -29,21 +29,49 @@
 	text-align: center;
 }
 
-.table tbody tr td {
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
-}
-
-.table tbody tr td:nth-child(7) {
-	display: flex;
-	justify-content: space-evenly;
-}
-
-.programPreview {
-	cursor: pointer;
-}
-
+	.table tbody tr td {
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	
+	.table tbody tr td:nth-child(7) {
+		display: flex;
+		justify-content: space-evenly;
+	}
+	
+	.programPreview {
+		cursor: pointer;
+	}
+	
+	#search-form {
+		float: right;
+		display: block;
+		position: relative;
+		top: 40px;
+		
+		/* text-align: right; */
+		/* position: relative; */
+		/* right: 20px; */	
+	}
+	
+	#back {
+   		position: relative;
+   		top: 60px;
+   }
+	
+	#searchResult {
+		display: inline-block;
+		width: 400px;
+		height: 37px;
+		
+		padding: 5px 0 5px 0;
+	}
+	
+	#searchResult > span {
+		font-weight: bold;
+		font-size: 18px;
+	}
 
 </style>
 </head>
@@ -61,8 +89,23 @@
                 <div class="selected_menu" id="registerProgram" onclick="location.href='/neulbom/admin/manage/registerProgram.do';">
                     <span id="selected_menu_text">프로그램 등록</span>
                 </div><!-- selected_menu -->
+                
+                 <form method="GET" action="/neulbom/admin/manage/manageProgram.do" id="search-form">
+                   <select name="column" class="select_search_item">
+                       <option value="title">제목</option>
+                       <option value="content">내용</option>
+                       <option value="place">장소</option>
+                   </select><!-- select_search_item -->
+                   <input type="text" name="word" class="search_input" placeholder="프로그램 정보를 입력하세요." required maxlength="10">
+                  <input class="btn btn-primary search_button" type="submit" value="검색하기">
+                  </form>
 
              	</div><!-- semi_title -->
+        <c:if test="${map.search == 'y'}">
+		<div id="searchResult">
+			<span>'${map.word}'(으)로 검색한 결과입니다.</span>
+		</div>
+		</c:if>
             <div class="main-box">
             <table class="table table-striped table-hover table-bordered" style="table-layout: fixed">
             <colgroup>
@@ -85,6 +128,14 @@
             		<th>처리</th>
             	</tr>
             </thead>
+            
+            <c:if test="${progList.size()==0 }">
+            <tbody>
+            <tr>
+            	<td colspan="7">검색한 정보와 일치하는 프로그램이 없습니다.</td>
+            </tr>
+            </c:if>
+            
             <tbody>
             	<c:forEach items="${progList}" var="progDto">
             	<tr>
@@ -129,6 +180,11 @@
     </div>
   </div>
 </div>
+
+		<c:if test="${map.search == 'y' }">
+			<input class="btn btn-secondary" type="button" id="back" value="돌아가기" onclick="location.href='/neulbom/admin/manage/manageProgram.do';">
+		</c:if>
+
             </div><!-- main-box -->
         </div><!-- inner-box -->
     </div><!-- content-box -->

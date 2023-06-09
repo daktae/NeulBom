@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.test.neulbom.mylib.DBUtil3;
@@ -17,43 +18,6 @@ public class ProgramDAO {
 	
 	public ProgramDAO() {
 		this.conn = DBUtil3.open();
-	}
-
-	
-	// 프로그램 목록 보기
-	public List<ProgramDTO> progList() {
-		
-		try {
-			
-			String sql = "select prog_seq, title, to_char(prog_date, 'yyyy-mm-dd') as prog_date, content, place, people from tblProgram order by prog_seq asc, prog_date asc";
-			
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-			
-			List<ProgramDTO> progList = new ArrayList<ProgramDTO>();
-			
-			while (rs.next()) {
-				ProgramDTO progDto = new ProgramDTO();
-				
-				progDto.setProg_seq(rs.getString("prog_seq"));
-				progDto.setTitle(rs.getString("title"));
-				progDto.setProg_date(rs.getString("prog_date"));
-				progDto.setContent(rs.getString("content"));
-				progDto.setPlace(rs.getString("place"));
-				progDto.setPeople(rs.getString("people"));
-				
-				progList.add(progDto);
-			}
-			
-			return progList;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		
-		return null;
 	}
 
 	// 프로그램 신규 등록하기
@@ -184,6 +148,49 @@ public class ProgramDAO {
 			e.printStackTrace();
 		}
 
+		return null;
+	}
+
+	// 프로그램 목록보기 & 검색
+	public List<ProgramDTO> getProgList(HashMap<String, String> map) {
+		
+		try {
+		
+			String where = "";
+			
+            if (map.get("search").equals("y")) {
+                where = String.format("where %s like '%%%s%%'"
+                                     , map.get("column")
+                                     , map.get("word"));
+             }
+			
+			
+			String sql = String.format("select prog_seq, title, to_char(prog_date, 'yyyy-mm-dd') as prog_date, content, place, people from tblProgram %s order by prog_seq asc, prog_date asc"
+									, where);
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			List<ProgramDTO> progList = new ArrayList<ProgramDTO>();
+			
+			while (rs.next()) {
+				ProgramDTO progDto = new ProgramDTO();
+				
+				progDto.setProg_seq(rs.getString("prog_seq"));
+				progDto.setTitle(rs.getString("title"));
+				progDto.setProg_date(rs.getString("prog_date"));
+				progDto.setContent(rs.getString("content"));
+				progDto.setPlace(rs.getString("place"));
+				progDto.setPeople(rs.getString("people"));
+				
+				progList.add(progDto);
+			}
+			
+			return progList;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
