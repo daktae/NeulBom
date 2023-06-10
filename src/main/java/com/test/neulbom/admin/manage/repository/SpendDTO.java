@@ -13,4 +13,6 @@ public class SpendDTO {
 	private String admin_seq;
 	
 	private int rownum;
+	private String spendSum;
+	private int monthly;
 }

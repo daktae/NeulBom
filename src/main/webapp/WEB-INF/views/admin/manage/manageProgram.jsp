@@ -112,7 +112,7 @@
 		</div>
 		</c:if>
             <div class="main-box">
-            <table class="table table-striped table-hover table-bordered" style="table-layout: fixed">
+            <table class="table table-hover table-bordered" style="table-layout: fixed">
             <colgroup>
             	<col width=5%>
 				<col width=15%>
