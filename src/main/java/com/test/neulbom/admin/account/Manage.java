@@ -85,7 +85,6 @@ public class Manage extends HttpServlet {
 		
 		String column = req.getParameter("column");
 		String word = req.getParameter("word");
-		String tab = req.getParameter("tab");
 		String search = "n"; //검색중(O,X)
 		
 		HashMap<String, String> map
@@ -98,10 +97,10 @@ public class Manage extends HttpServlet {
 			search = "y";
 		}
 		
+		
 		map.put("column", column);
 		map.put("word", word);
 		map.put("search", search);
-		map.put("tab", tab);
 		
 		map.put("begin", begin + "");
 		map.put("end", end + "");
@@ -145,31 +144,58 @@ public class Manage extends HttpServlet {
 		
 		loop = 1;   //루프 변수
 		n = ((nowPage -1) / blockSize) * blockSize + 1; //페이지 번호
-		
-		//이전 10페이지
-		if(n == 1) {
-			sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));         
-		}else {
-			sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage.do?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", n-1));                  
-		}
-		
-		while (!(loop > blockSize || n > totalPage)) {
-			
-			if (n == nowPage) {
-				sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));            
-			} else {
-				sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage.do?page=%d\">%d</a></li> ", n, n));         
+		if(search.equals("y")) {
+			if(n == 1) {
+				sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));         
+			}else {
+				sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage.do?column=%s&word=%s?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", column, word, n-1));                  
 			}
 			
-			loop++;
-			n++;
-		}
-		
-		//다음 10페이지
-		if(n > totalPage) {
-			sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
-		}else {
-			sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage.do?page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", n));         
+			while (!(loop > blockSize || n > totalPage)) {
+				
+				if (n == nowPage) {
+					sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));            
+				} else {
+					sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage.do?column=%s&word=%s&page=%d\">%d</a></li> ", column, word, n, n));         
+				}
+				
+				loop++;
+				n++;
+			}
+			
+			//다음 10페이지
+			if(n > totalPage) {
+				sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
+			}else {
+				sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage.do?column=%s&word=%s&page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", column, word, n));         
+			}
+		} else {
+			
+			//이전 10페이지
+			if(n == 1) {
+				sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));         
+			}else {
+				sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage.do?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", n-1));                  
+			}
+			
+			while (!(loop > blockSize || n > totalPage)) {
+				
+				if (n == nowPage) {
+					sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));            
+				} else {
+					sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage.do?page=%d\">%d</a></li> ", n, n));         
+				}
+				
+				loop++;
+				n++;
+			}
+			
+			//다음 10페이지
+			if(n > totalPage) {
+				sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
+			}else {
+				sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage.do?page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", n));         
+			}
 		}
 		
 		req.setAttribute("totalCount", totalCount);

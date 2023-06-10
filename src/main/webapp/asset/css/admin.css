@@ -5,6 +5,7 @@
     font-style: normal;
 }
 
+
 html {
     font-family: 'IBMPlexSansKR-Regular';
 }
@@ -86,6 +87,11 @@ table td {
     
 }
 
+.profile-img {
+	width: 150px;
+	height: 150px;
+	border-radius: 10px;
+}
 .menu {
     color: #333;
     padding-bottom: 10px;

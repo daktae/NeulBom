@@ -126,7 +126,7 @@ public class ResiDAO {
 										, map.get("word"));
 			}
 
-			String sql = String.format("select * from (select a.* from vwResident a %s order by resi_seq) where resi_seq between %s and %s"
+			String sql = String.format("select * from (select a.*, rownum as rnum from vwResident a %s order by resi_seq) where rnum between %s and %s"
                     , where
                     , map.get("begin")
                     , map.get("end")

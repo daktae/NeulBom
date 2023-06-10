@@ -50,10 +50,6 @@
 		top: 45px;
 		
 	}
-	#preview {
-		width: 250px;
-		height: 250px;
-	}
 	#add-cate {
 		font-size: 20px;
 		font-weight: bold;
