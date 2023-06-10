@@ -88,6 +88,11 @@
 #add_div {
 	float: right;
 }
+
+#paging {
+	position: relative;
+	top: 50px;
+}
 </style>
 </head>
 <body>
@@ -159,6 +164,12 @@
 								</c:forEach>
 							</tbody>
 						</table>
+						
+								<!-- 페이징 -->
+						<c:if test="${list.size() != 0 }">
+							<div id="paging" class="pagination justify-content-center"
+								style="text-align: center; margin-bottom: 10px;">${pagination}</div>
+						</c:if>
 
 						<div id="add_div">
 							<div class="add movable"
