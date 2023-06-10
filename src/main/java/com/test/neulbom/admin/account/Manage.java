@@ -37,7 +37,7 @@ public class Manage extends HttpServlet {
 	}
 
 	private void test(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//Board.java
+		//Manage.java
 		
 		//1. DB 작업 > select
 		//2. 결과 반환

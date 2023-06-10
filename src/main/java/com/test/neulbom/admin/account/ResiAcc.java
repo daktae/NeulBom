@@ -31,11 +31,6 @@ public class ResiAcc extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		//RegisterOk.java
-		//1. 데이터 가져오기
-		//2. DB 작업 > insert
-		//3. 결과
-		
 		try {
 			MultipartRequest multi = new MultipartRequest(
 					
