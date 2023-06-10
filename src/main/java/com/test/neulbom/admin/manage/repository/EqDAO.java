@@ -267,17 +267,21 @@ public class EqDAO {
 		
 		try {
 			
+			String where ="";
 
-			String sql = "select count(*) as cnt from tblEq";
+			
+            if (map.get("search").equals("y")) {
+                where = String.format("where name like '%%%s%%'"
+                                     , map.get("word"));
+             }
 
+            String sql = String.format("select count(*) as cnt from tblEq %s", where);
+            
 			pstat = conn.prepareStatement(sql);
 
 			rs = pstat.executeQuery();
 
 			if (rs.next()) {
-				
-				System.out.println("지금 한 페이지에 출력되는 게시물 수: " + size);
-				System.out.println("전체 게시물 수: " + rs.getInt("cnt"));
 				
 				return rs.getInt("cnt");
 			}

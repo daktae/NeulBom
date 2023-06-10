@@ -204,7 +204,13 @@ public class ProgramDAO {
 		
 		try {
 
-			String sql = "select count(*) as cnt from tblProgram";
+			String where ="";
+			
+			if (map.get("search").equals("y")) {
+				where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word") );
+			}
+			
+			String sql = String.format("select count(*) as cnt from tblProgram %s", where); 
 
 			pstat = conn.prepareStatement(sql);
 

@@ -147,7 +147,7 @@
 	        <div class="scrollable">
 	        
 	        
-            <table id="latestSpendList-table" class="table">
+            <table id="latestSpendList-table" class="table table-hover">
            	<colgroup>
 					<col width=10%>
 					<col width=20%>
@@ -199,6 +199,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
+	Chart.defaults.scales.linear.min = 150000000;
+	Chart.defaults.scales.linear.max = 170000000;
+	Chart.defaults.scales.linear.stepSize = 5;
 
 	var context = document
 	.getElementById('myChartPie')
@@ -313,14 +316,36 @@
               },
 
           },
-          scales: {
+/*           scales: {
               y: {
+                  suggestedMin: 500,
+                  suggestedMax: 20000000
+              }
+          } 
+/*       	   y: [{
+               ticks: {
+                   display: true,
+                   min: 10000000,   //y축 최솟값
+                   max: 20000000, //y축 최댓값
+                   stepSize: 1
+               } 
+           }]
+             y: {
                   title: {
                       display: true,
                       text: '지출액 (단위: 원)'
                   }
-              }
-          },
+              } */
+/*           scales: {
+				yAxes: [{
+					
+					display: true,
+					ticks: {
+						fontSize : 14,
+					}
+				}]
+			} */
+		
       }
 
   });
