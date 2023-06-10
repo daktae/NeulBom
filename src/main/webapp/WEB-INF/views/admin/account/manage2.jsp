@@ -95,42 +95,40 @@
 							<button id="showAdminList" class="btn btn-outline-primary">관리자 목록</button>
 	            		</div>
 	            	</div>
-					<div id="rlist">
-						<div id="mcate">입주자 계정</div>
+					<div id="alist">
+						<div id="mcate">관리자 계정</div>
 						<table id="list" class="table" style="text-align:center;">
 							<tr>
-								<th style="width: 15%;">입주자 번호</th>
+								<th style="width: 15%;">사번</th>
 								<th style="width: 20%;">이름</th>
 								<th style="width: 25%;">아이디</th>
 								<th style="width: 25%;">비밀번호</th>
 								<th style="width: auto;">삭제</th>
 							</tr>
-							<c:if test="${rlist.size() == 0}">
+							<c:if test="${alist.size() == 0}">
 							<tr>
-								<td colspan="5">게시물이 없습니다.</td>
+								<td colspan="5">검색 결과가 없습니다.</td>
 							</tr>	
 							</c:if>
-							<c:forEach items="${rlist}" var="rdto">
+							<c:forEach items="${alist}" var="adto">
 							<tr>
 								<td>
-									${rdto.resi_seq}
+									${adto.admin_seq}
 								</td>
 								<td>
-									${rdto.name}
+									${adto.name}
 								</td>
-								<td>${rdto.id}</td>
-								<td>${rdto.pw}</td>
-								<td style="display:flex; justify-content: center;"> 
-									<div class="delete movable" style="text-align: center;">
-										<span id="delete_txt" onclick="location.href='/neulbom/admin/account/delresi.do?resi_seq=${rdto.resi_seq}';">삭제</span>
+								<td>${adto.id}</td>
+								<td>${adto.pw}</td>
+								<td style="display:flex; justify-content: center;">
+									<div class="delete movable" style="text-align: center;" onclick="location.href='/neulbom/admin/account/deladmin.do?admin_seq=${adto.admin_seq}';">
+										<span id="delete_txt">삭제</span>
 									</div>		
 								</td>
 							</tr>
 							</c:forEach>
 						</table>
-						
-						
-						<form role="search" action="/neulbom/admin/account/manage.do" method="GET"  id="searchForm">
+						<form role="search" action="/neulbom/admin/account/manage2.do" method="GET"  id="searchForm">
 		                    <select name="column">
 		                        <option value="name">이름</option>
 		                        <option value="id">아이디</option>
@@ -145,7 +143,6 @@
 					</div>
 				</div>
 					<!-- <form method="GET"> 사용 사례 -->
-		
 	            </div><!-- main-box -->
 	        </div><!-- inner-box -->
 	    </div><!-- content-box -->
@@ -168,7 +165,7 @@
 	      //$("#rlist").removeClass("hidden"); // 입주자 목록 표시
 		  location.href = "/neulbom/admin/account/manage.do";
 	    });
-	
+	    
 	});
 </script>
 </body>

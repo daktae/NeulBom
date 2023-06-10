@@ -155,7 +155,7 @@
 		                   <input type="text" name="word" class="search_input" placeholder="정보를 입력하세요." required maxlength="15">
                    		   <input class="btn btn-primary search_button" type="submit" value="검색하기">
 		                </form>
- --%>		                <div class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
+ --%>		            <div class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
 					</div>
 	            </div><!-- main-box -->
 	        </div><!-- inner-box -->

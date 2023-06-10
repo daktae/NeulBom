@@ -19,8 +19,8 @@ import com.test.neulbom.admin.repository.AdminDTO;
 import com.test.neulbom.admin.repository.ResiDAO;
 import com.test.neulbom.admin.repository.ResiDTO;
 
-@WebServlet("/admin/account/manage.do")
-public class Manage extends HttpServlet {
+@WebServlet("/admin/account/manage2.do")
+public class Manage2 extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -107,11 +107,13 @@ public class Manage extends HttpServlet {
 		map.put("end", end + "");
 		
 		
+		AdminDAO adao = new AdminDAO();
 		ResiDAO rdao = new ResiDAO();
 		
-		List<ResiDTO> rlist = rdao.rlist(map);
+		List<AdminDTO> alist = adao.alist(map);
 				
-		for (ResiDTO rdto : rlist) {
+		//데이터 조작
+		for (AdminDTO adto : alist) {
 			
 			//날짜 출력(기준: 당일)
 			//- 년월일
@@ -119,27 +121,27 @@ public class Manage extends HttpServlet {
 			//System.out.println(dto.getRegdate());
 			//dto.setRegdate(dto.getRegdate().substring(0, 10));
 			
-			String subject = rdto.getName();
+			String subject = adto.getName();
 			
 			//태그 이스케이프
 			subject = subject.replace("<", "&lt;")
-					.replace(">", "&gt;");
+							 .replace(">", "&gt;");
 			
 			//제목에서 검색 중.. 검색어를 강조
 			if (search.equals("y") && column.equals("name")) {
 				subject = subject.replace(word, "<span>" + word + "</span>");
 			}
 			
-			
-			rdto.setName(subject);
+			adto.setName(subject);
 			
 		}
+			
 		
 		StringBuilder sb = new StringBuilder();
 		
 		// 페이징 작업
 		// 총 게시물
-		totalCount = rdao.getTotalCount(map); 
+		totalCount = adao.getTotalCount(map);
 		totalPage = (int) Math.ceil((double) totalCount / pageSize);
 		
 		
@@ -150,7 +152,7 @@ public class Manage extends HttpServlet {
 		if(n == 1) {
 			sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));         
 		}else {
-			sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage.do?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", n-1));                  
+			sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage2.do?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", n-1));                  
 		}
 		
 		while (!(loop > blockSize || n > totalPage)) {
@@ -158,7 +160,7 @@ public class Manage extends HttpServlet {
 			if (n == nowPage) {
 				sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));            
 			} else {
-				sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage.do?page=%d\">%d</a></li> ", n, n));         
+				sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage2.do?page=%d\">%d</a></li> ", n, n));         
 			}
 			
 			loop++;
@@ -169,13 +171,13 @@ public class Manage extends HttpServlet {
 		if(n > totalPage) {
 			sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
 		}else {
-			sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage.do?page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", n));         
+			sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/account/manage2.do?page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", n));         
 		}
 		
 		req.setAttribute("totalCount", totalCount);
 		req.setAttribute("totalPage", totalPage);
 		req.setAttribute("nowPage", nowPage);
-		req.setAttribute("rlist", rlist);
+		req.setAttribute("alist", alist);
 		req.setAttribute("pagination", sb);
 		req.setAttribute("map", map);
 		//JSP 페이지 알 수 있는 정보
@@ -183,7 +185,7 @@ public class Manage extends HttpServlet {
 		//2. session/cookie
 		//3. application
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/account/manage.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/account/manage2.jsp");
 		dispatcher.forward(req, resp);
 	}
 
