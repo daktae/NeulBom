@@ -126,9 +126,11 @@ public class ResiDAO {
 										, map.get("word"));
 			}
 
-			String sql = String.format("select * from (select a.* from vwResident a %s) order by resi_seq asc"
-										, where
-										);
+			String sql = String.format("select * from (select a.*, rownum as rnum from vwResident a %s order by resi_seq) where rnum between %s and %s"
+                    , where
+                    , map.get("begin")
+                    , map.get("end")
+                    );
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -222,6 +224,34 @@ public class ResiDAO {
 			e.printStackTrace();
 		}
 		
+		
+		return 0;
+	}
+	public int getTotalCount(HashMap<String, String> map) {
+
+		try {
+			
+			String where = "";
+			
+			if (map.get("search").equals("y")) {
+	            where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word") );
+	        }
+
+
+			String sql = String.format("select count(*) as cnt from tblResident %s", where);
+
+			pstat = conn.prepareStatement(sql);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return 0;
 	}

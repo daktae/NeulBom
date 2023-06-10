@@ -11,6 +11,8 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp" %>
 
 <style>
+
+	
 	#addemp, #addresi {
 		display: flex;
 		padding: 30px;
@@ -48,10 +50,6 @@
 		top: 45px;
 		
 	}
-	#preview {
-		width: 250px;
-		height: 250px;
-	}
 	#add-cate {
 		font-size: 20px;
 		font-weight: bold;
@@ -61,7 +59,7 @@
 		padding-left: 50px;
 		padding-right: 50px;
 		border-radius: 15px;
-		width: 800px;
+		width: 900px;
 		height: 520px;
 		display: flex;
 		justify-content: space-around;
@@ -95,6 +93,10 @@
 		margin-top: 30px;
 		font-weight: bold;
 	}
+	#menubox {
+		display: flex;
+		justify-content: center;
+	}
 	
 
 </style>
@@ -109,16 +111,18 @@
 	                    <span id="selected_menu_text">계정 부여</span>
 	                </div><!-- selected_menu -->
 	            </div><!-- semi_title -->
-	            <div class="main-box">
-		            <div id="iconbox">
-						<img src="/neulbom/asset/image/admin.png" id="selicon1" onclick="location.href='/neulbom/admin/account/adminacc.do';">
-						<div id="icontext">관리자</div>         
-		            </div>
-		            <div id="iconbox">
-						<img src="/neulbom/asset/image/resident.png" id="selicon2" onclick="location.href='/neulbom/admin/account/resiacc.do';">
-						<div id="icontext">입주자</div>       
-		            </div>
-	       	 	</div>
+	            <div id="menubox">
+		            <div class="main-box">
+			            <div id="iconbox">
+							<img src="/neulbom/asset/image/admin.png" id="selicon1" onclick="location.href='/neulbom/admin/account/adminacc.do';">
+							<div id="icontext">관리자</div>         
+			            </div>
+			            <div id="iconbox">
+							<img src="/neulbom/asset/image/resident.png" id="selicon2" onclick="location.href='/neulbom/admin/account/resiacc.do';">
+							<div id="icontext">입주자</div>       
+			            </div>
+		       	 	</div>
+	            </div>
 	    	</div>
 		</div>
 	</div>	

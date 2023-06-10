@@ -3,14 +3,14 @@ package com.test.neulbom.admin.manage.repository;
 import lombok.Data;
 
 @Data
-public class QreplyDTO {
+public class CreplyDTO {
 	
+	String creply_seq;
 	String title;
 	String content;
-	String fname;
+	String cfile;
 	String admin_seq;
-	String qna_seq;
-	String read;
+	String con_seq;
 	
 	String replier;
 

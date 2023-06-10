@@ -17,6 +17,7 @@ public class Index extends HttpServlet {
 			throws ServletException, IOException {
 
 		//Index.java
+		req.setAttribute("dto", resp);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/index.jsp");
 		dispatcher.forward(req, resp);

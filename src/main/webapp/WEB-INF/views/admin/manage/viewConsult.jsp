@@ -137,8 +137,8 @@ td.comment {
 				</div>
 				<!-- semi_title -->
 				<div class="main-box">
-					<form method="POST" action="/neulbom/admin/manage/viewqna.do">
-						<input type="hidden" name="seq" value="${dto.qna_seq}">
+					<form method="POST" action="/neulbom/admin/manage/viewconsult.do">
+						<input type="hidden" name="seq" value="${dto.con_seq}">
 						<table class="table" style="table-layout: fixed;">
 							<colgroup>
 								<col width=25%>
@@ -148,32 +148,20 @@ td.comment {
 							</colgroup>
 							<tr>
 								<td>제목</td>
-								<td colspan="3"><b>${dto.title}</b></td>
+								<td><b>${dto.title}</b></td>
+								<td>등록일</td>
+								<td>${dto.con_date}</td>
 							</tr>
 							<tr>
 								<td>글쓴이</td>
+								<td>${dto.writer_name}</td>
+								<td>연락처</td>
+								<td>${dto.writer_tel}</td>
 
-								<td colspan="3"><c:if test="${not empty dto.pname}">
-										${dto.pname}(${dto.type})
-										</c:if> <c:if test="${not empty dto.rname}">
-										${dto.rname}(${dto.type})
-										</c:if></td>
-							</tr>
-
-							<tr>
-								<td>등록일</td>
-								<td>${dto.qna_date}</td>
-								<td>조회수</td>
-								<td>${dto.read}</td>
 							</tr>
 							<tr id="content-tr">
 								<td>내용</td>
-								<td id="content" colspan="3"><c:if
-										test="${not empty dto.fname}">
-										<div id="attachment">
-											<img src="/neulbom/asset/image/${dto.fname}">
-										</div>
-									</c:if> <pre>${dto.content}</pre></td>
+								<td id="content" colspan="3"><pre>${dto.content}</pre></td>
 							</tr>
 
 							<tr>
@@ -183,13 +171,13 @@ td.comment {
 							<c:if test="${dto.isReply eq 'y'}">
 								<tr>
 									<td>제목</td>
-									<td>${qdto.title}</td>
+									<td>${cdto.title}</td>
 									<td>작성자</td>
-									<td>${qdto.replier}</td>
+									<td>${cdto.replier}</td>
 								</tr>
 								<tr id="comment">
 									<td>내용</td>
-									<td colspan="3" id="comment-content"><pre>${qdto.content}</pre>
+									<td colspan="3" id="comment-content"><pre>${cdto.content}</pre>
 									</td>
 								</tr>
 							</c:if>

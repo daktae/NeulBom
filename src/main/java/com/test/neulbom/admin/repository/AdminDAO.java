@@ -208,8 +208,10 @@ public class AdminDAO {
                               , map.get("word"));
          }
 
-         String sql = String.format("select * from (select a.*, rownum as rnum from vwAdmin a %s)"
+         String sql = String.format("select * from (select a.*, rownum as rnum from vwAdmin a %s order by admin_seq) where rnum between %s and %s"
                               , where
+                              , map.get("begin")
+                              , map.get("end")
                               );
 
          stat = conn.createStatement();
@@ -225,6 +227,7 @@ public class AdminDAO {
             dto.setName(rs.getString("name"));
             dto.setId(rs.getString("id"));
             dto.setPw(rs.getString("pw"));
+            dto.setLv(rs.getString("lv"));
 
             list.add(dto);
          }
@@ -243,8 +246,15 @@ public class AdminDAO {
 	public int getTotalCount(HashMap<String, String> map) {
 		
 		try {
+			
+			String where = "";
+			
+			if (map.get("search").equals("y")) {
+	            where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word") );
+	        }
 
-			String sql = "select count(*) as cnt from tblAdmin";
+
+			String sql = String.format("select count(*) as cnt from tblAdmin %s", where);
 
 			pstat = conn.prepareStatement(sql);
 

@@ -8,12 +8,13 @@
 <meta charset="UTF-8">
 <title>늘봄 관리자</title>
 <%@ include file="/WEB-INF/views/inc/asset.jsp"%>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<link rel="stylesheet" type="text/css"
-	href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+<link
+	href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css'
+	rel='stylesheet' />
+<script
+	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
+<script
+	src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
 <style>
 .select_boards {
 	width: 183px;
@@ -51,43 +52,18 @@
 	color: #A61123;
 }
 
-.back {
-	background-color: rgba(105, 105, 105, 0.2);
-	border-radius: 30px;
-	width: 72px;
-	height: 30px;
+#cal-container {
+display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#back_txt {
+#calendar {
 	position: relative;
-	top: 3px;
-	color: #474747;
-}
+	top: 30px;
+	width: 750px;
+	height: 600px;
 
-.table tbody tr td:nth-child(8) {
-	display: flex;
-	justify-content: space-evenly;
-}
-
-#buttons {
-	float: right;
-	display: flex;
-	text-align: center;
-	margin-bottom: 10px;
-	margin-right: 5px;
-}
-
-.reject {
-	background-color: rgba(235, 87, 87, 0.2);
-	border-radius: 30px;
-	width: 72px;
-	height: 30px;
-}
-
-#reject_txt {
-	position: relative;
-	top: 3px;
-	color: #EB5757;
 }
 </style>
 </head>
@@ -112,13 +88,10 @@
 				<!-- semi_title -->
 
 				<div class="main-box">
+<div id="cal-container">
 
-
-					<input id="meet" pattern="\d{6}" placeholder="" required
-						th:field="*{birth}" type="text" name="pssn1"
-						oninput="convertDateFormat(event)"
-						style="width: 100px !important;">
-
+					<div id="calendar"></div>
+</div>
 
 				</div>
 				<!-- main-box -->
@@ -128,19 +101,29 @@
 		<!-- content-box -->
 	</div>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-		crossorigin="anonymous"></script>
+
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
-	
-	 var fp = flatpickr(document.getElementById("meet"), {
-	       'monthSelectorType' : 'dropdown',
-	       "locale": "ko" 
-	    });
-		
+		const calendarEl = document.getElementById("calendar"); //캘린더를 넣어줄 html div
+
+		let calendar;
+
+		calendar_rendering();
+
+		function calendar_rendering() {
+			calendar = new FullCalendar.Calendar(calendarEl, {
+				initialView : "dayGridMonth",
+				firstDay : 1,
+				titleFormat : function(date) {
+					year = date.date.year;
+					month = date.date.month + 1;
+
+					return year + "년 " + month + "월";
+				},
+			});
+			calendar.render();
+		}
 	</script>
 
 

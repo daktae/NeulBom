@@ -12,10 +12,11 @@
 
 <style>
 	#searchForm {
+		display: flex;
 		position: relative;
 		margin-bottom: 15px;
 		text-align: center;
-		top: 60px;
+		justify-content: center;
 	}
 	#accountcate {
 		background-color: cornflowerblue;
@@ -47,6 +48,8 @@
 	}
 	#showAdminList, #showResidentList {
 		font-weight: bold;
+		top: 1px;
+		left: 10px;
 	}
 	#mcate {
 		position: relative;
@@ -65,19 +68,17 @@
 </style>
 </head>
 <body>
-
-
-    <div class="main">
+    <div class="main">	
 	    <%@ include file="/WEB-INF/views/inc/adSidemenu.jsp" %>
 	    <div class="content-box">
 	        <div id="inner-box">
 	            <div class="semititle">
 	                <div class="selected_menu">
-	                    <span id="selected_menu_text">직원 조회</span>
+	                    <span id="selected_menu_text">계정 관리</span>
 	                </div><!-- selected_menu -->
 	            </div><!-- semi_title -->
 	            <div class="main-box">
-					<div id="managehead">
+	            	<div id="managehead">
 	            		<div id="headtxt">
 	            			<div id="headinner">
 								계정 
@@ -90,7 +91,8 @@
 	            			</div>
 	            		</div>
 	            		<div id="buttonbox">
-							<button id="showAdminList" class="btn btn-outline-primary">목록 보기</button>
+		  					<button id="showResidentList" class="btn btn-outline-primary">입주자 목록</button>
+							<button id="showAdminList" class="btn btn-outline-primary">관리자 목록</button>
 	            		</div>
 	            	</div>
 					<div id="alist">
@@ -100,8 +102,8 @@
 								<th style="width: 15%;">사번</th>
 								<th style="width: 20%;">이름</th>
 								<th style="width: 25%;">아이디</th>
-								<th style="width: 25%;">구분</th>
-								<th></th>
+								<th style="width: 25%;">비밀번호</th>
+								<th style="width: auto;">삭제</th>
 							</tr>
 							<c:if test="${alist.size() == 0}">
 							<tr>
@@ -117,50 +119,32 @@
 									${adto.name}
 								</td>
 								<td>${adto.id}</td>
-								<td>
-									<c:if test="${adto.lv == '1'}">
-										관리자
-									</c:if>
-									<c:if test="${adto.lv == '2'}">
-										사무직
-									</c:if>
-									<c:if test="${adto.lv == '3' || adto.lv == '4'}">
-										실무직
-									</c:if>
-								</td>
-								<td style="display:flex; justify-content: center;"> 
-									<div class="delete movable" style="text-align: center;">
-										<span id="delete_txt" onclick="location.href='/neulbom/admin/account/view.do?admin_seq=${adto.admin_seq}';">상세보기</span>
+								<td>${adto.pw}</td>
+								<td style="display:flex; justify-content: center;">
+									<div class="delete movable" style="text-align: center;" onclick="location.href='/neulbom/admin/account/deladmin.do?admin_seq=${adto.admin_seq}';">
+										<span id="delete_txt">삭제</span>
 									</div>		
 								</td>
 							</tr>
 							</c:forEach>
 						</table>
-						<form class="d-flex" role="search" action="/neulbom/admin/account/adminlist.do?tab=${tab}" method="GET" style="max-width: 50%;">
-		                    <select name="column" class="form-select" aria-label="Default select example" style="margin-right: 10px;">
+						<form role="search" action="/neulbom/admin/account/manage2.do" method="GET"  id="searchForm">
+		                    <select name="column">
 		                        <option value="name">이름</option>
 		                        <option value="id">아이디</option>
 		                    </select>
 		        
 		                 <!-- <form method="GET"> 사용 사례 -->
-		                    <input class="form-control_wj" type="search" placeholder="검색어를 입력해주세요." aria-label="Search" name="word" required>
-		                    <button class="btn btn-light" type="submit"
-		                        style="width:74px !important; height:38px !important;white-space:nowrap;">검색</button>
+		                    <input type="text" name="word" class="search_input" placeholder="정보를 입력하세요." required maxlength="15">
+		                    <input class="btn btn-primary search_button" type="submit" value="검색하기" id="showResidentList">
 		                </form>
-<%-- 		                <form method="GET" action="/neulbom/admin/account/adminlist.do?tab=${tab}" id="searchForm">
-		                   <select name="column" class="select_search_item">
-		                       <option value="name">이름</option>
-		                       <option value="id">아이디</option>
-		                   </select><!-- select_search_item -->
-		                   <input type="text" name="word" class="search_input" placeholder="정보를 입력하세요." required maxlength="15">
-                   		   <input class="btn btn-primary search_button" type="submit" value="검색하기">
-		                </form>
- --%>		            <div class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
+		            	<div class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
 					</div>
+				</div>
+					<!-- <form method="GET"> 사용 사례 -->
 	            </div><!-- main-box -->
 	        </div><!-- inner-box -->
 	    </div><!-- content-box -->
-	</div>
 
 <!-- JavaScript Bundle with Popper -->
 <script src="/asset/js/bootstrap.js"></script>
@@ -171,11 +155,16 @@
 	    $("#showAdminList").click(function() {
 	      //$("#alist").removeClass("hidden"); // 관리자 목록 표시
 	      //$("#rlist").addClass("hidden"); // 입주자 목록 감춤
-	      location.href = "/neulbom/admin/account/adminlist.do?tab=1";
+	      location.href = "/neulbom/admin/account/manage2.do";
 	    });
 	
+	    // 입주자 목록 보여주는 버튼 클릭 시
+	    $("#showResidentList").click(function() {
+	      //$("#alist").addClass("hidden"); // 관리자 목록 감춤
+	      //$("#rlist").removeClass("hidden"); // 입주자 목록 표시
+		  location.href = "/neulbom/admin/account/manage.do";
+	    });
 	    
-	
 	});
 </script>
 </body>
