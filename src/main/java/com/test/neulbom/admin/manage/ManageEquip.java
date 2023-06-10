@@ -73,7 +73,7 @@ public class ManageEquip extends HttpServlet {
 		
 		// 페이징 작업
 		// 총 게시물
-		totalCount = dao.getTotalCount(map, size);
+		totalCount = dao.getRegEqTotalCount(map, size);
 		totalPage = (int) Math.ceil((double) totalCount / pageSize);
 		
 		loop = 1;	//루프 변수

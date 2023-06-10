@@ -261,6 +261,37 @@ public class EqDAO {
 		return 0;
 	}
 	
+	// 페이징
+	public int getRegEqTotalCount(HashMap<String, String> map, int size) {
+		
+		try {
+			
+//			String where ="";
+//			
+//			
+//			if (map.get("search").equals("y")) {
+//				where = String.format("where name like '%%%s%%'"
+//						, map.get("word"));
+//			}
+			
+			String sql = "select count(*) as cnt from tblRegEq";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			rs = pstat.executeQuery();
+			
+			if (rs.next()) {
+				
+				return rs.getInt("cnt");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
 	
 }
 
