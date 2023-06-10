@@ -10,6 +10,7 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp"%>
 
 <style>
+
 .select_boards {
 	width: 183px;
 	height: 47px;
@@ -62,11 +63,6 @@
 
 #free_txt {
 	color: #4F4F4F;
-}
-
-.table {
-	position: relative;
-	top: 50px;
 }
 
 .table thead tr th {
@@ -133,7 +129,10 @@
 						<span id="free_txt">자유게시판</span>
 					</div>
 
-					<div>
+				</div>
+				<!-- semi_title -->
+				<div class="main-box">
+				<div>
 						<table class="table table-striped">
 							<colgroup>
 								<col width=10%>
@@ -174,10 +173,7 @@
 							</tbody>
 						</table>
 					</div>
-
 				</div>
-				<!-- semi_title -->
-				<div class="main-box"></div>
 				<!-- main-box -->
 			</div>
 			<!-- inner-box -->

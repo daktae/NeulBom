@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.test.neulbom.admin.manage.repository.ConsultDTO;
+import com.test.neulbom.admin.manage.repository.CreplyDTO;
 import com.test.neulbom.admin.manage.repository.ManageDAO;
-import com.test.neulbom.admin.manage.repository.QnaDTO;
-import com.test.neulbom.admin.manage.repository.QreplyDTO;
 
-@WebServlet("/admin/manage/viewqna.do")
-public class ViewQna extends HttpServlet {
+@WebServlet("/admin/manage/viewconsult.do")
+public class ViewConsult extends HttpServlet {
+
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,7 +24,7 @@ public class ViewQna extends HttpServlet {
 		String seq = req.getParameter("seq");
 
 		ManageDAO dao = new ManageDAO();
-		QnaDTO dto = dao.getQna(seq);
+		ConsultDTO dto = dao.getConsult(seq);
 
 		String content = dto.getContent();
 
@@ -36,12 +37,12 @@ public class ViewQna extends HttpServlet {
 
 		dto.setContent(content);
 
-		QreplyDTO qdto = dao.getQReply(seq);
+		CreplyDTO cdto = dao.getCReply(seq);
 
 		req.setAttribute("dto", dto);
-		req.setAttribute("qdto", qdto);
+		req.setAttribute("cdto", cdto);
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/viewQna.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/viewConsult.jsp");
 		dispatcher.forward(req, resp);
 	}
 
@@ -56,10 +57,10 @@ public class ViewQna extends HttpServlet {
 		
 		ManageDAO dao = new ManageDAO();
 		
-		int result = dao.replyToQna(seq, title, content);
+		int result = dao.replyToConsult(seq, title, content);
 
 		if (result >= 1) {
-			resp.sendRedirect("/neulbom/admin/manage/qna.do");
+			resp.sendRedirect("/neulbom/admin/manage/consult.do");
 		} else {
 			PrintWriter writer = resp.getWriter();
 			writer.print("<script>alert('failed'); history.back();</script>");
@@ -67,4 +68,5 @@ public class ViewQna extends HttpServlet {
 		}
 		
 	}
+
 }
