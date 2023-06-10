@@ -378,7 +378,7 @@ public class ManageDAO {
 	private int updateIsReply(String tbl, String column, String seq) {
 		try {
 
-			String sql = String.format("UPDATE %s isReply = 'y' WHERE %s = %s", tbl, column, seq);
+			String sql = String.format("UPDATE %s SET isReply = 'y' WHERE %s = %s", tbl, column, seq);
 
 			stat = conn.createStatement();
 			return stat.executeUpdate(sql);
@@ -390,6 +390,7 @@ public class ManageDAO {
 		return 0;
 	}
 
+	// 입주문의 전체 글 목록 출력
 	public ConsultDTO getConsult(String seq) {
 
 		try {
@@ -407,7 +408,8 @@ public class ManageDAO {
 				dto.setCon_seq(rs.getString("con_seq"));
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
-
+				dto.setCon_date(rs.getString("con_date").substring(0, 10));
+				dto.setIsReply(rs.getString("isReply"));
 				dto.setNomem_seq(rs.getString("nomem_seq"));
 				dto.setWriter_name(rs.getString("name"));
 				dto.setWriter_tel(rs.getString("tel"));
@@ -423,6 +425,7 @@ public class ManageDAO {
 		return null;
 	}
 
+	// 입주문의 답글 가져오기
 	public CreplyDTO getCReply(String seq) {
 
 		try {
@@ -458,6 +461,7 @@ public class ManageDAO {
 		return null;
 	}
 
+	// 입주문의 답글 달기
 	public int replyToConsult(String seq, String title, String content) {
 		try {
 			// TODO
@@ -480,5 +484,63 @@ public class ManageDAO {
 		}
 
 		return 0;
+	}
+
+	// 승인된 면회 목록(캘린더 출력용)
+	public List<MeetDTO> confirmedMeet() {
+
+		try {
+
+			String sql = "SELECT m.*, p.name AS pname, r.name AS rname FROM tblMeet m INNER JOIN tblProtect p ON m.protect_seq = p.protect_seq INNER JOIN tblResident r ON m.resi_seq = r.resi_seq WHERE m.confirmation = 'y'";
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			List<MeetDTO> list = new ArrayList<MeetDTO>();
+
+			while (rs.next()) {
+
+				MeetDTO dto = new MeetDTO();
+				
+				dto.setMeet_seq(rs.getString("meet_seq"));
+				
+				String date = rs.getString("meet_date").substring(0, 10);
+				dto.setMeet_date(date);
+
+				String time = rs.getString("meet_time");
+
+				String[] temp = time.split("~");
+				String temp1 = temp[0];
+				String temp2 = temp[1];
+
+				dto.setMeet_time(String.format("%s:00~%s:00", temp1, temp2));
+				
+				dto.setPname(rs.getString("pname"));
+				dto.setRname(rs.getString("rname"));
+				
+				String[] dateTemp = date.trim().split("-");
+				int year = Integer.parseInt(dateTemp[0]);
+				int month = Integer.parseInt(dateTemp[1]);
+				int day = Integer.parseInt(dateTemp[2]);
+
+				LocalDate mdate = LocalDate.of(year, month, day);
+				LocalDate now = LocalDate.now();
+
+				if (mdate.isAfter(now))
+					dto.setIsRevisable(1);
+				else
+					dto.setIsRevisable(0);
+				
+				list.add(dto);
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+
 	}
 }
