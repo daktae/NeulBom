@@ -16,13 +16,20 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.test.neulbom.admin.board.repository.BoardDAO;
 import com.test.neulbom.admin.board.repository.FoodDTO;
 
-@WebServlet("/admin/board/addfood.do")
-public class AddFood extends HttpServlet {
+@WebServlet("/admin/board/editfood.do")
+public class EditFood extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/addFood.jsp");
+		String seq = req.getParameter("seq");
+
+		BoardDAO dao = new BoardDAO();
+		FoodDTO dto = dao.showFood(seq);
+		
+		req.setAttribute("dto", dto);
+		
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/board/editFood.jsp");
 		dispatcher.forward(req, resp);
 	}
 	
@@ -47,12 +54,13 @@ public class AddFood extends HttpServlet {
 	         
 	         HttpSession session = req.getSession();
 	         
+	         String seq = multi.getParameter("seq");
 	         String title = multi.getParameter("title");
 	 		 String fname = multi.getFilesystemName("fname");
 	         
 	         int result = 0;
 
-	         result = dao.addFood(title, fname);
+	         result = dao.editFood(title, fname, seq);
 	 		 
 	 		 if(result == 1) {
 	 			 resp.sendRedirect("/neulbom/admin/board/food.do");
@@ -68,5 +76,6 @@ public class AddFood extends HttpServlet {
 		
 		
 	}
+
 
 }

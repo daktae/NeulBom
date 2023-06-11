@@ -9,7 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.test.neulbom.admin.manage.repository.ManageDAO;
 import com.test.neulbom.admin.manage.repository.QnaDTO;
 import com.test.neulbom.admin.manage.repository.QreplyDTO;
@@ -48,23 +51,40 @@ public class ViewQna extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		req.setCharacterEncoding("UTF-8");
-		
-		String seq = req.getParameter("seq");
-		String title = req.getParameter("rtitle");
-		String content = req.getParameter("rcontent");
-		
-		ManageDAO dao = new ManageDAO();
-		
-		int result = dao.replyToQna(seq, title, content);
+		try {
 
-		if (result >= 1) {
-			resp.sendRedirect("/neulbom/admin/manage/qna.do");
-		} else {
-			PrintWriter writer = resp.getWriter();
-			writer.print("<script>alert('failed'); history.back();</script>");
-			writer.close();
+			MultipartRequest multi = new MultipartRequest(
+
+					req, req.getRealPath("/asset/qreply"), 1024 * 1024 * 10, "UTF-8", new DefaultFileRenamePolicy()
+
+			);
+
+			HttpSession session = req.getSession();
+			
+			req.setCharacterEncoding("UTF-8");
+
+			String seq = multi.getParameter("seq");
+			String title = multi.getParameter("rtitle");
+			String content = multi.getParameter("rcontent");
+			String fname = multi.getFilesystemName("fname");
+			
+			String admin_seq = (String)session.getAttribute("Admin_seq");
+			
+			ManageDAO dao = new ManageDAO();
+
+			int result = dao.replyToQna(seq, title, content, fname, admin_seq);
+
+			if (result >= 1) {
+				resp.sendRedirect("/neulbom/admin/manage/qna.do");
+			} else {
+				PrintWriter writer = resp.getWriter();
+				writer.print("<script>alert('failed'); history.back();</script>");
+				writer.close();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
+
 	}
 }

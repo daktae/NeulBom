@@ -115,6 +115,10 @@
 	position: relative;
 	top: 50px;
 }
+
+#title, .edit, .delete {
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -170,13 +174,14 @@
 
 									<tr>
 										<td>${dto.displayed_seq}</td>
-										<td
+										<td id="title"
 											onclick="location.href='/neulbom/admin/board/viewfood.do?seq=${dto.food_seq}'">
 											${dto.title}</td>
 										<td>${dto.food_date}</td>
 										<td>${dto.read}</td>
 										<td>
-											<div class="edit">
+											<div class="edit"
+											onclick="location.href='/neulbom/admin/board/editfood.do?seq=${dto.food_seq}'">
 												<span id="edit_txt">수정</span>
 											</div>
 											<div class="delete"

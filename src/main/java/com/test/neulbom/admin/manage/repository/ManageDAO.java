@@ -369,18 +369,19 @@ public class ManageDAO {
 	}
 
 	// 일반 문의 답글 달기
-	public int replyToQna(String seq, String title, String content) {
+	public int replyToQna(String seq, String title, String content, String fname, String admin_seq) {
 
 		try {
-			// TODO
-			// 관리자 세션값 얻어와 번호 넣어주는 작업, 첨부파일 작업 필요
-			String sql = "INSERT INTO tblqreply VALUES (qReplySeq.nextVal, ?, ?, null, 5, ?, 0, 0, 0)";
+
+			String sql = "INSERT INTO tblqreply VALUES (qReplySeq.nextVal, ?, ?, ?, ?, ?, 0, 0, 0)";
 
 			pstat = conn.prepareStatement(sql);
 
 			pstat.setString(1, title);
 			pstat.setString(2, content);
-			pstat.setString(3, seq);
+			pstat.setString(3, fname);
+			pstat.setString(4, admin_seq);
+			pstat.setString(5, seq);
 
 			if (updateIsReply("tblQna", "qna_seq", seq) == 1) {
 				return pstat.executeUpdate();
@@ -482,18 +483,19 @@ public class ManageDAO {
 	}
 
 	// 입주문의 답글 달기
-	public int replyToConsult(String seq, String title, String content) {
+	public int replyToConsult(String seq, String title, String content, String fname, String admin_seq) {
 		try {
-			// TODO
-			// 관리자 세션값 얻어와 번호 넣어주는 작업, 첨부파일 작업 필요
-			String sql = "INSERT INTO tblcreply VALUES (creply_seq.nextVal, ?, ?, null, 1, ?, 0, 0)";
+
+			String sql = "INSERT INTO tblcreply VALUES (creply_seq.nextVal, ?, ?, ?, ?, ?, 0, 0)";
 
 			pstat = conn.prepareStatement(sql);
 
 			pstat.setString(1, title);
 			pstat.setString(2, content);
-			pstat.setString(3, seq);
-
+			pstat.setString(3, fname);
+			pstat.setString(4, admin_seq);
+			pstat.setString(5, seq);
+			
 			if (updateIsReply("tblConsult", "con_seq", seq) == 1) {
 				return pstat.executeUpdate();
 			} else
