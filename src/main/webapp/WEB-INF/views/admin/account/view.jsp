@@ -92,7 +92,7 @@
 	        <div id="inner-box">
 	            <div class="semititle">
 	                <div class="selected_menu">
-	                    <span id="selected_menu_text">계정 부여</span>
+	                    <span id="selected_menu_text">상세 보기</span>
 	                </div><!-- selected_menu -->
 	                
 	            </div><!-- semi_title -->
@@ -102,9 +102,11 @@
 							<div id="inner-list">
 								<span id="add-cate">직원 이름: ${dto.name}</span>		
 							</div>
-							<div id="inner-list">
-								<span id="add-cate">주민번호: ${dto.ssn}</span>			
-							</div>
+							<c:if test="${sessionScope.lv == '1'}">
+								<div id="inner-list">
+									<span id="add-cate">주민번호: ${dto.ssn}</span>			
+								</div>
+							</c:if>
 							<div id="inner-list">
 								<span id="add-cate">아이디: ${dto.id}</span>			
 							</div>
@@ -121,6 +123,9 @@
 								</c:if>
 								<c:if test="${dto.lv == '2'}">
 									사무직
+								</c:if>
+								<c:if test="${dto.lv == '3' || dto.lv == '4'}">
+									실무직
 								</c:if>
 								</span>
 							</div>
@@ -144,7 +149,6 @@
 <script src="/neulbom/asset/js/bootstrap.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-	console.log(${dto.pic});
 </script>
 </body>
 </html>
