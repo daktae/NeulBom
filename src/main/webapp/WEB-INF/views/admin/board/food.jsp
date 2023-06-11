@@ -194,7 +194,8 @@
 								style="text-align: center; margin-bottom: 10px;">${pagination}</div>
 						</c:if>
 						<div id="add_div">
-							<div class="add movable">
+							<div class="add movable"
+							onclick="location.href='/neulbom/admin/board/addfood.do'">
 								<span id="add_txt">등록</span>
 							</div>
 						</div>
