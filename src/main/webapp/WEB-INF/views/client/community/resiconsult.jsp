@@ -80,6 +80,7 @@ help
                     </tr>
                 </thead>
                 <tbody>
+<<<<<<< HEAD
                 <c:set var="currentPage" value="${param.page != null ? param.page : 1}" />
 <c:set var="itemsPerPage" value="10" />
 <c:set var="startIndex" value="${(currentPage - 1) * itemsPerPage}" />
@@ -103,6 +104,16 @@ help
     <td>${dto.con_date}</td>
   </tr>
 </c:forEach> 
+=======
+                <c:forEach var="dto" items="${list}">
+                    <tr>
+  <td>${dto.con_seq}</td>
+  <td style="text-align: left;"><a href="/neulbom/client/board/residetailwj.do?con_seq=${dto.con_seq}">${dto.con_title}</a></td>
+  <td>${dto.nomem_name}</td>
+  <td>${dto.con_date}</td>
+</tr>
+                </c:forEach>    
+>>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
                 </tbody>
             </table>
              <div style="display: flex; justify-content: flex-end;">

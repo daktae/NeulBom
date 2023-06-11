@@ -31,10 +31,18 @@ String con_seq = req.getParameter("con_seq");
 	  NomemWjDAO dao = new NomemWjDAO();
 	  ConsultDTOWj dto = dao.show(con_seq);
 		
+<<<<<<< HEAD
 	  req.setAttribute("dto", dto);
 	  	
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/board/residetailwj.jsp");
+=======
+	  System.out.println(dto);
+	  req.setAttribute("dto", dto);
+	  	
+
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/community/residetailcheck.jsp");
+>>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
 		dispatcher.forward(req, resp);
 
 	}

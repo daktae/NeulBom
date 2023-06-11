@@ -37,7 +37,12 @@ public class NomemWjDAO {
 	public ConsultDTOWj show(String con_seq) {
 		try {
 
+<<<<<<< HEAD
 			String sql = "select * from vwconsult where con_seq = ?";
+=======
+			String sql = "select tn.nomem_seq, tn.name, tc.con_seq, tc.title, tc.content, to_char(tc.con_date, 'yyyy-mm-dd') as con_date,\r\n"
+					+ "tc.isreply from tblnomem tn inner join tblconsult tc on tn.nomem_seq = tc.nomem_seq where con_seq = ?";
+>>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
 
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, con_seq);
@@ -47,6 +52,7 @@ public class NomemWjDAO {
 			if (rs.next()) {
 				ConsultDTOWj dto = new ConsultDTOWj();
 				dto.setCon_seq(rs.getString("con_seq"));
+<<<<<<< HEAD
 				dto.setTitle(rs.getString("con_title"));
 				dto.setName(rs.getString("nomem_name"));
 				dto.setCon_date(rs.getString("con_date"));
@@ -54,6 +60,15 @@ public class NomemWjDAO {
 				dto.setRetitle(rs.getString("title"));
 				dto.setIsreply(rs.getString("isreply"));
 				dto.setRecontent(rs.getString("content"));
+=======
+				dto.setTitle(rs.getString("title"));
+				dto.setName(rs.getString("name"));
+				dto.setCon_date(rs.getString("con_date"));
+				dto.setContent(rs.getString("content"));
+				
+				dto.setIsreply(rs.getString("isreply"));
+				
+>>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
 				return dto;
 			}
 
@@ -80,12 +95,20 @@ public class NomemWjDAO {
 	    return null;
 	}
 
+<<<<<<< HEAD
 
 
 	public int check(NomemWjDTO dto) {
 		 try {
 		    	String sql = "select * from vwconsult where nomem_name = ? and nomemtel = ?";
     	
+=======
+	public int check(NomemWjDTO dto) {
+		 try {
+		    	String sql = "select * from tblnomem where nomem_name = ? and tel ?";
+		    	       
+
+>>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
 		    	pstat = conn.prepareStatement(sql);
 		    	pstat.setString(1, dto.getPname()); // name에 해당하는 필드
 		    	pstat.setString(2, dto.getPtel()); // tel에 해당하는 필드
@@ -98,5 +121,10 @@ public class NomemWjDAO {
 	}
 	
 
+<<<<<<< HEAD
+=======
+	
+
+>>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
 	
 }
