@@ -9,4 +9,5 @@ public class NoticeDTO {
 	private String content;
 	private String notice_date;
 	private String read;
+	private String rnum;
 }

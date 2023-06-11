@@ -9,5 +9,5 @@ public class FoodDTO {
 	private String content;
 	private String read;
 	private String title;
-	
+	private String rnum;
 }

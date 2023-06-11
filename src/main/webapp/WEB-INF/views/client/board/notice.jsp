@@ -84,9 +84,9 @@
 					<c:forEach items="${list}" var="dto" varStatus="status">
 						<tr
 							onclick="location.href='/neulbom/client/board/notice_detail.do?notice_seq=${dto.notice_seq }';">
-							<td>${fn:length(list) - status.index}</td>
-							<td>${dto.title}</td>
-							<td><c:choose>
+							<td>${dto.rnum}</td>
+							<td style="text-align: left;">${dto.title}</td>
+							<td style="text-align: left;"><c:choose>
 									<c:when test="${fn:length(dto.content) <= 50}">${dto.content}</c:when>
 									<c:otherwise>${fn:substring(dto.content, 0, 50)}...</c:otherwise>
 								</c:choose></td>

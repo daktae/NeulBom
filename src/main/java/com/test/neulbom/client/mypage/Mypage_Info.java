@@ -23,20 +23,28 @@ public class Mypage_Info extends HttpServlet {
 		//Mypage_Info.java
 		HttpSession session = req.getSession();
 		
+		Mypage_InfoDTO dto = new Mypage_InfoDTO();
 		Mypage_InfoDAO dao = new Mypage_InfoDAO();
 		String lv = (String) session.getAttribute("lv");
 		
 		String seq = (String)session.getAttribute("protect_seq");
+		
 		if(seq == null) {
+			
 			seq = (String)session.getAttribute("resi_seq");
+			dto = dao.resi_list(seq); 
+			
 		}
 		
-		List<Mypage_InfoDTO> list = dao.list(seq); 
 		
-		req.setAttribute("list", list);
+		dto = dao.pro_list(seq); 
+		
+		//System.out.println(dto.getPro_id());
+		
+		req.setAttribute("dto", dto);
 		req.setAttribute("lv", lv);
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/mypage/mypage_info.do.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/mypage/mypage_info.jsp");
 		dispatcher.forward(req, resp);
 	}
 
