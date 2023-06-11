@@ -15,7 +15,7 @@
 
 }
 .content_wj {
-	padding: 10px 40px;
+	padding: 30px 40px;
 	text-align: justify;
 }
 
@@ -25,7 +25,6 @@
 	height:40px; 
 	margin-right:10px; 
 	font-size: 20px; 
-	float:left;
 
 }
 
@@ -38,7 +37,7 @@
 #addcomment {
 	border: 1px solid #AAA;
 	width: 100%;
-	height: 30px;
+	height: 50px;
 	margin-bottom: 40px;
 }
 
@@ -91,12 +90,13 @@
 }
 
 .del, .edit {
-	width: 100px;
-	height: 40px;
-	font-size: 18px;
+	width: 50px;
+	padding: 0;
+	height: 30px;
+	font-size: 16px;
 	border: 1px solid #AAA;
-	background-color: #AAA;
 	float: right;
+	margin-right: 10px;
 }
 
 #comedit {
@@ -104,10 +104,31 @@
 }
 
 img {
-
-width: 100%;
-margin-bottm: 30px;
+margin-top: 20px;
+margin-bottom: 50px;
 }
+
+.btnedit {
+	float: right;
+	border: 1px solid #AAA;
+	background-color: #AAA;
+	color: white;
+	padding: 0;
+}
+
+.btnedit:hover {
+	bacground-color: #AAA;
+
+}
+
+img {
+
+	
+
+}
+
+
+
 
 
 
@@ -158,25 +179,29 @@ margin-bottm: 30px;
                     </tr>
                 </thead>
             </table>
-            <div><img src="/neulbom/asset/pic/${dto.file}"></div>
+            <c:if test="${dto.file != null }">
+            <div><img style="width: 50%;" src="/neulbom/asset/pic/${dto.file}"></div>
+            </c:if>
             <div class="content_wj">${dto.content }</div>
+            
             <hr>
             
             <!-- 댓글 불러오기 -->
             
             <table id="comment" style="border-bottom: 1px solid #AAA; width: 100%; border-top: 1px solid #AAA; padding-bottom: 20px;">
             		<tr style="width: 100%">
-            			<th class="table table-bordered content-head_wj" style="display: inline-block; text-align: left; width: 100%; padding: 5px 20px;">댓글</th>
+            			<th class="table table-bordered content-head_wj" 
+            			style="display: inline-block; text-align: left; width: 100%; padding: 5px 20px;">댓글</th>
             		</tr>
             	<c:forEach var="cdto" items="${clist }">
             	<tr>
             		<td>
             			<div>
             				<div style="padding-bottom: 5px;" id="comname" >${cdto.name } | </div>
-            				<div style="width: 1000px; margin: 3px 0; text-align: justify"><c:out value="${cdto.content }" />
+            				<div style="width: 100%; padding-bottom: 20px; margin: 3px 0; text-align: justify"><c:out value="${cdto.content }" />
             				<c:if test="${not empty id && (id == cdto.id)}">
             				<input style="float: right" type="button" class="del" value="삭제" onclick="delComment(${cdto.comment_seq});">
-            				<input style="float: right;" type="button" class="edit" style="width: 50px; background-color: white;"value="수정" onclick="editComment(${cdto.comment_seq});">
+            				<input style="float: right;" type="button" class="edit" value="수정" onclick="editComment(${cdto.comment_seq});">
             				</c:if>
             				</div>
             			</div>
@@ -190,8 +215,8 @@ margin-bottm: 30px;
             <c:if test="${not empty id }">
             <form method="POST" action="/neulbom/client/community/comment.do">
             
-            <table id="addcomment">
-            	<tr>
+            <table id="addcomment" >
+            	<tr style="width: 100;">
             		<td id="eotrmf">댓글</td>
 					<td><input type="text" name="content" class="full" required style="width: 100%"></td>
 					<td id="regicom">
@@ -231,7 +256,7 @@ margin-bottm: 30px;
             </c:if>
             
             <form id="delfree" method="POST" action="/neulbom/client/community/delfree.do">
-            <button type="button" class="btn btn-primary btn-sm" onclick="location.href='/neulbom/client/community/free.do';">돌아가기</button>
+            <button type="button" class="btn btn-primary btn-sm" style="float: left;" onclick="history.back();">돌아가기</button>
             <c:if test="${not empty id && (id != dto.id)}">
             <%-- <button type="button" class="btn btn-primary btn-sm" 
             onclick="location.href='/client/community/addfree.do?mode=reply&thread=${dto.thread}&depth=${dto.depth }';">답변하기</button> --%>
@@ -239,7 +264,7 @@ margin-bottm: 30px;
             <c:if test="${not empty id && (id == dto.id)}">
             <div>
 			<button type="button" class="btn btn-secondary btn-sm" onclick="delfree()" style="float: right; ">삭제하기</button>
-           	<button type="button" class="btn edit" onclick="location.href='/neulbom/client/community/editfree.do?free_seq=${dto.free_seq}';">수정하기</button>
+           	<button type="button" class="btn btnedit" onclick="location.href='/neulbom/client/community/editfree.do?free_seq=${dto.free_seq}';">수정하기</button>
         	</div>
         	</c:if>
         	<input type="hidden" name="free_seq" value="${dto.free_seq }">

@@ -39,7 +39,7 @@ html,
     body {
         overflow-x: hidden;
     }
-
+    
 
 </style>
 
@@ -98,20 +98,20 @@ html,
           <div class="col-md-6 d-flex justify-content-center">
             <!-- Checkbox -->
             <div class="form-check mb-3 mb-md-0">
-              <a href="/neulbom/client/account/searchid.do">아이디 찾기</a>
+              <input type="button" class="btn" onclick="location.href='/neulbom/client/account/searchid.do';" value="아이디 찾기">
             </div>
           </div>
   
           <div class="col-md-6 d-flex justify-content-center">
             <!-- Simple link -->
-            <a href="/neulbom/client/account/searchpw.do">비밀번호 찾기</a>
+            <input type="button" class="btn" onclick="location.href='/neulbom/client/account/searchpw.do';" value="비밀번호 찾기">
           </div>
         </div>
   
   
         <!-- Register buttons -->
         <div class="text-center">
-          <p> <a href="#!">회원가입</a></p>
+          <p> <input type="button" class="btn" onclick="location.href='/neulbom/client/account/searchid.do';" value="회원가입"></p>
         </div>
       </form>
     </div>

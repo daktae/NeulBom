@@ -18,4 +18,6 @@ public class MyProgramDTO {
 	private String id;
 	private String lv;
 	private String rnum;
+	
+	private String displayed_seq;
 }

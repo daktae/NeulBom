@@ -52,9 +52,16 @@ body {
 }
 
 #summary {
+	width: 100%;
+	margin: 30px auto;
 	font-weight: bold;
-
 }
+
+.search {
+
+	margin: 0 10px;
+}
+
 
 
 
@@ -71,9 +78,9 @@ body {
 			<div class="col-md-3">
 				<div class="sidebox">
 					<div class="profile">
-						<img src="/html/images/01.jpg" id="profileimg">
+						<img src="/neulbom/asset/images/user.png" id="profileimg" style="width: 150px; height: 140px; margin: none;">
 						<h1 class="profilename">'${name }'님</h1>
-						<h1 class="profilename_id">(${id})</h1>
+						<h1 class="profilename_id" style="margin-right: 120px;">(${id})</h1>
 					</div>
 					<div class="menubox">
 						<div class="menu" id="create_account">
@@ -112,24 +119,21 @@ body {
 
 
 			<div class="col-md-9" >
-				<div class="box" style="height: 100%;">
+				<div class="box" style="height: 100%; width: 100%;">
 					<!-- 버튼 -->
-					<div class="btn-group" role="group"
-						aria-label="Basic radio toggle button group">
-						<input type="radio" class="btn-check" name="btnradio"
-							id="btnradio1" autocomplete="off" checked> <label
-							class="btn btn-outline-primary" for="btnradio1" onclick="location.href='/neulbom/client/mypage/program.do';">복지프로그램 신청</label>
+					<div>
+						<input type="button" class="btn btn-secondary" style="font-size: 20px; margin-right: 20px;" name="btnradio"
+							id="btn1" checked onclick="location.href='/neulbom/client/mypage/program.do';" value="복지프로그램 신청">
 
-						<input type="radio" class="btn-check" name="btnradio"
-							id="btnradio3" autocomplete="off"> <label
-							class="btn btn-outline-primary" for="btnradio3" selected>내 신청내역</label>
+						<input type="button" class="btn btn-primary"  style="font-size: 20px;" name="btnradio"
+							id="btn2" selected onclick="location.href='/neulbom/client/mypage/myprogram.do?resi_seq=${resi_seq}';" value="내 신청내역">
 					</div>
 
 					<br> <br>
 					<form method="GET" action="/neulbom/client/mypage/myprogram.do?resi_seq=${resi_seq }">
                       <div class="selec">
-                         <input type="date" name="start_date"> 부터 <input type="date" name="end_date">
-                       <button type="submit">검색하기</button>
+                         <input type="date" name="start_date" class="search"><div style="font-size: 20px;"> ~ </div><input type="date" class="search" name="end_date">
+                       <button type="submit" class="btn " style="background-color: #AAA; color: white;">검색</button>
                     </div>
                     </form>
 					<hr>
@@ -160,14 +164,14 @@ body {
 							<tbody>
 								<c:forEach items="${myplist}" var="dto">
 									<tr class="tr">
-										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';">${dto.prog_seq}</td>
+										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';">${dto.displayed_seq}</td>
 										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';">${dto.prog_date}</td>
 										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';" style="text-align: justify">${dto.title}</td>
 										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';" style="text-align: justify">${dto.content}</td>
 										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';">${dto.place}</td>
 										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';">${dto.people}</td>
 										<c:if test="${dto.prog_date > limitDate }">
-								        <td style="padding-bottom: 0px; padding-top: 0.25rem;"><button type="button" class="btn btn-primary btn-sm" onclick="confirmCancel()">취소</button></td>
+								        <td style="padding-bottom: 0px; padding-top: 0.25rem;"><button type="button" class="btn btn-primary btn-sm" style="width: 70px; font-size: 16px; font-weight: bold;" onclick="confirmCancel()">취소</button></td>
 										</c:if>
 										<c:if test="${dto.prog_date <= limitDate }">
 										<td>취소 불가</td>

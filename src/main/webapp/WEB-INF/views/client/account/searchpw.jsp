@@ -85,7 +85,7 @@
     
     form {
     	width: 1000px;
-    	height: 700px;
+    	height: 600px;
     	border: 2px solid #AAA;
     	margin: 50px auto;
     	
@@ -120,16 +120,15 @@
             <th>이름</th>
             <td><input type="text" name="mem_name" class="input" id="mem_name" required placeholder="이름을 입력하세요."></td>
         </tr>
-        <tr id="btn"> 
-	        <td colspan="2" align="center" >
-	        	<input type="submit" value="확인" class="btn" id="search" onClick="pw_search()"> 
-	        	<input type="button" value="취소" class="btn" id="cancle" onClick="history.back()">
-	    	</td>
-    	</tr>
+        
     	<tr>
     		<div id="message"></div>
     	</tr>
     </table>
+    <div style="margin-top: 60px; text-align: center">
+        	<input type="submit" value="확인" class="btn" id="search" onClick="pw_search()"> 
+        	<input type="submit" value="취소" class="btn" id="cancle" onClick="history.back()">
+	</div>
  </form>
  
  
@@ -158,7 +157,7 @@ function pw_search() {
 	f.action = "<%=request.getContextPath()%>/client/account/findpw.do ";
 	f.submit();
 	
-	location.href="/views/client/account/findpw.do";
+	location.href="/client/account/findpw.do";
 }
 </script>
 
