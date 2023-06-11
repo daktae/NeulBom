@@ -66,6 +66,8 @@ public class Pay extends HttpServlet {
 		
 		smap.put("name", name);
 		smap.put("search", search);
+		map.put("name", name);
+		map.put("search", search);
 	
 		
 		ManageDAO dao = new ManageDAO();
@@ -83,7 +85,7 @@ public class Pay extends HttpServlet {
 		//- smap 값 안 보내져있어서 smap으로 수정했어요.
 		//- 수정 전: totalCount = dao.getTotalCount(map, size, "tblPay");
 		// 수정 후 (아래 코드)
-		totalCount = dao.getTotalCount(smap, size, "tblPay");
+		totalCount = dao.getTotalCount2(map);
 		
 		totalPage = (int) Math.ceil((double) totalCount / pageSize);
 		

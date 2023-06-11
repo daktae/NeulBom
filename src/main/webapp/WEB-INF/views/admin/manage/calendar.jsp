@@ -114,7 +114,6 @@
 										type : 'get',
 										dataType : 'json',
 										success : function(data) {
-											console.log(data);
 
 											data.forEach(function(event) {
 												event.start = event.start

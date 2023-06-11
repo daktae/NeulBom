@@ -563,8 +563,10 @@ public class ManageDAO {
 	public int getTotalCount(HashMap<String, String> smap, int size, String table) {
 
 		try {
-
+			
 			String sql = "select count(*) as cnt from " + table;
+			
+			
 
 			pstat = conn.prepareStatement(sql);
 
@@ -580,6 +582,35 @@ public class ManageDAO {
 		}
 
 		return 0;
+	}
+	public int getTotalCount2(HashMap<String, String> map) {
+
+		try {
+			
+			String where = "";
+			
+			if (map.get("search").equals("y")) {
+	            where = String.format("where tblResident.name like '%%%s%%'", map.get("name") );
+	        }
+
+
+			String sql = String.format("select count(*) as cnt from tblPay inner join tblResident on tblpay.resi_seq = tblResident.resi_seq %s", where);
+
+			pstat = conn.prepareStatement(sql);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+
 	}
 
 }

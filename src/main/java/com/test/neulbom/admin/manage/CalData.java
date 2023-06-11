@@ -51,7 +51,6 @@ public class CalData extends HttpServlet {
 		
 		resp.setContentType("application/json");
 		
-		System.out.println(jarray);
 		
 		PrintWriter writer = resp.getWriter();
 		writer.print(jarray);
