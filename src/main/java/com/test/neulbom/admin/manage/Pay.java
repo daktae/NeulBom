@@ -66,6 +66,7 @@ public class Pay extends HttpServlet {
 		
 		smap.put("name", name);
 		smap.put("search", search);
+	
 		
 		ManageDAO dao = new ManageDAO();
 		
@@ -77,7 +78,13 @@ public class Pay extends HttpServlet {
 		
 		// 페이징 작업
 		// 총 게시물
-		totalCount = dao.getTotalCount(map, size, "tblPay");
+		
+		//TODO: 소엽 검색 페이징 수정부분
+		//- smap 값 안 보내져있어서 smap으로 수정했어요.
+		//- 수정 전: totalCount = dao.getTotalCount(map, size, "tblPay");
+		// 수정 후 (아래 코드)
+		totalCount = dao.getTotalCount(smap, size, "tblPay");
+		
 		totalPage = (int) Math.ceil((double) totalCount / pageSize);
 		
 		loop = 1;	//루프 변수
@@ -144,7 +151,11 @@ public class Pay extends HttpServlet {
 		req.setAttribute("nowPage", nowPage);
 		req.setAttribute("pagination", sb);
 		
-		req.setAttribute("map", smap);
+		//TODO: 소엽 검색 페이징 수정부분
+		//- smap 값 안 보내져있어서 smap으로 수정했어요.
+		//- 수정전: req.setAttribute("map", smap);
+		// 수정 후 (아래 코드)
+		req.setAttribute("smap", smap);
 		req.setAttribute("list", list);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/pay.jsp");
