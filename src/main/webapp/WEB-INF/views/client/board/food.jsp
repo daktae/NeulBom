@@ -74,8 +74,8 @@
                 <tbody>
                 <c:forEach items="${list}" var="dto" varStatus="status">
                     <tr onclick="location.href='/neulbom/client/board/food_detail.do?food_seq=${dto.food_seq }';">
-                        <td>${fn:length(list) - status.index}</td>
-                        <td>${dto.title}</td>
+                        <td>${dto.rnum}</td>
+                        <td style="text-align: left;">${dto.title}</td>
                         <td>${fn:substring(dto.food_date.toString(), 0, 10)}</td>
                         <td>${dto.read}</td>
                     </tr>
@@ -93,7 +93,7 @@
 			</a></li>
 			<c:forEach begin="1" end="${totalPage}" var="pageNumber">
 				<li class="page-item"><a class="page-link"
-					href="<%=request.getContextPath() %>/client/board/notice.do?page=${pageNumber}">${pageNumber}</a>
+					href="<%=request.getContextPath() %>/client/board/food.do?page=${pageNumber}">${pageNumber}</a>
 				</li>
 			</c:forEach>
 			<li class="page-item"><a class="page-link" href="#"

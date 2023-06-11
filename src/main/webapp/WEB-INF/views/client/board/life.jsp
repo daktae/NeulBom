@@ -76,8 +76,8 @@
                 <tbody>	
                 <c:forEach items="${list}" var="dto" varStatus="status">
                     <tr onclick="location.href='/neulbom/client/board/life_detail.do?life_seq=${dto.life_seq }';">
-                        <td>${fn:length(list) - status.index}</td>
-                        <td>${dto.title}</td>
+                        <td>${dto.rnum}</td>
+                        <td style="text-align: left;">${dto.title}</td>
                         <td>${fn:substring(dto.life_date.toString(), 0, 10)}</td>
                         <td>${dto.read}</td>
                     </tr>

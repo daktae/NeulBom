@@ -12,7 +12,7 @@
                    <c:if test="${sessionScope.id != null}">
                       ${sessionScope.name} (${sessionScope.id})님 환영합니다.
                       <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/account/logout.do'" class="btn btn-secondary btn-sm btn-light" style="width:100px; height:40px; font-size: 20px;">로그아웃</button>
-                      <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/mypage/mypage_payment_details.do'" class="btn btn-secondary btn-sm btn-light" style="width:100px; height:40px; font-size: 20px;">마이 페이지</button>
+                      <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/mypage/mypage_info.do'" class="btn btn-secondary btn-sm btn-light" style="width:100px; height:40px; font-size: 20px;">마이 페이지</button>
                    </c:if>
                
             </div>

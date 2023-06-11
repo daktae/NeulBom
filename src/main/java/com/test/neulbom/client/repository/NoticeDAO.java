@@ -45,6 +45,7 @@ public class NoticeDAO {
 
 				NoticeDTO dto = new NoticeDTO();
 				
+				dto.setRnum(rs.getString("rnum"));
 				dto.setNotice_seq(rs.getString("notice_seq"));
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
@@ -69,7 +70,7 @@ public class NoticeDAO {
 	public List<NoticeDTO> search(String searchType, String keyword) {
 		try {
 
-			String sql = String.format("SELECT * FROM tblnotice where %s like '%%%s%%' ORDER BY notice_date DESC"
+			String sql = String.format("SELECT * FROM (select rownum as rnum, a.* from tblnotice a) where %s like '%%%s%%' ORDER BY notice_date DESC"
 																	, searchType, keyword
 																	);
 			
@@ -85,6 +86,7 @@ public class NoticeDAO {
 
 				NoticeDTO dto = new NoticeDTO();
 				
+				dto.setRnum(rs.getString("rnum"));
 				dto.setNotice_seq(rs.getString("notice_seq"));
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));

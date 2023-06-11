@@ -35,6 +35,13 @@ html {
 body {
 	margin: 0;
 }
+.menu:hover{
+	cursor: pointer;
+}
+.box{
+	height:100%;
+}
+
 </style>
 </head>
 <body>
@@ -52,44 +59,38 @@ body {
 
 					</div>
 					<div class="menubox">
-						<div class="menu" id="create_account">
+						<div class="menu" id="create_account"
+							onclick="location.href='/neulbom/client/mypage/mypage_info.do';">
 							<span class="material-symbols-outlined">person</span> 내정보
 						</div>
-						<!-- 						<div class="menu" id="manage_money">
-							<span class="material-symbols-outlined"> credit_card </span> 결제신청
-						</div> -->
-						<div class="menu" id="search_staff">
-							<span class="material-symbols-outlined"> credit_score </span>
-							결제관리
+						<div class="menu" id="search_staff"
+							onclick="location.href='/neulbom/client/mypage/mypage_payment_details.do';">
+							<span class="material-symbols-outlined">
+								credit_score </span> 결제관리
 						</div>
 
-
-						<div class="menu" id="manage_account">
-							<span class="material-symbols-outlined"> pending_actions </span>
-							면회관리
+						<div class="menu" id="manage_account"
+							onclick="location.href='/neulbom/client/mypage/mypage_meet.do';">
+							<span class="material-symbols-outlined">
+								pending_actions </span> 면회관리
 						</div>
 
-
-						<div class="menu" id="staff_salary">
-							<span class="material-symbols-outlined" onclikc="location.href='/neulbom/client/community/program.do';"> groups_2 </span>
-							복지프로그램관리
+						<div class="menu" id="staff_salary"
+							onclick="location.href='/neulbom/client/mypage/program.do';">
+							<span class="material-symbols-outlined btnprog"> groups_2
+							</span> 복지프로그램관리
 						</div>
-						<div class="menu" id="manage_equip">
-							<span class="material-symbols-outlined"> support_agent </span> 내
-							문의
+						<div class="menu" id="manage_equip"
+							onclick="location.href='/neulbom/client/mypage/mypage_inquiry.do';">
+							<span class="material-symbols-outlined">
+								support_agent </span> 내 문의
 						</div>
 
 						<hr>
 						<div class="menu" id="manage_qna_consult">
 							<span class="material-symbols-outlined"> help </span> 늘봄
 						</div>
-
-
 					</div>
-					<!-- <div class="logout">
-                        로그아웃
-                </div> -->
-
 				</div>
 			</div>
 
