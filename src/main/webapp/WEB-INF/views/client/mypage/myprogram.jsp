@@ -50,6 +50,14 @@ body {
 	cursor: pointer;
 	background-color: #DFDFDF;
 }
+
+#summary {
+	font-weight: bold;
+
+}
+
+
+
 </style>
 
 
@@ -130,7 +138,7 @@ body {
                     <div id="summary">${map.start_date} ~ ${map.end_date} 복지 프로그램 내역이 총 ${totalCount}건이 있습니다.</div>
                </c:if>
                <c:if test="${map.start_date == null}">
-                    <div id="summary">복지 프로그램 내역이 총 ${totalCount}건이 있습니다.</div>
+                    <div id="summary">복지 프로그램 신청 내역이 총 ${totalCount}건이 있습니다.</div>
                     </c:if>
 
 
@@ -158,7 +166,12 @@ body {
 										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';" style="text-align: justify">${dto.content}</td>
 										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';">${dto.place}</td>
 										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';">${dto.people}</td>
+										<c:if test="${dto.prog_date > limitDate }">
 								        <td style="padding-bottom: 0px; padding-top: 0.25rem;"><button type="button" class="btn btn-primary btn-sm" onclick="confirmCancel()">취소</button></td>
+										</c:if>
+										<c:if test="${dto.prog_date <= limitDate }">
+										<td>취소 불가</td>
+										</c:if>
 									</tr>
 								        <input type="hidden" name="prog_seq" value="${dto.prog_seq }">
 								        <input type="hidden" name="resi_seq" value="${resi_seq }">

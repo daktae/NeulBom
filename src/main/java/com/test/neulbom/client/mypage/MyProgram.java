@@ -1,6 +1,9 @@
 package com.test.neulbom.client.mypage;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -177,7 +180,14 @@ public class MyProgram extends HttpServlet {
             }
          }
 		
-		
+		//프로그램 취소 마감 날짜 구하기 (현재날짜 -14일)
+		Date date = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -3);	//현재 날짜 -3
+		Date limit = cal.getTime();
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");	//날짜 형식 변경
+		String limitDate = dateFormat.format(limit);
 		
 		
 
@@ -190,6 +200,7 @@ public class MyProgram extends HttpServlet {
 		req.setAttribute("pagination", sb);
 		req.setAttribute("prot", prot);
 		req.setAttribute("resi", resi);
+		req.setAttribute("limitDate", limitDate);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/mypage/myprogram.jsp");
 		dispatcher.forward(req, resp);

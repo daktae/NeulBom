@@ -34,7 +34,6 @@ public class RegiProgram extends HttpServlet {
 		String id = (String) session.getAttribute("id");
 		String name = (String) session.getAttribute("name");
 
-		System.out.println(resi_seq);
 		ProgramDTO dto = new ProgramDTO();
 		ProgramDAO dao = new ProgramDAO();
 
@@ -48,6 +47,7 @@ public class RegiProgram extends HttpServlet {
 		int result = dao.regiProgram(dto);
 
 		if (result == 1) {
+			dao.increaseApplyCount(prog_seq);
 			resp.sendRedirect("/neulbom/client/mypage/program.do");
 
 		} else {

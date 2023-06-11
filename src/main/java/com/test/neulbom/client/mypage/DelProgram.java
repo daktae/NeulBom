@@ -21,10 +21,10 @@ public class DelProgram extends HttpServlet {
       //DelProgram.java
       
       String papp_seq = req.getParameter("papp_seq");
+      String prog_seq = req.getParameter("prog_seq");
       
       ProgramDAO dao = new ProgramDAO();
       
-      System.out.println(papp_seq);
       
       int result = 0;
       
@@ -33,6 +33,7 @@ public class DelProgram extends HttpServlet {
       String resi_seq = (String)session.getAttribute("resi_seq");
       
       if (result == 1) {
+    	 dao.decreaseApplyCount(prog_seq);
          resp.sendRedirect("/neulbom/client/mypage/myprogram.do?resi_seq=" + resi_seq);
          
       } else if (result == 0) {

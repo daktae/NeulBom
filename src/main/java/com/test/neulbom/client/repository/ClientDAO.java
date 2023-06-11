@@ -588,7 +588,7 @@ public class ClientDAO {
 
 			 String sql = String.format(
 					 
-		                "SELECT * FROM (SELECT ROWNUM AS rnum, vwProgram.* FROM (SELECT * FROM vwProgram ORDER BY prog_seq DESC) vwProgram ORDER BY ROWNUM) vwProgram WHERE rnum <= %s AND rnum >= %s %s",
+		                "SELECT * FROM (SELECT ROWNUM AS rnum, tblProgram.* FROM (SELECT * FROM tblProgram ORDER BY prog_seq DESC) tblProgram ORDER BY ROWNUM) tblProgram WHERE rnum <= %s AND rnum >= %s %s",
 		                
 		                map.get("end"),
 		                map.get("begin"),
@@ -636,40 +636,7 @@ public class ClientDAO {
 		return null;
 	}
 
-	//복지프로그램 상세 내역
-	public MyProgramDTO detalProgram(String prog_seq) {
-
-		try {
-			
-			String sql = "select * from vwProgram where prog_seq = ?";
-			
-			pstat = conn.prepareStatement(sql);
-			pstat.setString(1, prog_seq);
-			rs = pstat.executeQuery();	
-			
-			if (rs.next()) {
-				
-				MyProgramDTO dto = new MyProgramDTO();
-				
-				dto.setProg_seq(rs.getString("prog_seq"));
-				dto.setTitle(rs.getString("title"));
-				dto.setApply(rs.getString("apply"));
-				dto.setContent(rs.getString("content"));
-				dto.setProg_date(rs.getString("prog_date").substring(0, 10));
-				dto.setPeople(rs.getString("people"));
-				dto.setPlace(rs.getString("place"));
-				
-				return dto;
-				
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		return null;
-	}
+	
 
 	//자유게시판 > 댓글 지우기
 	public int delComment(String comment_seq) {
@@ -889,6 +856,8 @@ public class ClientDAO {
 		
 			return 0;
 		}
+
+		
 
 
 }

@@ -58,7 +58,8 @@
         height: 50px;
         border: 1px solid #c7c8c9;
         color: black;
-        padding: 10px;
+        margin-top: 15px;
+        background-color: #FFF;
     }
 
     #content {
@@ -134,6 +135,18 @@
     .introducetitle {
     
     	background-image: url("/neulbom/asset/image/자유게시판 사진.jpg");
+    }
+    
+    #writefree, #canclefree {
+    	margin: 0 20px;
+    	width: 100px;
+    	height: 50px;
+    	text-align: center;
+    	font-weight: bold;
+    }
+    
+    #writefree {
+    	background-color: #
     }
 
 

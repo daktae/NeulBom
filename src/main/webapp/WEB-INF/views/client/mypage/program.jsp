@@ -186,10 +186,10 @@ body {
 											<td style="text-align: justify">${dto.content}</td>
 											<td>${dto.place}</td>
 											<td>${dto.apply} / ${dto.people}</td>
-											<c:if test="${dto.apply >= dto.people}">
+											<c:if test="${dto.apply >= dto.people || dto.prog_date < limitDate}">
 												<td style="font-weight: bold; color: #AAA;">마감</td>
 											</c:if>
-											<c:if test="${dto.apply < dto.people}">
+											<c:if test="${dto.apply < dto.people && dto.prog_date >= limitDate}">
 
 												<td style="font-weight: bold; color: blue">신청 가능</td>
 

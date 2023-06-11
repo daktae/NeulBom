@@ -55,6 +55,13 @@ body {
 
 }
 
+.regi {
+
+	width: 85px;
+	height: 38px;
+	font-size: 16px;
+}
+
 
 </style>
 
@@ -117,7 +124,8 @@ body {
 						<table class="table">
 								<tr>
 									<th class="tr" scope="col">프로그램명</th>
-									<th>${dto.title }</th>
+									<th>${dto.title }
+									</th>
 	 							</tr>
 								<tr>
 									<th class="tr"  scope="col">내용</th>
@@ -140,19 +148,29 @@ body {
 						
 					<hr>
 					
-						<div style="text-align: center; font-weight: bold; color: red; font-size: 23px;">
+						<div style="text-align: center; font-weight: bold; font-size: 23px;">
 						<c:if test="${dto.apply >= dto.people}">
-										<td>이번 프로그램은 마감되었습니다.</td>
-										</c:if>
-										<c:if test="${dto.apply < dto.people}">
-										<td style="padding-bottom: 0px; padding-top: 0.25rem;"><button type="button" class="btn btn-primary btn-sm" 
+										<td style="color: red">이번 프로그램은 마감되었습니다.</td>
+						</c:if>
+						
+						<c:if test="${dto.apply < dto.people && result == null}">
+										<td style="padding-bottom: 0px; padding-top: 0.25rem;">
+										<button type="button" class="btn btn-primary btn-sm regi" 
 										onclick="confirmRegiProgram()">신청하기</button></td>
-										</c:if>
+						</c:if>
+						
+						<c:if test ="${dto.apply < dto.people && result != null}">
+						<td style="color: #00007C">이미 신청하셨습니다.</td>
+						</c:if> 
+						
 						<input style="float: left" type="button" class="btn btn-secondary" name="btnreturn" onclick="history.back()" value="돌아가기">
 						</div>
 
 						<input type="hidden" name="prog_seq" value="${dto.prog_seq }">
 						<input type="hidden" name="resi_seq" value="${resi_seq }">
+						
+
+						
 						
 					</div>
 			</form>
@@ -173,6 +191,12 @@ body {
 //Fixed day highlight
 //Added previous month and next month view
 
+	function alertPdto() {
+    var pdto = "${pdto.prog_seq}";
+    alert(pdto);
+  }
+   
+  
    
    function confirmRegiProgram() {
     var result = confirm("신청하시겠습니까?");

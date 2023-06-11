@@ -2,6 +2,9 @@ package com.test.neulbom.client.mypage;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,8 +18,6 @@ import javax.servlet.http.HttpSession;
 
 import com.test.neulbom.client.repository.ClientDAO;
 import com.test.neulbom.client.repository.MyProgramDTO;
-import com.test.neulbom.client.repository.ProtectDTO;
-import com.test.neulbom.client.repository.ResiDTO;
 
 @WebServlet("/client/mypage/program.do")
 public class Program extends HttpServlet {
@@ -160,6 +161,18 @@ public class Program extends HttpServlet {
          }
 		
 		
+
+		//마감 날짜 구하기 (현재날짜 -14일)
+		Date date = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -14);	//현재 날짜 -14
+		Date limit = cal.getTime();
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");	//날짜 형식 변경
+		String limitDate = dateFormat.format(limit);
+		
+		
+		
 		
 
 		// 넘겨야 되는 것들
@@ -169,6 +182,7 @@ public class Program extends HttpServlet {
 		req.setAttribute("nowPage", nowPage);
 		req.setAttribute("plist", plist);
 		req.setAttribute("pagination", sb);
+		req.setAttribute("limitDate", limitDate);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/mypage/program.jsp");
 		dispatcher.forward(req, resp);

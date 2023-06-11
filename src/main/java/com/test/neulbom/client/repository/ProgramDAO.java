@@ -68,86 +68,86 @@ public class ProgramDAO {
 	}
 
 	// 검색 페이징(보류)
-	public List<ProgramDTO> view(HashMap<String, String> map) {
-		try {
-			String searchOption = map.get("search_option");
-			String searchKeyword = map.get("search_keyword");
-			String startDate = map.get("start_date");
-			String endDate = map.get("end_date");
-
-			StringBuilder sqlBuilder = new StringBuilder();
-			sqlBuilder.append(
-					"SELECT rnum, con_seq, con_title, nomem_name, TO_CHAR(con_date, 'YYYY-MM-DD') AS con_date ");
-			sqlBuilder.append("FROM ( ");
-			sqlBuilder.append("    SELECT ROWNUM AS rnum, a.* ");
-			sqlBuilder.append("    FROM ( ");
-			sqlBuilder.append("        SELECT * ");
-			sqlBuilder.append("        FROM vwconsult ");
-
-			if (searchOption != null && searchOption.equals("date") && startDate != null && endDate != null) {
-				sqlBuilder.append(
-						"WHERE con_date >= TO_DATE(?, 'YYYY-MM-DD') AND con_date < TO_DATE(?, 'YYYY-MM-DD') + 1 ");
-			} else if (searchOption != null && searchOption.equals("title") && searchKeyword != null) {
-				sqlBuilder.append("WHERE UPPER(con_title) LIKE '%' || UPPER(?) || '%' ");
-			} else if (searchOption != null && searchOption.equals("name") && searchKeyword != null) {
-				sqlBuilder.append("WHERE UPPER(nomem_name) LIKE '%' || UPPER(?) || '%' ");
-			}
-
-			sqlBuilder.append(") a) WHERE rnum BETWEEN ? AND ? ORDER BY con_seq DESC");
-
-			pstat = conn.prepareStatement(sqlBuilder.toString());
-
-			int parameterIndex = 1;
-
-			if (searchOption != null && searchOption.equals("date") && startDate != null && endDate != null) {
-				pstat.setString(parameterIndex++, startDate);
-				pstat.setString(parameterIndex++, endDate);
-			} else if ((searchOption != null && searchOption.equals("title") && searchKeyword != null)
-					|| (searchOption != null && searchOption.equals("name") && searchKeyword != null)) {
-				pstat.setString(parameterIndex++, searchKeyword);
-			}
-
-			pstat.setInt(parameterIndex++, Integer.parseInt(map.get("begin")));
-			pstat.setInt(parameterIndex, Integer.parseInt(map.get("end")));
-
-			rs = pstat.executeQuery();
-
-			List<MyProgramDTO> list = new ArrayList<>();
-
-			while (rs.next()) {
-				String title = rs.getString("title");
-				String content = rs.getString("content");
-				
-				if (title.length() > 8) {
-					title = title.substring(0, 8) + "...";
-				}
-				if (content.length() > 18) {
-					content = content.substring(0, 18) + "...";
-				}
-
-				MyProgramDTO pdto = new MyProgramDTO();
-				
-				pdto.setResi_seq("resi_seq");
-				pdto.setProg_seq(rs.getString("prog_seq"));
-				pdto.setTitle(title);
-				pdto.setContent(content);
-				pdto.setApply(rs.getString("apply"));
-				pdto.setPeople(rs.getString("people"));
-				pdto.setPlace(rs.getString("place"));
-				pdto.setProg_date(rs.getString("prog_date").substring(0, 10));
-				
-				
-				list.add(pdto);
-			}
-
-			return list;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
+//	public List<ProgramDTO> view(HashMap<String, String> map) {
+//		try {
+//			String searchOption = map.get("search_option");
+//			String searchKeyword = map.get("search_keyword");
+//			String startDate = map.get("start_date");
+//			String endDate = map.get("end_date");
+//
+//			StringBuilder sqlBuilder = new StringBuilder();
+//			sqlBuilder.append(
+//					"SELECT rnum, con_seq, con_title, nomem_name, TO_CHAR(con_date, 'YYYY-MM-DD') AS con_date ");
+//			sqlBuilder.append("FROM ( ");
+//			sqlBuilder.append("    SELECT ROWNUM AS rnum, a.* ");
+//			sqlBuilder.append("    FROM ( ");
+//			sqlBuilder.append("        SELECT * ");
+//			sqlBuilder.append("        FROM vwconsult ");
+//
+//			if (searchOption != null && searchOption.equals("date") && startDate != null && endDate != null) {
+//				sqlBuilder.append(
+//						"WHERE con_date >= TO_DATE(?, 'YYYY-MM-DD') AND con_date < TO_DATE(?, 'YYYY-MM-DD') + 1 ");
+//			} else if (searchOption != null && searchOption.equals("title") && searchKeyword != null) {
+//				sqlBuilder.append("WHERE UPPER(con_title) LIKE '%' || UPPER(?) || '%' ");
+//			} else if (searchOption != null && searchOption.equals("name") && searchKeyword != null) {
+//				sqlBuilder.append("WHERE UPPER(nomem_name) LIKE '%' || UPPER(?) || '%' ");
+//			}
+//
+//			sqlBuilder.append(") a) WHERE rnum BETWEEN ? AND ? ORDER BY con_seq DESC");
+//
+//			pstat = conn.prepareStatement(sqlBuilder.toString());
+//
+//			int parameterIndex = 1;
+//
+//			if (searchOption != null && searchOption.equals("date") && startDate != null && endDate != null) {
+//				pstat.setString(parameterIndex++, startDate);
+//				pstat.setString(parameterIndex++, endDate);
+//			} else if ((searchOption != null && searchOption.equals("title") && searchKeyword != null)
+//					|| (searchOption != null && searchOption.equals("name") && searchKeyword != null)) {
+//				pstat.setString(parameterIndex++, searchKeyword);
+//			}
+//
+//			pstat.setInt(parameterIndex++, Integer.parseInt(map.get("begin")));
+//			pstat.setInt(parameterIndex, Integer.parseInt(map.get("end")));
+//
+//			rs = pstat.executeQuery();
+//
+//			List<MyProgramDTO> list = new ArrayList<>();
+//
+//			while (rs.next()) {
+//				String title = rs.getString("title");
+//				String content = rs.getString("content");
+//				
+//				if (title.length() > 8) {
+//					title = title.substring(0, 8) + "...";
+//				}
+//				if (content.length() > 18) {
+//					content = content.substring(0, 18) + "...";
+//				}
+//
+//				MyProgramDTO pdto = new MyProgramDTO();
+//				
+//				pdto.setResi_seq("resi_seq");
+//				pdto.setProg_seq(rs.getString("prog_seq"));
+//				pdto.setTitle(title);
+//				pdto.setContent(content);
+//				pdto.setApply(rs.getString("apply"));
+//				pdto.setPeople(rs.getString("people"));
+//				pdto.setPlace(rs.getString("place"));
+//				pdto.setProg_date(rs.getString("prog_date").substring(0, 10));
+//				
+//				
+//				list.add(pdto);
+//			}
+//
+//			return list;
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return null;
+//	}
 
 	public int getTotalCount(Map<String, String> map) {
 		String searchOption = map.get("search_option");
@@ -218,6 +218,7 @@ public class ProgramDAO {
 		return 0;
 	}
 
+	//프로그램 취소
 	public int delProgram(String papp_seq) {
 
 		try {
@@ -244,11 +245,11 @@ public class ProgramDAO {
 	            
 			 if (map.get("search").equals("y")) {
 		            where = String.format(
-		                  "where prog_date BETWEEN TO_DATE('%s', 'YYYY-MM-DD') and TO_DATE('%s', 'YYYY-MM-DD')",
+		                  "and prog_date BETWEEN TO_DATE('%s', 'YYYY-MM-DD') and TO_DATE('%s', 'YYYY-MM-DD')",
 		                  map.get("start_date"), map.get("end_date"));
 		         }
 
-				 String sql = String.format("select count(*) as cnt from vwRegiProgram resi_seq = %s and %s", resi_seq, where);
+				 String sql = String.format("select count(*) as cnt from vwRegiProgram where resi_seq = %s %s", resi_seq, where);
 
 		  
 		  pstat = conn.prepareStatement(sql);
@@ -304,6 +305,7 @@ public class ProgramDAO {
 
 			}
 
+			//
 			public ResiDTO getResident(ResiDTO resi, String resi_seq) {
 
 				try {
@@ -347,12 +349,22 @@ public class ProgramDAO {
 				try {
 					
 					
+					String where = "";
+					
+					if (map.get("search").equals("y")) {
+			            where = String.format(
+			                  "and prog_date BETWEEN TO_DATE('%s', 'YYYY-MM-DD') AND TO_DATE('%s', 'YYYY-MM-DD')",
+			                  map.get("start_date"), map.get("end_date"));
+					}
+					
+					
 
 					String sql = String.format(
-						    	"SELECT * FROM (SELECT ROWNUM AS rnum, vwRegiProgram.* FROM (SELECT * FROM vwRegiProgram where resi_seq=%s ORDER BY prog_seq DESC ) vwRegiProgram ORDER BY ROWNUM) vwRegiProgram WHERE rnum <= %s AND rnum >= %s"
+						    	"SELECT * FROM (SELECT ROWNUM AS rnum, vwRegiProgram.* FROM (SELECT * FROM vwRegiProgram where resi_seq=%s ORDER BY prog_seq DESC ) vwRegiProgram ORDER BY ROWNUM) vwRegiProgram WHERE rnum <= %s AND rnum >= %s %s"
 								, resi_seq
 								, map.get("end")
-								, map.get("begin"));
+								, map.get("begin")
+								, where);
 
 					stat = conn.createStatement();
 					rs = stat.executeQuery(sql);
@@ -364,11 +376,11 @@ public class ProgramDAO {
 						String title = rs.getString("title");
 						String content = rs.getString("content");
 						
-						if (title.length() > 8) {
-							title = title.substring(0, 8) + "...";
+						if (title.length() > 11) {
+							title = title.substring(0, 11) + "...";
 						}
-						if (content.length() > 18) {
-							content = content.substring(0, 18) + "...";
+						if (content.length() > 21) {
+							content = content.substring(0, 21) + "...";
 						}
 
 						MyProgramDTO pdto = new MyProgramDTO();
@@ -394,6 +406,137 @@ public class ProgramDAO {
 				}
 
 				return null;
+				
+
+			}
+			
+			//복지프로그램 상세 내역
+			public MyProgramDTO detailProgram(String prog_seq) {
+
+				try {
+					
+					String sql = "select * from tblProgram where prog_seq = ?";
+					
+					pstat = conn.prepareStatement(sql);
+					pstat.setString(1, prog_seq);
+					rs = pstat.executeQuery();	
+					
+					if (rs.next()) {
+						
+						MyProgramDTO dto = new MyProgramDTO();
+						
+						dto.setProg_seq(rs.getString("prog_seq"));
+						dto.setTitle(rs.getString("title"));
+						dto.setApply(rs.getString("apply"));
+						dto.setContent(rs.getString("content"));
+						dto.setProg_date(rs.getString("prog_date").substring(0, 10));
+						dto.setPeople(rs.getString("people"));
+						dto.setPlace(rs.getString("place"));
+						
+						return dto;
+						
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				
+				return null;
+			}
+			
+			//내가 신청한 복지프로그램 내역 
+			public MyProgramDTO regiProgram(String prog_seq, String resi_seq) {
+
+				try {
+					
+					String sql = "select * from tblPapp where prog_seq = ? and resi_seq = ?";
+					
+					pstat = conn.prepareStatement(sql);
+					pstat.setString(1, prog_seq);
+					pstat.setString(2, resi_seq);
+					rs = pstat.executeQuery();
+					
+					if (rs.next()) {
+						
+						MyProgramDTO pdto = new MyProgramDTO();
+						
+						pdto.setPapp_seq(rs.getString("papp_seq"));
+						pdto.setResi_seq(rs.getString("resi_seq"));
+						pdto.setProg_seq(rs.getString("prog_seq"));
+						
+						return pdto;
+					}
+					
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				
+				
+				return null;
+			}
+
+			public String myplist(String resi_seq, String prog_seq) {
+			    
+				try {
+			        String sql = "SELECT * FROM vwRegiProgram WHERE resi_seq = ? and prog_seq = ?";
+			        
+			        pstat = conn.prepareStatement(sql);
+			        pstat.setString(1, resi_seq);
+			        pstat.setString(2, prog_seq);
+			        
+			        rs = pstat.executeQuery();
+			        
+			        
+			        if (rs.next()) {
+			        	
+			        	return rs.getString("prog_seq");
+			        }
+
+			        
+			    } catch (Exception e) {
+			        e.printStackTrace();
+			    }
+
+			    return null;
+			}
+
+			//신청 수 증가
+			public void increaseApplyCount(String prog_seq) {
+				
+			            try {
+			            	
+			                String sql = "update tblprogram set apply = apply + 1 where prog_seq = ?";
+			                
+			                pstat = conn.prepareStatement(sql);
+			                pstat.setString(1, prog_seq);
+			                pstat.executeUpdate();
+			                
+			                pstat.close();
+			                
+			            } catch (Exception e) {
+			                e.printStackTrace();
+			            }
+			        }
+
+			//신청 수 감소
+			public void decreaseApplyCount(String prog_seq) {
+				try {
+	            	
+	                String sql = "update tblprogram set apply = apply - 1 where prog_seq = ?";
+	                
+	                pstat = conn.prepareStatement(sql);
+	                pstat.setString(1, prog_seq);
+	                pstat.executeUpdate();
+	                
+	                pstat.close();
+	                
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+				
 			}
 
 }
