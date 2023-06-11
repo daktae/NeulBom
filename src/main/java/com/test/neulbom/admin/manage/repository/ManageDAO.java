@@ -55,6 +55,16 @@ public class ManageDAO {
 				String temp1 = temp[0];
 				String temp2 = temp[1];
 
+				if (temp1.equals("3"))
+					temp1 = "15";
+				if (temp1.equals("6"))
+					temp1 = "18";
+
+				if (temp2.equals("3"))
+					temp2 = "15";
+				if (temp2.equals("6"))
+					temp2 = "18";
+
 				dto.setMeet_time(String.format("%s:00~%s:00", temp1, temp2));
 
 				dto.setProtect_seq(rs.getString("protect_seq"));
@@ -563,10 +573,8 @@ public class ManageDAO {
 	public int getTotalCount(HashMap<String, String> smap, int size, String table) {
 
 		try {
-			
+
 			String sql = "select count(*) as cnt from " + table;
-			
-			
 
 			pstat = conn.prepareStatement(sql);
 
@@ -583,18 +591,20 @@ public class ManageDAO {
 
 		return 0;
 	}
+
 	public int getTotalCount2(HashMap<String, String> map) {
 
 		try {
-			
+
 			String where = "";
-			
+
 			if (map.get("search").equals("y")) {
-	            where = String.format("where tblResident.name like '%%%s%%'", map.get("name") );
-	        }
+				where = String.format("where tblResident.name like '%%%s%%'", map.get("name"));
+			}
 
-
-			String sql = String.format("select count(*) as cnt from tblPay inner join tblResident on tblpay.resi_seq = tblResident.resi_seq %s", where);
+			String sql = String.format(
+					"select count(*) as cnt from tblPay inner join tblResident on tblpay.resi_seq = tblResident.resi_seq %s",
+					where);
 
 			pstat = conn.prepareStatement(sql);
 
@@ -608,7 +618,7 @@ public class ManageDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return 0;
 
 	}
