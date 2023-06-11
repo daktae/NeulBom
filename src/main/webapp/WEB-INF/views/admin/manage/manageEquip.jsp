@@ -110,7 +110,9 @@
 				</table>
 				
 			<!-- 페이징 -->
+
             <div id="paging" class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
+
 				
             </div><!-- main-box -->
         </div><!-- inner-box -->

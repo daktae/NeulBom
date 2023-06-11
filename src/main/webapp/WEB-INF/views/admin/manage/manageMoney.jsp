@@ -274,9 +274,6 @@
       data: { // 차트에 들어갈 데이터
           labels: [
               //x 축
-/*               <c:forEach items="${monthlySpendList}" var="monthlySpendDto">
-              	${monthlySpendDto.sdate},
-              </c:forEach> */
               '2023.01', '2023.02', '2023.03', '2023.04', '2023.05'
           ],
           datasets: [
@@ -285,12 +282,6 @@
                   fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
                   data: [
                 	  160016425, 163007189, 160017454, 160611850,160621990
-                	  /* 	              <c:forEach items="${monthlySpendList}" var="monthlySpendDto">
-	              	${monthlySpendDto.money},
-	              </c:forEach> */
-	              
-	              
-	              
                   ],
                   backgroundColor: 'rgba(255, 99, 132, 0.2)',
                   borderColor: 'rgba(255, 159, 64, 0.2)',
@@ -316,35 +307,6 @@
               },
 
           },
-/*           scales: {
-              y: {
-                  suggestedMin: 500,
-                  suggestedMax: 20000000
-              }
-          } 
-/*       	   y: [{
-               ticks: {
-                   display: true,
-                   min: 10000000,   //y축 최솟값
-                   max: 20000000, //y축 최댓값
-                   stepSize: 1
-               } 
-           }]
-             y: {
-                  title: {
-                      display: true,
-                      text: '지출액 (단위: 원)'
-                  }
-              } */
-/*           scales: {
-				yAxes: [{
-					
-					display: true,
-					ticks: {
-						fontSize : 14,
-					}
-				}]
-			} */
 		
       }
 

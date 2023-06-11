@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.test.neulbom.admin.manage.repository.EqDAO;
 
+
 @WebServlet("/admin/manage/delEquip.do")
 public class DelEquip extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// DelEquip.java
-		
-		
+
 		String eq_seq = req.getParameter("eq_seq");
 		req.setAttribute("eq_seq", eq_seq);
 		

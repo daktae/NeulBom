@@ -90,35 +90,59 @@ public class StaffSalary extends HttpServlet {
 		loop = 1;	//루프 변수
 		n = ((nowPage -1) / blockSize) * blockSize + 1; //페이지 번호
 		
-		//이전 10페이지
-		// "<<" 아이콘 else일때 a태그 href 경로 수정
-		if(n == 1) {
-			sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));			
-		}else {
-			sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/manage/staffSalary.do?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", n-1));						
-		}
-		
-		//안에 있는 숫자들 ex) << "1 2 3" >>
-		//else일때 a태그 href 경로 수정
-		while (!(loop > blockSize || n > totalPage)) {
-			
-			if (n == nowPage) {
-				sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));				
-			} else {
-				sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/manage/staffSalary.do?page=%d\">%d</a></li> ", n, n));			
-			}
-			
-			loop++;
-			n++;
-		}
-		
-		//다음 10페이지
-		// ">>" 아이콘 else일때 a태그 href 경로 수정
-		if(n > totalPage) {
-			sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
-		}else {
-			sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/manage/staffSalary.do?page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", n));			
-		}
+		if(search.equals("y")) {
+	         if(n == 1) {
+	            sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));         
+	         }else {
+	            sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/manage/staffSalary.do?column=%s&word=%s?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", column, word, n-1));                  
+	         }
+	         
+	         while (!(loop > blockSize || n > totalPage)) {
+	            
+	            if (n == nowPage) {
+	               sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));            
+	            } else {
+	               sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/manage/staffSalary.do?column=%s&word=%s&page=%d\">%d</a></li> ", column, word, n, n));         
+	            }
+	            
+	            loop++;
+	            n++;
+	         }
+	         
+	         //다음 10페이지
+	         if(n > totalPage) {
+	            sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
+	         }else {
+	            sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/manage/staffSalary.do?column=%s&word=%s&page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", column, word, n));         
+	         }
+	      } else {
+	         
+	         //이전 10페이지
+	         if(n == 1) {
+	            sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));         
+	         }else {
+	            sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/manage/staffSalary.do?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", n-1));                  
+	         }
+	         
+	         while (!(loop > blockSize || n > totalPage)) {
+	            
+	            if (n == nowPage) {
+	               sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));            
+	            } else {
+	               sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/manage/staffSalary.do?page=%d\">%d</a></li> ", n, n));         
+	            }
+	            
+	            loop++;
+	            n++;
+	         }
+	         
+	         //다음 10페이지
+	         if(n > totalPage) {
+	            sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
+	         }else {
+	            sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/admin/manage/staffSalary.do?page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", n));         
+	         }
+	      }
 		
 		req.setAttribute("salaryList", salaryList);
 		req.setAttribute("map", map);

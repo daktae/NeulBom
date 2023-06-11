@@ -74,6 +74,7 @@
 	        </div><!-- inner-box -->
 	    </div><!-- content-box -->
 	</div>
+	
 
 <!-- JavaScript Bundle with Popper -->
 <script src="/asset/js/bootstrap.js"></script>
