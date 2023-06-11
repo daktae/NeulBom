@@ -53,17 +53,16 @@
 }
 
 #cal-container {
-display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 #calendar {
 	position: relative;
 	top: 30px;
-	width: 750px;
+	width: 800px !important;
 	height: 600px;
-
 }
 </style>
 </head>
@@ -88,10 +87,9 @@ display: flex;
 				<!-- semi_title -->
 
 				<div class="main-box">
-<div id="cal-container">
-
-					<div id="calendar"></div>
-</div>
+					<div id="cal-container">
+						<div id="calendar"></div>
+					</div>
 
 				</div>
 				<!-- main-box -->
@@ -105,25 +103,44 @@ display: flex;
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
-		const calendarEl = document.getElementById("calendar"); //캘린더를 넣어줄 html div
+		document.addEventListener(
+						'DOMContentLoaded',
+						function() {
+							var calendarEl = document
+									.getElementById('calendar');
 
-		let calendar;
+							$.ajax({
+										url : '/neulbom/admin/manage/caldata.do',
+										type : 'get',
+										dataType : 'json',
+										success : function(data) {
+											console.log(data);
 
-		calendar_rendering();
+											data.forEach(function(event) {
+												event.start = event.start
+														.replace(/'/g, '');
+											});
 
-		function calendar_rendering() {
-			calendar = new FullCalendar.Calendar(calendarEl, {
-				initialView : "dayGridMonth",
-				firstDay : 1,
-				titleFormat : function(date) {
-					year = date.date.year;
-					month = date.date.month + 1;
+											var calendar = new FullCalendar.Calendar(
+													calendarEl,
+													{
+														locale : 'ko',
+														events : data,
+														initialView : 'dayGridMonth',
+														eventDidMount : function(
+																info) {
+															info.el.style.backgroundColor = 'rgba(39, 166, 174, 0.2)';
+															info.el.style.color = '#5888CE';
+														},
+													});
 
-					return year + "년 " + month + "월";
-				},
-			});
-			calendar.render();
-		}
+											calendar.render();
+										},
+										error : function(a, b, c) {
+											console.log(a, b, c);
+										}
+									});
+						});
 	</script>
 
 

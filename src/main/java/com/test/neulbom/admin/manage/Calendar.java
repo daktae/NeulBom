@@ -15,10 +15,11 @@ public class Calendar extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		//
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/calendar.jsp");
-		dispatcher.forward(req, resp);
-	}
+   
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/calendar.jsp");
+        dispatcher.forward(req, resp);
+    }
 
 }
+
