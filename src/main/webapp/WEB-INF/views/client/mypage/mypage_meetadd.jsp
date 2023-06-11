@@ -96,9 +96,9 @@ body {
 
 
 			<div class="col-md-9">
-				<div class="box">
+				<div class="box" style="height:100%;">
 					<div class="title">면회신청</div>
-					<hr>
+					<hr style="margin-bottom: 120px;">
 					<div class="row justify-content-center">
 						<form method="post" action="/neulbom/client/mypage/mypage_meetadd.do">
 						<table class="table">
@@ -139,7 +139,7 @@ body {
 								<td><div class="content">${dto.email}</div></td>
 							</tr> --%>
 						</table>
-						<hr>
+						<hr style="margin-top: 120px; margin-bottom: 120px;">
 							<div class="d-grid gap-2 col-6 mx-auto">
 								<button class="btn btn-outline-primary" type="submit" onclick="location.href='/neulbom/client/mypage/mypage_meetadd.do';">면회 신청</button>
 								<button class="btn btn-outline-primary" type="button" onclick="history.back()">취소</button>

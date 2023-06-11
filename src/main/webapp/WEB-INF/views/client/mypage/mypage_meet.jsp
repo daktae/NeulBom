@@ -105,11 +105,11 @@
 
             
             <div class="col-md-9">
-                <div class="box">
+                <div class="box" style="height:100%;">
                     <div class="title">면회신청내역</div>
                     <form method="GET" action="/neulbom/client/mypage/mypage_meet.do">
                       <div class="selec">
-                      	<input type="date" name="start_date"> 부터 <input type="date" name="end_date">
+                      	<input type="date" name="start_date" style="margin-right:10px;" required> 부터 <input type="date" name="end_date" style="margin-left:10px; margin-right: 10px;" required>
                     	<button type="submit">검색하기</button>
                     </div>
                     </form>
