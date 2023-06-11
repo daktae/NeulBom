@@ -167,7 +167,7 @@ public class ProgramDAO {
              }
 			
 			
-			String sql = String.format("select * from (select rownum as rnum, a.* from  (select prog_seq, title, to_char(prog_date, 'yyyy-mm-dd') as prog_date, content, place, people from tblProgram %s order by prog_seq asc, prog_date asc) a) where rnum between %s and %s"
+			String sql = String.format("select * from (select rownum as rnum, a.* from  (select prog_seq, title, to_char(prog_date, 'yyyy-mm-dd') as prog_date, content, place, people from tblProgram %s order by prog_seq desc, prog_date desc) a) where rnum between %s and %s"
 									, where
 									, map.get("begin")
 									, map.get("end"));
