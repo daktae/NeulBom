@@ -137,7 +137,7 @@ td.comment {
 				</div>
 				<!-- semi_title -->
 				<div class="main-box">
-					<form method="POST" action="/neulbom/admin/manage/viewqna.do">
+					<form method="POST" action="/neulbom/admin/manage/viewqna.do" enctype="multipart/form-data">
 						<input type="hidden" name="seq" value="${dto.qna_seq}">
 						<table class="table" style="table-layout: fixed;">
 							<colgroup>
@@ -187,7 +187,14 @@ td.comment {
 								</tr>
 								<tr id="comment">
 									<td>내용</td>
-									<td colspan="3" id="comment-content"><pre>${qdto.content}</pre>
+									<td colspan="3" id="comment-content">
+									<c:if
+										test="${not empty qdto.fname}">
+										<div id="attachment">
+											<img src="/neulbom/asset/qreply/${qdto.fname}">
+										</div>
+									</c:if>
+									<pre>${qdto.content}</pre>
 									</td>
 								</tr>
 							</c:if>
@@ -203,6 +210,10 @@ td.comment {
 									<td>내용</td>
 									<td colspan="3" id="rcontent-input"><textarea
 											id="rcontent" name="rcontent"></textarea></td>
+								</tr>
+								<tr>
+								<td>첨부파일</td>
+								 <td colspan="3" style="text-align: left;"><input type="file" name="fname" id="fname" /></td>
 								</tr>
 
 							</c:if>

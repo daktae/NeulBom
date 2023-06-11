@@ -137,7 +137,7 @@ td.comment {
 				</div>
 				<!-- semi_title -->
 				<div class="main-box">
-					<form method="POST" action="/neulbom/admin/manage/viewconsult.do">
+					<form method="POST" action="/neulbom/admin/manage/viewconsult.do" enctype="multipart/form-data">
 						<input type="hidden" name="seq" value="${dto.con_seq}">
 						<table class="table" style="table-layout: fixed;">
 							<colgroup>
@@ -177,7 +177,14 @@ td.comment {
 								</tr>
 								<tr id="comment">
 									<td>내용</td>
-									<td colspan="3" id="comment-content"><pre>${cdto.content}</pre>
+									<td colspan="3" id="comment-content">
+									<c:if
+										test="${not empty cdto.cfile}">
+										<div id="attachment">
+											<img src="/neulbom/asset/creply/${cdto.cfile}">
+										</div>
+									</c:if>
+									<pre>${cdto.content}</pre>
 									</td>
 								</tr>
 							</c:if>
@@ -193,6 +200,10 @@ td.comment {
 									<td>내용</td>
 									<td colspan="3" id="rcontent-input"><textarea
 											id="rcontent" name="rcontent"></textarea></td>
+								</tr>
+								<tr>
+								<td>첨부파일</td>
+								 <td colspan="3" style="text-align: left;"><input type="file" name="fname" id="fname" /></td>
 								</tr>
 
 							</c:if>
