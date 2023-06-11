@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.test.neulbom.client.repository.BoardWjDAO;
 import com.test.neulbom.client.repository.BoardWjDTO;
+import com.test.neulbom.client.repository.ConsultDTOWj;
 
 @WebServlet("/client/board/resiconsult.do")
 public class Resiconsult extends HttpServlet {
@@ -56,64 +57,115 @@ public class Resiconsult extends HttpServlet {
 				// 2. 검색 결과 보기
 
 			
-				HashMap<String, String> map = new HashMap<String, String>();			
+				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("begin", begin + "");
 				map.put("end", end + "");
+				map.put("search_option", req.getParameter("search_option"));
+				map.put("search_keyword", req.getParameter("search_keyword"));
+				map.put("start_date", req.getParameter("start_date"));
+				map.put("end_date", req.getParameter("end_date"));
+
 				
+				BoardWjDAO dao = new BoardWjDAO();
+				ConsultDTOWj dto = new ConsultDTOWj();
+				List<BoardWjDTO> list = dao.view(map);
 				
-	    
-		BoardWjDAO dao = new BoardWjDAO();
 
-		List<BoardWjDTO> list = dao.view(map);
-		
-		StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new StringBuilder();
+				
 
-		// 페이징 작업
-		// 총 게시물
-		totalCount = dao.getTotalCount(map);
-		totalPage = (int) Math.ceil((double) totalCount / pageSize);
-		
-		loop = 1;	//루프 변수
-		n = ((nowPage -1) / blockSize) * blockSize + 1; //페이지 번호
-		
-		// 이전 10페이지
-		// "<<" 아이콘 else일때 a태그 href 경로 수정
-		if (n == 1) {
-		    sb.append("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\">");
-		    sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
-		} else {
-		    sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/qna.do?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", n - 1));
-		}
 
-		// 안에 있는 숫자들 ex) << "1 2 3" >>
-		// else일때 a태그 href 경로 수정
-		while (!(loop > blockSize || n > totalPage)) {
-		    if (n == nowPage) {
-		        sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/resiconsult.do?page=%d\" style='color:tomato;'>%d</a></li> ", n, n));
-		    } else {
-		        sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/resiconsult.do?page=%d\">%d</a></li> ", n, n));
-		    }
-		    loop++;
-		    n++;
-		}
+				// 페이징 작업
+				// 총 게시물
+				totalCount = dao.getTotalCount(map);
+				totalPage = (int) Math.ceil((double) totalCount / pageSize);
 
-		// 다음 10페이지
-		// ">>" 아이콘 else일때 a태그 href 경로 수정
-		if (n > totalPage) {
-		    sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>");
-		} else {
-		    sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/resiconsult.do?page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", n));
-		}
-    	
+				loop = 1; // 루프 변수
+				n = ((nowPage - 1) / blockSize) * blockSize + 1; // 페이지 번호
+
+				// 이전 10페이지
+				// "<<" 아이콘 else일 때 a태그 href 경로 수정
+				if (n == 1) {
+				    sb.append("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\">");
+				    sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
+				} else {
+				    String prevUrl = "/neulbom/client/board/resiconsult.do?page=" + (n - 1);
+				    // 검색 조건이 null이 아니고 비어있지 않은 경우에만 해당 파라미터를 추가
+				    if (map.get("search_option") != null && !map.get("search_option").isEmpty()
+				            && map.get("search_keyword") != null && !map.get("search_keyword").isEmpty()) {
+				        prevUrl += "&search_option=" + map.get("search_option") +
+				                "&search_keyword=" + map.get("search_keyword");
+				    }
+				    if (map.get("start_date") != null && !map.get("start_date").isEmpty()
+				            && map.get("end_date") != null && !map.get("end_date").isEmpty()) {
+				        prevUrl += "&start_date=" + map.get("start_date") +
+				                "&end_date=" + map.get("end_date");
+				    }
+				    sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"%s\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", prevUrl));
+				}
+
+				// 안에 있는 숫자들 ex) << "1 2 3" >>
+				// else일 때 a태그 href 경로 수정
+				while (!(loop > blockSize || n > totalPage)) {
+				    if (n == nowPage) {
+				        sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/resiconsult.do?page=%d&search_option=%s&start_date=%s&end_date=%s&search_keyword=%s\" style='color:tomato;'>%d</a></li> ", n, map.get("search_option"), map.get("start_date"), map.get("end_date"), map.get("search_keyword"), n));
+				    } else {
+				        String pageUrl = "/neulbom/client/board/resiconsult.do?page=" + n;
+				        // 검색 조건이 null이 아니고 비어있지 않은 경우에만 해당 파라미터를 추가
+				        if (map.get("search_option") != null && !map.get("search_option").isEmpty()
+				                && map.get("search_keyword") != null && !map.get("search_keyword").isEmpty()) {
+				            pageUrl += "&search_option=" + map.get("search_option") +
+				                    "&search_keyword=" + map.get("search_keyword");
+				        }
+				        if (map.get("start_date") != null && !map.get("start_date").isEmpty()
+				                && map.get("end_date") != null && !map.get("end_date").isEmpty()) {
+				            pageUrl += "&start_date=" + map.get("start_date") +
+				                    "&end_date=" + map.get("end_date");
+				        }
+				        sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"%s\">%d</a></li> ", pageUrl, n));
+				    }
+				    loop++;
+				    n++;
+				}
+
+				// 다음 10페이지
+				// ">>" 아이콘 else일 때 a태그 href 경로 수정
+				if (n > totalPage) {
+				    sb.append("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>");
+				} else {
+				    String nextUrl = "/neulbom/client/board/resiconsult.do?page=" + n;
+				    // 검색 조건이 null이 아니고 비어있지 않은 경우에만 해당 파라미터를 추가
+				    if (map.get("search_option") != null && !map.get("search_option").isEmpty()
+				            && map.get("search_keyword") != null && !map.get("search_keyword").isEmpty()) {
+				        nextUrl += "&search_option=" + map.get("search_option") +
+				                "&search_keyword=" + map.get("search_keyword");
+				    }
+				    if (map.get("start_date") != null && !map.get("start_date").isEmpty()
+				            && map.get("end_date") != null && !map.get("end_date").isEmpty()) {
+				        nextUrl += "&start_date=" + map.get("start_date") +
+				                "&end_date=" + map.get("end_date");
+				    }
+				    sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"%s\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", nextUrl));
+				}
+
+				if (list.isEmpty()) {
+				    sb.append("<script>alert('검색 결과가 없습니다.'); location.href='/neulbom/client/board/resiconsult.do';</script>");
+				}
+
 				req.setAttribute("map", map);
 				req.setAttribute("totalCount", totalCount);
 				req.setAttribute("totalPage", totalPage);
 				req.setAttribute("nowPage", nowPage);
 				req.setAttribute("list", list);
 				req.setAttribute("pagination", sb);
-		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/community/resiconsult.jsp");
-		dispatcher.forward(req, resp);
+				req.setAttribute("dto", dto);
+				
+				RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/community/resiconsult.jsp");
+				dispatcher.forward(req, resp);
+
+
+
+
 	}
 
 }

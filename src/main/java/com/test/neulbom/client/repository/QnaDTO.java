@@ -17,4 +17,5 @@ public class QnaDTO {
 	
 	private String name;
 	private String id;
+	private String rnum;
 }

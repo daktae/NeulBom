@@ -10,4 +10,8 @@ public class MeetDTO {
 	private String protect_seq;
 	private String resi_seq;
 	private String confirmation;
+	
+	private String pname;
+	private String rname;
+	private String rnum;
 }

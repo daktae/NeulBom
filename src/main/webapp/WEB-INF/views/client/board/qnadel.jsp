@@ -16,6 +16,15 @@
 		height: 300px;
 		display: block;
 		}
+		
+	.del, .edit {
+		width: 100px;
+		height: 40px;
+		font-size: 18px;
+		border: 1px solid #AAA;
+		background-color: #AAA;
+		float: right;
+	}
 
 </style>
 </head>
@@ -24,6 +33,8 @@
 	<%@ include file="/WEB-INF/views/inc/headerclient.jsp" %>
 	 
 	 	<div class="introducetitle">알림게시판</div>
+
+	
 
 
     <div class="mainmenu text-center">
@@ -54,20 +65,25 @@
             </nav>
             <hr>
             
-            <!-- 작업해야함 -->
-			<%-- </c:if test> --%>
-            <div class="content_wj" style="text-align:center;">
-              	${dto.content}
+            <table class="table table-bordered table-hover content-head_wj">
+                <thead>
+                    <tr>
+                      <td id="id">정말로 삭제 하시겠습니까?</td>
+                    </tr>
+                </thead>
+            </table>
             </div>
-            
+            </div>
+	
+	<form method="POST" action="/neulbom/client/board/qnadel.do">
+		<button type="button" class="btn edit" onclick="history.back();">취소</button>
+        <button type="submit" class="btn del">삭제하기</button>
+		<input type="hidden" name="qna_seq" value="${qna_seq}">
+	</form>
      
-            <hr>
+    <hr>
             
-            <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/board/qna.do'" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:left;">돌아가기</button>
-            <button type="submit" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:left;">삭제하기</button>
             
-        </div>
-        </div>
         
 <%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
 <script>

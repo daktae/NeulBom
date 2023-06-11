@@ -118,7 +118,7 @@ body {
 								</th>
 								<td>
 									<div class="content">
-										<select name="meet_time">
+										<select name="meet_time" style="margin-right:50px;">
 								            <option value="9~12">오전: 9시  - 12시</option>
 								            <option value="12~3">오후: 12시 - 3시</option>
 								            <option value="3~6">오후: 3시  - 6시</option>

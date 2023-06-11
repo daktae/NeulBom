@@ -1,6 +1,6 @@
 package com.test.neulbom.client.board;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.util.HashMap;
 import java.util.List;
 
@@ -87,23 +87,29 @@ public class Qna extends HttpServlet {
 	
 		List<QnaDTO> list = dao.list(map);
 		
-		for (QnaDTO qna : list) { 
-			String qna_seq = qna.getQna_seq(); // qna_seq 추출
-			String name = dao.getnameByProtect(qna_seq); // name 값 가져오기
-			String id = dao.getIdByProtect(qna_seq); // id 값 가져오기
-			qna.setName(name); // name 값 설정
-			qna.setId(id); // id 값 설정
-		
-			if (name == null) { 
-				name = dao.getnameByResi(qna_seq);
-				id = dao.getIdByResi(qna_seq);
-				qna.setName(name); 
-				qna.setId(id);
+		for (QnaDTO dto : list) {
+			
+			
+			String title = dto.getTitle();
+			String content = dto.getContent();
+			
+			//태그 이스케이프
+			title = title.replace("<", "&lt;")
+							 .replace(">", "&gt;");
+			content = title.replace("<", "&lt;")
+					 		.replace(">", "&gt;");
+			
+			//제목에서 검색 중.. 검색어를 강조
+			if (search.equals("y") && column.equals("title")) {
+				//새글입니다.
+				//<span style="background-color:yellow;color:red;">새글</span>입니다.
+				title = title.replace(word, "<span style=\"background-color:gold;color:tomato;\">" + word + "</span>");
 			}
-		
+			
+			dto.setTitle(title);
+			dto.setContent(content);
+			
 		}
-		
-		
 		
 		StringBuilder sb = new StringBuilder();
 
@@ -116,31 +122,66 @@ public class Qna extends HttpServlet {
 		loop = 1;	//루프 변수
 		n = ((nowPage -1) / blockSize) * blockSize + 1; //페이지 번호
 		
-		//이전 10페이지
-		if(n == 1) {
-			sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));			
-		}else {
-			sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/qna.do?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", n-1));						
-		}
 		
-		while (!(loop > blockSize || n > totalPage)) {
-			
-			if (n == nowPage) {
-				sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));				
-			} else {
-				sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/qna.do?page=%d\">%d</a></li> ", n, n));			
-			}
-			
-			loop++;
-			n++;
-		}
 		
-		//다음 10페이지
-		if(n > totalPage) {
-			sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
-		}else {
-			sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/qna.do?page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", n));			
-		}
+		if(search.equals("y")) {
+	         if(n == 1) {
+	            sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));         
+	         }else {
+	            sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/qna.do?column=%s&word=%s?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", column, word, n-1));                  
+	         }
+	         
+	         while (!(loop > blockSize || n > totalPage)) {
+	            
+	            if (n == nowPage) {
+	               sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));            
+	            } else {
+	               sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/qna.do?column=%s&word=%s&page=%d\">%d</a></li> ", column, word, n, n));         
+	            }
+	            
+	            loop++;
+	            n++;
+	         }
+	         
+	         //다음 10페이지
+	         if(n > totalPage) {
+	            sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
+	         }else {
+	            sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/qna.do?column=%s&word=%s&page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", column, word, n));         
+	         }
+	      } else {
+	         
+	         //이전 10페이지
+	         if(n == 1) {
+	            sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));         
+	         }else {
+	            sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/qna.do?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", n-1));                  
+	         }
+	         
+	         while (!(loop > blockSize || n > totalPage)) {
+	            
+	            if (n == nowPage) {
+	               sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));            
+	            } else {
+	               sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/qna.do?page=%d\">%d</a></li> ", n, n));         
+	            }
+	            
+	            loop++;
+	            n++;
+	         }
+	         
+	         //다음 10페이지
+	         if(n > totalPage) {
+	            sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
+	         }else {
+	            sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/qna.do?page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", n));         
+	         }
+	      }
+		
+		
+		
+		
+		
 
 
 		req.setAttribute("map", map);
@@ -149,7 +190,6 @@ public class Qna extends HttpServlet {
 		req.setAttribute("nowPage", nowPage);
 		req.setAttribute("list", list);
 		req.setAttribute("pagination", sb);
-		//Qna.java
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/board/qna.jsp");
 		dispatcher.forward(req, resp);

@@ -52,18 +52,21 @@ help
                 </div>
             </nav>
             <hr>
+     
             <div style="display: flex; justify-content: end; margin-bottom: 15px;">
-                <form class="d-flex" role="search" style="max-width: 50%;">
-                    <select class="form-select" aria-label="Default select example" style="margin-right: 10px;" >
-                            <option value="title">제목</option>
-  <option value="author">작성자</option>
-  <option value="date">날짜</option>
-                    </select>
-        
-                    <input class="form-control_wj" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-light" type="submit"
-                        style="width:74px !important; height:38px !important;white-space:nowrap;">검색</button>
-                </form>
+<form class="d-flex" role="search" style="max-width: 50%;" action="/neulbom/client/board/resiconsult.do" method="GET">
+    <select class="form-select" name="search_option" style="width:100px; margin-right:10px;" aria-label="Default select example" onchange="toggleDateInputs(this)">
+        <option value="title">제목</option>
+        <option value="author">작성자</option>
+        <option value="date">날짜</option>
+    </select>
+
+    <input class="form-control_wj" style="width:200px; margin-right:10px; display: none;" type="date" name="start_date" placeholder="시작일" aria-label="Start Date">
+    <span class="separate" style="display: none; margin-right: 10px;">~</span>
+    <input class="form-control_wj" type="date" style="width:200px; margin-right:10px; display: none;" name="end_date" placeholder="종료일" aria-label="End Date">
+    <input class="form-control_wj" style="width:200px; margin-right:10px;" type="text" name="search_keyword" placeholder="검색" aria-label="Search">
+    <button class="btn btn-light" type="submit" style="width: 74px !important; height: 38px !important; white-space: nowrap;">검색</button>
+</form>
             </div>
 
             <hr>
@@ -78,13 +81,21 @@ help
                 </thead>
                 <tbody>
                 <c:forEach var="dto" items="${list}">
-                    <tr>
-  <td>${dto.con_seq}</td>
-  <td style="text-align: left;"><a href="/neulbom/client/board/detailwj.do?con_seq=${dto.con_seq}">${dto.con_title}</a></td>
-  <td>${dto.nomem_name}</td>
-  <td>${dto.con_date}</td>
-</tr>
-                </c:forEach>    
+  <input type="hidden" name="isreply" value="${dto.isreply}" />
+  <tr>
+    <td>${dto.con_seq}</td>
+    <td style="text-align: left;">
+      <c:choose>
+        <c:when test="${dto.isreply == 'y'}">
+           <span style="color: tomato;">[답변완료]</span>
+        </c:when>
+      </c:choose>
+      <a href="/neulbom/client/community/residetailcheck.do?con_seq=${dto.con_seq}">${dto.con_title}</a>
+    </td>
+    <td>${dto.nomem_name}</td>
+    <td>${dto.con_date}</td>
+  </tr>
+</c:forEach>  
                 </tbody>
             </table>
              <div style="display: flex; justify-content: flex-end;">
@@ -105,6 +116,24 @@ help
 	 
 	<%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
 <script>
+function toggleDateInputs(selectElement) {
+    const startDateInput = document.getElementsByName('start_date')[0];
+    const endDateInput = document.getElementsByName('end_date')[0];
+    const searchKeywordInput = document.getElementsByName('search_keyword')[0];
+    const separateElement = document.querySelector('.separate');
+
+    if (selectElement.value === 'date') {
+        startDateInput.style.display = 'inline-block';
+        endDateInput.style.display = 'inline-block';
+        separateElement.style.display = 'inline-block';
+        searchKeywordInput.style.display = 'none';
+    } else {
+        startDateInput.style.display = 'none';
+        endDateInput.style.display = 'none';
+        separateElement.style.display = 'none';
+        searchKeywordInput.style.display = 'inline-block';
+    }
+}
 
 </script>
 </body>

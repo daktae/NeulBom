@@ -42,18 +42,18 @@ body {
 	<%@ include file="/WEB-INF/views/inc/headerclient.jsp"%>
 
 
-	
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="sidebox">
-                    <div class="profile">
-                        <img src="/html/images/01.jpg" id="profileimg">
-                        <h1 class="profilename">'이동재'님</h1>
-                        <h1 class="profilename_id">(leedongjae97)</h1>
-                        <!-- <div class="profilelevel">계정 관리자</div> -->
-                    </div>
-                    <div class="menubox">
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="sidebox">
+					<div class="profile">
+						<img src="/html/images/01.jpg" id="profileimg">
+						<h1 class="profilename">'${name}'님</h1>
+						<h1 class="profilename_id">(${id})</h1>
+						<!-- <div class="profilelevel">계정 관리자</div> -->
+					</div>
+					<div class="menubox">
 						<div class="menu" id="create_account">
 							<span class="material-symbols-outlined">person</span> 내정보
 						</div>
@@ -83,79 +83,145 @@ body {
 			</div>
 
 
+			<c:choose>
+				<c:when test="${lv eq '6'}">
+					<div class="col-md-9">
+						<div class="box">
+							<div class="title">내정보</div>
+							<hr>
+							<div class="row justify-content-center">
+								<table class="table">
+									<tr>
+										<th scope="row">
+											<div class="subtitle">보호자 아이디:</div>
+										</th>
+										<td>
+											<div class="content">${dto.pro_id}</div>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">이름:</div>
+										</th>
+										<td><div class="content">${dto.pro_name}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">생년월일:</div>
+										</th>
+										<td>
+											<div class="content">${dto.pro_ssn.substring(0, 4)}년
+												${dto.pro_ssn.substring(4, 6)}월 ${dto.pro_ssn.substring(6, 8)}일</div>
+										</td>
 
-            <div class="col-md-9">
-                <div class="box">
-                    <div class="title">내정보</div>
-                    <hr>
-                    <div class="row justify-content-center">
-                        <table class="table">
-                            <tr>
-                                <th scope="row">
-                                    <div class="subtitle">보호자 아이디: </div>
-                                </th>
-                                <td>
-                                    <div class="content">leedongjae97</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <div class="subtitle">이름: </div>
-                                </th>
-                                <td><div class="content">이동재</div></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <div class="subtitle">생년월일: </div>
-                                </th>
-                                <td><div class="content">1997-01-01</div></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <div class="subtitle">전화번호: </div>
-                                </th>
-                                <td><div class="content">010-8651-2932</div></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <div class="subtitle">이메일: </div>
-                                </th>
-                                <td><div class="content">dongjae97@naver.com</div></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <div class="subtitle">입주자와의 관계: </div>
-                                </th>
-                                <td><div class="content">자녀</div></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <div class="subtitle">입주자 아이디: </div>
-                                </th>
-                                <td><div class="content">kingdongjae67</div></td>
-                            </tr>
-                        </table>
-                        <hr>
-                        <br>
-                        <div class="d-grid gap-2 col-6 mx-auto">
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">전화번호:</div>
+										</th>
+										<td><div class="content">${dto.pro_tel}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">이메일:</div>
+										</th>
+										<td><div class="content">${dto.pro_email}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">입주자와의 관계:</div>
+										</th>
+										<td><div class="content">${dto.pro_relation}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">입주자 아이디:</div>
+										</th>
+										<td><div class="content">${dto.resi_id}</div></td>
+									</tr>
+								</table>
+								<hr>
+								<br>
+								<!-- <div class="d-grid gap-2 col-6 mx-auto">
                             <button class="btn btn-outline-primary" type="button">회원정보수정</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-					
+                        </div> -->
+							</div>
+						</div>
+					</div>
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${lv eq '5'}">
+					<div class="col-md-9">
+						<div class="box">
+							<div class="title">내정보</div>
+							<hr>
+							<div class="row justify-content-center">
+								<table class="table">
+									<tr>
+										<th scope="row">
+											<div class="subtitle">입주자 아이디:</div>
+										</th>
+										<td>
+											<div class="content">${dto.resi_id}</div>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">이름:</div>
+										</th>
+										<td><div class="content">${dto.resi_name}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">생년월일:</div>
+										</th>
+										<td>
+											<div class="content">${dto.resi_ssn.substring(0, 4)}년
+												${dto.resi_ssn.substring(4, 6)}월 ${dto.resi_ssn.substring(6, 8)}일</div>
+										</td>
+
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">전화번호:</div>
+										</th>
+										<td><div class="content">${dto.resi_tel}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">이메일:</div>
+										</th>
+										<td><div class="content">${dto.resi_email}</div></td>
+									</tr>
+
+									<tr>
+										<th scope="row">
+											<div class="subtitle">주소:</div>
+										</th>
+										<td><div class="content">${dto.resi_address}</div></td>
+									</tr>
+								</table>
+								<hr>
+								<br>
+								<!-- <div class="d-grid gap-2 col-6 mx-auto">
+                            <button class="btn btn-outline-primary" type="button">회원정보수정</button>
+                        </div> -->
+							</div>
+						</div>
+					</div>
+				</c:when>
+			</c:choose>
+		</div>
+	</div>
+
 
 
 	<%@ include file="/WEB-INF/views/inc/footerclient.jsp"%>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
-	
-	
-  
-  
-</script>
+		
+	</script>
 </body>
 </html>

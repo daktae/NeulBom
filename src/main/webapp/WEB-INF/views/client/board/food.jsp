@@ -18,7 +18,7 @@
 <body>
 	<%@ include file="/WEB-INF/views/inc/headerclient.jsp" %>
 	
-	    <div class="introducetitle">식단표</div>
+	    <div class="introducetitle">알림게시판</div>
 
 
     <div class="mainmenu text-center">
@@ -86,7 +86,21 @@
         
     </div>
 
-    <div class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
+    <nav aria-label="Page navigation example ">
+		<ul class="pagination justify-content-center">
+			<li class="page-item"><a class="page-link" href="#"
+				aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+			</a></li>
+			<c:forEach begin="1" end="${totalPage}" var="pageNumber">
+				<li class="page-item"><a class="page-link"
+					href="<%=request.getContextPath() %>/client/board/notice.do?page=${pageNumber}">${pageNumber}</a>
+				</li>
+			</c:forEach>
+			<li class="page-item"><a class="page-link" href="#"
+				aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+			</a></li>
+		</ul>
+	</nav>
    
     
 	 

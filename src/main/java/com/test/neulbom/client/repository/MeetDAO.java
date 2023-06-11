@@ -109,9 +109,17 @@ public class MeetDAO {
 
 		try {
 
-			String sql = String.format("select * from (select rownum as rnum, a.* from (select * from tblMeet order by meet_seq desc) a) where rnum between %s and %s"
-								, map.get("begin")
-								, map.get("end"));
+			String where = "";
+
+			if (map.get("search").equals("y")) {
+				where = String.format(
+						"and meet_date BETWEEN TO_DATE('%s', 'YYYY-MM-DD') AND TO_DATE('%s', 'YYYY-MM-DD')",
+						map.get("start_date"), map.get("end_date"));
+			}
+
+			String sql = String.format(
+					"select rnum, meet_seq, meet_date, meet_time, protect_seq, resi_seq, confirmation, pname, rname from (select rownum as rnum, a.* from (select * from vmmeet where protect_seq = %s %s order by meet_seq desc) a) where rnum between %s and %s",
+					map.get("protect_seq"), where, map.get("begin"), map.get("end"));
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -119,13 +127,15 @@ public class MeetDAO {
 			while (rs.next()) {
 				MeetDTO dto = new MeetDTO();
 
-				dto.setMeet_seq("meet_seq");
-				dto.setMeet_date("meet_date");
-				dto.setMeet_time("meet_time");
-				dto.setProtect_seq("protect_seq");
-				dto.setResi_seq("resi_seq");
-				dto.setConfirmation("confirmation");
-				
+				dto.setRnum(rs.getString("rnum"));
+				dto.setMeet_seq(rs.getString("meet_seq"));
+				dto.setMeet_date(rs.getString("meet_date").substring(0, 10));
+				dto.setMeet_time(rs.getString("meet_time"));
+				dto.setProtect_seq(rs.getString("protect_seq"));
+				dto.setResi_seq(rs.getString("resi_seq"));
+				dto.setConfirmation(rs.getString("confirmation"));
+				dto.setPname(rs.getString("pname"));
+				dto.setRname(rs.getString("rname"));
 
 				list.add(dto);
 			}
@@ -141,17 +151,17 @@ public class MeetDAO {
 	public int getTotalCount(HashMap<String, String> map) {
 		try {
 
-			String where ="";
-			
-			
-			/*
-			 * if (map.get("search").equals("y")) { where =
-			 * String.format("where %s like '%%%s%%'", map.get("column"), map.get("word") );
-			 * }
-			 */
-			
+			String where = "";
 
-			String sql = String.format("select count(*) as cnt from tblQna %s", where);
+			if (map.get("search").equals("y")) {
+				where = String.format(
+						"and meet_date BETWEEN TO_DATE('%s', 'YYYY-MM-DD') AND TO_DATE('%s', 'YYYY-MM-DD')",
+						map.get("start_date"), map.get("end_date"));
+			}
+
+			String sql = String.format("select count(*) as cnt from tblMeet where protect_seq = %s %s"
+											, map.get("protect_seq")
+											, where);
 
 			pstat = conn.prepareStatement(sql);
 
@@ -165,8 +175,27 @@ public class MeetDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return 0;
+	}
+
+	public int meetDel(String meet_seq) {
+
+		try {
+
+			String sql = "delete from tblMeet where meet_seq = ?";
+
+			pstat = conn.prepareStatement(sql);
+
+			pstat.setString(1, meet_seq);
+
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+
 	}
 
 }

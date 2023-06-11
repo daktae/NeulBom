@@ -58,10 +58,6 @@ public class Mypage_MeetAdd extends HttpServlet {
 
 		dto = dao.getProtect(dto, protect_seq);
 
-		System.out.println(meet_date);
-		System.out.println(meet_time);
-		System.out.println(protect_seq);
-		System.out.println(dto.getResi_seq());
 
 		int result = 0;
 

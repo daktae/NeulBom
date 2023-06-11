@@ -86,11 +86,14 @@ body {
 				<div class="box">
 					<div class="title">내 문의 내역</div>
 					<div class="selec">
-						<select>
-							<option selected>2023-05-01 ~ 2023-06-01</option>
-							<option>2023-04-01 ~ 2023-05-01</option>
-							<option>2023-03-01 ~ 2023-04-01</option>
-						</select>
+						<form method="GET"
+							action="/neulbom/client/mypage/mypage_inquiry.do">
+							<div class="selec">
+								<input type="date" name="start_date"> 부터 <input
+									type="date" name="end_date">
+								<button type="submit">검색하기</button>
+							</div>
+						</form>
 					</div>
 					<div id="summary">
 						문의 내역&nbsp;
@@ -116,21 +119,20 @@ body {
 									<tr>
 										<th scope="row">${status.index + 1}</th>
 										<td>${dto.title}</td>
-										
-											<td>
-											<c:if test="${dto.protect_seq eq null}">${dto.resi_name}</c:if>
-											<c:if test="${dto.resi_seq eq null}">${dto.pro_name}</c:if>
-											</td>
-										
+
+										<td><c:if test="${dto.protect_seq eq null}">${dto.resi_name}</c:if>
+											<c:if test="${dto.resi_seq eq null}">${dto.pro_name}</c:if></td>
+
 										<td>${dto.qna_date}</td>
 										<c:if test="${dto.isreply eq 'n'}">
 											<td><button type="button" class="btn btn-light"
-													id="btn_id" 
-													onclick="location.href='/neulbom/client/board/qnaview.do?qna_seq=${dto.qna_seq}'"
-													>미완료</button></td>
+													id="btn_id"
+													onclick="location.href='/neulbom/client/board/qnaview.do?qna_seq=${dto.qna_seq}'">미완료</button></td>
 										</c:if>
 										<c:if test="${dto.isreply eq 'y'}">
-											<td><button type="button" class="btn btn-warning" id="btn_id" onclick="location.href='/neulbom/client/board/qnaview.do?qna_seq=${dto.qna_seq}'">답변완료</button></td>
+											<td><button type="button" class="btn btn-warning"
+													id="btn_id"
+													onclick="location.href='/neulbom/client/board/qnaview.do?qna_seq=${dto.qna_seq}'">답변완료</button></td>
 										</c:if>
 								</c:forEach>
 							</tbody>
@@ -143,22 +145,15 @@ body {
 									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 								</a></li>
 								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
 								<li class="page-item"><a class="page-link" href="#"
 									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 								</a></li>
 							</ul>
 						</nav>
 
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
+						<br> <br> <br> <br> <br>
 						<!-- 캘린더 -->
 						<!-- <div class="calendar"></div> -->
-
 
 					</div>
 				</div>
