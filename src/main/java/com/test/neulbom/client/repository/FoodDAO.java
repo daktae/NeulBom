@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.test.my.DBUtil;
@@ -19,7 +20,7 @@ public class FoodDAO {
 		this.conn = DBUtil.open("180.68.11.121", "hr", "java1234");
 	}
 
-	public List<FoodDTO> list() {
+	public List<FoodDTO> list(HashMap<String, String> map) {
 
 		try {
 
@@ -82,6 +83,56 @@ public class FoodDAO {
 		}
 		
 		return null;
+	}
+
+	public int getTotalCount(HashMap<String, String> map) {
+
+		try {
+
+			String sql = "select count(*) as cnt from tblfood";
+
+			pstat = conn.prepareStatement(sql);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+
+		
+		return 0;
+	}
+
+	public int getTotalCount2(HashMap<String, String> map) {
+		try {
+			
+			String where = String.format("where %s like '%%%s%%'" , map.get("searchType") ,
+					 map.get("keyword"));
+			
+			String sql = "select count(*) as cnt from tblfood";
+
+			pstat = conn.prepareStatement(sql);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+
+		
+		return 0;
 	}
 	
 

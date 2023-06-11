@@ -72,6 +72,7 @@ public class UserDAO {
 				result.setLv(rs.getString("lv"));
 				result.setName(rs.getString("name"));
 				result.setProtect_seq(rs.getString("protect_seq"));
+				result.setResi_seq(rs.getString("resi_seq"));	//추가
 				
 				return result;
 			}

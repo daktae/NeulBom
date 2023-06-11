@@ -71,7 +71,7 @@ body {
 
 
 						<div class="menu" id="staff_salary">
-							<span class="material-symbols-outlined"> groups_2 </span>
+							<span class="material-symbols-outlined" onclikc="location.href='/neulbom/client/community/program.do';"> groups_2 </span>
 							복지프로그램관리
 						</div>
 						<div class="menu" id="manage_equip">

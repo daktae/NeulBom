@@ -10,4 +10,9 @@ public class ProgramDTO {
 	private String content;		// 내용
 	private String place;		// 장소
 	private String people;		// 정원
+	
+	private String resi_seq;
+	private String protect_seq;
+	private String id;
+	private String name;
 }

@@ -47,9 +47,12 @@ public class Unmem extends HttpServlet {
     	dto.setPtel(ptel);
 
     	int result = dao.add(dto);
+    	String nomem_seq = dao.getnoseq(dto);
+    	
+    	System.out.println(nomem_seq);
     	
     	if (result == 1) {
-    		resp.sendRedirect("/neulbom/client/board/resiconsultwrite.do");
+    		resp.sendRedirect("/neulbom/client/board/resiconsultwrite.do?nomem_seq=" + nomem_seq);
     	} else {
     		PrintWriter writer = resp.getWriter();
     		writer.write("<script>alert('failed'); history.back();</script>");

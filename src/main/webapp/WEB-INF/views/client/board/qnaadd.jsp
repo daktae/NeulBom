@@ -79,10 +79,10 @@
             
             <hr>
             
-            <button type="submit" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:0px; font-size: 20px; float:left;">등록</button>
+            <a href="http://localhost:8090/neulbom/client/board/qna.do" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:0px; font-size: 20px; float:right;">돌아가기</a>
+            <button type="submit" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:right;">등록</button>
             </form>
      
-            <a href="http://localhost:8090/neulbom/client/board/qna.do" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:left;">돌아가기</a>
         </div>
         </div>
         

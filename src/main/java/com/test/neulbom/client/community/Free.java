@@ -1,6 +1,7 @@
 package com.test.neulbom.client.community;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -32,21 +33,16 @@ public class Free extends HttpServlet {
 		
 		
 		
-		//글 가져오기
-		FreeDTO dto = new FreeDTO();
-		ClientDAO dao = new ClientDAO();
-		
-		List<FreeDTO> list = dao.list();
-		
-		req.setAttribute("list", list);
-		
-		
 		//페이징
 		int nowPage = 0;	//현재 보려는 페이지
+		int totalCount = 0;	//총 게시물 수
+		int pageSize = 10;	//한 페이지 당 보여줄 게시물 수
+		int totalPage = 0;	//총 페이지 수
 		int begin = 0;		//시작 글
 		int end = 0;		//끝 글
-		int blocksize = 10;	//한 번에 보여줄 페이지 수
-		int pageSize = 10;	//한 페이지 당 보여줄 게시물 수
+		int n = 0;
+		int loop = 0;		//루프
+		int blockSize = 10;	//한 번에 보여줄 페이지 수
 		
 		//페이지 넘길 때
 		//free.do?page=1 > 기본값
@@ -67,13 +63,109 @@ public class Free extends HttpServlet {
 		end = begin + pageSize - 1;
 		
 		
+		//2가지 용도로 호출
+		//1. 일반 목록 보기
+		//2. 검색 결과 보기
+		
+		//1. 
+		//검색
+		String column = req.getParameter("column");
+		String word = req.getParameter("word");
+		String search = "n";	//검색중 n / y
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		if((column == null && word == null) || (column.endsWith("") && word.equals(""))) {
+			search = "n";
+		} else {
+			search = "y";
+		}
+		
+		//검색
+		map.put("column", column);
+		map.put("word", word);
+		map.put("search", search);
+		
+		System.out.println(map);
+		
+		map.put("begin", begin + "");
+		map.put("end", end + "");
+		
+		System.out.println(begin);
+		System.out.println(end);
+		
+		//글 가져오기
+		FreeDTO dto = new FreeDTO();
+		ClientDAO dao = new ClientDAO();
+		
+		List<FreeDTO> list = dao.list(map);
 		
 		
-				
+		
+		StringBuilder sb = new StringBuilder();
+		
+		//페이징 작업
+		//총 게시물
+		totalCount = dao.getTotalCount(map);
+		totalPage = (int)Math.ceil((double)totalCount / pageSize);
+		
+		loop = 1; //루프 변수 
+		n = ((nowPage -1) / blockSize) * blockSize + 1; //페이지 번호
+		 
+		 //이전 10페이지 // "<<" 아이콘 else일때 a태그 href 경로 수정 
+		if(n == 1) { 
+			sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"
+		 )); }else
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/community/free.jsp");
-		dispatcher.forward(req, resp);
+	{ sb.append(String.
+		 format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/community/free.do?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"
+		 , n-1)); }
 
+	// 안에 있는 숫자들 ex) << "1 2 3" >> //else일때 a태그 href 경로 수정 
+		 while (!(loop > blockSize||n>totalPage))
+	{
+
+		if (n == nowPage) {
+			sb.append(String.format(
+					" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ",
+					n));
+		} else {
+			sb.append(String.format(
+					" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/community/free.do?page=%d\">%d</a></li> ",
+					n, n));
+		}
+
+		loop++;
+		n++;
 	}
+
+	// 다음 10페이지 // ">>" 아이콘 else일때 a태그 href 경로 수정
+	if(n>totalPage)
+	{
+		sb.append(String.format(
+				"<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
+	}else
+	{
+		sb.append(String.format(
+				"<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/community/free.do?page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>",
+				n));
+	}
+
+	// 넘겨야 되는 것들
+	req.setAttribute("map",map);
+	req.setAttribute("totalCount",totalCount);
+	req.setAttribute("totalPage",totalPage);
+	req.setAttribute("nowPage",nowPage);
+	req.setAttribute("list",list);
+	req.setAttribute("pagination",sb);
+
+	// 게시물에 맞게 경로 수정
+	RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/community/free.jsp");dispatcher.forward(req,resp);
+
+	// jsp 파일 페이징 들어갈 곳에 넣기
+	
+
+
+}
 
 }

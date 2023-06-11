@@ -9,6 +9,66 @@
 <%@ include file="/WEB-INF/views/inc/assetclient.jsp" %>
 <style>
 
+.introducetitle {
+	background-image: url("/neulbom/asset/image/자유게시판 사진.jpg")
+}
+
+.content_wj {
+	padding: 10px 40px;
+	text-align: justify;
+}
+
+.btn, .btn-primary, .btn-sm {
+	width: 100px;
+	height: 40px;
+	margin-right: 10px;
+	font-size: 20px;
+	float: left;
+}
+
+.session {
+	float: right;
+	background-color: #AAA;
+	border: 1px solid #AAA;
+}
+
+
+.full {
+	float: left;
+	width: 90%;
+	height: 40px;
+	margin: 10px;
+	border: 1px solid #AAA;
+}
+
+.th {
+	width: 150px;
+	font-size: 23px;
+	background-color: #EEE;
+	padding: 20px 0px;
+	border-bottom: 1px solid #DFDFDF;
+}
+
+.td {
+	border-bottom: 1px solid #DFDFDF;
+	border-bottom: 1px solid #DFDFDF;
+}
+
+#id {
+	height: 200px;
+	padding-bottom: 85px;
+}
+
+#return {
+	display: inline-block;
+	margin: 0 auto;
+	text-align: center;
+}
+
+form {
+	text-align: center;
+}
+
 </style>
 </head>
 <body>
@@ -51,17 +111,17 @@
                     </tr>
                 </thead>
             </table>
-            </div>
-            </div>
-	
 	<form method="POST" action="/neulbom/client/community/delfree.do">
 	<div>
-		<input type="button" onclick="history.back(); value="돌아가기">
+		<input type="button" name="return" id="return" onclick="location.href='/neulbom/client/community/free.do';" value="돌아가기">
 	</div>
 	
 	<input type="hidden" name="free_seq" value="${free_seq }">
 	
 	</form>
+            </div>
+            </div>
+	
 	
 
 <%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>  
