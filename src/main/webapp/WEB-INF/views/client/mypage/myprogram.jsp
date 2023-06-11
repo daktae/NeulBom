@@ -103,8 +103,8 @@ body {
 
 
 
-			<div class="col-md-9">
-				<div class="box">
+			<div class="col-md-9" >
+				<div class="box" style="height: 100%;">
 					<!-- 버튼 -->
 					<div class="btn-group" role="group"
 						aria-label="Basic radio toggle button group">
@@ -143,7 +143,7 @@ body {
 									<th scope="col">프로그램명</th>
 									<th scope="col">프로그램 내용</th>
 									<th scope="col">장소</th>
-									<th scope="col">인원수</th>
+									<th scope="col">정원</th>
 									<th scope="col">신청</th>
 								</tr>
 							</thead>
@@ -155,7 +155,7 @@ body {
 										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';" style="text-align: justify">${dto.title}</td>
 										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';" style="text-align: justify">${dto.content}</td>
 										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';">${dto.place}</td>
-										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';">${dto.apply} / ${dto.people}</td>
+										<td onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';">${dto.people}</td>
 								        <td style="padding-bottom: 0px; padding-top: 0.25rem;"><button type="button" class="btn btn-primary btn-sm" onclick="confirmCancel()">취소</button></td>
 									</tr>
 								        <input type="hidden" name="prog_seq" value="${dto.prog_seq }">

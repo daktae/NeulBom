@@ -229,7 +229,7 @@ margin-bottm: 30px;
            
             </c:if>
             
-            
+            <form id="delfree" method="POST" action="/neulbom/client/community/delfree.do">
             <button type="button" class="btn btn-primary btn-sm" onclick="location.href='/neulbom/client/community/free.do';">돌아가기</button>
             <c:if test="${not empty id && (id != dto.id)}">
             <button type="button" class="btn btn-primary btn-sm" 
@@ -237,13 +237,14 @@ margin-bottm: 30px;
             </c:if>
             <c:if test="${not empty id && (id == dto.id)}">
             <div>
-			<button type="button" class="btn del" onclick="delfree();">삭제하기</button>
+			<button type="button" class="btn btn-secondary btn-sm" onclick="delfree()" style="float: right; ">삭제하기</button>
            	<button type="button" class="btn edit" onclick="location.href='/neulbom/client/community/editfree.do?free_seq=${dto.free_seq}';">수정하기</button>
         	</div>
         	</c:if>
+        	<input type="hidden" name="free_seq" value="${dto.free_seq }">
+        </form>
 
         </div>
-        
         
     </div>
     
@@ -269,12 +270,15 @@ margin-bottm: 30px;
 <script>
 
 	//글 삭제
-	function delfree() {		
-		if (confirm('작성하신 글을 삭제하시겠습니까?')) {
-			location.href='/neulbom/client/community/delfree.do?free_seq=' + ${dto.free_seq};
-		}
-		
-	}
+	function delfree() {
+	    var result = confirm("작성하신 글을 삭제하시겠습니까?");
+	    if (result) {
+	       document.getElementById("delfree").submit();
+	    }
+	    else {
+	      
+	    }
+	  }
 	
 
 function editComment(comment_seq) {

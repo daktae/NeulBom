@@ -16,7 +16,7 @@ import com.test.neulbom.client.repository.ClientDAO;
 import com.test.neulbom.client.repository.CommentDTO;
 import com.test.neulbom.client.repository.ProgramDAO;
 
-@WebServlet("/neulbom/client/mypage/regiprogram.do")
+@WebServlet("/client/mypage/regiprogram.do")
 public class RegiProgram extends HttpServlet {
 	
 

@@ -12,12 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.test.neulbom.client.repository.ClientDAO;
 import com.test.neulbom.client.repository.CommentDTO;
 
-@WebServlet("/neulbom/client/community/editcomment.do")
+@WebServlet("/client/community/editcomment.do")
 public class EditComment extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		req.setCharacterEncoding("UTF-8");
+		
 		//글 번호
 		String free_seq = req.getParameter("free_seq");
 		//수정할 댓글번호
