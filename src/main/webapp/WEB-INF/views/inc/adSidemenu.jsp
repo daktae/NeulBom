@@ -4,9 +4,9 @@
 <div class="sidebox">
         <div class="profile">
         	<c:if test="${sessionScope.pic != null}">
-				<img class="profile-img" src="/neulbom/asset/pic/${dto.pic}">
+				<img class="profile-img" src="/neulbom/asset/pic/${sessionScope.pic}">
 			</c:if>
-			<c:if test="${sessionScope.pic == null}">
+			<c:if test="${sessionScope.pic == null}">	
 				<img class="profile-img" src="/neulbom/asset/images/user.png">
 			</c:if>
             <h1 class="profilename">${sessionScope.name}</h1>

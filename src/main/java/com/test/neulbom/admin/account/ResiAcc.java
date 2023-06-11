@@ -45,12 +45,24 @@ public class ResiAcc extends HttpServlet {
 			String id = multi.getParameter("id");
 			String pw = multi.getParameter("pw");
 			String name = multi.getParameter("name");
-			String ssn = multi.getParameter("ssn");
-			String tel = multi.getParameter("tel");
-			String email = multi.getParameter("email");
+			String ssn1 = multi.getParameter("ssn1");
+			String ssn2 = multi.getParameter("ssn2");
+			String ssn = ssn1 + "-" + ssn2;
+			
+			String tel1 = multi.getParameter("tel1");
+			String tel2 = multi.getParameter("tel2");
+			String tel3 = multi.getParameter("tel3");
+			String tel = tel1 + "-" + tel2 + "-" + tel3;
+			 
+			String email1 = multi.getParameter("email1");
+			String email2 = multi.getParameter("email2");
+			String email = email1 + "@" + email2;
 			String detail = multi.getParameter("detail");
-			String address = multi.getParameter("address");
 			String lv = multi.getParameter("lv");
+			String padr = req.getParameter("padr");
+		    String proad = req.getParameter("proad");
+		    String padrdetail = req.getParameter("padrdetail");
+		    String address = padr + " " + proad + " " + padrdetail;
 			System.out.println(id);
 			System.out.println(pw);
 			ResiDTO dto = new ResiDTO();

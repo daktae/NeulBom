@@ -98,7 +98,7 @@
 									<span id="add-cate">주민번호:</span><input type="text" placeholder="주민번호"class="add-info" id="ssn" name="ssn">			
 								</div>
 								<div id="inner-list">
-									<input type="submit" value="찾기" class="btn" id="search" onclick="id_search()">
+									<input type="submit" value="찾기" class="btn btn-primary" id="search" onclick="id_search()">
 								</div>
 							</div>
 						</div>

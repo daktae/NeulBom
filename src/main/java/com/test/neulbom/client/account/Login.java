@@ -124,9 +124,10 @@ public class Login extends HttpServlet {
 				req.getSession().setAttribute("admin_seq", result.getAdmin_seq()); //번호
 				req.getSession().setAttribute("pic", result.getPic()); //프로필 사진 경로
 				
-				resp.sendRedirect("/neulbom/admin/index.do");
 				req.getSession().setAttribute("Admin_seq", result.getAdmin_seq()); //관리자 seq
 				
+				resp.sendRedirect("/neulbom/admin/index.do");
+				System.out.println("사진" + result.getPic());
 				return;
 				
 			} else {

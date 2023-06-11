@@ -80,10 +80,17 @@ help
                     </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="dto" items="${list}">
+                <c:set var="currentPage" value="${param.page != null ? param.page : 1}" />
+<c:set var="itemsPerPage" value="10" />
+<c:set var="startIndex" value="${(currentPage - 1) * itemsPerPage}" />
+
+<c:forEach var="dto" items="${list}" varStatus="loop">
   <input type="hidden" name="isreply" value="${dto.isreply}" />
   <tr>
-    <td>${dto.con_seq}</td>
+    <td>
+      <input type="hidden" name="con_seq" value="${dto.con_seq}" />
+      ${(startIndex + loop.index) + 1}
+    </td>
     <td style="text-align: left;">
       <c:choose>
         <c:when test="${dto.isreply == 'y'}">
@@ -95,7 +102,7 @@ help
     <td>${dto.nomem_name}</td>
     <td>${dto.con_date}</td>
   </tr>
-</c:forEach>  
+</c:forEach> 
                 </tbody>
             </table>
              <div style="display: flex; justify-content: flex-end;">

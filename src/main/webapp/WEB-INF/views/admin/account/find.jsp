@@ -20,10 +20,11 @@
 		height: 520px;
 		display: block;
 		text-align: center;
+		padding-top: 20px;
 		
 	}
 	#inner-header {
-		height: 300px;
+		height: 250px;
 	}
 	#inner-content {
 		display:flex;
@@ -31,9 +32,25 @@
 		padding: 20px;
 	}
 	#inner-menu {
-		background-color: white;
-		width: 150px;
+		background-color: #bbb;
+		width: 200px;
 		height: 100px;
+		border-radius: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	#inner-menu:hover {
+		cursor: pointer;
+		background-color: gray;
+	}
+	#innertitle {
+		font-size: 30px;
+		font-weight: bold;
+	}
+	#inner-txt {
+		color: white;
+		font-size: 20px;
 	}
 </style>
 </head>
@@ -51,17 +68,25 @@
 	            </div><!-- semi_title -->
 	            <div class="main-box">
 					<div id="inner-header">
-						<h1>관리자</h1>
+						<div id="innertitle">관리자</div>
 						<div id="inner-content">
-							<div id="inner-menu" onclick="location.href='/neulbom/admin/account/searchadid.do'">관리자 아이디 찾기</div>
-							<div id="inner-menu" onclick="location.href='/neulbom/admin/account/searchadpw.do'">관리자 비밀번호 찾기</div>
+							<div id="inner-menu" onclick="location.href='/neulbom/admin/account/searchadid.do'">
+								<div id="inner-txt">아이디 찾기</div>
+							</div>
+							<div id="inner-menu" onclick="location.href='/neulbom/admin/account/searchadpw.do'">
+								<div id="inner-txt">비밀번호 찾기</div>
+							</div>
 						</div>
 					</div>
 					<div id="inner-header">
-						<h1>입주자</h1>
+						<div id="innertitle">입주자</div>
 						<div id="inner-content">
-							<div id="inner-menu" onclick="location.href='/neulbom/admin/account/searchreid.do'">입주자 아이디 찾기</div>
-							<div id="inner-menu" onclick="location.href='/neulbom/admin/account/searchrepw.do'">입주자 비밀번호 찾기</div>
+							<div id="inner-menu" onclick="location.href='/neulbom/admin/account/searchreid.do'">
+								<div id="inner-txt">아이디 찾기</div>
+							</div>
+							<div id="inner-menu" onclick="location.href='/neulbom/admin/account/searchrepw.do'">
+								<div id="inner-txt">비밀번호 찾기</div>
+							</div>
 						</div>
 					</div>
 	            </div><!-- main-box -->
