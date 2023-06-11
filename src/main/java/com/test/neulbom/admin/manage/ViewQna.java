@@ -59,8 +59,6 @@ public class ViewQna extends HttpServlet {
 
 			);
 
-			System.out.println(req.getRealPath("/asset/qreply"));
-
 			HttpSession session = req.getSession();
 			
 			req.setCharacterEncoding("UTF-8");
@@ -70,9 +68,11 @@ public class ViewQna extends HttpServlet {
 			String content = multi.getParameter("rcontent");
 			String fname = multi.getFilesystemName("fname");
 			
+			String admin_seq = (String)session.getAttribute("Admin_seq");
+			
 			ManageDAO dao = new ManageDAO();
 
-			int result = dao.replyToQna(seq, title, content, fname);
+			int result = dao.replyToQna(seq, title, content, fname, admin_seq);
 
 			if (result >= 1) {
 				resp.sendRedirect("/neulbom/admin/manage/qna.do");

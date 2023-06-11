@@ -60,8 +60,6 @@ public class ViewConsult extends HttpServlet {
 
 			);
 
-			System.out.println(req.getRealPath("/asset/creply"));
-
 			HttpSession session = req.getSession();
 			
 			req.setCharacterEncoding("UTF-8");
@@ -70,10 +68,11 @@ public class ViewConsult extends HttpServlet {
 			String title = multi.getParameter("rtitle");
 			String content = multi.getParameter("rcontent");
 			String fname = multi.getFilesystemName("fname");
+			String admin_seq = (String)session.getAttribute("Admin_seq");
 			
 			ManageDAO dao = new ManageDAO();
 
-			int result = dao.replyToConsult(seq, title, content, fname);
+			int result = dao.replyToConsult(seq, title, content, fname, admin_seq);
 
 			if (result >= 1) {
 				resp.sendRedirect("/neulbom/admin/manage/consult.do");
