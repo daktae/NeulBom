@@ -10,10 +10,10 @@
 
 <%@ include file="/WEB-INF/views/inc/assetclient.jsp"%>
 
-<link rel="stylesheet" href="/neulbom/asset/css/mypagelist.css">
+<link rel="stylesheet" href="/neulbom/asset/css/mypagepro.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-	
+
 <style>
 html, body {
 	height: 100vh;
@@ -36,10 +36,6 @@ html {
 body {
 	margin: 0;
 }
-
-.menu:hover{
-	cursor: pointer;
-}
 </style>
 </head>
 <body>
@@ -51,12 +47,9 @@ body {
 			<div class="col-md-3">
 				<div class="sidebox">
 					<div class="profile">
-						<c:if test="${not empty list}">
-							<c:set var="firstDto" value="${list[0]}" />
-							<img src="/html/images/01.jpg" id="profileimg">
-							<h1 class="profilename">${firstDto.pro_name}님</h1>
-							<h1 class="profilename_id">(${firstDto.id})</h1>
-						</c:if>
+						<img src="/html/images/01.jpg" id="profileimg">
+						<h1 class="profilename">'${name}'님</h1>
+						<h1 class="profilename_id">(${id})</h1>
 					</div>
 					<div class="menubox">
 						<div class="menu" id="create_account">
@@ -66,16 +59,13 @@ body {
 							<span class="material-symbols-outlined"> credit_score </span>
 							결제관리
 						</div>
-
-
 						<div class="menu" id="manage_account">
 							<span class="material-symbols-outlined"> pending_actions </span>
 							면회관리
 						</div>
-
-
-						<div class="menu" id="staff_salary" onclick="location.href='/neulbom/client/mypage/program.do';">
-							<span class="material-symbols-outlined btnprog" > groups_2 </span> 복지프로그램관리
+						<div class="menu" id="staff_salary">
+							<span class="material-symbols-outlined"> groups_2 </span>
+							복지프로그램관리
 						</div>
 						<div class="menu" id="manage_equip">
 							<span class="material-symbols-outlined"> support_agent </span> 내
@@ -86,7 +76,6 @@ body {
 						<div class="menu" id="manage_qna_consult">
 							<span class="material-symbols-outlined"> help </span> 늘봄
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -95,18 +84,19 @@ body {
 
 			<div class="col-md-9">
 				<div class="box">
-					<div class="title">결제내역</div>
+					<div class="title">내 문의 내역</div>
 					<div class="selec">
-						<select onchange="movePeriod()">
-							<option selected value="2023-05-01 ~ 2023-06-01">2023-05-01 ~ 2023-06-01</option>
-							<option value="2023-04-01 ~ 2023-05-01">2023-04-01 ~ 2023-05-01</option>
-							<option value="2023-03-01 ~ 2023-04-01">2023-03-01 ~ 2023-04-01</option>
+						<select>
+							<option selected>2023-05-01 ~ 2023-06-01</option>
+							<option>2023-04-01 ~ 2023-05-01</option>
+							<option>2023-03-01 ~ 2023-04-01</option>
 						</select>
 					</div>
-					
 					<div id="summary">
-  <c:out value="${list.size()}" />건의 결제 내역이 있습니다.
-</div>
+						문의 내역&nbsp;
+						<c:out value="${list.size()}" />
+						건이 있습니다.
+					</div>
 
 
 					<hr>
@@ -115,29 +105,33 @@ body {
 							<thead>
 								<tr>
 									<th scope="col">번호</th>
-									<th scope="col">보호자명</th>
-									<th scope="col">입주자명</th>
-									<th scope="col">결제날짜</th>
-									<th scope="col">결제여부</th>
-									<th scope="col">결제여부</th>
+									<th scope="col">제목</th>
+									<th scope="col">작성자</th>
+									<th scope="col">문의날짜</th>
+									<th scope="col">답변여부</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${list}" var="dto" varStatus="status">
 									<tr>
 										<th scope="row">${status.index + 1}</th>
-										<td>${dto.pro_name}</td>
-										<td>${dto.resi_name}</td>
-										<td>${fn:substring(dto.pay_date.toString(), 0, 10)}</td>
-										<td>${dto.ispay}</td>
-										<c:if test="${dto.ispay eq 'y'}">
-											<td><button type="button" class="btn btn-light" disabled>결제완료</button></td>
+										<td>${dto.title}</td>
+										
+											<td>
+											<c:if test="${dto.protect_seq eq null}">${dto.resi_name}</c:if>
+											<c:if test="${dto.resi_seq eq null}">${dto.pro_name}</c:if>
+											</td>
+										
+										<td>${dto.qna_date}</td>
+										<c:if test="${dto.isreply eq 'n'}">
+											<td><button type="button" class="btn btn-light"
+													id="btn_id" 
+													onclick="location.href='/neulbom/client/board/qnaview.do?qna_seq=${dto.qna_seq}'"
+													>미완료</button></td>
 										</c:if>
-										<c:if test="${dto.ispay ne 'y'}">
-											<td onclick="location.href='/neulbom/client/mypage/mypage_payment.do?pay_seq=${dto.pay_seq }';">
-											<button type="button" class="btn btn-primary">결제하기</button></td>
+										<c:if test="${dto.isreply eq 'y'}">
+											<td><button type="button" class="btn btn-warning" id="btn_id" onclick="location.href='/neulbom/client/board/qnaview.do?qna_seq=${dto.qna_seq}'">답변완료</button></td>
 										</c:if>
-									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
@@ -157,15 +151,20 @@ body {
 							</ul>
 						</nav>
 
-						<br> <br> <br> <br> <br>
+						<br>
+						<br>
+						<br>
+						<br>
+						<br>
 						<!-- 캘린더 -->
 						<!-- <div class="calendar"></div> -->
+
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 
 
 	<%@ include file="/WEB-INF/views/inc/footerclient.jsp"%>
@@ -174,18 +173,19 @@ body {
 	<script>
 	
 	
-	
-	 
-	  function movePeriod() {
+	 function movePeriod() {
 		  //alert(event.target.value);
-		  location.href = "aaa.do?date=" + event.target.value;
+		  //location.href = "aaa.do?date=" + event.target.value;
+		  location.href = "/client/mypage/mypage_payment_details.do?pay_date=sysdate(2023-05-01
+				~ 2023-06-01" + event.target.value;
 	  }
+	 
+
 	
 	
 	
 	
-	
-/* function CalendarControl() {
+function CalendarControl() {
     const calendar = new Date();
     const calendarControl = {
       localDate: new Date(),
@@ -405,7 +405,7 @@ body {
     calendarControl.init();
   }
   
-  const calendarControl = new CalendarControl();  */
+  const calendarControl = new CalendarControl(); 
   
  
   

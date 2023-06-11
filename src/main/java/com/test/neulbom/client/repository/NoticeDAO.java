@@ -70,7 +70,8 @@ public class NoticeDAO {
 		try {
 
 			String sql = String.format("SELECT * FROM tblnotice where %s like '%%%s%%' ORDER BY notice_date DESC"
-																	, searchType, keyword);
+																	, searchType, keyword
+																	);
 			
 //			System.out.println(sql);
 
@@ -111,11 +112,12 @@ public class NoticeDAO {
 			
 			String where = "";
 
+			
 			/*
 			 * if(map.get("search").equals("y")) { where =
 			 * String.format("where %s like '%%%s%%'" , map.get("column") ,
 			 * map.get("word")); }
-			 */
+			 */			 
 			String sql = String.format("select count(*) as cnt from tblnotice %s", where);
 			
 			pstat = conn.prepareStatement(sql);
@@ -131,6 +133,37 @@ public class NoticeDAO {
 			e.printStackTrace();
 		}
 					
+
+
+		return 0;
+	}
+
+
+
+
+
+	public int getTotalCount2(HashMap<String, String> map) {
+	try {
+				
+				String where = String.format("where %s like '%%%s%%'" , map.get("searchType") ,
+						 map.get("keyword"));
+	
+		 
+				String sql = String.format("select count(*) as cnt from tblnotice %s", where);
+				
+				pstat = conn.prepareStatement(sql);
+				rs = pstat.executeQuery();
+				
+				if (rs.next()) {
+					
+					return rs.getInt("cnt");
+				}
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+						
 
 
 		return 0;
