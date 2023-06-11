@@ -35,12 +35,14 @@ public class Resiconsultwrite extends HttpServlet {
 	    
 	    String title = req.getParameter("title");
 	    String content = req.getParameter("content");
+	    String nomem_seq = req.getParameter("nomem_seq");
 	   
 	    BoardWjDAO dao = new BoardWjDAO();  	
     	BoardWjDTO dto = new BoardWjDTO();
     	
     	dto.setCon_title(title);
     	dto.setCon_content(content);
+    	dto.setNomem_seq(nomem_seq);
 
     	int result = dao.add(dto);
     	
