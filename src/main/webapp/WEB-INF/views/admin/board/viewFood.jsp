@@ -75,7 +75,7 @@ width: 600px;
 							<td>${dto.read}</td>
 						</tr>
 						<tr id="content-tr">
-							<td id="content" colspan="4"><img src="/neulbom/asset/image/${dto.content}"></td>
+							<td id="content" colspan="4"><img src="/neulbom/asset/food/${dto.content}"></td>
 						</tr>
 						<tr>
 							<td colspan="4" id="button-td">

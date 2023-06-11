@@ -727,4 +727,44 @@ public class BoardDAO {
 		return 0;
 	}
 
+	public int addFood(String title, String fname) {
+		
+		try {
+			
+			String sql = "INSERT INTO tblFood VALUES (food_seq.nextVal, sysdate, ?, 0, ?)";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, fname);
+			pstat.setString(2, title);
+			
+			return pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	public int editFood(String title, String fname, String seq) {
+		try {
+			
+			String sql = "UPDATE tblFood SET title = ?, content = ? WHERE food_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, title);
+			pstat.setString(2, fname);	
+			pstat.setString(3, seq);
+			
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
 }

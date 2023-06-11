@@ -60,7 +60,8 @@
 				</div>
 				<!-- semi_title -->
 				<div class="main-box">
-					<form method="POST" action="/neulbom/admin/board/addfood.do" enctype="multipart/form-data">
+					<form method="POST" action="/neulbom/admin/board/editfood.do" enctype="multipart/form-data">
+					<input type="hidden" name="seq" value="${dto.food_seq}">
 						<table class="table">
 							<colgroup>
 								<col width=25%>
@@ -100,6 +101,9 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
+	
+	$('#title-input textarea').val('${dto.title}');
+	
 		$('#add').click(function() {
 			$('form').submit();
 		});
