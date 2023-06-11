@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.test.neulbom.client.repository.ClientDAO;
 import com.test.neulbom.client.repository.MyProgramDTO;
+import com.test.neulbom.client.repository.ProgramDAO;
 import com.test.neulbom.client.repository.ProtectDTO;
 import com.test.neulbom.client.repository.ResiDTO;
 
@@ -65,22 +65,23 @@ public class MyProgram extends HttpServlet {
 
 		// 1.
 		// 검색
-		String column = req.getParameter("column");
-		String word = req.getParameter("word");
-		String search = "n"; // 검색중 n / y
+		String start_date = req.getParameter("start_date");
+		String end_date = req.getParameter("end_date");
+		String search = "n"; // 검색중(O,X)
 
 		HashMap<String, String> map = new HashMap<String, String>();
 
-		if ((column == null && word == null) || (column.endsWith("") && word.equals(""))) {
-			search = "n";
-		} else {
-			search = "y";
-		}
+		if ((start_date == null && end_date == null) ||
+	              (start_date.endsWith("") && end_date.equals(""))) { 
+	         search = "n"; 
+	      } else { 
+	         search ="y"; 
+	      }
 
 		// 검색
-		map.put("column", column);
-		map.put("word", word);
-		map.put("search", search);
+		map.put("start_date", start_date); 
+        map.put("end_date", end_date);
+        map.put("search", search);
 
 
 		map.put("begin", begin + "");
@@ -88,7 +89,7 @@ public class MyProgram extends HttpServlet {
 
 		// 프로그램 글 가져오기
 		MyProgramDTO dto = new MyProgramDTO();
-		ClientDAO dao = new ClientDAO();
+		ProgramDAO dao = new ProgramDAO();
 
 
 		StringBuilder sb = new StringBuilder();
@@ -115,46 +116,66 @@ public class MyProgram extends HttpServlet {
 
 		// 페이징 작업
 		// 총 게시물
-		totalCount = dao.getTotalCount(map);
+		totalCount = dao.getProgramTotalCount(map, resi_seq);
 		totalPage = (int) Math.ceil((double) totalCount / pageSize);
 
 		loop = 1; // 루프 변수
 		n = ((nowPage - 1) / blockSize) * blockSize + 1; // 페이지 번호
 
 		// 이전 10페이지 // "<<" 아이콘 else일때 a태그 href 경로 수정
-		if (n == 1) {
-			sb.append(String.format(
-					"<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));
-		} else {
-			sb.append(String.format(
-					"<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/mypage/myprogram.do?resi_seq=%s&page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>",
-					resi_seq, n - 1));
-		}
-
-		// 안에 있는 숫자들 ex) << "1 2 3" >> //else일때 a태그 href 경로 수정
-		while (!(loop > blockSize || n > totalPage)) {
-
-			if (n == nowPage) {
-				sb.append(String.format(
-						"<li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));
-			} else {
-				sb.append(String.format(
-						"<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/mypage/myprogram.do?resi_seq=%s&page=%d\">%d</a></li>", resi_seq, n, n));
-			}
-
-			loop++;
-			n++;
-		}
-
-		// 다음 10페이지 // ">>" 아이콘 else일때 a태그 href 경로 수정
-		if (n > totalPage) {
-			sb.append(String.format(
-					"<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
-		} else {
-			sb.append(String.format(
-					"<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/mypage/myprogram.do?resi_seq=%s&page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>",
-					resi_seq, n));
-		}
+		if(search.equals("y")) {
+            if(n == 1) {
+               sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));         
+            }else {
+               sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/mypage/myprogram.do?resi_seq=%s&start_date=%s&end_date=%s&page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", resi_seq, start_date, end_date, n-1));                  
+            }
+            
+            while (!(loop > blockSize || n > totalPage)) {
+               
+               if (n == nowPage) {
+                  sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));            
+               } else {
+                  sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/mypage/myprogram.do?resi_seq=%s&start_date=%s&end_date=%s&page=%d\">%d</a></li> ", resi_seq, start_date, end_date, n, n));         
+               }
+               
+               loop++;
+               n++;
+            }
+            
+            //다음 10페이지
+            if(n > totalPage) {
+               sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
+            }else {
+               sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/mypage/myprogram.do?resi_seq=%s&start_date=%s&end_date=%s&page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", resi_seq, start_date, end_date, n));         
+            }
+         } else {
+            
+            //이전 10페이지
+            if(n == 1) {
+               sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));         
+            }else {
+               sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/mypage/myprogram.do?resi_seq=%s&page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", resi_seq, n-1));                  
+            }
+            
+            while (!(loop > blockSize || n > totalPage)) {
+               
+               if (n == nowPage) {
+                  sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));            
+               } else {
+                  sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/mypage/myprogram.do?resi_seq=%s&page=%d\">%d</a></li> ", resi_seq, n, n));         
+               }
+               
+               loop++;
+               n++;
+            }
+            
+            //다음 10페이지
+            if(n > totalPage) {
+               sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
+            }else {
+               sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/mypage/myprogram.do?resi_seq=%s&page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", resi_seq, n));         
+            }
+         }
 		
 		
 		

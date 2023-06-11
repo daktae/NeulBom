@@ -236,4 +236,164 @@ public class ProgramDAO {
 		return 0;
 	}
 
+	public int getProgramTotalCount(HashMap<String, String> map, String resi_seq) {
+		try {
+			 
+			 String where ="";
+	            
+	            
+			 if (map.get("search").equals("y")) {
+		            where = String.format(
+		                  "where prog_date BETWEEN TO_DATE('%s', 'YYYY-MM-DD') and TO_DATE('%s', 'YYYY-MM-DD')",
+		                  map.get("start_date"), map.get("end_date"));
+		         }
+
+				 String sql = String.format("select count(*) as cnt from vwRegiProgram resi_seq = %s and %s", resi_seq, where);
+
+		  
+		  pstat = conn.prepareStatement(sql);
+		  rs = pstat.executeQuery();
+		  
+		  
+		  if (rs.next()) {
+		 
+		  return rs.getInt("cnt"); }
+		  
+		  } catch (Exception e) { e.printStackTrace(); }
+		  
+	
+		return 0;
+	}
+
+	//보호자 정보
+			public ProtectDTO getProtect(ProtectDTO dto, String protect_seq) {
+
+				try {
+
+					String sql = "select * from tblProtect where protect_seq = ?";
+
+					pstat = conn.prepareStatement(sql);
+
+					pstat.setString(1, protect_seq);
+
+					rs = pstat.executeQuery();
+
+					if (rs.next()) {
+
+						ProtectDTO result = new ProtectDTO();
+
+						result.setId(rs.getString("id"));
+						result.setPw(rs.getString("pw"));
+						result.setName(rs.getString("name"));
+						result.setSsn(rs.getString("ssn"));
+						result.setTel(rs.getString("tel"));
+						result.setEmail(rs.getString("email"));
+						result.setResi_seq(rs.getString("resi_seq"));
+						result.setRelation(rs.getString("relation"));
+						result.setAddress(rs.getString("address"));
+						result.setLv(rs.getString("lv"));
+
+						return result;
+
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return null;
+
+			}
+
+			public ResiDTO getResident(ResiDTO resi, String resi_seq) {
+
+				try {
+
+					String sql = "select * from tblResident where resi_seq = ?";
+
+					pstat = conn.prepareStatement(sql);
+
+					pstat.setString(1, resi_seq);
+
+					rs = pstat.executeQuery();
+
+					if (rs.next()) {
+
+						ResiDTO result = new ResiDTO();
+
+						result.setId(rs.getString("id"));
+						result.setPw(rs.getString("pw"));
+						result.setName(rs.getString("name"));
+						result.setSsn(rs.getString("ssn"));
+						result.setTel(rs.getString("tel"));
+						result.setEmail(rs.getString("email"));
+						result.setResi_seq(rs.getString("resi_seq"));
+						result.setAddress(rs.getString("address"));
+						result.setLv(rs.getString("lv"));
+
+						return result;
+
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return null;
+
+			}
+			
+			//내가 신청한 복지프로그램 내역 가져오기
+			public List<MyProgramDTO> myplist(HashMap<String, String> map, String resi_seq) {
+
+				try {
+					
+					
+
+					String sql = String.format(
+						    	"SELECT * FROM (SELECT ROWNUM AS rnum, vwRegiProgram.* FROM (SELECT * FROM vwRegiProgram where resi_seq=%s ORDER BY prog_seq DESC ) vwRegiProgram ORDER BY ROWNUM) vwRegiProgram WHERE rnum <= %s AND rnum >= %s"
+								, resi_seq
+								, map.get("end")
+								, map.get("begin"));
+
+					stat = conn.createStatement();
+					rs = stat.executeQuery(sql);
+					
+					List<MyProgramDTO> list = new ArrayList<>();
+					
+
+					while (rs.next()) {
+						String title = rs.getString("title");
+						String content = rs.getString("content");
+						
+						if (title.length() > 8) {
+							title = title.substring(0, 8) + "...";
+						}
+						if (content.length() > 18) {
+							content = content.substring(0, 18) + "...";
+						}
+
+						MyProgramDTO pdto = new MyProgramDTO();
+						
+						pdto.setPapp_seq(rs.getString("papp_seq"));
+						pdto.setProg_seq(rs.getString("prog_seq"));
+						pdto.setTitle(title);
+						pdto.setContent(content);
+						pdto.setApply(rs.getString("apply"));
+						pdto.setPeople(rs.getString("people"));
+						pdto.setPlace(rs.getString("place"));
+						pdto.setProg_date(rs.getString("prog_date").substring(0, 10));
+						pdto.setResi_seq(rs.getString("resi_seq"));
+						
+						
+						list.add(pdto);
+					}
+
+					return list;
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				return null;
+			}
+
 }

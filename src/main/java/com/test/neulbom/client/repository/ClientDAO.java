@@ -466,7 +466,6 @@ public class ClientDAO {
 		try {
 			
 			String sql = "delete from tblFree where free_seq = ?";
-			
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, free_seq);
 			
@@ -581,21 +580,19 @@ public class ClientDAO {
 			
 			String where = "";
 			
-			 if (map.get("search").equals("y")) {
-				 	if (!map.get("column").equals("name")) {
-				 		where = String.format("where %s like '%%%s%%'"
-	                                 , map.get("column")
-	                                 , map.get("word"));
-				 	}
-	            }
-
+			if (map.get("search").equals("y")) {
+	            where = String.format(
+	                  "and prog_date BETWEEN TO_DATE('%s', 'YYYY-MM-DD') AND TO_DATE('%s', 'YYYY-MM-DD')",
+	                  map.get("start_date"), map.get("end_date"));
+	         }
 
 			 String sql = String.format(
 					 
-		                "SELECT * FROM (SELECT ROWNUM AS rnum, vwProgram.* FROM (SELECT * FROM vwProgram ORDER BY prog_seq DESC) vwProgram %s ORDER BY ROWNUM) vwProgram WHERE rnum <= %s AND rnum >= %s",
-		                where, 
+		                "SELECT * FROM (SELECT ROWNUM AS rnum, vwProgram.* FROM (SELECT * FROM vwProgram ORDER BY prog_seq DESC) vwProgram ORDER BY ROWNUM) vwProgram WHERE rnum <= %s AND rnum >= %s %s",
+		                
 		                map.get("end"),
-		                map.get("begin"));
+		                map.get("begin"),
+		                where);
 			
 
 			stat = conn.createStatement();
@@ -617,7 +614,7 @@ public class ClientDAO {
 
 				MyProgramDTO pdto = new MyProgramDTO();
 				
-				pdto.setResi_seq("resi_seq");
+				pdto.setRnum(rs.getString("rnum"));
 				pdto.setProg_seq(rs.getString("prog_seq"));
 				pdto.setTitle(title);
 				pdto.setContent(content);
@@ -715,60 +712,7 @@ public class ClientDAO {
 		return 0;
 	}
 
-	//내가 신청한 복지프로그램 내역 가져오기
-	public List<MyProgramDTO> myplist(HashMap<String, String> map, String resi_seq) {
-
-		try {
-			
-			
-
-			String sql = String.format(
-				    	"SELECT * FROM (SELECT ROWNUM AS rnum, vwRegiProgram.* FROM (SELECT * FROM vwRegiProgram where resi_seq=%s ORDER BY prog_seq DESC ) vwRegiProgram ORDER BY ROWNUM) vwRegiProgram WHERE rnum <= %s AND rnum >= %s"
-						, resi_seq
-						, map.get("end")
-						, map.get("begin"));
-
-			stat = conn.createStatement();
-			rs = stat.executeQuery(sql);
-			
-			List<MyProgramDTO> list = new ArrayList<>();
-			
-
-			while (rs.next()) {
-				String title = rs.getString("title");
-				String content = rs.getString("content");
-				
-				if (title.length() > 8) {
-					title = title.substring(0, 8) + "...";
-				}
-				if (content.length() > 18) {
-					content = content.substring(0, 18) + "...";
-				}
-
-				MyProgramDTO pdto = new MyProgramDTO();
-				
-				pdto.setPapp_seq(rs.getString("papp_seq"));
-				pdto.setProg_seq(rs.getString("prog_seq"));
-				pdto.setTitle(title);
-				pdto.setContent(content);
-				pdto.setApply(rs.getString("apply"));
-				pdto.setPeople(rs.getString("people"));
-				pdto.setPlace(rs.getString("place"));
-				pdto.setProg_date(rs.getString("prog_date").substring(0, 10));
-				pdto.setResi_seq(rs.getString("resi_seq"));
-				
-				
-				list.add(pdto);
-			}
-
-			return list;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
+	
 
 	public String addpapp() {
 
@@ -915,6 +859,35 @@ public class ClientDAO {
 			}
 			return null;
 
+		}
+
+		public int getProgramTotalCount(HashMap<String, String> map) {
+			try {
+				 
+				 String where ="";
+		            
+		            
+				 if (map.get("search").equals("y")) {
+			            where = String.format(
+			                  "where prog_date BETWEEN TO_DATE('%s', 'YYYY-MM-DD') and TO_DATE('%s', 'YYYY-MM-DD')",
+			                  map.get("start_date"), map.get("end_date"));
+			         }
+
+					 String sql = String.format("select count(*) as cnt from tblProgram %s", where);
+
+			  
+			  pstat = conn.prepareStatement(sql);
+			  rs = pstat.executeQuery();
+			  
+			  
+			  if (rs.next()) {
+			 
+			  return rs.getInt("cnt"); }
+			  
+			  } catch (Exception e) { e.printStackTrace(); }
+			  
+		
+			return 0;
 		}
 
 

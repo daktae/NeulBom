@@ -66,7 +66,7 @@ a {
         <div id="deepmenu">
             <nav class="navbar bg-light">
                 <div class="container-fluid">
-                    <h3 style="font-weight: 400;">커뮤니티</h3>
+                    <h3 style="font-weight: 400;">자유게시판</h3>
                     <div style="display: flex;">
                         <span class="material-symbols-outlined" style="display: block;">
                             home
@@ -95,7 +95,7 @@ a {
                         <option value="content">내용</option>
                     </select>
         
-                    <input class="form-control_wj" type="search" placeholder="Search" aria-label="Search" name="word">
+                    <input class="form-control_wj" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="word">
                     <button class="btn btn-light" type="submit"
                         style="width:74px !important; height:38px !important;white-space:nowrap;">검색</button>
                 </form>

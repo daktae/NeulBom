@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.test.neulbom.client.repository.ProgramDAO;
 
@@ -28,10 +29,11 @@ public class DelProgram extends HttpServlet {
       int result = 0;
       
       result = dao.delProgram(papp_seq);
-      
+      HttpSession session = req.getSession();
+      String resi_seq = (String)session.getAttribute("resi_seq");
       
       if (result == 1) {
-         resp.sendRedirect("/neulbom/client/mypage/program.do");
+         resp.sendRedirect("/neulbom/client/mypage/myprogram.do?resi_seq=" + resi_seq);
          
       } else if (result == 0) {
     	

@@ -147,7 +147,7 @@ margin-bottm: 30px;
                 </div>
             </nav>
             <hr>
-            <table class="table table-bordered table-hover content-head_wj">
+            <table class="table table-bordered table-hover content-head_wj" style="width: 100%;">
                 <thead>
                     <tr>
                       <th>${dto.free_seq }</th>
@@ -164,20 +164,21 @@ margin-bottm: 30px;
             
             <!-- 댓글 불러오기 -->
             
-            <table id="comment" style="border-bottom: 1px solid #AAA; border-top: 1px solid #AAA; padding-bottom: 20px;">
-            		<tr>
-            			<th class="table table-bordered content-head_wj" style="display: inline-block; text-align: left; padding: 5px 20px;">댓글</th>
+            <table id="comment" style="border-bottom: 1px solid #AAA; width: 100%; border-top: 1px solid #AAA; padding-bottom: 20px;">
+            		<tr style="width: 100%">
+            			<th class="table table-bordered content-head_wj" style="display: inline-block; text-align: left; width: 100%; padding: 5px 20px;">댓글</th>
             		</tr>
             	<c:forEach var="cdto" items="${clist }">
             	<tr>
             		<td>
             			<div>
             				<div style="padding-bottom: 5px;" id="comname" >${cdto.name } | </div>
-            				<div style="width: 1000px; margin: 3px 0; text-align: justify"><c:out value="${cdto.content }" /></div>
+            				<div style="width: 1000px; margin: 3px 0; text-align: justify"><c:out value="${cdto.content }" />
             				<c:if test="${not empty id && (id == cdto.id)}">
             				<input style="float: right" type="button" class="del" value="삭제" onclick="delComment(${cdto.comment_seq});">
-            				<input style="float: right;" type="button" class="edit" value="수정" onclick="editComment(${cdto.comment_seq});">
+            				<input style="float: right;" type="button" class="edit" style="width: 50px; background-color: white;"value="수정" onclick="editComment(${cdto.comment_seq});">
             				</c:if>
+            				</div>
             			</div>
             		</td>
             	</tr>
@@ -232,8 +233,8 @@ margin-bottm: 30px;
             <form id="delfree" method="POST" action="/neulbom/client/community/delfree.do">
             <button type="button" class="btn btn-primary btn-sm" onclick="location.href='/neulbom/client/community/free.do';">돌아가기</button>
             <c:if test="${not empty id && (id != dto.id)}">
-            <button type="button" class="btn btn-primary btn-sm" 
-            onclick="location.href='/client/community/addfree.do?mode=reply&thread=${dto.thread}&depth=${dto.depth }';">답변하기</button>
+            <%-- <button type="button" class="btn btn-primary btn-sm" 
+            onclick="location.href='/client/community/addfree.do?mode=reply&thread=${dto.thread}&depth=${dto.depth }';">답변하기</button> --%>
             </c:if>
             <c:if test="${not empty id && (id == dto.id)}">
             <div>
@@ -242,6 +243,9 @@ margin-bottm: 30px;
         	</div>
         	</c:if>
         	<input type="hidden" name="free_seq" value="${dto.free_seq }">
+        	<c:forEach var="cdto" items="${clist }">
+        	<input type="hidden" name="comment_seq" value="${cdto.comment_seq }">
+        	</c:forEach>
         </form>
 
         </div>

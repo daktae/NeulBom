@@ -146,17 +146,20 @@ body {
 					
 
 					<br> <br>
-					<div class="selec">
-						<select>
-							<option selected>2023-05-01 ~ 2023-06-01</option>
-							<option>2023-04-01 ~ 2023-05-01</option>
-							<option>2023-03-01 ~ 2023-04-01</option>
-						</select>
-					</div>
+					<form method="GET" action="/neulbom/client/mypage/program.do">
+                      <div class="selec">
+                         <input type="date" name="start_date"> 부터 <input type="date" name="end_date">
+                       <button type="submit">검색하기</button>
+                    </div>
+                    </form>
 					<hr>
 
-					<div id="summary">2023-05-01 ~ 2023-06-01 복지프로그램 내역이 00건이
-						있습니다.</div>
+					<c:if test="${map.start_date != null}">
+                    <div id="summary">${map.start_date} ~ ${map.end_date} 복지 프로그램 내역이 총 ${totalCount}건이 있습니다.</div>
+               </c:if>
+               <c:if test="${map.start_date == null}">
+                    <div id="summary">복지 프로그램 내역이 총 ${totalCount}건이 있습니다.</div>
+                    </c:if>
 
 
 					<form method="POST" action="/neulbom/client/mypage/program.do">
@@ -177,7 +180,7 @@ body {
 									<c:forEach items="${plist}" var="dto">
 										<tr class="tr"
 											onclick="location.href='/neulbom/client/mypage/detailprogram.do?prog_seq=${dto.prog_seq}';">
-											<td>${dto.prog_seq}</td>
+											<td>${dto.rnum}</td>
 											<td>${dto.prog_date}</td>
 											<td style="text-align: justify">${dto.title}</td>
 											<td style="text-align: justify">${dto.content}</td>

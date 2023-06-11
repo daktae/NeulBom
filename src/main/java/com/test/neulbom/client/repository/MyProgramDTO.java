@@ -17,4 +17,5 @@ public class MyProgramDTO {
 	private String resi_seq;	//신청한 입주자
 	private String id;
 	private String lv;
+	private String rnum;
 }
