@@ -92,7 +92,7 @@
 	        <div id="inner-box">
 	            <div class="semititle">
 	                <div class="selected_menu">
-	                    <span id="selected_menu_text">계정 부여</span>
+	                    <span id="selected_menu_text">상세 보기</span>
 	                </div><!-- selected_menu -->
 	                
 	            </div><!-- semi_title -->
@@ -121,6 +121,9 @@
 								</c:if>
 								<c:if test="${dto.lv == '2'}">
 									사무직
+								</c:if>
+								<c:if test="${dto.lv == '3' || dto.lv == '4'}">
+									실무직
 								</c:if>
 								</span>
 							</div>
