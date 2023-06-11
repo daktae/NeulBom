@@ -51,6 +51,11 @@
 	display: inline-block;
 	margin-right: 10px;
 }
+
+#paging {
+	position: relative;
+	top: 50px;
+}
 </style>
 </head>
 <body>
@@ -85,8 +90,8 @@
 				</div>
 				<!-- semi_title -->
 				<div class="main-box">
-					<c:if test="${map.search eq 'y'}">
-						<div style="text-align: center;">'${map.name}'(으)로 검색한
+					<c:if test="${smap.search eq 'y'}">
+						<div style="text-align: center;">'${smap.name}'(으)로 검색한
 							결과입니다.</div>
 					</c:if>
 					<table class="table table-striped table-bordered">
@@ -136,7 +141,11 @@
 						</c:forEach>
 						</tbody>
 					</table>
-					<c:if test="${map.search eq 'y'}">
+					<c:if test="${list.size() != 0 }">
+						<div id="paging" class="pagination justify-content-center"
+							style="text-align: center; margin-bottom: 10px;">${pagination}</div>
+					</c:if>
+					<c:if test="${smap.search eq 'y'}">
 						<div id="button">
 							<div class="back movable"
 								onclick="location.href='/neulbom/admin/manage/pay.do';">

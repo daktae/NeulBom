@@ -148,21 +148,19 @@ td.comment {
 							</colgroup>
 							<tr>
 								<td>제목</td>
-								<td colspan="3"><b>${dto.title}</b></td>
+								<td><b>${dto.title}</b></td>
+																<td>등록일</td>
+								<td>${dto.qna_date}</td>
 							</tr>
 							<tr>
 								<td>글쓴이</td>
 
-								<td colspan="3"><c:if test="${not empty dto.pname}">
+								<td><c:if test="${not empty dto.pname}">
 										${dto.pname}(${dto.type})
 										</c:if> <c:if test="${not empty dto.rname}">
 										${dto.rname}(${dto.type})
 										</c:if></td>
-							</tr>
 
-							<tr>
-								<td>등록일</td>
-								<td>${dto.qna_date}</td>
 								<td>조회수</td>
 								<td>${dto.read}</td>
 							</tr>

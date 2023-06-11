@@ -67,6 +67,11 @@
 	display: flex;
 	justify-content: space-evenly;
 }
+
+#paging {
+	position: relative;
+	top: 50px;
+}
 </style>
 </head>
 <body>
@@ -101,7 +106,7 @@
 						</colgroup>
 						<thead>
 							<tr>
-	 
+
 								<th scope="col">번호</th>
 								<th scope="col">제목</th>
 								<th scope="col">작성자</th>
@@ -119,15 +124,12 @@
 									<td>${dto.writer_name}</td>
 									<td>${dto.con_date}</td>
 									<td id="buttons">
-										<!-- 미처리된 문의 -->
-										<c:if test="${dto.isReply eq 'n'}">
+										<!-- 미처리된 문의 --> <c:if test="${dto.isReply eq 'n'}">
 											<div class="delete movable"
 												onclick="location.href='/neulbom/admin/board/viewconsult.do?seq=${dto.con_seq}'">
 												<span id="delete_txt">답변하기</span>
 											</div>
-										</c:if>
-										<!-- 처리된 문의 -->
-										<c:if test="${dto.isReply eq 'y'}">
+										</c:if> <!-- 처리된 문의 --> <c:if test="${dto.isReply eq 'y'}">
 											<div class="back">
 												<span id="back_txt">완료</span>
 											</div>
@@ -138,7 +140,11 @@
 							</c:forEach>
 						</tbody>
 					</table>
-
+					<!-- 페이징 -->
+					<c:if test="${list.size() != 0 }">
+						<div id="paging" class="pagination justify-content-center"
+							style="text-align: center; margin-bottom: 10px;">${pagination}</div>
+					</c:if>
 
 				</div>
 				<!-- main-box -->
