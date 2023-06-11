@@ -85,7 +85,7 @@
     
     form {
     	width: 1000px;
-    	height: 700px;
+    	height: 600px;
     	border: 2px solid #AAA;
     	margin: 50px auto;
     	
@@ -121,15 +121,16 @@
         </tr>
         <tr id="btn"> 
         <td colspan="2" align="center" >
-        	<input type="submit" value="확인" class="btn" id="search" onClick="id_search()"> 
-        	<input type="submit" value="취소" class="btn" id="cancle" onClick="history.back()">
     	</td>
     	</tr>
     	<tr>
     		<div id="message"></div>
     	</tr>
     </table>
-
+    <div style="margin-top: 60px; text-align: center">
+        	<input type="submit" value="확인" class="btn" id="search" onClick="id_search()"> 
+        	<input type="submit" value="취소" class="btn" id="cancle" onClick="history.back()">
+	</div>
     
  </form>
  

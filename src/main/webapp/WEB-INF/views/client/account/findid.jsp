@@ -120,7 +120,7 @@
     <div id="btn">
     	<!-- 왜 아무도 location 주소로 가지 않는거지? > root인 neulbom을 안했었음 -->
         <input type="button" value="로그인" class="btn" id="search" onclick="location.href='/neulbom/client/account/login.do';"> 
-    	<input type="button" value="비밀번호 찾기" class="btn" id="pw">
+    	<input type="button" value="비밀번호 찾기" class="btn" id="pw" onclick="location.href='/neulbom/client/account/searchpw.do';">
         <input type="button" value="다시찾기" class="btn" id="return" onclick="location.href='/neulbom/client/account/searchid.do';">
     </div>
  </form>
@@ -134,18 +134,18 @@
 
 	$("#pw").click.function({
 		
-		location.href="/views/client/account/searchpw.do";
+		location.href="/client/account/searchpw.do";
 		
 	});
 	
 	
 	$("#search").click.function({
 		
-		location.href="/views/client/account/login.do";
+		location.href="/client/account/login.do";
 	});
 	
 	$("#return").click.function({
-		location.href="/views/client/account/searchid.do";
+		location.href="/client/account/searchid.do";
 	});
 	
 	
