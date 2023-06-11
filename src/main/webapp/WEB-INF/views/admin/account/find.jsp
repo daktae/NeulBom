@@ -11,7 +11,30 @@
 <%@ include file="/WEB-INF/views/inc/asset.jsp" %>
 
 <style>
-
+	.main-box {
+		background-color: rgba(221, 236, 227, 1);
+		padding-left: 50px;
+		padding-right: 50px;
+		border-radius: 15px;
+		width: 900px;
+		height: 520px;
+		display: block;
+		text-align: center;
+		
+	}
+	#inner-header {
+		height: 300px;
+	}
+	#inner-content {
+		display:flex;
+		justify-content: space-around;
+		padding: 20px;
+	}
+	#inner-menu {
+		background-color: white;
+		width: 150px;
+		height: 100px;
+	}
 </style>
 </head>
 <body>
@@ -27,12 +50,19 @@
 	                </div><!-- selected_menu -->
 	            </div><!-- semi_title -->
 	            <div class="main-box">
-					<div>
-						<div onclick="location.href='/neulbom/admin/account/searchadid.do'">관리자 아이디 찾기</div>
-						<div onclick="location.href='/neulbom/admin/account/searchadpw.do'">관리자 비밀번호 찾기</div>
-						<div onclick="location.href='/neulbom/admin/account/searchreid.do'">입주자 아이디 찾기</div>
-						<div onclick="location.href='/neulbom/admin/account/searchrepw.do'">입주자 비밀번호 찾기</div>
-						
+					<div id="inner-header">
+						<h1>관리자</h1>
+						<div id="inner-content">
+							<div id="inner-menu" onclick="location.href='/neulbom/admin/account/searchadid.do'">관리자 아이디 찾기</div>
+							<div id="inner-menu" onclick="location.href='/neulbom/admin/account/searchadpw.do'">관리자 비밀번호 찾기</div>
+						</div>
+					</div>
+					<div id="inner-header">
+						<h1>입주자</h1>
+						<div id="inner-content">
+							<div id="inner-menu" onclick="location.href='/neulbom/admin/account/searchreid.do'">입주자 아이디 찾기</div>
+							<div id="inner-menu" onclick="location.href='/neulbom/admin/account/searchrepw.do'">입주자 비밀번호 찾기</div>
+						</div>
 					</div>
 	            </div><!-- main-box -->
 	        </div><!-- inner-box -->
