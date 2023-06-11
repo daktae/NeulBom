@@ -21,7 +21,6 @@ public class ManageEquip extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// ManageEquip.java
-		
 		HttpSession session = req.getSession();
 		
 		//jsp 에서 page 받아오기
