@@ -84,6 +84,11 @@
 	top: 3px;
 	color: #EB5757;
 }
+
+#paging {
+	position: relative;
+	top: 50px;
+}
 </style>
 </head>
 <body>
@@ -108,88 +113,93 @@
 
 				<div class="main-box">
 
-<table class="table table-striped">
-    <colgroup>
-        <col width="10%">
-        <col width="12%">
-        <col width="10%">
-        <col width="10%">
-        <col width="10%">
-        <col width="10%">
-        <col width="10%">
-        <col width="18%">
-    </colgroup>
-    <thead>
-        <tr>
-            <th scope="col">번호</th>
-            <th scope="col">면회 날짜</th>
-            <th scope="col">면회 시간</th>
-            <th scope="col">입주자 번호</th>
-            <th scope="col">입주자 이름</th>
-            <th scope="col">보호자 번호</th>
-            <th scope="col">보호자 이름</th>
-            <th scope="col">처리</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach items="${list}" var="dto">
-            <tr>
-                <td>${dto.displayed_seq}</td>
-                <td>${dto.meet_date}</td>
-                <td>${dto.meet_time}</td>
-                <td>${dto.resi_seq}</td>
-                <td>${dto.rname}</td>
-                <td>${dto.protect_seq}</td>
-                <td>${dto.pname}</td>
-                <td>
-                    <!-- 승인 여부 없음 -->
-                    <c:if test="${empty dto.confirmation}">
-                        <div class="add movable" id="confirm" onclick="location.href='/neulbom/admin/manage/meetconfirmation.do?seq=${dto.meet_seq}'">
-                            <span id="add_txt">승인</span>
-                        </div>
-                        <div class="reject movable" id="reject" onclick="location.href='/neulbom/admin/manage/meetrejection.do?seq=${dto.meet_seq}'">
-                            <span id="reject_txt">반려</span>
-                        </div>
-                    </c:if>
-                    <!-- 승인 여부 있음 -->
-                    <c:if test="${not empty dto.confirmation}">
-                        <!-- 승인된 면회 -->
-                        <c:if test="${dto.confirmation eq 'y'}">
-                            <!-- 변경 가능한 승인(미래 시점) -->
-                            <c:if test="${dto.isRevisable eq 1}">
-                                <div class="add movable" onclick="location.href='/neulbom/admin/manage/meetrevision.do?seq=${dto.meet_seq}'">
-                                    <span id="add_txt">승인</span>
-                                </div>
-                            </c:if>
-                            <!-- 변경 불가한 승인(과거 시점) -->
-                            <c:if test="${dto.isRevisable eq 0}">
-                                <div class="back">
-                                    <span id="back_txt">승인</span>
-                                </div>
-                            </c:if>
-                        </c:if>
-                        <!-- 반려된 면회 -->
-                        <c:if test="${dto.confirmation eq 'n'}">
-                            <!-- 변경 가능한 반려(미래 시점) -->
-                            <c:if test="${dto.isRevisable eq 1}">
-                                <div class="reject movable" onclick="location.href='/neulbom/admin/manage/meetrevision.do?seq=${dto.meet_seq}'">
-                                    <span id="reject_txt">반려</span>
-                                </div>
-                            </c:if>
-                            <!-- 변경 불가한 반려(과거 시점) -->
-                            <c:if test="${dto.isRevisable eq 0}">
-                                <div class="back">
-                                    <span id="back_txt">반려</span>
-                                </div>
-                            </c:if>
-                        </c:if>
-                    </c:if>
-                </td>
-            </tr>
-        </c:forEach>
-    </tbody>
-</table>
-
+					<table class="table table-striped">
+						<colgroup>
+							<col width="10%">
+							<col width="12%">
+							<col width="10%">
+							<col width="10%">
+							<col width="10%">
+							<col width="10%">
+							<col width="10%">
+							<col width="18%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th scope="col">번호</th>
+								<th scope="col">면회 날짜</th>
+								<th scope="col">면회 시간</th>
+								<th scope="col">입주자 번호</th>
+								<th scope="col">입주자 이름</th>
+								<th scope="col">보호자 번호</th>
+								<th scope="col">보호자 이름</th>
+								<th scope="col">처리</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${list}" var="dto">
+								<tr>
+									<td>${dto.displayed_seq}</td>
+									<td>${dto.meet_date}</td>
+									<td>${dto.meet_time}</td>
+									<td>${dto.resi_seq}</td>
+									<td>${dto.rname}</td>
+									<td>${dto.protect_seq}</td>
+									<td>${dto.pname}</td>
+									<td>
+										<!-- 승인 여부 없음 --> <c:if test="${empty dto.confirmation}">
+											<div class="add movable" id="confirm"
+												onclick="location.href='/neulbom/admin/manage/meetconfirmation.do?seq=${dto.meet_seq}'">
+												<span id="add_txt">승인</span>
+											</div>
+											<div class="reject movable" id="reject"
+												onclick="location.href='/neulbom/admin/manage/meetrejection.do?seq=${dto.meet_seq}'">
+												<span id="reject_txt">반려</span>
+											</div>
+										</c:if> <!-- 승인 여부 있음 --> <c:if test="${not empty dto.confirmation}">
+											<!-- 승인된 면회 -->
+											<c:if test="${dto.confirmation eq 'y'}">
+												<!-- 변경 가능한 승인(미래 시점) -->
+												<c:if test="${dto.isRevisable eq 1}">
+													<div class="add movable"
+														onclick="location.href='/neulbom/admin/manage/meetrevision.do?seq=${dto.meet_seq}'">
+														<span id="add_txt">승인</span>
+													</div>
+												</c:if>
+												<!-- 변경 불가한 승인(과거 시점) -->
+												<c:if test="${dto.isRevisable eq 0}">
+													<div class="back">
+														<span id="back_txt">승인</span>
+													</div>
+												</c:if>
+											</c:if>
+											<!-- 반려된 면회 -->
+											<c:if test="${dto.confirmation eq 'n'}">
+												<!-- 변경 가능한 반려(미래 시점) -->
+												<c:if test="${dto.isRevisable eq 1}">
+													<div class="reject movable"
+														onclick="location.href='/neulbom/admin/manage/meetrevision.do?seq=${dto.meet_seq}'">
+														<span id="reject_txt">반려</span>
+													</div>
+												</c:if>
+												<!-- 변경 불가한 반려(과거 시점) -->
+												<c:if test="${dto.isRevisable eq 0}">
+													<div class="back">
+														<span id="back_txt">반려</span>
+													</div>
+												</c:if>
+											</c:if>
+										</c:if>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<!-- 페이징 -->
+					<c:if test="${list.size() != 0 }">
+						<div id="paging" class="pagination justify-content-center"
+							style="text-align: center; margin-bottom: 10px;">${pagination}</div>
+					</c:if>
 
 				</div>
 				<!-- main-box -->

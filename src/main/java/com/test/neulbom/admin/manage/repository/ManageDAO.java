@@ -23,17 +23,22 @@ public class ManageDAO {
 	}
 
 	// 면회 신청 조회
-	public List<MeetDTO> getMeet() {
+	public List<MeetDTO> getMeet(HashMap<String, String> map) {
 
 		try {
 
-			String sql = "SELECT m.*, p.name AS pname, r.name AS rname FROM tblMeet m INNER JOIN tblProtect p ON m.protect_seq = p.protect_seq INNER JOIN tblResident r ON m.resi_seq = r.resi_seq ORDER BY CASE WHEN m.CONFIRMATION IS NULL THEN 0 ELSE 1 END, CASE WHEN m.CONFIRMATION IS NULL THEN m.MEET_DATE END ASC, CASE WHEN m.CONFIRMATION IS NOT NULL AND m.MEET_DATE > TRUNC(SYSDATE) THEN m.MEET_DATE ELSE TO_DATE('9999-12-31', 'YYYY-MM-DD') END ASC, m.MEET_DATE DESC";
+//			String sql = "SELECT m.*, p.name AS pname, r.name AS rname FROM tblMeet m INNER JOIN tblProtect p ON m.protect_seq = p.protect_seq INNER JOIN tblResident r ON m.resi_seq = r.resi_seq ORDER BY CASE WHEN m.CONFIRMATION IS NULL THEN 0 ELSE 1 END, CASE WHEN m.CONFIRMATION IS NULL THEN m.MEET_DATE END ASC, CASE WHEN m.CONFIRMATION IS NOT NULL AND m.MEET_DATE > TRUNC(SYSDATE) THEN m.MEET_DATE ELSE TO_DATE('9999-12-31', 'YYYY-MM-DD') END ASC, m.MEET_DATE DESC";
+
+			String sql = String.format(
+					"select * from (select rownum as rnum, a.* from (SELECT m.*, p.name AS pname, r.name AS rname FROM tblMeet m INNER JOIN tblProtect p ON m.protect_seq = p.protect_seq INNER JOIN tblResident r ON m.resi_seq = r.resi_seq ORDER BY CASE WHEN m.CONFIRMATION IS NULL THEN 0 ELSE 1 END, CASE WHEN m.CONFIRMATION IS NULL THEN m.MEET_DATE END ASC, CASE WHEN m.CONFIRMATION IS NOT NULL AND m.MEET_DATE > TRUNC(SYSDATE) THEN m.MEET_DATE ELSE TO_DATE('9999-12-31', 'YYYY-MM-DD') END ASC, m.MEET_DATE DESC) a) where rnum between %s and %s",
+					map.get("begin"), map.get("end"));
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
 			List<MeetDTO> list = new ArrayList<MeetDTO>();
-			int i = 1;
+			int i = Integer.parseInt(map.get("begin"));
+
 			while (rs.next()) {
 
 				MeetDTO dto = new MeetDTO();
@@ -129,24 +134,25 @@ public class ManageDAO {
 	}
 
 	// 결제 기록 조회
-	public List<PayDTO> getPayRecord(HashMap<String, String> map) {
+	public List<PayDTO> getPayRecord(HashMap<String, String> smap, HashMap<String, String> map) {
 
 		try {
 
 			String where = "";
 
-			if (map.get("search").equals("y"))
-				where = String.format("WHERE r.name LIKE '%%%s%%'", map.get("name"));
+			if (smap.get("search").equals("y"))
+				where = String.format("WHERE r.name LIKE '%%%s%%'", smap.get("name"));
 
-			String sql = "SELECT p.pay_seq, p.resi_seq, p.ispay, p.pay_date, r.id, r.name, m.kind, p.price, r.tel From tblPay p INNER JOIN tblResident r ON p.resi_seq = r.resi_seq INNER JOIN tblMove m ON p.resi_seq = m.resi_seq "
-					+ where + "ORDER BY CASE WHEN p.ispay = 'n' THEN 0 ELSE 1 END, p.pay_date DESC";
+			String sql = String.format(
+					"select * from (select rownum as rnum, a.* from (SELECT p.pay_seq, p.resi_seq, p.ispay, p.pay_date, r.id, r.name, m.kind, p.price, r.tel From tblPay p INNER JOIN tblResident r ON p.resi_seq = r.resi_seq INNER JOIN tblMove m ON p.resi_seq = m.resi_seq %s ORDER BY CASE WHEN p.ispay = 'n' THEN 0 ELSE 1 END, p.pay_date DESC) a) where rnum between %s and %s",
+					where, map.get("begin"), map.get("end"));
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
 			List<PayDTO> list = new ArrayList<PayDTO>();
 
-			int i = 1;
+			int i = Integer.parseInt(map.get("begin"));
 
 			while (rs.next()) {
 
@@ -183,17 +189,19 @@ public class ManageDAO {
 	}
 
 	// 일반 문의 전체 조회
-	public List<QnaDTO> getQna() {
+	public List<QnaDTO> getQna(HashMap<String, String> map) {
 
 		try {
 
-			String sql = "SELECT q.*, r.name AS rname, p.name AS pname FROM tblQna q LEFT OUTER JOIN tblResident r ON r.resi_seq = q.resi_seq LEFT OUTER JOIN tblProtect p ON p.protect_seq = q.protect_seq ORDER BY CASE WHEN q.isReply = 'n' THEN q.qna_date END ASC, CASE WHEN q.isReply = 'y' THEN q.qna_date END DESC";
+			String sql = String.format(
+					"select * from (select rownum as rnum, a.* from (SELECT q.*, r.name AS rname, p.name AS pname FROM tblQna q LEFT OUTER JOIN tblResident r ON r.resi_seq = q.resi_seq LEFT OUTER JOIN tblProtect p ON p.protect_seq = q.protect_seq ORDER BY CASE WHEN q.isReply = 'n' THEN q.qna_date END ASC, CASE WHEN q.isReply = 'y' THEN q.qna_date END DESC) a) where rnum between %s and %s",
+					map.get("begin"), map.get("end"));
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
 			List<QnaDTO> list = new ArrayList<QnaDTO>();
-			int i = 1;
+			int i = Integer.parseInt(map.get("begin"));
 
 			while (rs.next()) {
 
@@ -308,17 +316,19 @@ public class ManageDAO {
 	}
 
 	// 입주 문의 전체 조회
-	public List<ConsultDTO> getConsult() {
+	public List<ConsultDTO> getConsult(HashMap<String, String> map) {
 
 		try {
 
-			String sql = "SELECT c.*, n.name, n.tel FROM tblConsult c INNER JOIN tblNomem n ON c.nomem_seq = n.nomem_seq ORDER BY CASE WHEN c.isReply = 'n' THEN c.con_date END ASC, CASE WHEN c.isReply = 'y' THEN c.con_date END DESC";
+			String sql = String.format(
+					"select * from (select rownum as rnum, a.* from (SELECT c.*, n.name, n.tel FROM tblConsult c INNER JOIN tblNomem n ON c.nomem_seq = n.nomem_seq ORDER BY CASE WHEN c.isReply = 'n' THEN c.con_date END ASC, CASE WHEN c.isReply = 'y' THEN c.con_date END DESC) a) where rnum between %s and %s",
+					map.get("begin"), map.get("end"));
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
 			List<ConsultDTO> list = new ArrayList<ConsultDTO>();
-			int i = 1;
+			int i = Integer.parseInt(map.get("begin"));
 
 			while (rs.next()) {
 
@@ -390,7 +400,7 @@ public class ManageDAO {
 		return 0;
 	}
 
-	// 입주문의 전체 글 목록 출력
+	// 입주문의 글 출력
 	public ConsultDTO getConsult(String seq) {
 
 		try {
@@ -501,9 +511,9 @@ public class ManageDAO {
 			while (rs.next()) {
 
 				MeetDTO dto = new MeetDTO();
-				
+
 				dto.setMeet_seq(rs.getString("meet_seq"));
-				
+
 				String date = rs.getString("meet_date").substring(0, 10);
 				dto.setMeet_date(date);
 
@@ -511,13 +521,17 @@ public class ManageDAO {
 
 				String[] temp = time.split("~");
 				String temp1 = temp[0];
-				String temp2 = temp[1];
 
-				dto.setMeet_time(String.format("%s:00~%s:00", temp1, temp2));
-				
+				if (temp1.equals("9"))
+					temp1 = "09";
+				else if (temp1.equals("3"))
+					temp1 = "15";
+
+				dto.setMeet_time(String.format("%s:00:00", temp1));
+
 				dto.setPname(rs.getString("pname"));
 				dto.setRname(rs.getString("rname"));
-				
+
 				String[] dateTemp = date.trim().split("-");
 				int year = Integer.parseInt(dateTemp[0]);
 				int month = Integer.parseInt(dateTemp[1]);
@@ -530,7 +544,7 @@ public class ManageDAO {
 					dto.setIsRevisable(1);
 				else
 					dto.setIsRevisable(0);
-				
+
 				list.add(dto);
 			}
 
@@ -543,4 +557,27 @@ public class ManageDAO {
 		return null;
 
 	}
+
+	public int getTotalCount(HashMap<String, String> map, int size, String table) {
+
+		try {
+
+			String sql = "select count(*) as cnt from " + table;
+
+			pstat = conn.prepareStatement(sql);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
 }

@@ -79,6 +79,10 @@
 	justify-content: center;
 	align-items: center;
 }
+#paging {
+	position: relative;
+	top: 50px;
+}
 </style>
 </head>
 <body>
@@ -150,6 +154,9 @@
 								</c:forEach>
 							</tbody>
 						</table>
+								<c:if test="${list.size() != 0 }">
+		<div id="paging" class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
+		</c:if>
 					</div>
 				</div>
 				<!-- main-box -->
