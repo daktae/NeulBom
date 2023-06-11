@@ -51,7 +51,7 @@
             <table class="table table-bordered table-hover content-head_wj">
                 <thead>
                     <tr>
-                      <th>${dto.qna_seq}</th>
+                      <%-- <th>${dto.qna_seq}</th> --%>
                       <th style="text-align: left;"><input type="text" name="title" id="title" required value="${dto.title}" style="width:100%;"></th>
                       <th>${dto.fname}</th>
                       <th>${dto.qna_date}</th>

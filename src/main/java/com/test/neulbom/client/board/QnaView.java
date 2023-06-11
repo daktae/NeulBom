@@ -1,7 +1,6 @@
 package com.test.neulbom.client.board;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.test.neulbom.client.repository.QnaDAO;
 import com.test.neulbom.client.repository.QnaDTO;
+import com.test.neulbom.client.repository.QreplyDTO;
 
 @WebServlet("/client/board/qnaview.do")
 public class QnaView extends HttpServlet {
@@ -29,20 +29,16 @@ public class QnaView extends HttpServlet {
         dao.qnaView(qna_seq, dto);
         // qna_seq에 해당하는 내용 가져오기
         dao.increaseReadCount(qna_seq);
-
+        
+        QreplyDTO qdto = dao.getQReply(qna_seq);
         
         
-        String name = dao.getnameByProtect(qna_seq); // name 값 가져오기
-        dto.setName(name); // name 값 설정
         
-        if (name == null) {
-        	name = dao.getnameByResi(qna_seq);
-        	dto.setName(name);
-        }
+        
         
         
         req.setAttribute("dto", dto);
-        
+        req.setAttribute("qdto", qdto);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/board/qnaview.jsp");
 		dispatcher.forward(req, resp);

@@ -181,7 +181,7 @@ assignment_add
                     </tr>
                     </table>
                     
-                    
+                   <input type="hidden" name="nomem_seq" value="${param.nomem_seq}">
                     <div class="btn1">
                     <input type="submit" name="write" id="write" value="글쓰기"> 
                     <input type="button" name="cancle" id="cancle" value="취소하기" onclick="history.back();"> 

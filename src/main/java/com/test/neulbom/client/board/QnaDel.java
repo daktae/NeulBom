@@ -1,6 +1,7 @@
 package com.test.neulbom.client.board;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.test.neulbom.client.repository.ClientDAO;
 import com.test.neulbom.client.repository.QnaDAO;
 import com.test.neulbom.client.repository.QnaDTO;
 
@@ -19,27 +22,38 @@ public class QnaDel extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		//QnaDel.java
-		String qna_seq = req.getParameter("qna_seq"); // qna_seq 파라미터 가져오기
-
-		QnaDAO dao = new QnaDAO();
-        QnaDTO dto = new QnaDTO();
-        
-        dao.qnaView(qna_seq, dto);
-        // qna_seq에 해당하는 내용 가져오기
-        dao.increaseReadCount(qna_seq);
-        
-        String name = dao.getnameByProtect(qna_seq); // name 값 가져오기
-        dto.setName(name); // name 값 설정
-        
-        if (name == null) {
-        	name = dao.getnameByResi(qna_seq);
-        	dto.setName(name);
-        }
+		HttpSession session = req.getSession();
+				
+		String qna_seq = req.getParameter("qna_seq");
 		
-		req.setAttribute("dto", dto);
+		req.setAttribute("qna_seq", qna_seq);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/board/qnadel.jsp");
 		dispatcher.forward(req, resp);
 	}
 
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		//QnaDel.java
+		String qna_seq = req.getParameter("qna_seq");
+
+		QnaDAO dao = new QnaDAO();
+		
+		
+		int result = 0;
+		
+		result = dao.delQna(qna_seq);	//글 삭제
+		
+		if (result == 1) {
+			//글 삭제가 완료되면 글목록으로 돌아가기
+			resp.sendRedirect("/neulbom/client/board/qna.do");
+			
+		} else {
+			
+			PrintWriter writer = resp.getWriter();
+			writer.print("<script>alert('failed');history.back();</script>");
+			writer.close();
+		}
+	}
+	
 }

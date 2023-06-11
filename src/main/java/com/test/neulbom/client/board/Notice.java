@@ -30,7 +30,11 @@ public class Notice extends HttpServlet {
 		String keyword = req.getParameter("keyword");
 
 		NoticeDAO dao = new NoticeDAO();
-
+		
+		//세션 받아오기
+		HttpSession session = req.getSession();
+		
+		
 		int nowPage = 0; // 현재 보려는 페이지 번호
 		int totalCount = 0; // 총 게시물 수
 		int pageSize = 10; // 한 페이지 당 출력할 게시물 수
@@ -53,6 +57,8 @@ public class Notice extends HttpServlet {
 
 		HashMap<String, String> map = new HashMap<String, String>();
 
+		map.put("searchType", searchType);
+		map.put("keyword", keyword);
 		map.put("begin", begin + "");
 		map.put("end", end + "");
 
@@ -63,7 +69,8 @@ public class Notice extends HttpServlet {
 		} else {
 			list = dao.search(searchType, keyword);
 		}
-
+		
+		
 		// 페이징
 
 		StringBuilder sb = new StringBuilder();
@@ -75,46 +82,83 @@ public class Notice extends HttpServlet {
 				sb.append(String.format(" <a href=\"/neulbom/client/board/notice.do?page=%d\">%d</a> ", i, i));
 			}
 		}
+		
+		if (searchType == null && keyword == null) {
+			totalCount = dao.getTotalCount(map);
+			totalPage = (int) Math.ceil((double) totalCount / pageSize);
+		} else {
+			totalCount = dao.getTotalCount2(map);
+			totalPage = (int) Math.ceil((double) totalCount / pageSize);
+		}
+		
 
-		totalCount = dao.getTotalCount(map);
-		totalPage = (int) Math.ceil((double) totalCount / pageSize);
 		
 		loop = 1; // 루프 변수(10바퀴)
 		n = ((nowPage - 1) / blockSize) * blockSize + 1; // 페이지 번호
 
-		// 이전 10페이지
-		if (n == 1) { // n=1이면 무조건 첫블럭(1페이지가 있는 곳이 첫 블럭이니까) >
-			sb.append(String.format("<a href=\"#!\">[이전 %d페이지]</a>", blockSize));
-		} else {
-			sb.append(String.format("<a href=\"/neulbom/client/board/notice.do?page=%d\">[이전 %d페이지]</a>", n - 1,
-					blockSize));
-		}
+		//이전 10페이지
+				// "<<" 아이콘 else일때 a태그 href 경로 수정
+		if(!(searchType == null && keyword == null)) {
+	         if(n == 1) {
+	            sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));         
+	         }else {
+	            sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/notice.do?searchType=%s&keyword=%s?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", searchType, keyword, n-1));                  
+	         }
+	         
+	         while (!(loop > blockSize || n > totalPage)) {
+	            
+	            if (n == nowPage) {
+	               sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));            
+	            } else {
+	               sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/notice.do?searchType=%s&keyword=%s&page=%d\">%d</a></li> ", searchType, keyword, n, n));         
+	            }
+	            
+	            loop++;
+	            n++;
+	         }
+	         
+	         //다음 10페이지
+	         if(n > totalPage) {
+	            sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
+	         }else {
+	            sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/notice.do?searchType=%s&keyword=%s&page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", searchType, keyword, n));         
+	         }
+	      } else {
+	         
+	         //이전 10페이지
+	         if(n == 1) {
+	            sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>"));         
+	         }else {
+	            sb.append(String.format("<nav aria-label=\"Page navigation example \"><ul class=\"pagination justify-content-center\"><li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/notice.do?page=%d\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>", n-1));                  
+	         }
+	         
+	         while (!(loop > blockSize || n > totalPage)) {
+	            
+	            if (n == nowPage) {
+	               sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"#\" style='color:tomato;'>%d</a></li> ", n));            
+	            } else {
+	               sb.append(String.format(" <li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/notice.do?page=%d\">%d</a></li> ", n, n));         
+	            }
+	            
+	            loop++;
+	            n++;
+	         }
+	         
+	         //다음 10페이지
+	         if(n > totalPage) {
+	            sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>"));
+	         }else {
+	            sb.append(String.format("<li class=\"page-item\"><a class=\"page-link\" href=\"/neulbom/client/board/notice.do?page=%d\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>", n));         
+	         }
+	      }
+				//넘겨야 되는 것들
+				req.setAttribute("map", map);
+				req.setAttribute("totalCount", totalCount);
+				req.setAttribute("totalPage", totalPage);
+				req.setAttribute("nowPage", nowPage);
+				req.setAttribute("list", list);
+				req.setAttribute("pagination", sb);
 
-		while (!(loop > blockSize || n > totalPage)) {
-
-			if (n == nowPage) {
-				sb.append(String.format(" <a href=\"#!\" style='color: tomato;'>%d</a> ", n));
-			} else {
-				sb.append(String.format(" <a href=\"/neulbom/client/board/notice.do?page=%d\">%d</a> ", n, n));
-			}
-
-			loop++;
-			n++;
-		}
-
-		// 다음 10페이지
-		if (n > totalPage) { // 마지막 숫자가 totalPage보다 크면 아무 반응도 없도록
-			sb.append(String.format("<a href=\"#!\">[다음 %d페이지]</a>", blockSize));
-		} else {
-			sb.append(String.format("<a href=\"/toy/board/board.do?page=%d\">[다음 %d페이지]</a>", n, blockSize));
-		}
-
-		req.setAttribute("totalCount", totalCount);
-		req.setAttribute("totalPage", totalPage);
-		req.setAttribute("nowPage", nowPage);
-		req.setAttribute("pagination", sb);
-
-		req.setAttribute("list", list);
 		req.setAttribute("searchType", searchType);
 		req.setAttribute("keyword", keyword);
 

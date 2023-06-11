@@ -16,6 +16,15 @@
 		height: 300px;
 		display: block;
 		}
+		
+	.del, .edit {
+		width: 100px;
+		height: 40px;
+		font-size: 18px;
+		border: 1px solid #AAA;
+		background-color: #AAA;
+		float: right;
+	}
 
 </style>
 </head>
@@ -56,11 +65,11 @@
             <table class="table table-bordered table-hover content-head_wj">
                 <thead>
                     <tr>
-                      <th>${dto.qna_seq}</th>
-                      <th style="text-align: left;">${dto.title}</th>
-                      <th>${dto.name}</th>
-                      <th>${dto.qna_date}</th>
-                      <th>${dto.read}</th>
+                      <%-- <th>${dto.qna_seq}</th> --%>
+                      <th style="text-align: left;">제목: ${dto.title}</th>
+                      <th>작성자: ${dto.name}</th>
+                      <th>작성날짜: ${dto.qna_date}</th>
+                      <th>조회수: ${dto.read}</th>
                     </tr>
                     <tr>
                     	<th text-align="center" colspan=5>${dto.category}</th>
@@ -79,11 +88,27 @@
      
             <hr>
             
-            <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/board/qna.do'" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:left;">돌아가기</button>
-            <c:if test="${dto.isreply == 'n'}">
-            <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/board/qnaedit.do?qna_seq=${dto.qna_seq}'" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:left;">수정하기</button>
-            <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/board/qnadel.do?qna_seq=${dto.qna_seq}'" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:left;">삭제하기</button>
+            <c:if test="${dto.isreply == 'y'}">
+            	<table class="table table-bordered table-hover content-head_wj">
+                <thead>
+                    <tr>
+                      <%-- <th>${dto.qna_seq}</th> --%>
+                      <th style="text-align: center; width:90%;">${qdto.title}</th>
+                      <th style="text-align: center; width:10%;">${dto.category}</th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="content_wj" style="text-align:center;">
+              	${qdto.content}
+            </div>
             </c:if>
+            <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/board/qna.do'" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:left;">돌아가기</button>
+            
+            <c:if test="${dto.isreply == 'n' && sessionScope.id == dto.id}">
+            <button type="button" class="btn edit" onclick="location.href='http://localhost:8090/neulbom/client/board/qnaedit.do?qna_seq=${dto.qna_seq}'">수정하기</button>
+            <button type="button" class="btn del" onclick="delfree()" style="margin-right: 10px;">삭제하기</button>
+            </c:if>
+            
             
         </div>
         </div>
@@ -91,7 +116,14 @@
 <%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
 <script>
 
-	
+	function delfree() {
+		alert();
+		
+		if (confirm('작성하신 글을 삭제하시겠습니까?')) {
+			location.href='/neulbom/client/board/qnadel.do?qna_seq=' + ${dto.qna_seq};
+		}
+		
+	}
 
 </script>
 </body>

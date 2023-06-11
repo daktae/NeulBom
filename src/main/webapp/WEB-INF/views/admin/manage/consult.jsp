@@ -126,7 +126,7 @@
 									<td id="buttons">
 										<!-- 미처리된 문의 --> <c:if test="${dto.isReply eq 'n'}">
 											<div class="delete movable"
-												onclick="location.href='/neulbom/admin/board/viewconsult.do?seq=${dto.con_seq}'">
+												onclick="location.href='/neulbom/admin/manage/viewconsult.do?seq=${dto.con_seq}'">
 												<span id="delete_txt">답변하기</span>
 											</div>
 										</c:if> <!-- 처리된 문의 --> <c:if test="${dto.isReply eq 'y'}">

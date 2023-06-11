@@ -13,6 +13,7 @@ public class BoardWjDTO {
 	private String cre_title;
 	private String cre_content;
 	private String nomem_name;
+	private String nomem_seq;
 	
 	
 }

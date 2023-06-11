@@ -66,7 +66,7 @@ a {
         <div id="deepmenu">
             <nav class="navbar bg-light">
                 <div class="container-fluid">
-                    <h3 style="font-weight: 400;">커뮤니티</h3>
+                    <h3 style="font-weight: 400;">자유게시판</h3>
                     <div style="display: flex;">
                         <span class="material-symbols-outlined" style="display: block;">
                             home
@@ -87,15 +87,15 @@ a {
     		</c:if>
     		
     		            
-                <form class="d-flex" role="search" style="max-width: 50%;">
-                    <select class="form-select" aria-label="Default select example" style="margin-right: 10px;">
-                        <option selected value="0">제목</option>
-                        <option value="1">번호</option>
-                        <option value="2">작성자</option>
-                        <option value="3">내용</option>
+                <form class="d-flex" role="search" style="max-width: 50%;" action="/neulbom/client/community/free.do">
+                    <select name="column" class="form-select" aria-label="Default select example" style="margin-right: 10px;">
+                        <option selected value="title">제목</option>
+                        <option value="free_seq">번호</option>
+                        <option value="name">작성자</option>
+                        <option value="content">내용</option>
                     </select>
         
-                    <input class="form-control_wj" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control_wj" type="search" placeholder="검색어를 입력하세요" aria-label="Search" name="word">
                     <button class="btn btn-light" type="submit"
                         style="width:74px !important; height:38px !important;white-space:nowrap;">검색</button>
                 </form>
@@ -118,7 +118,7 @@ a {
 					</tr>
 	            </c:if>
 	            <c:forEach items="${list }" var="dto">
-                    <tr>
+                    <tr  onclick="location.href='/neulbom/client/community/viewfree.do?free_seq=${dto.free_seq}';">
                     	<td>
 	            		<c:if test="${dto.depth == 0 }">
                         ${dto.free_seq }
@@ -127,9 +127,7 @@ a {
                         <td>답글</td>
                         </c:if>
                         </td>
-                        <td>
-                        	<a href="/neulbom/client/community/viewfree.do?free_seq=${dto.free_seq}" style="text-align: left;">${dto.title }</a>
-                        </td>
+                        <td style="text-align: justify">${dto.title}</td>
                         <td>${dto.name }</td>
                         <td>${dto.free_date }</td>
                         <td>${dto.read }</td>
@@ -169,23 +167,7 @@ a {
     
 
     
-    <nav aria-label="Page navigation example ">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <div class="pagination justify-content-center"style="text-align : center; margin-bottom: 10px;">${pagination}</div>}
     
     <div>
     	

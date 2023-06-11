@@ -17,7 +17,7 @@
 	<%@ include file="/WEB-INF/views/inc/headerclient.jsp"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-	<div class="introducetitle">공지사항</div>
+	<div class="introducetitle">알림게시판</div>
 
 
 	<div class="mainmenu text-center">

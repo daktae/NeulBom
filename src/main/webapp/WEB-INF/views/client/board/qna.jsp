@@ -77,7 +77,8 @@
                 <tbody>
 				    <c:forEach items="${list}" var="dto">
 				        <tr class="qna-row">
-				            <td>${dto.qna_seq}</td> <!-- qna_seq -->
+				        	<td style="display: none;">${dto.qna_seq}</td>
+				            <td>${dto.rnum}</td> <!-- qna_seq -->
 				            <td style="text-align: left;">${dto.title}</td> <!-- title -->
 				            <td>${dto.name}</td> <!-- fname -->
 				            <td>${dto.qna_date}</td> <!-- qna_date -->
