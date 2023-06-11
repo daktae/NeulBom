@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.test.neulbom.client.repository.Life_DetailDAO;
 import com.test.neulbom.client.repository.Mypage_Payment_DetailsDAO;
 import com.test.neulbom.client.repository.Mypage_Payment_DetailsDTO;
 
@@ -23,17 +24,23 @@ public class Mypage_Payment_Details extends HttpServlet {
 		//mypage_Payment_details.java
 		HttpSession session = req.getSession();
 		
-		//테스트용
 		
-		String seq = (String)session.getAttribute("resi_seq");
-		System.out.println(seq);
+		String lv = (String) session.getAttribute("lv");
+		
+		String seq = (String)session.getAttribute("protect_seq");
+		if(seq == null) {
+			seq = (String)session.getAttribute("resi_seq");
+		}
+		
+		String life_seq = req.getParameter("pay_date");
+		
 		
 		Mypage_Payment_DetailsDAO dao = new Mypage_Payment_DetailsDAO();
 		
 		List<Mypage_Payment_DetailsDTO> list = dao.list(seq); 
 		
 		req.setAttribute("list", list);
-		
+		req.setAttribute("lv", lv);
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/mypage/mypage_payment_details.jsp");
 		dispatcher.forward(req, resp);

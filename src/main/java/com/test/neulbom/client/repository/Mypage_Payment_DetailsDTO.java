@@ -11,4 +11,6 @@ public class Mypage_Payment_DetailsDTO {
 	private String resi_name;
 	private String pro_name;
 	private String id;
+	private String resi_lv;
+	private String pro_lv;
 }

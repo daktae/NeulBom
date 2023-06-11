@@ -24,9 +24,14 @@ public class Mypage_Payment extends HttpServlet {
 		HttpSession session = req.getSession();
 
 		// 테스트용
+		String lv = (String) session.getAttribute("lv");
 		
+		String seq = (String)session.getAttribute("protect_seq");
+		if(seq== null) {
+			seq = (String)session.getAttribute("resi_seq");
+		}
+	
 
-		String seq = (String) session.getAttribute("resi_seq");
 		String pay_seq = req.getParameter("pay_seq");
 
 		Mypage_PaymentDAO dao = new Mypage_PaymentDAO();
@@ -36,6 +41,7 @@ public class Mypage_Payment extends HttpServlet {
 		
 
 		req.setAttribute("dto", dto);
+		req.setAttribute("lv", lv);
 		
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/mypage/mypage_payment.jsp");

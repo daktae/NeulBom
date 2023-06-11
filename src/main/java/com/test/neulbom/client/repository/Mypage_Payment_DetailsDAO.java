@@ -23,7 +23,7 @@ public class Mypage_Payment_DetailsDAO {
 		
 		try {
 
-			String sql = "SELECT a.pay_seq, a.resi_seq, a.ispay, a.pay_date, b.name AS resi_name, c.name AS pro_name, b.id "
+			String sql = "SELECT a.pay_seq, a.resi_seq, a.ispay, a.pay_date, b.name AS resi_name, c.name AS pro_name, b.id, b.lv as resi_lv, c.lv as pro_lv "
 			        + "FROM tblPay a "
 			        + "INNER JOIN tblresident b ON a.resi_seq = b.resi_seq "
 			        + "INNER JOIN tblprotect c ON b.resi_seq = c.resi_seq "
@@ -50,6 +50,8 @@ public class Mypage_Payment_DetailsDAO {
 				dto.setResi_name(rs.getString("resi_name"));
 				dto.setPro_name(rs.getString("pro_name"));
 				dto.setId(rs.getString("id"));
+				dto.setResi_lv(rs.getString("resi_lv"));
+				dto.setPro_lv(rs.getString("pro_lv"));
 
 				list.add(dto);
 			}

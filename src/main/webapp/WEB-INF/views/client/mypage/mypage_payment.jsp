@@ -39,16 +39,16 @@ body {
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/inc/headerclient.jsp"%>
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
 				<div class="sidebox">
 					<div class="profile">
 
-						<c:set var="dto" value="${dto}" />
 						<img src="/html/images/01.jpg" id="profileimg">
-						<h1 class="profilename">${dto.pro_name}님</h1>
-						<h1 class="profilename_id">(${dto.pro_id})</h1>
+						<h1 class="profilename">${name}님</h1>
+						<h1 class="profilename_id">(${id})</h1>
 
 					</div>
 					<div class="menubox">
@@ -94,81 +94,155 @@ body {
 			</div>
 
 
+			<c:choose>
+				<c:when test="${lv eq '6'}">
+					<div class="col-md-9">
+						<div class="box">
+							<div class="title">결제신청</div>
+							<hr>
+							<div class="row justify-content-center">
+								<table class="table">
+									<tr>
+										<th scope="row">
+											<div class="subtitle">보호자 아이디:</div>
+										</th>
+										<td>
+											<div class="content">${dto.pro_id}</div>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">입주자 아이디:</div>
+										</th>
+										<td><div class="content">${dto.resi_id}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">입주자 이름:</div>
+										</th>
+										<td><div class="content">${dto.resi_name}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">입주자와의 관계:</div>
+										</th>
+										<td><div class="content">${dto.relation}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">전화번호:</div>
+										</th>
+										<td><div class="content">${dto.tel}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">이메일:</div>
+										</th>
+										<td><div class="content">${dto.email}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">결제날짜:</div>
+										</th>
+										<td><div class="content">${dto.pay_date}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">결제예정금액:</div>
+										</th>
+										<td><div class="content">6,000,000원</div></td>
+									</tr>
+								</table>
+								<hr>
+								<br>
+								<div class="d-grid gap-2 col-6 mx-auto">
+									<button class="btn btn-outline-primary" type="submit"
+										onclick="location.href='/neulbom/client/mypage/mypage_payment_update.do?resi_seq=${dto.resi_seq}&pay_seq=${dto.pay_seq}';">결제신청</button>
+									<button class="btn btn-outline-primary" type="button"
+										onclick="history.back()">취소</button>
+								</div>
 
-			<div class="col-md-9">
-				<div class="box">
-					<div class="title">결제신청</div>
-					<hr>
-					<div class="row justify-content-center">
-						<table class="table">
-							<tr>
-								<th scope="row">
-									<div class="subtitle">보호자 아이디:</div>
-								</th>
-								<td>
-									<div class="content">${dto.pro_id}</div>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">
-									<div class="subtitle">이름:</div>
-								</th>
-								<td><div class="content">${dto.resi_name}</div></td>
-							</tr>
-							<tr>
-								<th scope="row">
-									<div class="subtitle">결제날짜:</div>
-								</th>
-								<td><div class="content">${dto.pay_date}</div></td>
-							</tr>
-							<tr>
-								<th scope="row">
-									<div class="subtitle">전화번호:</div>
-								</th>
-								<td><div class="content">${dto.tel}</div></td>
-							</tr>
-							<tr>
-								<th scope="row">
-									<div class="subtitle">이메일:</div>
-								</th>
-								<td><div class="content">${dto.email}</div></td>
-							</tr>
-							<tr>
-								<th scope="row">
-									<div class="subtitle">입주자와의 관계:</div>
-								</th>
-								<td><div class="content">${dto.relation}</div></td>
-							</tr>
-							<tr>
-								<th scope="row">
-									<div class="subtitle">입주자 아이디:</div>
-								</th>
-								<td><div class="content">${dto.resi_id}</div></td>
-							</tr>
-							<tr>
-								<th scope="row">
-									<div class="subtitle">결제예정금액:</div>
-								</th>
-								<td><div class="content">6,000,000원</div></td>
-							</tr>
-						</table>
-						<hr>
-						<br>
-						<div class="d-grid gap-2 col-6 mx-auto">
-								<button class="btn btn-outline-primary" type="submit" onclick="location.href='/neulbom/client/mypage/mypage_payment_update.do?resi_seq=${dto.resi_seq}&pay_seq=${dto.pay_seq}';">결제신청</button>
-							<button class="btn btn-outline-primary" type="button" onclick="history.back()">취소</button>
+							</div>
 						</div>
-
 					</div>
-				</div>
-			</div>
+
+				</c:when>
+				<c:when test="${lv eq '5'}">
+<div class="col-md-9">
+						<div class="box">
+							<div class="title">결제신청</div>
+							<hr>
+							<div class="row justify-content-center">
+								<table class="table">
+									<tr>
+										<th scope="row">
+											<div class="subtitle">입주자 아이디:</div>
+										</th>
+										<td>
+											<div class="content">${dto.resi_id}</div>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">이름:</div>
+										</th>
+										<td><div class="content">${dto.resi_name}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">결제날짜:</div>
+										</th>
+										<td><div class="content">${dto.pay_date}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">전화번호:</div>
+										</th>
+										<td><div class="content">${dto.tel}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">이메일:</div>
+										</th>
+										<td><div class="content">${dto.email}</div></td>
+									</tr>
+									<tr>
+										<th scope="row">
+											<div class="subtitle">결제예정금액:</div>
+										</th>
+										<td><div class="content">6,000,000원</div></td>
+									</tr>
+								</table>
+								<hr>
+								<br>
+								<div class="d-grid gap-2 col-6 mx-auto">
+									<button class="btn btn-outline-primary" type="submit"
+										onclick="location.href='/neulbom/client/mypage/mypage_payment_update.do?resi_seq=${dto.resi_seq}&pay_seq=${dto.pay_seq}';">결제신청</button>
+									<button class="btn btn-outline-primary" type="button"
+										onclick="history.back()">취소</button>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+
+				</c:when>
+			</c:choose>
+
+
+
+
 		</div>
 	</div>
+
+
 
 	<%@ include file="/WEB-INF/views/inc/footerclient.jsp"%>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
+		
 	</script>
 </body>
 </html>
