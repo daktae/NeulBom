@@ -102,7 +102,10 @@
 	.address {
 		margin-top: 20px;
 	}
-	
+	#menubox {
+		display: flex;
+		justify-content: center;
+	}
 	
 
 </style>
@@ -118,6 +121,8 @@
 	                </div><!-- selected_menu -->
 	                
 	            </div><!-- semi_title -->
+	            <div id="menubox">
+	            
 	            <div class="main-box">
 	                <form method="POST" action="/neulbom/admin/account/resiacc.do"
 			enctype="multipart/form-data">
@@ -175,6 +180,7 @@
 	                </div>
 	            	</form>
 	       	 	</div> 
+	       	 	</div>
 	    	</div>
 		</div>
 	</div>	

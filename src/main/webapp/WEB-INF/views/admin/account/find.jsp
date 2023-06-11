@@ -52,6 +52,10 @@
 		color: white;
 		font-size: 20px;
 	}
+	#menubox {
+		display: flex;
+		justify-content: center;
+	}
 </style>
 </head>
 <body>
@@ -66,6 +70,8 @@
 	                    <span id="selected_menu_text" style="font-size: 19px; padding-top:4px;">아이디/비밀번호 찾기</span>
 	                </div><!-- selected_menu -->
 	            </div><!-- semi_title -->
+	            <div id="menubox">
+	            
 	            <div class="main-box">
 					<div id="inner-header">
 						<div id="innertitle">관리자</div>
@@ -90,6 +96,7 @@
 						</div>
 					</div>
 	            </div><!-- main-box -->
+	            </div>
 	        </div><!-- inner-box -->
 	    </div><!-- content-box -->
 	</div>

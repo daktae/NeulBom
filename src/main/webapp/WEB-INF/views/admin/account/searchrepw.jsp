@@ -13,7 +13,6 @@
 <style>
 	#addemp, #addresi {
 		display: flex;
-		padding: 30px;
 	}
 	#input-list {
 		margin-top: 2rem;
@@ -60,6 +59,7 @@
 		padding-right: 50px;
 		border-radius: 15px;
 		height: 520px;
+		width: 600px;
 		
 	}
 	.detail{
@@ -68,6 +68,10 @@
 		border-radius: 5px;
 		border-style: none;
 		height: 120px;
+	}
+	#menubox {
+		display: flex;
+		justify-content: center;
 	}
 	
 
@@ -84,12 +88,13 @@
 	                </div><!-- selected_menu -->
 	                
 	            </div><!-- semi_title -->
+	            <div id="menubox">
 	            <div class="main-box">
 	                <form method="POST" action="/neulbom/admin/account/findrepw.do">
 						<div id="addresi">
 	                		<div class="emp-box">
 	                			<div id="inner-list">
-									<h1>관리자</h1>
+									<h1>입주자 비밀번호</h1>
 								</div>
 								<div id="inner-list">
 									<span id="add-cate">아이디:</span><input type="text" placeholder="이름" class="add-info" id="id" name="id">			
@@ -106,6 +111,7 @@
 							</div>
 						</div>
 	            	</form>
+	       	 	</div>
 	       	 	</div>
 	    	</div>
 		</div>

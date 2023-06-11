@@ -60,6 +60,7 @@
 		padding-right: 50px;
 		border-radius: 15px;
 		height: 520px;
+		width: 500px;
 		
 	}
 	.detail{
@@ -68,6 +69,10 @@
 		border-radius: 5px;
 		border-style: none;
 		height: 120px;
+	}
+	#menubox {
+		display: flex;
+		justify-content: center;
 	}
 	
 
@@ -84,6 +89,7 @@
 	                </div><!-- selected_menu -->
 	                
 	            </div><!-- semi_title -->
+	            <div id="menubox">
 	            <div class="main-box">
 	                <form method="POST" name="findid" action="">
 	
@@ -99,6 +105,7 @@
 					        </tr>
 					    </table>
 	                </form>
+	       	 	</div>
 	       	 	</div>
 	    	</div>
 		</div>

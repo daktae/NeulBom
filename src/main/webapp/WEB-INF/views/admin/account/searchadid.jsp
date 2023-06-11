@@ -60,6 +60,7 @@
 		padding-right: 50px;
 		border-radius: 15px;
 		height: 520px;
+		width: 600px;
 		
 	}
 	.detail{
@@ -70,6 +71,10 @@
 		height: 120px;
 	}
 	
+	#menubox {
+		display: flex;
+		justify-content: center;
+	}
 
 </style>
 </head>
@@ -84,12 +89,13 @@
 	                </div><!-- selected_menu -->
 	                
 	            </div><!-- semi_title -->
+	            <div id="menubox">
 	            <div class="main-box">
 	                <form method="POST" action="/neulbom/admin/account/findadid.do">
 						<div id="addresi">
 	                		<div class="emp-box">
 	                			<div id="inner-list">
-									<h1>관리자</h1>
+									<h1>관리자 아이디</h1>
 								</div>
 								<div id="inner-list">
 									<span id="add-cate">이름:</span><input type="text" placeholder="이름" class="add-info" id="name" name="name">			
@@ -103,6 +109,7 @@
 							</div>
 						</div>
 	            	</form>
+	       	 	</div>
 	       	 	</div>
 	    	</div>
 		</div>
