@@ -55,6 +55,7 @@
 	display: inline-block;	
 	float: left;
 	font-weight: bold;
+	margin: 1px 10px;
 }
 
 #comcontent {
@@ -63,7 +64,6 @@
 }
 
 #comment {
-	border: 1px solid #AAA;
 	width: 100%;
 	margin: 30px auto;
 	padding: 100px;
@@ -76,6 +76,7 @@
 	height: 40px;
 	width: 100px;
 	border-radius: 10%;
+	
 }
 
 #regicom {
@@ -96,6 +97,16 @@
 	border: 1px solid #AAA;
 	background-color: #AAA;
 	float: right;
+}
+
+#comedit {
+	float: right;
+}
+
+img {
+
+width: 100%;
+margin-bottm: 30px;
 }
 
 
@@ -152,24 +163,21 @@
             <hr>
             
             <!-- 댓글 불러오기 -->
-            <table id="comment">
+            
+            <table id="comment" style="border-bottom: 1px solid #AAA; border-top: 1px solid #AAA; padding-bottom: 20px;">
+            		<tr>
+            			<th class="table table-bordered content-head_wj" style="display: inline-block; text-align: left; padding: 5px 20px;">댓글</th>
+            		</tr>
             	<c:forEach var="cdto" items="${clist }">
             	<tr>
             		<td>
-            			<div class="comment-content">
-            				<%-- <div class="comment-regdate">${cdto.regdate }</div> --%>
-            			</div>
-            		</td>
-            		<td>
             			<div>
-            				<div id="comname">${cdto.name }</div>
-            				<div style="width: 500px"><c:out value="${cdto.content }" /></div>
-            			<c:if test="${not empty id && (id == cdto.id)}">
-            			<div>
-            				<input type="button" class="del" value="삭제" onclick="delComment(${cdto.free_seq});">
-            				<input type="button" class="edit" value="수정" onclick="editComment(${cdto.free_seq});">
-            			</div>
-            			</c:if>
+            				<div style="padding-bottom: 5px;" id="comname" >${cdto.name } | </div>
+            				<div style="width: 1000px; margin: 3px 0; text-align: justify"><c:out value="${cdto.content }" /></div>
+            				<c:if test="${not empty id && (id == cdto.id)}">
+            				<input style="float: right" type="button" class="del" value="삭제" onclick="delComment(${cdto.comment_seq});">
+            				<input style="float: right;" type="button" class="edit" value="수정" onclick="editComment(${cdto.comment_seq});">
+            				</c:if>
             			</div>
             		</td>
             	</tr>
@@ -227,10 +235,9 @@
             <button type="button" class="btn btn-primary btn-sm" 
             onclick="location.href='/client/community/addfree.do?mode=reply&thread=${dto.thread}&depth=${dto.depth }';">답변하기</button>
             </c:if>
-            
             <c:if test="${not empty id && (id == dto.id)}">
             <div>
-			<button type="button" class="btn del" onclick="delfree()">삭제하기</button>
+			<button type="button" class="btn del" onclick="delfree();">삭제하기</button>
            	<button type="button" class="btn edit" onclick="location.href='/neulbom/client/community/editfree.do?free_seq=${dto.free_seq}';">수정하기</button>
         	</div>
         	</c:if>
@@ -240,7 +247,7 @@
         
     </div>
     
-    <form id="editCommentForm" method="POST" action="/client/board/editcomment.do">
+    <form id="editCommentForm" method="POST" action="/neulbom/client/community/editcomment.do">
 		<input type="hidden" name="free_seq">
 		<input type="hidden" name="comment_seq">
 		<input type="hidden" name="content">
@@ -262,33 +269,28 @@
 <script>
 
 	//글 삭제
-	function delfree() {
-		alert();
-		
+	function delfree() {		
 		if (confirm('작성하신 글을 삭제하시겠습니까?')) {
-			location.href='/neulbom/client/community/delfree.do?seq=' + ${dto.free_seq};
+			location.href='/neulbom/client/community/delfree.do?free_seq=' + ${dto.free_seq};
 		}
 		
 	}
 	
-	
-	
-	
-	
 
-	function editComment(comment_seq) {
+function editComment(comment_seq) {
 		
 		//이전 수정중인 댓글 폼 > 전부 삭제
 		$('.edit-comment').remove();
 		
 		const content = $(event.target).closest('tr').find('.comment-content').children().eq(0).text();
 		
+		//수정 버튼을 누르면 tr 생성
 		$(event.target).closest('tr').after(
 			`
 				<tr style="background-color: #EFEFEF;" class="edit-comment">
 					<td><input type="text" class="full" value="\${content}" id="editcomment"></td>
 					<td>
-						<input type="button" value="확인" onclick="editOkComment(\${cseq});">
+						<input type="button" value="확인" onclick="editOkComment(\${comment_seq});">	
 						<input type="button" value="취소" onclick="cancleComment();">
 					</td>
 				</tr>
@@ -306,9 +308,11 @@
 		//돌아올 부모 글번호
 		//수정할 댓글 번호
 		//수정할 댓글 내용
+		console.log(${dto.free_seq});	
+		console.log(comment_seq);
+		console.log($('#editcomment').val()); 
 		
-		
-		/* $('#editCommentForm input[name=bseq]').val(${dto.free_seq}); */
+		$('#editCommentForm input[name=free_seq]').val(${dto.free_seq});
 		$('#editCommentForm input[name=comment_seq]').val(comment_seq);
 		$('#editCommentForm input[name=content]').val($('#editcomment').val());
 		
@@ -318,9 +322,7 @@
 	
 	function delComment(comment_seq) {
 		
-		location.href='/neulbom/client/commentfree.do?free_seq=' + ${dto.free_seq} '&comment_seq=' + comment_seq;
-		
-		
+		location.href='/neulbom/client/community/delcomment.do?free_seq=${dto.free_seq}&comment_seq=' + comment_seq;
 		
 	}
 	

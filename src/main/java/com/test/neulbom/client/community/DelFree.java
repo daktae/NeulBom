@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.test.neulbom.client.repository.ClientDAO;
-import com.test.neulbom.client.repository.FreeDTO;
 
 @WebServlet("/client/community/delfree.do")
 public class DelFree extends HttpServlet {
@@ -38,7 +37,7 @@ public class DelFree extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String free_seq = req.getParameter("free_seq");
-
+		System.out.println(free_seq);
 		ClientDAO dao = new ClientDAO();
 		
 		int result = 0;

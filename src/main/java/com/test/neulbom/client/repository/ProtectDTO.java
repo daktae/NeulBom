@@ -15,5 +15,6 @@ public class ProtectDTO {
 	private String relation;
 	private String address;
 	private String lv;
+	private String resi_name;
 }
 

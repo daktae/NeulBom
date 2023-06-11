@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.test.neulbom.admin.manage.repository.ProgramDTO;
 import com.test.neulbom.mylib.DBUtil3;
 
 public class ClientDAO {
@@ -104,7 +105,8 @@ public class ClientDAO {
 
 		return 0;
 	}
-
+	
+	//게시판 글 넣을 때 free_seq를 1씩 증가시키기
 	private int getMaxFreeSeq() {
 
 		try {
@@ -127,6 +129,7 @@ public class ClientDAO {
 		return 0;
 	}
 
+	//ID 찾기
 	public AccountDTO find_id(String name, String ssn) {
 
 		try {
@@ -157,6 +160,7 @@ public class ClientDAO {
 		return null;
 	}
 
+	//비밀번호 찾기
 	public AccountDTO find_pw(String name, String id) {
 
 		try {
@@ -188,26 +192,50 @@ public class ClientDAO {
 	}
 
 	// 자유게시판 전체 글 목록
-	public List<FreeDTO> list(FreeDTO dto) {
+	public List<FreeDTO> list(HashMap<String, String> map) {
 
 		List<FreeDTO> list = new ArrayList<FreeDTO>();
 
 		try {
-			if (dto.getLv().equals("5") || dto.getLv().equals("6")) {
+			
+			String where = "";
+			
+			 if (map.get("search").equals("y")) {
+				 	if (!map.get("column").equals("name")) {
+				 		where = String.format("where %s like '%%%s%%'"
+	                                 , map.get("column")
+	                                 , map.get("word"));
+				 	} else {
+				 		where = String.format("where resi_seq = (select resi_seq from tblResident where name like '%%%s%%') or protect_seq = (select protect_seq from tblProtect where name like '%%%s%%')", map.get("word"), map.get("word"));
+				 	}
+	            }
 
-				String sql = "select free_seq, title, resident as name, free_date, read from vwFree";
+
+				String sql = String.format("SELECT *\r\n"
+						+ "FROM (\r\n"
+						+ "    SELECT ROWNUM AS rnum, tblFree.*, \r\n"
+						+ "        CASE\r\n"
+						+ "            WHEN r.name IS NOT NULL THEN r.name\r\n"
+						+ "            ELSE p.name\r\n"
+						+ "        END AS name\r\n"
+						+ "    FROM (\r\n"
+						+ "        SELECT *\r\n"
+						+ "        FROM tblFree %s\r\n"
+						+ "        ORDER BY free_seq DESC\r\n"
+						+ "    ) tblFree\r\n"
+						+ "    LEFT JOIN tblResident r ON r.resi_seq = tblFree.resi_seq\r\n"
+						+ "    LEFT JOIN tblProtect p ON p.protect_seq = tblFree.protect_seq\r\n"
+						+ "    WHERE ROWNUM <= %s"
+						+ ")\r\n"
+						+ "WHERE rnum >= %s"
+											, where
+											, map.get("end")
+											, map.get("begin"));
 
 				stat = conn.createStatement();
 				rs = stat.executeQuery(sql);
 
-			} else if (dto.getLv().equals("7")) {
-
-				String sql = "select free_seq, title, protect as name, free_date, read from vwFree";
-
-				stat = conn.createStatement();
-				rs = stat.executeQuery(sql);
-
-			}
+			
 
 			while (rs.next()) {
 
@@ -216,7 +244,7 @@ public class ClientDAO {
 				fdto.setFree_seq(rs.getString("free_seq"));
 				fdto.setTitle(rs.getString("title"));
 				fdto.setName(rs.getString("name"));
-				fdto.setFree_date(rs.getString("free_date"));
+				fdto.setFree_date(rs.getString("free_date").substring(0, 10));
 				fdto.setRead(rs.getString("read"));
 
 				list.add(fdto);
@@ -228,15 +256,16 @@ public class ClientDAO {
 			e.printStackTrace();
 		}
 
-		return list;
+		return null;
 	}
-
+	
+	
 	// 전체 글 목록 조회
 	public List<FreeDTO> list() {
 
 		try {
 
-			String sql = "select tblFree.*, case when (select name from tblResident where resi_seq = tblFree.resi_seq) is not null then (select name 							from tblResident where resi_seq = tblFree.resi_seq) else (select name from tblProtect where protect_seq = 							tblFree.protect_seq) end as name from tblFree order by free_seq desc";
+			String sql = "select tblFree.*, case when (select name from tblResident where resi_seq = tblFree.resi_seq) is not null then (select name 							from tblResident where resi_seq = tblFree.resi_seq) else (select name from tblProtect where protect_seq = tblFree.protect_seq) end as name from tblFree order by free_seq desc";
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -328,12 +357,7 @@ public class ClientDAO {
 		
 	}
 
-	public ResiDTO get(String seq) {
-
-		
-		
-		return null;
-	}
+	
 
 	//댓글 목록 가져오기
 	public List<CommentDTO> clist(String free_seq) {
@@ -358,6 +382,7 @@ public class ClientDAO {
 				cdto.setId(rs.getString("id"));
 				cdto.setResi_seq(rs.getString("resi_seq"));
 				cdto.setProtect_seq(rs.getString("protect_seq"));
+				cdto.setFree_seq(rs.getString("free_seq"));
 			
 				clist.add(cdto);
 			}
@@ -435,6 +460,7 @@ public class ClientDAO {
 		return 0;
 	}
 
+	//자유게시판 글 삭제
 	public int delFree(String free_seq) {
 
 		try {
@@ -454,6 +480,7 @@ public class ClientDAO {
 		
 	}
 
+	//자유게시판 글 삭제 시 댓글도 함께 삭제
 	public int defComment(String free_seq) {
 
 		try {
@@ -497,7 +524,7 @@ public class ClientDAO {
 		try {
 			
 			String sql = "update tblFree set title = ?, content = ?, fname = ? where free_seq = ?";
-			System.out.println( dto.getFree_seq());
+
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, dto.getTitle());
 			pstat.setString(2, dto.getContent());
@@ -515,5 +542,380 @@ public class ClientDAO {
 		
 		return 0;
 	}
+
+	public int getTotalCount(HashMap<String, String> map) {
+
+			 try {
+				 
+				 String where ="";
+		            
+		            
+		            if (map.get("search").equals("y")) {
+		               where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word") );
+		            }
+				 
+		            String sql = String.format("select count(*) as cnt from tblFree %s", where);
+
+			  
+			  pstat = conn.prepareStatement(sql);
+			  rs = pstat.executeQuery();
+			  
+			  
+			  if (rs.next()) {
+			 
+			  return rs.getInt("cnt"); }
+			  
+			  } catch (Exception e) { e.printStackTrace(); }
+			  
+		
+		return 0;
+	}
+
+	
+
+	//프로그램 글 목록 페이징 가져오기
+	public List<MyProgramDTO> plist(HashMap<String, String> map) {
+
+
+		try {
+			
+			String where = "";
+			
+			 if (map.get("search").equals("y")) {
+				 	if (!map.get("column").equals("name")) {
+				 		where = String.format("where %s like '%%%s%%'"
+	                                 , map.get("column")
+	                                 , map.get("word"));
+				 	}
+	            }
+
+
+			 String sql = String.format(
+					 
+		                "SELECT * FROM (SELECT ROWNUM AS rnum, vwProgram.* FROM (SELECT * FROM vwProgram ORDER BY prog_seq DESC) vwProgram %s ORDER BY ROWNUM) vwProgram WHERE rnum <= %s AND rnum >= %s",
+		                where, 
+		                map.get("end"),
+		                map.get("begin"));
+			
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+
+			List<MyProgramDTO> list = new ArrayList<>();
+			
+
+			while (rs.next()) {
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				
+				if (title.length() > 8) {
+					title = title.substring(0, 8) + "...";
+				}
+				if (content.length() > 18) {
+					content = content.substring(0, 18) + "...";
+				}
+
+				MyProgramDTO pdto = new MyProgramDTO();
+				
+				pdto.setResi_seq("resi_seq");
+				pdto.setProg_seq(rs.getString("prog_seq"));
+				pdto.setTitle(title);
+				pdto.setContent(content);
+				pdto.setApply(rs.getString("apply"));
+				pdto.setPeople(rs.getString("people"));
+				pdto.setPlace(rs.getString("place"));
+				pdto.setProg_date(rs.getString("prog_date").substring(0, 10));
+				
+				
+				list.add(pdto);
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	//복지프로그램 상세 내역
+	public MyProgramDTO detalProgram(String prog_seq) {
+
+		try {
+			
+			String sql = "select * from vwProgram where prog_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, prog_seq);
+			rs = pstat.executeQuery();	
+			
+			if (rs.next()) {
+				
+				MyProgramDTO dto = new MyProgramDTO();
+				
+				dto.setProg_seq(rs.getString("prog_seq"));
+				dto.setTitle(rs.getString("title"));
+				dto.setApply(rs.getString("apply"));
+				dto.setContent(rs.getString("content"));
+				dto.setProg_date(rs.getString("prog_date").substring(0, 10));
+				dto.setPeople(rs.getString("people"));
+				dto.setPlace(rs.getString("place"));
+				
+				return dto;
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+
+	//자유게시판 > 댓글 지우기
+	public int delComment(String comment_seq) {
+
+		try {
+			
+			String sql = "delete from tblComment where comment_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, comment_seq);
+			
+			return pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return 0;
+	}
+
+	
+
+	public int editComment(CommentDTO dto) {
+
+		try {
+		
+			String sql = "update tblComment set content = ? where comment_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setString(1, dto.getContent());
+			pstat.setString(2, dto.getComment_seq());
+			
+			return pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	//내가 신청한 복지프로그램 내역 가져오기
+	public List<MyProgramDTO> myplist(HashMap<String, String> map, String resi_seq) {
+
+		try {
+			
+			
+
+			String sql = String.format(
+				    	"SELECT * FROM (SELECT ROWNUM AS rnum, vwRegiProgram.* FROM (SELECT * FROM vwRegiProgram where resi_seq=%s ORDER BY prog_seq DESC ) vwRegiProgram ORDER BY ROWNUM) vwRegiProgram WHERE rnum <= %s AND rnum >= %s"
+						, resi_seq
+						, map.get("end")
+						, map.get("begin"));
+
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			List<MyProgramDTO> list = new ArrayList<>();
+			
+
+			while (rs.next()) {
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				
+				if (title.length() > 8) {
+					title = title.substring(0, 8) + "...";
+				}
+				if (content.length() > 18) {
+					content = content.substring(0, 18) + "...";
+				}
+
+				MyProgramDTO pdto = new MyProgramDTO();
+				
+				pdto.setPapp_seq(rs.getString("papp_seq"));
+				pdto.setProg_seq(rs.getString("prog_seq"));
+				pdto.setTitle(title);
+				pdto.setContent(content);
+				pdto.setApply(rs.getString("apply"));
+				pdto.setPeople(rs.getString("people"));
+				pdto.setPlace(rs.getString("place"));
+				pdto.setProg_date(rs.getString("prog_date").substring(0, 10));
+				pdto.setResi_seq(rs.getString("resi_seq"));
+				
+				
+				list.add(pdto);
+			}
+
+			return list;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public String addpapp() {
+
+		//프로그램 신청 테이블(tblPapp) seq 증가
+		try {
+			
+			String sql = "select max(papp_seq) + 1 as papp_seq from tblPapp";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			if(rs.next()) {
+				return rs.getString("papp_seq");
+			
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+
+	//복지프로그램 신청
+	public int addprogram(MyProgramDTO pdto) {
+
+		try {
+			int nextPappSeq = getMaxPappSeq();
+			
+			String sql = "insert into tblPapp(papp_seq, resi_seq, prog_seq) values(?, ?, ?)";
+			
+			pstat = conn.prepareStatement(sql);
+			pstat.setInt(1, getMaxPappSeq());
+			pstat.setString(2, pdto.getResi_seq());
+			pstat.setString(3, pdto.getProg_seq());
+			
+			return pstat.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return 0;
+	}
+	
+	//게시판 글 넣을 때 free_seq를 1씩 증가시키기
+		private int getMaxPappSeq() {
+
+			try {
+				
+				String sql = "select max(free_seq) + 1 from tblFree";
+				
+				stat = conn.createStatement();
+				rs = stat.executeQuery(sql);
+				
+				if (rs.next()) {
+					
+					return rs.getInt(1);
+					
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return 0;
+		}
+
+		//보호자 정보
+		public ProtectDTO getProtect(ProtectDTO dto, String protect_seq) {
+
+			try {
+
+				String sql = "select * from tblProtect where protect_seq = ?";
+
+				pstat = conn.prepareStatement(sql);
+
+				pstat.setString(1, protect_seq);
+
+				rs = pstat.executeQuery();
+
+				if (rs.next()) {
+
+					ProtectDTO result = new ProtectDTO();
+
+					result.setId(rs.getString("id"));
+					result.setPw(rs.getString("pw"));
+					result.setName(rs.getString("name"));
+					result.setSsn(rs.getString("ssn"));
+					result.setTel(rs.getString("tel"));
+					result.setEmail(rs.getString("email"));
+					result.setResi_seq(rs.getString("resi_seq"));
+					result.setRelation(rs.getString("relation"));
+					result.setAddress(rs.getString("address"));
+					result.setLv(rs.getString("lv"));
+
+					return result;
+
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+
+		}
+
+		public ResiDTO getResident(ResiDTO resi, String resi_seq) {
+
+			try {
+
+				String sql = "select * from tblResident where resi_seq = ?";
+
+				pstat = conn.prepareStatement(sql);
+
+				pstat.setString(1, resi_seq);
+
+				rs = pstat.executeQuery();
+
+				if (rs.next()) {
+
+					ResiDTO result = new ResiDTO();
+
+					result.setId(rs.getString("id"));
+					result.setPw(rs.getString("pw"));
+					result.setName(rs.getString("name"));
+					result.setSsn(rs.getString("ssn"));
+					result.setTel(rs.getString("tel"));
+					result.setEmail(rs.getString("email"));
+					result.setResi_seq(rs.getString("resi_seq"));
+					result.setAddress(rs.getString("address"));
+					result.setLv(rs.getString("lv"));
+
+					return result;
+
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+
+		}
+
 
 }

@@ -90,17 +90,18 @@ public class Login extends HttpServlet {
 		} else if (resiId == null && adminId == null) {
 			ProtectDTO result = dao.login(pdto);
 						
-						System.out.println(result);
 			if (result != null) {
 				
 				//로그인 성공
-				req.getSession().setAttribute("id", protectId); //인증 티켓 발급
-				req.getSession().setAttribute("lv", result.getLv()); //레벨
-				req.getSession().setAttribute("name", result.getName()); //이름
-				req.getSession().setAttribute("protect_seq", result.getProtect_seq()); //번호
+				req.getSession().setAttribute("id", protectId); // 인증 티켓 발급
+		        req.getSession().setAttribute("lv", result.getLv()); // 레벨
+		        req.getSession().setAttribute("name", result.getName()); // 이름
+		        req.getSession().setAttribute("protect_seq", result.getProtect_seq()); // 번호
+		        req.getSession().setAttribute("resi_seq", result.getResi_seq()); // 연계 입주자 seq 추가
+		        
+		        resp.sendRedirect("/neulbom/client/index.do");
+		        
 				
-				resp.sendRedirect("/neulbom/client/index.do");
-				req.getSession().setAttribute("protect_seq", result.getProtect_seq()); //보호자 seq
 				return;
 				
 			} else {

@@ -131,7 +131,7 @@
 							<tbody>
 								<c:forEach items="${list}" var="dto">
 									<tr>
-										<td>${dto.displayed_seq}</td>
+										<td>${dto.free_seq}</td>
 										<td class="movable"
 											onclick="location.href='/neulbom/admin/board/viewfree.do?seq=${dto.free_seq}'">${dto.title}</td>
 										<td>${dto.writer_name}</td>

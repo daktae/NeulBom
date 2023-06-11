@@ -61,7 +61,6 @@ public class AddFree extends HttpServlet {
 										"UTF-8",
 										new DefaultFileRenamePolicy()); //동일한 파일이 전달될 때 1, 2, 3과 같이 번호를 부여해주는 클래스
 				
-			System.out.println(req.getRealPath("/asset/pic"));
 			
 			//입력한 값 가져오기
 			String title = multi.getParameter("title");

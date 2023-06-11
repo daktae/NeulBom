@@ -184,7 +184,7 @@
                     </tr>
                     <tr>
                         <th class="th">내용</th>
-                        <td class="td"><textarea name="content" id="content" required class="full"" placeholder="내용을 입력하세요." maxlength="900"></textarea></td>
+                        <td class="td"><textarea name="content" id="content" required class="full" placeholder="내용을 입력하세요." maxlength="900"></textarea></td>
                     </tr>
                     <tr>
                         <th class="th">첨부파일</th>
