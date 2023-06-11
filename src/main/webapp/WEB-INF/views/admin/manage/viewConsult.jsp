@@ -120,6 +120,16 @@ td.comment {
 	overflow: auto;
 	border: none;
 }
+
+.scrollable {
+	clear: both;
+	width: auto;
+	height: 650px;
+	display: block;
+	overflow: auto;
+	overflow-x: hidden;
+	padding: 10px;
+}
 </style>
 </head>
 <body>
@@ -136,7 +146,7 @@ td.comment {
 
 				</div>
 				<!-- semi_title -->
-				<div class="main-box">
+				<div class="main-box scrollable">
 					<form method="POST" action="/neulbom/admin/manage/viewconsult.do" enctype="multipart/form-data">
 						<input type="hidden" name="seq" value="${dto.con_seq}">
 						<table class="table" style="table-layout: fixed;">

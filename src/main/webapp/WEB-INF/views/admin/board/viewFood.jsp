@@ -40,6 +40,16 @@ width: 600px;
 	cursor: default;
 }
 
+.scrollable {
+	clear: both;
+	width: auto;
+	height: 650px;
+	display: block;
+	overflow: auto;
+	overflow-x: hidden;
+	padding: 10px;
+}
+
 </style>
 </head>
 <body>
@@ -56,7 +66,7 @@ width: 600px;
 
 				</div>
 				<!-- semi_title -->
-				<div class="main-box">
+				<div class="main-box scrollable">
 					<table class="table">
 						<colgroup>
 							<col width=25%>

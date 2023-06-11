@@ -81,6 +81,16 @@ td.comment {
 .main {
 	height:100vh !important;
 }
+
+.scrollable {
+	clear: both;
+	width: auto;
+	height: 650px;
+	display: block;
+	overflow: auto;
+	overflow-x: hidden;
+	padding: 10px;
+}
 </style>
 </head>
 <body>
@@ -97,7 +107,7 @@ td.comment {
 
 				</div>
 				<!-- semi_title -->
-				<div class="main-box">
+				<div class="main-box scrollable">
 					<table class="table" style="table-layout:fixed;">
 						<colgroup>
 							<col width=25%>
