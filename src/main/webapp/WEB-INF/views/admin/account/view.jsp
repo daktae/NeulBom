@@ -102,9 +102,11 @@
 							<div id="inner-list">
 								<span id="add-cate">직원 이름: ${dto.name}</span>		
 							</div>
-							<div id="inner-list">
-								<span id="add-cate">주민번호: ${dto.ssn}</span>			
-							</div>
+							<c:if test="${sessionScope.lv == '1'}">
+								<div id="inner-list">
+									<span id="add-cate">주민번호: ${dto.ssn}</span>			
+								</div>
+							</c:if>
 							<div id="inner-list">
 								<span id="add-cate">아이디: ${dto.id}</span>			
 							</div>
@@ -147,7 +149,6 @@
 <script src="/neulbom/asset/js/bootstrap.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-	console.log(${dto.pic});
 </script>
 </body>
 </html>
