@@ -77,9 +77,9 @@ body {
 			<div class="col-md-3">
 				<div class="sidebox">
 					<div class="profile">
-						<img src="/html/images/01.jpg" id="profileimg">
+						<img src="/neulbom/asset/images/user.png" id="profileimg" style="width: 150px; height: 140px; margin: none;">
 						<h1 class="profilename">'${name }'님</h1>
-						<h1 class="profilename_id">(${id})</h1>
+						<h1 class="profilename_id" style="margin-right: 120px;">(${id})</h1>
 					</div>
 					<div class="menubox">
 						<div class="menu" id="create_account">
