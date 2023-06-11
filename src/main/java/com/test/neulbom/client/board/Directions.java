@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/directions.do")
+@WebServlet("/client/board/directions.do")
 public class Directions extends HttpServlet {
 
 	@Override
