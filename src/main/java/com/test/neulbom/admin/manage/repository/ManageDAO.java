@@ -558,7 +558,9 @@ public class ManageDAO {
 
 	}
 
-	public int getTotalCount(HashMap<String, String> map, int size, String table) {
+	// TODO: 소엽 수정
+	// - map > smap으로 수정
+	public int getTotalCount(HashMap<String, String> smap, int size, String table) {
 
 		try {
 
