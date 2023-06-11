@@ -234,6 +234,9 @@ public class ClientDAO {
 
 				stat = conn.createStatement();
 				rs = stat.executeQuery(sql);
+				
+				int i = Integer.parseInt(map.get("begin"));
+
 
 			
 
@@ -241,6 +244,7 @@ public class ClientDAO {
 
 				FreeDTO fdto = new FreeDTO();
 				
+				fdto.setDisplayed_seq(i + "");
 				fdto.setFree_seq(rs.getString("free_seq"));
 				fdto.setTitle(rs.getString("title"));
 				fdto.setName(rs.getString("name"));
@@ -248,6 +252,7 @@ public class ClientDAO {
 				fdto.setRead(rs.getString("read"));
 
 				list.add(fdto);
+				i++;
 			}
 
 			return list;
@@ -265,7 +270,7 @@ public class ClientDAO {
 
 		try {
 
-			String sql = "select tblFree.*, case when (select name from tblResident where resi_seq = tblFree.resi_seq) is not null then (select name 							from tblResident where resi_seq = tblFree.resi_seq) else (select name from tblProtect where protect_seq = tblFree.protect_seq) end as name from tblFree order by free_seq desc";
+			String sql = "select tblFree.*, case when (select name from tblResident where resi_seq = tblFree.resi_seq) is not null then (select name from tblResident where resi_seq = tblFree.resi_seq) else (select name from tblProtect where protect_seq = tblFree.protect_seq) end as name from tblFree order by free_seq desc";
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);

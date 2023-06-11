@@ -26,5 +26,7 @@ public class FreeDTO {
 
 	private int thread;			//쓰레드
 	private int depth;			
+	
+	private String displayed_seq;
 
 }

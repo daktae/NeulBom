@@ -135,6 +135,7 @@
     .introducetitle {
     
     	background-image: url("/neulbom/asset/image/자유게시판 사진.jpg");
+    	background-repeat: no-repeat;
     }
     
     #writefree, #canclefree {
@@ -148,6 +149,7 @@
     #writefree {
     	background-color: #
     }
+    
 
 
 
@@ -211,8 +213,8 @@
                     <input type="hidden" name="depth" value=${depth }>
                     
                     <div class="btn1">
-                    <input type="submit" name="writefree" id="writefree" value="글쓰기" onclick="writefree()"> 
-                    <input type="button" name="canclefree" id="canclefree" value="취소하기" onclick="history.back();"> 
+                    <input type="submit" name="writefree" id="writefree" class="btn" style="background-color: #043886; color: white; font-size: 20px;" value="글쓰기" onclick="writefree()"> 
+                    <input type="button" name="canclefree" id="canclefree" class="btn" style="background-color: #D1d1d1; color: white; font-size: 20px;" value="취소하기" onclick="history.back();"> 
                     </div>
                     
             </form>

@@ -50,6 +50,20 @@ body {
 	cursor: pointer;
 	background-color: #DFDFDF;
 }
+
+#summary {
+	width: 100%;
+	margin: 30px auto;
+	font-weight: bold;
+}
+
+.search {
+
+	margin: 0 10px;
+}
+
+
+
 </style>
 
 
@@ -105,19 +119,14 @@ body {
 
 
 			<div class="col-md-9">
-				<div class="box">
+				<div class="box" style="height: 100%; width: 100%;">
 					<!-- 버튼 -->
-					<div class="btn-group" role="group"
-						aria-label="Basic radio toggle button group">
-						<input type="button" class="btn-check" name="btnradio"
-							id="btnradio1" autocomplete="off" checked> <label
-							class="btn btn-outline-primary" for="btnradio1"
-							onclick="location.href='/neulbom/client/mypage/program.do';">복지프로그램
-							신청</label> <input type="button" class="btn-check" name="btnradio"
-							id="btnradio3" autocomplete="off"> <label
-							class="btn btn-outline-primary" for="btnradio3"
-							onclick="location.href='/neulbom/client/mypage/myprogram.do?resi_seq=${resi_seq}';">내
-							신청내역</label>
+					<div>
+						<input type="button" class="btn btn-primary" style="font-size: 20px; margin-right: 20px;" name="btnradio"
+							id="btn1" checked onclick="location.href='/neulbom/client/mypage/program.do';" value="복지프로그램 신청">
+
+						<input type="button" class="btn btn-secondary"  style="font-size: 20px;" name="btnradio"
+							id="btn2" selected onclick="location.href='/neulbom/client/mypage/myprogram.do?resi_seq=${resi_seq}';" value="내 신청내역">
 					</div>
 					
 					<!-- <form class="d-flex" role="search" style="max-width: 50%;"
@@ -148,8 +157,8 @@ body {
 					<br> <br>
 					<form method="GET" action="/neulbom/client/mypage/program.do">
                       <div class="selec">
-                         <input type="date" name="start_date"> 부터 <input type="date" name="end_date">
-                       <button type="submit">검색하기</button>
+                         <input type="date" name="start_date" class="search"><div style="font-size: 20px;"> ~ </div><input type="date" class="search" name="end_date">
+                       <button type="submit" class="btn " style="background-color: #AAA; color: white;">검색</button>
                     </div>
                     </form>
 					<hr>
@@ -163,8 +172,8 @@ body {
 
 
 					<form method="POST" action="/neulbom/client/mypage/program.do">
-						<div class="row justify-content-center">
-							<table class="table" style="">
+						<div class="row justify-content-center" style="width: 100%; margin-left: 1px;">
+							<table class="table" >
 								<thead>
 									<tr>
 										<th scope="col">번호</th>

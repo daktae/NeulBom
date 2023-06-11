@@ -370,6 +370,7 @@ public class ProgramDAO {
 					rs = stat.executeQuery(sql);
 					
 					List<MyProgramDTO> list = new ArrayList<>();
+					int i = Integer.parseInt(map.get("begin"));
 					
 
 					while (rs.next()) {
@@ -394,9 +395,11 @@ public class ProgramDAO {
 						pdto.setPlace(rs.getString("place"));
 						pdto.setProg_date(rs.getString("prog_date").substring(0, 10));
 						pdto.setResi_seq(rs.getString("resi_seq"));
+						pdto.setDisplayed_seq(i + "");
 						
 						
 						list.add(pdto);
+						i++;
 					}
 
 					return list;
