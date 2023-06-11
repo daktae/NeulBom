@@ -18,11 +18,7 @@ public class DelEquip extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// DelEquip.java
-		
-		if(AdminAuth.check(req, resp)) {
-			return;
-		}
-		
+
 		String eq_seq = req.getParameter("eq_seq");
 		req.setAttribute("eq_seq", eq_seq);
 		
