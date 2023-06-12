@@ -74,9 +74,9 @@ body {
 			<div class="col-md-3">
 				<div class="sidebox">
 					<div class="profile">
-						<img src="/html/images/01.jpg" id="profileimg">
-						<h1 class="profilename">'${name }'님</h1>
-						<h1 class="profilename_id">(${id })</h1>
+						<img src="/neulbom/asset/images/user.png" id="profileimg">
+						<h1 class="profilename">${sessionScope.name}님</h1>
+						<h1 class="profilename_id">(${sessionScope.id})</h1>
 						<!-- <div class="profilelevel">계정 관리자</div> -->
 					</div>
 					   <div class="menubox">
@@ -149,18 +149,18 @@ body {
 					<hr>
 					
 						<div style="text-align: center; font-weight: bold; font-size: 23px;">
-						<c:if test="${dto.apply >= dto.people}">
+						<c:if test="${dto.apply >= dto.people || dto.prog_date <= limitDate}">
 										<td style="color: red">이번 프로그램은 마감되었습니다.</td>
 						</c:if>
 						
-						<c:if test="${dto.apply < dto.people && result == null}">
+						<c:if test="${dto.apply < dto.people && result == null && dto.prog_date > limitDate}">
 										<td style="padding-bottom: 0px; padding-top: 0.25rem;">
 										<button type="button" class="btn btn-primary btn-sm regi" 
 										onclick="confirmRegiProgram()">신청하기</button></td>
 						</c:if>
 						
-						<c:if test ="${dto.apply < dto.people && result != null}">
-						<td style="color: #00007C">이미 신청하셨습니다.</td>
+						<c:if test ="${dto.apply < dto.people && result != null && dto.prog_date > limitDate}">
+						<td style="color: #00007C">이미 신청하신 프로그램입니다.</td>
 						</c:if> 
 						
 						<input style="float: left" type="button" class="btn btn-secondary" name="btnreturn" onclick="history.back()" value="돌아가기">

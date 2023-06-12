@@ -1,7 +1,10 @@
 package com.test.neulbom.client.mypage;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -41,9 +44,19 @@ public class DetailProgram extends HttpServlet {
 //		pdto = dao.regiProgram(prog_seq, resi_seq);
 		
 		
+		//마감 날짜 구하기 (현재날짜 -14일)
+		Date date = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -14);	//현재 날짜 -14
+		Date limit = cal.getTime();
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");	//날짜 형식 변경
+		String limitDate = dateFormat.format(limit);
+		
 		
 		req.setAttribute("dto", dto);
 		req.setAttribute("result", result);
+		req.setAttribute("limitDate", limitDate);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/mypage/detailprogram.jsp");
 		dispatcher.forward(req, resp);

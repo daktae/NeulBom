@@ -13,7 +13,6 @@
   #write {
         width: 100px;
         height: 40px;
-        background-color: #043886;
         color: #ffffff;
         border: none;
         font-size: 20px;
@@ -135,8 +134,8 @@
 </head>
 
 <body>
-	<%@ include file="/WEB-INF/views/inc/headerclient.jsp" %>
-	   <div id="consult" class="introducetitle" style="background-image: url('/neulbom/asset/mainimage/registwrite.jpg'); background-position: 50% 75%;">입주상담게시판</div>
+   <%@ include file="/WEB-INF/views/inc/headerclient.jsp" %>
+      <div id="consult" class="introducetitle" style="background-image: url('/neulbom/asset/mainimage/registwrite.jpg'); background-position: 50% 75%;">커뮤니티</div>
 
 
 
@@ -168,7 +167,7 @@ assignment_add
             </nav>
             <hr>
            
-        	    <form method="POST" action="/neulbom/client/board/resiconsultwrite.do" onsubmit="showAlert()">
+               <form method="POST" action="/neulbom/client/board/resiconsultwrite.do" onsubmit="showAlert()">
 
                 <table id="table">
                     <tr>
@@ -183,20 +182,21 @@ assignment_add
                     
                    <input type="hidden" name="nomem_seq" value="${param.nomem_seq}">
                     <div class="btn1">
-                    <input type="submit" name="write" id="write" value="글쓰기"> 
-                    <input type="button" name="cancle" id="cancle" value="취소하기" onclick="history.back();"> 
+                    <input type="submit" style="width:100px; height:40px;" class="btn btn-primary btn-sm" name="write" id="write" value="글쓰기"> 
+                    <input type="button" class="btn btn-secondary btn-sm btn-light" name="cancle" id="cancle" value="취소하기" onclick="history.back();"> 
+                    
                     
                     </div>
                     
             </form>
-        	
-        	
+           
+           
         </div>
         
     </div>
 
-	 
-	<%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
+    
+   <%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
 <script>
 function showAlert() {
     alert("글이 등록 되었습니다!");

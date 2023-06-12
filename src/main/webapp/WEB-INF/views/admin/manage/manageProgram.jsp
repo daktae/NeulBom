@@ -101,8 +101,10 @@
                        <option value="content">내용</option>
                        <option value="place">장소</option>
                    </select><!-- select_search_item -->
-                   <input type="text" name="word" class="search_input" placeholder="프로그램 정보를 입력하세요." required maxlength="10">
-                  <input class="btn btn-primary search_button" type="submit" value="검색하기">
+                   <input type="text" name="word" class="search_input" 
+                   placeholder="프로그램 정보를 입력하세요." required maxlength="10">
+                   <input class="btn btn-primary search_button" 
+                   type="submit" value="검색하기">
                   </form>
                   
                   

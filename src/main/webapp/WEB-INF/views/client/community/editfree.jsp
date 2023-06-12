@@ -83,6 +83,12 @@
 	padding: 10px;
 	text-align: left;
 }
+
+.btn1 {
+        text-align: center;
+        margin: 0 auto;
+        width: 250px;
+    }
 </style>
 </head>
 <body>
@@ -122,28 +128,27 @@
 
 				<table class="table table-bordered content-head_wj">
 					<tr>
-						<th class="th">제목</th>
+						<th class="th" style="padding-top: 30px;">제목</th>
 						<td class="td"><input type="text" name="title" id="title"
-							class="full" maxlength="60" required value="${dto.title }"></td>
+							class="full" style="background-color: white;" maxlength="60" required value="${dto.title }"></td>
 					</tr>
 					<tr>
-						<th class="th">내용</th>
-						<td class="td"><input type="textarea" name="content"
-							id="content" maxlength="900" required value="${dto.content}"></td>
+						<th class="th" style="padding-top: 250px;">내용</th>
+						<td class="td"><textarea type="textarea" name="content"
+							id="content" maxlength="900" required>${dto.content}</textarea></td>
 					</tr>
 					<tr>
-						<th class="th">첨부파일</th>
+						<th class="th" style="padding-top: 20px;">첨부파일</th>
 						<td class="td"><input type="file" name="file" id="file"
-							class="full" value="${dto.file }"></td>
+							class="full" style="padding-top: 5px; width: 97%;"value="${dto.file }"></td>
 					</tr>
 				</table>
 
 				<hr>
-
-				<div>
-					<button type="submit" class="edit primary">수정하기</button>
-					<button type="button" class="back" onclick="history.back();">취소하기</button>
-				</div>
+				<div class="btn1">
+                    <input type="submit" name="editfree" id="editfree" class="btn" style="background-color: #043886; color: white; font-size: 20px;" value="수정하기" onclick="editfree()"> 
+                    <input type="button" name="canclefree" id="canclefree" class="btn" style="background-color: #D1d1d1; color: white; font-size: 20px;" value="취소하기" onclick="history.back();"> 
+                </div>
 				<input type="hidden" name="free_seq" value="${dto.free_seq }">
 			</form>
 		</div>
@@ -163,6 +168,30 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
+	
+	function writefree() {
+		
+		var f = document.getElementById('editfree');
+		
+		if (!f.title.value) {
+			alert("제목을 입력하세요");
+			f.title.focus();
+			return;
+		}
+		
+		if (!f.content.value) {
+			alert("내용을 입력하세요");
+			f.content.focus();
+			return;
+		}  
+			
+		f.action = "<%=request.getContextPath()%>/client/account/viewfree.do";
+		f.submit();
+		
+		var free_seq = ${dto.free_seq};	//free_seq에 글 번호 저장
+		var url = "/neulbom/client/account/viewfree.do?viewfree_seq=" + free_seq;
+		location.href = url;
+	}
 		
 	</script>
 

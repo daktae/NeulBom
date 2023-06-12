@@ -65,6 +65,9 @@
 	.sidebar {
 		height: 0px;
 	}
+	.introducetitle {
+		background-size: cover;
+	}
 </style>
 </head>
 

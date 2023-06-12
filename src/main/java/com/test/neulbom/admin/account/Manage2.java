@@ -101,6 +101,13 @@ public class Manage2 extends HttpServlet {
 		map.put("column", column);
 		map.put("word", word);
 		map.put("search", search);
+		
+		
+		
+		
+		
+		
+		
 		map.put("tab", tab);
 		
 		map.put("begin", begin + "");

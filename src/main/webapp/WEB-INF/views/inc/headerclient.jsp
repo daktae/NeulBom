@@ -37,12 +37,12 @@
                         aria-expanded="false">늘봄소개</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/neulbom/client/board/greetings.do">인사말</a></li>
-                        <li><a class="dropdown-item" href="#">시설 소개</a></li>
+                        <li><a class="dropdown-item" href="/neulbom/client/board/neulbomintroduce.do">시설 소개</a></li>
                         <li><a class="dropdown-item" href="/neulbom/client/board/directions.do">오시는 길</a></li>
                     </ul>
                 </li>
                 <!-- 가는 곳 없음 -->
-                <li class="nav-item"><a href="#"
+                <li class="nav-item"><a href="/neulbom/client/introduce.do"
                         class="nav-link">입주안내</a></li>
                  <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="/neulbom/client/board/notice.do" role="button"

@@ -81,6 +81,10 @@
     .right-align {
         text-align: right;
     }
+    
+    .introducetitle {
+		background-size: cover;
+	}
 
 
 
@@ -94,7 +98,7 @@
     
     <%@ include file="/WEB-INF/views/inc/headerclient.jsp" %>
     
-    <div class="introducetitle">알림게시판</div>
+    <div class="introducetitle">늘봄 소개</div>
 
 
     <div class="mainmenu text-center">
@@ -102,9 +106,9 @@
             <div class="bg-light border-right">
                 <div class="list-group list-group-flush">
                     <a href="#" class="list-group-item list-group-item-action active" style="background-color: #043886;">늘봄 소개</a>
-                    <a href="http://localhost:8090/NeulBom/greetings.do" class="list-group-item list-group-item-action">인사말</a>
-                    <a href="#" class="list-group-item list-group-item-action">시설 소개</a>
-                    <a href="#" class="list-group-item list-group-item-action">오시는 길</a>
+                    <a href="http://localhost:8090/neulBom/client/board/greetings.do" class="list-group-item list-group-item-action">인사말</a>
+                    <a href="/neulbom/client/board/neulbomintroduce.do" class="list-group-item list-group-item-action">시설 소개</a>
+                    <a href="/neulbom/client/board/directions.do" class="list-group-item list-group-item-action" style="background-color: #e9ecef;">오시는 길</a>
                 </div>
             </div>
         </span>

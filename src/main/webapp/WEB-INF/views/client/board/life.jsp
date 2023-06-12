@@ -11,7 +11,9 @@
 <%@ include file="/WEB-INF/views/inc/assetclient.jsp" %>
 
 <style>
-
+	.introducetitle {
+		background-size: cover;
+	}
 </style>
 </head>
 
@@ -30,7 +32,7 @@
 						href="/neulbom/client/board/notice.do"
 						class="list-group-item list-group-item-action">공지사항</a> <a
 						href="/neulbom/client/board/food.do" class="list-group-item list-group-item-action">식단표</a> <a
-						href="/neulbom/client/board/life.do" class="list-group-item list-group-item-action">생활</a>
+						href="/neulbom/client/board/life.do" class="list-group-item list-group-item-action" style="background-color: #e9ecef;">생활</a>
 				</div>
 			</div>
 		</span>

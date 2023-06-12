@@ -67,11 +67,7 @@ public class Resiconsult extends HttpServlet {
 
 				
 				BoardWjDAO dao = new BoardWjDAO();
-<<<<<<< HEAD
 				ConsultDTOWj dto = new ConsultDTOWj();
-=======
-
->>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
 				List<BoardWjDTO> list = dao.view(map);
 				
 
@@ -162,12 +158,8 @@ public class Resiconsult extends HttpServlet {
 				req.setAttribute("nowPage", nowPage);
 				req.setAttribute("list", list);
 				req.setAttribute("pagination", sb);
-<<<<<<< HEAD
 				req.setAttribute("dto", dto);
 				
-=======
-
->>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
 				RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/community/resiconsult.jsp");
 				dispatcher.forward(req, resp);
 

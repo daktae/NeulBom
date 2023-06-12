@@ -64,12 +64,13 @@ public class ManageProgram extends HttpServlet {
 		} else {
 			search = "y";
 		}
-		
-		map.put("begin", begin + "");
-		map.put("end", end + "");
 		map.put("column", column);
 		map.put("word", word);
 		map.put("search", search);
+		
+		
+		map.put("begin", begin + "");
+		map.put("end", end + "");
 		
 		ProgramDAO dao = new ProgramDAO();
 		

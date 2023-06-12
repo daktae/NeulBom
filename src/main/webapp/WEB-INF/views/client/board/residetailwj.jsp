@@ -9,12 +9,9 @@
    <%@ include file="/WEB-INF/views/inc/assetclient.jsp" %>
    
 <style>
-<<<<<<< HEAD
 pre{
     white-space: pre-wrap; /* pre tag내에 word wrap */
 }  
-=======
->>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
 
 .introducetitle {
 	background-image: url("/neulbom/asset/image/자유게시판 사진.jpg")
@@ -105,15 +102,11 @@ pre{
 }
 
 
-<<<<<<< HEAD
 .wjbutton {
 	max-width:100%;
 	display:flex;
 	justify-content: end;
 }
-=======
-
->>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
 
 </style>
 </head>
@@ -139,45 +132,30 @@ pre{
         <div id="deepmenu">
             <nav class="navbar bg-light">
                 <div class="container-fluid">
-<<<<<<< HEAD
                     <h3 style="font-weight: 400;">입주상담게시판</h3>
-=======
-                    <h3 style="font-weight: 400;">자유게시판</h3>
->>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
                     <div style="display: flex;">
                         <span class="material-symbols-outlined" style="display: block;">
                             home
                         </span>
-<<<<<<< HEAD
                         > 커뮤니티 > 입주상담게시판
-=======
-                        > 커뮤니티 > 자유게시판
->>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
                     </div>
                 </div>
             </nav>
             <hr>
-<<<<<<< HEAD
 
-=======
->>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
             <table class="table table-bordered table-hover content-head_wj">
                 <thead>
                     <tr>
-                      <th>${dto.con_seq }</th>
+                    	 <input type="hidden" name="con_seq" value="${dto.con_seq}" />
+                      <th>${dto.rnum }</th>
                       <th style="text-align: left;">${dto.title }</th>
                       <th>${dto.name }</th>
-<<<<<<< HEAD
                       <c:set var="date" value="${dto.con_date}" />
                       <th>${date.substring(0, 10)}</th>
-=======
-                      <th>${dto.con_date }</th>
->>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
                     </tr>
                 </thead>
             </table>
             <div class="content_wj" style="font-size:25px; padding-left:50px;"><pre><c:out value="${dto.content}" /></pre></div>
-<<<<<<< HEAD
             
            <c:choose>
     <c:when test="${dto.isreply eq 'y'}">
@@ -185,7 +163,8 @@ pre{
         <table class="table table-bordered table-hover content-head_wj">
             <thead>
                 <tr>
-                    <th>${dto.con_seq}</th>
+                                    	 <input type="hidden" name="con_seq" value="${dto.con_seq}" />
+                    <th>${dto.rnum}</th>
                     <th style="text-align: left;">${dto.retitle}</th>
                     <th>관리자</th>
                       <c:set var="date" value="${dto.con_date}" />
@@ -224,20 +203,10 @@ pre{
     </script>
 </c:if>
 
-=======
-            <hr> 
-    </div>
- </div>
-        
-        
-
-
->>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
 
         <%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-<<<<<<< HEAD
 function confirmDelete(con_seq) {
     if (confirm("정말 삭제하시겠습니까?")) {
         // 확인 버튼을 눌렀을 때의 동작
@@ -251,10 +220,6 @@ function confirmDelete(con_seq) {
 function confirmEdit(con_seq, pname) {
         location.href = '/neulbom/client/board/unmemedit.do?con_seq=' + con_seq + '&pname=' + encodeURIComponent(pname);
 }
-=======
-	
-
->>>>>>> d4c4c6cd2db6db2e3eff526b5906c20d3438c751
 </script>
 </body>
 </html>

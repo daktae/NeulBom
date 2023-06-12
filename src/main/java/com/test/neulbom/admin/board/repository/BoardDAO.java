@@ -615,18 +615,21 @@ public class BoardDAO {
 		return null;
 	}
 
+
 	// 자유게시판 글 삭제
 	public int deleteFree(String seq) {
 
 		try {
+
+			deleteComment(seq);
 
 			String sql = "DELETE FROM tblFree where free_seq = ?";
 
 			pstat = conn.prepareStatement(sql);
 
 			pstat.setString(1, seq);
-
-			return pstat.executeUpdate();
+			
+			return pstat.executeUpdate();				
 
 		} catch (Exception e) {
 
@@ -636,6 +639,26 @@ public class BoardDAO {
 
 		return 0;
 	}
+
+	// 자유게시판 글 삭제 시 댓글 삭제
+	private int deleteComment(String seq) {
+		
+		try {
+			
+			String sql = "delete from tblcomment where free_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, seq);
+			
+			return pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 
 	// 식단 게시판 글 삭제
 	public int deleteFood(String seq) {
