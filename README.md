@@ -12,6 +12,7 @@
 # 기술 스택
 ### Environment
 <img src="https://img.shields.io/badge/Eclipse IDE-2c2255?style=for-the-badge&logo=EclipseIDE&logoColor=white"/> <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white"/> <img src="https://img.shields.io/badge/Git-f05032?style=for-the-badge&logo=Git&logoColor=white"/>
+<img src="https://img.shields.io/badge/Visual Studio Code-007acc?style=for-the-badge&logo=VisualstudioCode&logoColor=white"/>
 
 ### Language
 <img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white"/>  <img src="https://img.shields.io/badge/JavaScript-f7df1e?style=for-the-badge&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/HTML5-e34f26?style=for-the-badge&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS-1572b6?style=for-the-badge&logo=CSS3&logoColor=white"/> 
@@ -20,8 +21,9 @@
 <img src="https://img.shields.io/badge/Oracle Database-f80000?style=for-the-badge&logo=Oracle&logoColor=white"/> 
 
 ### Server
-<img src="https://img.shields.io/badge/Apache Tomcat-f8dc75?style=for-the-badge&logo=&logoColor=white"/> 
-### H/W
+<img src="https://img.shields.io/badge/Apache Tomcat-f8dc75?style=for-the-badge&logo=Apache Tomcat&logoColor=black"/> 
+
+### 
 <img src="https://img.shields.io/badge/Arduino-00979d?style=for-the-badge&logo=Arduino&logoColor=white"/> <img src="https://img.shields.io/badge/Raspberry Pi 4-a22846?style=for-the-badge&logo=RaspberryPi&logoColor=white"/> 
 
 <hr>
