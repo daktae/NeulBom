@@ -11,8 +11,8 @@
                    </c:if>
                    <c:if test="${sessionScope.id != null}">
                       ${sessionScope.name} (${sessionScope.id})님 환영합니다.
+                      <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/mypage/mypage_payment_details.do'" class="btn btn-primary btn-sm" style="width:120px; height:40px; font-size: 20px;">마이 페이지</button>
                       <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/account/logout.do'" class="btn btn-secondary btn-sm btn-light" style="width:100px; height:40px; font-size: 20px;">로그아웃</button>
-                      <button type="button" onclick="location.href='http://localhost:8090/neulbom/client/mypage/mypage_payment_details.do'" class="btn btn-secondary btn-sm btn-light" style="width:100px; height:40px; font-size: 20px;">마이 페이지</button>
                    </c:if>
                
             </div>
@@ -36,13 +36,13 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                         aria-expanded="false">늘봄소개</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/neulbom/client/greetings.do">인사말</a></li>
-                        <li><a class="dropdown-item" href="#">시설 소개</a></li>
-                        <li><a class="dropdown-item" href="/neulbom/client/directions.do">오시는 길</a></li>
+                        <li><a class="dropdown-item" href="/neulbom/client/board/greetings.do">인사말</a></li>
+                        <li><a class="dropdown-item" href="/neulbom/client/board/neulbomintroduce.do">시설 소개</a></li>
+                        <li><a class="dropdown-item" href="/neulbom/client/board/directions.do">오시는 길</a></li>
                     </ul>
                 </li>
                 <!-- 가는 곳 없음 -->
-                <li class="nav-item"><a href="#"
+                <li class="nav-item"><a href="/neulbom/client/introduce.do"
                         class="nav-link">입주안내</a></li>
                  <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="/neulbom/client/board/notice.do" role="button"

@@ -40,6 +40,9 @@ body {
 .menu:hover{
 	cursor: pointer;
 }
+.box{
+	height:100%;
+}
 </style>
 </head>
 <body>
@@ -53,43 +56,46 @@ body {
 					<div class="profile">
 						<c:if test="${not empty list}">
 							<c:set var="firstDto" value="${list[0]}" />
-							<img src="/html/images/01.jpg" id="profileimg">
-							<h1 class="profilename">${name}님</h1>
-							<h1 class="profilename_id">(${firstDto.id})</h1>
+							<img src="/neulbom/asset/images/user.png" id="profileimg">
+							<h1 class="profilename">${sessionScope.name}님</h1>
+							<h1 class="profilename_id">(${sessionScope.id})</h1>
 						</c:if>
 					</div>
 					<div class="menubox">
-						<div class="menu" id="create_account">
-							<span class="material-symbols-outlined">person</span> 내정보
-						</div>
-						<div class="menu" id="search_staff">
-							<span class="material-symbols-outlined"> credit_score </span>
-							결제관리
-						</div>
+                  <div class="menu" id="create_account"
+                     onclick="location.href='/neulbom/client/mypage/mypage_info.do';">
+                     <span class="material-symbols-outlined">person</span> 내정보
+                  </div>
+                  <div class="menu" id="search_staff"
+                     onclick="location.href='/neulbom/client/mypage/mypage_payment_details.do';">
+                     <span class="material-symbols-outlined">
+                        credit_score </span> 결제관리
+                  </div>
 
+                  <div class="menu" id="manage_account"
+                     onclick="location.href='/neulbom/client/mypage/mypage_meet.do';">
+                     <span class="material-symbols-outlined">
+                        pending_actions </span> 면회관리
+                  </div>
 
-						<div class="menu" id="manage_account">
-							<span class="material-symbols-outlined"> pending_actions </span>
-							면회관리
-						</div>
+                  <div class="menu" id="staff_salary"
+                     onclick="location.href='/neulbom/client/mypage/program.do';">
+                     <span class="material-symbols-outlined btnprog"> groups_2
+                     </span> 복지프로그램관리
+                  </div>
+                  <div class="menu" id="manage_equip"
+                     onclick="location.href='/neulbom/client/mypage/mypage_inquiry.do';">
+                     <span class="material-symbols-outlined">
+                        support_agent </span> 내 문의
+                  </div>
 
-
-						<div class="menu" id="staff_salary" onclick="location.href='/neulbom/client/mypage/program.do';">
-							<span class="material-symbols-outlined btnprog" > groups_2 </span> 복지프로그램관리
-						</div>
-						<div class="menu" id="manage_equip">
-							<span class="material-symbols-outlined"> support_agent </span> 내
-							문의
-						</div>
-
-						<hr>
-						<div class="menu" id="manage_qna_consult">
-							<span class="material-symbols-outlined"> help </span> 늘봄
-						</div>
-
-					</div>
-				</div>
-			</div>
+                  <hr>
+                  <div class="menu" id="manage_qna_consult">
+                     <span class="material-symbols-outlined"> help </span> 늘봄
+                  </div>
+               </div>
+            </div>
+         </div>
 
 
 
@@ -123,6 +129,7 @@ body {
 								</tr>
 							</thead>
 							<tbody>
+							
 								<c:forEach items="${list}" var="dto" varStatus="status">
 									<tr>
 										<th scope="row">${status.index + 1}</th>
@@ -149,8 +156,6 @@ body {
 									aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 								</a></li>
 								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
 								<li class="page-item"><a class="page-link" href="#"
 									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 								</a></li>

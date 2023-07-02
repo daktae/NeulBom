@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.test.neulbom.mylib.DBUtil3;
@@ -81,17 +82,19 @@ public class BoardDAO {
 	}
 
 	// 공지게시판 전체 글 출력
-	public List<NoticeDTO> getNotice() {
+	public List<NoticeDTO> getNotice(HashMap<String, String> map) {
 
 		try {
 
-			String sql = "select * from tblnotice order by notice_date desc";
+			String sql = String.format(
+					"select * from (select rownum as rnum, a.* from (select * from tblNotice order by notice_date desc) a) where rnum between %s and %s",
+					map.get("begin"), map.get("end"));
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
 			List<NoticeDTO> list = new ArrayList<NoticeDTO>();
-			int i = 1;
+			int i = Integer.parseInt(map.get("begin"));
 
 			while (rs.next()) {
 
@@ -118,16 +121,18 @@ public class BoardDAO {
 	}
 
 	// 식단표 게시판 전체 글 출력
-	public List<FoodDTO> getFood() {
+	public List<FoodDTO> getFood(HashMap<String, String> map) {
 		try {
 
-			String sql = "select * from tblfood order by food_date desc";
+			String sql = String.format(
+					"select * from (select rownum as rnum, a.* from (select * from tblFood order by food_date desc) a) where rnum between %s and %s",
+					map.get("begin"), map.get("end"));
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
 			List<FoodDTO> list = new ArrayList<FoodDTO>();
-			int i = 1;
+			int i = Integer.parseInt(map.get("begin"));
 
 			while (rs.next()) {
 
@@ -265,17 +270,19 @@ public class BoardDAO {
 	}
 
 	// 생활게시판 전체 글 출력
-	public List<LifeDTO> getLife() {
+	public List<LifeDTO> getLife(HashMap<String, String> map) {
 
 		try {
 
-			String sql = "select * from tblLife order by life_date desc";
+			String sql = String.format(
+					"select * from (select rownum as rnum, a.* from (select * from tblLife order by life_date desc) a) where rnum between %s and %s",
+					map.get("begin"), map.get("end"));
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
 			List<LifeDTO> list = new ArrayList<LifeDTO>();
-			int i = 1;
+			int i = Integer.parseInt(map.get("begin"));
 
 			while (rs.next()) {
 
@@ -437,17 +444,19 @@ public class BoardDAO {
 	}
 
 	// 자유게시판 전체 게시물 출력
-	public List<FreeDTO> getFree() {
+	public List<FreeDTO> getFree(HashMap<String, String> map) {
 
 		try {
 
-			String sql = "SELECT * FROM tblFree ORDER BY free_date DESC";
+			String sql = String.format(
+					"select * from (select rownum as rnum, a.* from (select * from tblFree order by free_date desc) a) where rnum between %s and %s",
+					map.get("begin"), map.get("end"));
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 
 			List<FreeDTO> list = new ArrayList<FreeDTO>();
-			int i = 1;
+			int i = Integer.parseInt(map.get("begin"));
 
 			while (rs.next()) {
 
@@ -606,18 +615,21 @@ public class BoardDAO {
 		return null;
 	}
 
+
 	// 자유게시판 글 삭제
 	public int deleteFree(String seq) {
 
 		try {
+
+			deleteComment(seq);
 
 			String sql = "DELETE FROM tblFree where free_seq = ?";
 
 			pstat = conn.prepareStatement(sql);
 
 			pstat.setString(1, seq);
-
-			return pstat.executeUpdate();
+			
+			return pstat.executeUpdate();				
 
 		} catch (Exception e) {
 
@@ -627,6 +639,26 @@ public class BoardDAO {
 
 		return 0;
 	}
+
+	// 자유게시판 글 삭제 시 댓글 삭제
+	private int deleteComment(String seq) {
+		
+		try {
+			
+			String sql = "delete from tblcomment where free_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, seq);
+			
+			return pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 
 	// 식단 게시판 글 삭제
 	public int deleteFood(String seq) {
@@ -694,6 +726,68 @@ public class BoardDAO {
 		}
 
 		return null;
+	}
+
+	public int getTotalCount(HashMap<String, String> map, int size, String table) {
+
+		try {
+
+			String sql = "select count(*) as cnt from " + table;
+
+			pstat = conn.prepareStatement(sql);
+
+			rs = pstat.executeQuery();
+
+			if (rs.next()) {
+
+				return rs.getInt("cnt");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
+	public int addFood(String title, String fname) {
+		
+		try {
+			
+			String sql = "INSERT INTO tblFood VALUES (food_seq.nextVal, sysdate, ?, 0, ?)";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, fname);
+			pstat.setString(2, title);
+			
+			return pstat.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	public int editFood(String title, String fname, String seq) {
+		try {
+			
+			String sql = "UPDATE tblFood SET title = ?, content = ? WHERE food_seq = ?";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			pstat.setString(1, title);
+			pstat.setString(2, fname);	
+			pstat.setString(3, seq);
+			
+			return pstat.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
 	}
 
 }

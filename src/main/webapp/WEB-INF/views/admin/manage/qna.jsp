@@ -67,6 +67,11 @@
 	display: flex;
 	justify-content: space-evenly;
 }
+
+#paging {
+	position: relative;
+	top: 50px;
+}
 </style>
 </head>
 <body>
@@ -133,7 +138,7 @@
 									<td id="buttons">
 										<!-- 미처리된 문의 --> <c:if test="${dto.isReply eq 'n'}">
 											<div class="delete movable"
-												onclick="location.href='/neulbom/admin/board/viewqna.do?seq=${dto.qna_seq}'">
+												onclick="location.href='/neulbom/admin/manage/viewqna.do?seq=${dto.qna_seq}'">
 												<span id="delete_txt">답변하기</span>
 											</div>
 										</c:if> <!-- 처리된 문의 --> <c:if test="${dto.isReply eq 'y'}">
@@ -147,7 +152,11 @@
 							</c:forEach>
 						</tbody>
 					</table>
-
+					<!-- 페이징 -->
+					<c:if test="${list.size() != 0 }">
+						<div id="paging" class="pagination justify-content-center"
+							style="text-align: center; margin-bottom: 10px;">${pagination}</div>
+					</c:if>
 
 				</div>
 				<!-- main-box -->

@@ -28,7 +28,7 @@ public class LifeDAO {
 		
 		try {
 
-			String sql = String.format("select * from (select rownum as rnum, a.* from tbllife a) where rnum between %s and %s"
+			String sql = String.format("select * from (select rownum as rnum, a.* from tbllife a) where rnum between %s and %s order by life_date desc"
 					, map.get("begin")
 					, map.get("end"));
 
@@ -41,6 +41,7 @@ public class LifeDAO {
 
 				LifeDTO dto = new LifeDTO();
 				
+				dto.setRnum(rs.getString("rnum"));
 				dto.setLife_seq(rs.getString("life_seq"));
 				dto.setTitle(rs.getString("title")); dto.setContent(rs.getString("content"));
 				dto.setRead(rs.getString("read"));
@@ -90,7 +91,7 @@ public class LifeDAO {
 
 		try {
 
-			String sql = String.format("select * from tblLife where %s like '%%%s%%' order by life_date desc",
+			String sql = String.format("select * from (select rownum as rnum, a.* from tbllife a) where %s like '%%%s%%' order by life_date desc",
 					searchType, keyword);
 
 			stat = conn.createStatement();
@@ -102,6 +103,7 @@ public class LifeDAO {
 
 				LifeDTO dto = new LifeDTO();
 
+				dto.setRnum(rs.getString("rnum"));
 				dto.setLife_seq(rs.getString("life_seq"));
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));

@@ -104,6 +104,7 @@ public class UserDAO {
 				result.setId(rs.getString("id"));
 				result.setLv(rs.getString("lv"));
 				result.setName(rs.getString("name"));
+				result.setPic(rs.getString("pic"));
 				result.setAdmin_seq(rs.getString("admin_seq"));
 				
 				return result;

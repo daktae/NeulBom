@@ -117,7 +117,6 @@
 <script>
 
 	function delfree() {
-		alert();
 		
 		if (confirm('작성하신 글을 삭제하시겠습니까?')) {
 			location.href='/neulbom/client/board/qnadel.do?qna_seq=' + ${dto.qna_seq};

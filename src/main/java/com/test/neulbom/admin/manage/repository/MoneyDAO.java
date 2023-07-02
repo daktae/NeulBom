@@ -25,7 +25,7 @@ public class MoneyDAO {
 		
 		try {
 			
-			String sql = "select rownum a.* from (select to_char(sdate, 'yyyy-mm-dd') as sdate, title, category, to_char(money, 'FM9,999,999') || '원' as money from tblSpend order by sdate desc) a where rownum <=5";
+			String sql = "select rownum, a.* from (select to_char(sdate, 'yyyy-mm-dd') as sdate, title, category, to_char(money, 'FM9,999,999') || '원' as money from tblSpend order by sdate desc) a where rownum <=10";
 			
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -33,6 +33,7 @@ public class MoneyDAO {
 			while(rs.next()) {
 				SpendDTO spendDto = new SpendDTO();
 				
+				spendDto.setRownum(rs.getInt("rownum"));
 				spendDto.setSdate(rs.getString("sdate"));
 				spendDto.setTitle(rs.getString("title"));
 				spendDto.setCategory(rs.getString("category"));
@@ -50,4 +51,78 @@ public class MoneyDAO {
 		return latestSpendList;
 	}
 
+	// 최근 지출 내역 총합 구하기
+	public String getSpendSum() {
+		
+		try {
+			
+			String sql = "select to_char(sum(money), 'FM9,999,999,999') || '원' as spendSum from vwLatestSpend";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			while (rs.next()) {
+				
+				return rs.getString("spendSum");
+				
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+
+	public List<SpendDTO> getMonthlySpendList() {
+		
+		List<SpendDTO> monthlySpendList = new ArrayList<SpendDTO>();
+		
+		try {
+			
+			String sql = "select rownum, a.* from(select * from vwMonthly order by monthly desc) a where rownum <= 5";
+			
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			
+			while (rs.next()) {
+				
+				SpendDTO monthylSpendDto = new SpendDTO();
+				
+				monthylSpendDto.setSdate(rs.getString("sdate"));
+				monthylSpendDto.setMonthly(rs.getInt("monthly"));
+				
+				monthlySpendList.add(monthylSpendDto);
+				
+			}
+			
+			return monthlySpendList;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return monthlySpendList;
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

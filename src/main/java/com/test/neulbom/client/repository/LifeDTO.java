@@ -9,4 +9,5 @@ public class LifeDTO {
 	private String content;
 	private String read;
 	private String life_date;
+	private String rnum;
 }

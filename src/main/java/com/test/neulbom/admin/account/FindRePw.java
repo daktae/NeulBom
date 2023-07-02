@@ -67,9 +67,7 @@ public class FindRePw extends HttpServlet {
 	
 		} else if(dto != null && dto.getName().equals(name) && dto.getSsn().equals(ssn)) {
 		
-			String maskedPassword = dto.getPw().substring(0, 4)
-	                + "*".repeat(dto.getPw().length() - 4);
-			message = "입력하신 정보로 조회된 아이디의 비밀번호는 [ " + maskedPassword + " ] 입니다.";
+			message = "입력하신 정보로 조회된 아이디의 비밀번호는 [ " + dto.getPw() + " ] 입니다.";
 			
 			req.setAttribute("message", message);
 			RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/account/findrepw.jsp");

@@ -1,6 +1,6 @@
 package com.test.neulbom.client.board;
 
-import java.io.IOException;
+import java.io.IOException; 
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/client/greetings.do")
+@WebServlet("/client/board/greetings.do")
 public class Greetings extends HttpServlet {
 
 	@Override
@@ -17,7 +17,7 @@ public class Greetings extends HttpServlet {
 
 		//Greetings.java
 
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/greetings.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/greetings.jsp");
 		dispatcher.forward(req, resp);
 	}
 

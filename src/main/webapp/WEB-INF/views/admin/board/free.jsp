@@ -69,16 +69,20 @@
 }
 
 .table tbody tr td:nth-child(1), .table tbody tr td:nth-child(2), .table tbody tr td:nth-child(3),
-	.table tbody tr td:nth-child(4), .table tbody tr td:nth-child(5), .table tbody tr td:nth-child(6) {
+	.table tbody tr td:nth-child(4), .table tbody tr td:nth-child(5),
+	.table tbody tr td:nth-child(6) {
 	text-align: center;
 }
 
 .table tbody tr td:nth-child(6) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
-
+#paging {
+	position: relative;
+	top: 50px;
+}
 </style>
 </head>
 <body>
@@ -108,6 +112,9 @@
 						<span id="free_txt">자유게시판</span>
 					</div>
 
+				</div>
+				<!-- semi_title -->
+				<div class="main-box">
 					<div>
 						<table class="table table-striped">
 							<colgroup>
@@ -131,7 +138,7 @@
 							<tbody>
 								<c:forEach items="${list}" var="dto">
 									<tr>
-										<td>${dto.free_seq}</td>
+										<td>${dto.displayed_seq}</td>
 										<td class="movable"
 											onclick="location.href='/neulbom/admin/board/viewfree.do?seq=${dto.free_seq}'">${dto.title}</td>
 										<td>${dto.writer_name}</td>
@@ -147,11 +154,11 @@
 								</c:forEach>
 							</tbody>
 						</table>
+								<c:if test="${list.size() != 0 }">
+		<div id="paging" class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
+		</c:if>
 					</div>
-
 				</div>
-				<!-- semi_title -->
-				<div class="main-box"></div>
 				<!-- main-box -->
 			</div>
 			<!-- inner-box -->

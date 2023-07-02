@@ -12,10 +12,11 @@
 
 <style>
 	#searchForm {
+		display: flex;
 		position: relative;
 		margin-bottom: 15px;
 		text-align: center;
-		top: 60px;
+		justify-content: center;
 	}
 	#accountcate {
 		background-color: cornflowerblue;
@@ -47,6 +48,8 @@
 	}
 	#showAdminList, #showResidentList {
 		font-weight: bold;
+		top: 1px;
+		left: 10px;
 	}
 	#mcate {
 		position: relative;
@@ -92,54 +95,11 @@
 							<button id="showAdminList" class="btn btn-outline-primary">관리자 목록</button>
 	            		</div>
 	            	</div>
-					<div id="alist">
-						<div id="mcate">관리자 계정</div>
-						<table id="list" class="table" style="text-align:center;">
-							<tr>
-								<th style="width: 15%;">번호</th>
-								<th style="width: 20%;">이름</th>
-								<th style="width: 25%;">아이디</th>
-								<th style="width: 25%;">비밀번호</th>
-								<th style="width: auto;">삭제</th>
-							</tr>
-							<c:if test="${alist.size() == 0}">
-							<tr>
-								<td colspan="5">검색 결과가 없습니다.</td>
-							</tr>	
-							</c:if>
-							<c:forEach items="${alist}" var="adto">
-							<tr>
-								<td>
-									${adto.admin_seq}
-								</td>
-								<td>
-									${adto.name}
-								</td>
-								<td>${adto.id}</td>
-								<td>${adto.pw}</td>
-								<td style="display:flex; justify-content: center;">
-									<div class="delete movable" style="text-align: center;" onclick="location.href='/neulbom/admin/account/deladmin.do?admin_seq=${adto.admin_seq}';">
-										<span id="delete_txt">삭제</span>
-									</div>		
-								</td>
-							</tr>
-							</c:forEach>
-						</table>
-						<form id="searchForm" action="/neulbom/admin/account/manage.do?tab=${tab}" method="GET">
-							<select name="column">
-								<option value="name">이름</option>
-								<option value="id">아이디</option>
-							</select>
-							<input type="text" name="word" class="search_input" placeholder="정보를 입력하세요." required maxlength="15">
-                   			<input class="btn btn-primary search_button" type="submit" value="검색하기" id="showAdminList">
-							<input type="hidden" name="tab" value="1">
-						</form>
-					</div>
-					<div id="rlist" class="hidden">
+					<div id="rlist">
 						<div id="mcate">입주자 계정</div>
 						<table id="list" class="table" style="text-align:center;">
 							<tr>
-								<th style="width: 15%;">번호</th>
+								<th style="width: 15%;">입주자 번호</th>
 								<th style="width: 20%;">이름</th>
 								<th style="width: 25%;">아이디</th>
 								<th style="width: 25%;">비밀번호</th>
@@ -168,15 +128,19 @@
 							</tr>
 							</c:forEach>
 						</table>
-						<form id="searchForm" action="/neulbom/admin/account/manage.do?tab=${tab}" method="GET">
-							<select name="column">
-								<option value="name">이름</option>
-								<option value="id">아이디</option>
-							</select>
-							<input type="text" name="word" class="search_input" placeholder="정보를 입력하세요." required maxlength="15">
-                   			<input class="btn btn-primary search_button" type="submit" value="검색하기" id="showAdminList">
-							<input type="hidden" name="tab" value="2">
-						</form>
+						
+						
+						<form role="search" action="/neulbom/admin/account/manage.do" method="GET"  id="searchForm">
+		                    <select name="column">
+		                        <option value="name">이름</option>
+		                        <option value="id">아이디</option>
+		                    </select>
+		        
+		                 <!-- <form method="GET"> 사용 사례 -->
+		                    <input type="text" name="word" class="search_input" placeholder="정보를 입력하세요." required maxlength="15">
+		                    <input class="btn btn-primary search_button" type="submit" value="검색하기" id="showResidentList">
+		                </form>
+		            	<div class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
 					</div>
 				</div>
 					<!-- <form method="GET"> 사용 사례 -->
@@ -194,25 +158,18 @@
 	    $("#showAdminList").click(function() {
 	      //$("#alist").removeClass("hidden"); // 관리자 목록 표시
 	      //$("#rlist").addClass("hidden"); // 입주자 목록 감춤
-	      location.href = "/neulbom/admin/account/manage.do?tab=1";
+	      location.href = "/neulbom/admin/account/manage2.do";
 	    });
 	
 	    // 입주자 목록 보여주는 버튼 클릭 시
 	    $("#showResidentList").click(function() {
 	      //$("#alist").addClass("hidden"); // 관리자 목록 감춤
 	      //$("#rlist").removeClass("hidden"); // 입주자 목록 표시
-		  location.href = "/neulbom/admin/account/manage.do?tab=2";
+		  location.href = "/neulbom/admin/account/manage.do";
 	    });
-	    
-		if (${map.tab == 1}) {
-			$("#alist").removeClass("hidden"); // 관리자 목록 표시
-		    $("#rlist").addClass("hidden");
-		} else {
-			$("#alist").addClass("hidden"); // 관리자 목록 감춤
-		    $("#rlist").removeClass("hidden");
-		}
 	
 	});
+	
 </script>
 </body>
 </html>

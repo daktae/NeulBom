@@ -12,10 +12,11 @@
 
 <style>
 	#searchForm {
+		display: flex;
 		position: relative;
 		margin-bottom: 15px;
 		text-align: center;
-		top: 60px;
+		justify-content: center;
 	}
 	#accountcate {
 		background-color: cornflowerblue;
@@ -47,6 +48,8 @@
 	}
 	#showAdminList, #showResidentList {
 		font-weight: bold;
+		top: 1px;
+		left: 10px;
 	}
 	#mcate {
 		position: relative;
@@ -136,16 +139,15 @@
 							</tr>
 							</c:forEach>
 						</table>
-						<form class="d-flex" role="search" action="/neulbom/admin/account/adminlist.do?tab=${tab}" method="GET" style="max-width: 50%;">
-		                    <select name="column" class="form-select" aria-label="Default select example" style="margin-right: 10px;">
+						<form role="search" action="/neulbom/admin/account/adminlist.do" method="GET"  id="searchForm">
+		                    <select name="column">
 		                        <option value="name">이름</option>
 		                        <option value="id">아이디</option>
 		                    </select>
 		        
 		                 <!-- <form method="GET"> 사용 사례 -->
-		                    <input class="form-control_wj" type="search" placeholder="검색어를 입력해주세요." aria-label="Search" name="word" required>
-		                    <button class="btn btn-light" type="submit"
-		                        style="width:74px !important; height:38px !important;white-space:nowrap;">검색</button>
+		                    <input type="text" name="word" class="search_input" placeholder="정보를 입력하세요." required maxlength="15">
+		                    <input class="btn btn-primary search_button" type="submit" value="검색하기" id="showAdminList">
 		                </form>
 <%-- 		                <form method="GET" action="/neulbom/admin/account/adminlist.do?tab=${tab}" id="searchForm">
 		                   <select name="column" class="select_search_item">
@@ -155,7 +157,7 @@
 		                   <input type="text" name="word" class="search_input" placeholder="정보를 입력하세요." required maxlength="15">
                    		   <input class="btn btn-primary search_button" type="submit" value="검색하기">
 		                </form>
- --%>		                <div class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
+ --%>		            <div class="pagination justify-content-center" style="text-align : center; margin-bottom: 10px;">${pagination}</div>
 					</div>
 	            </div><!-- main-box -->
 	        </div><!-- inner-box -->

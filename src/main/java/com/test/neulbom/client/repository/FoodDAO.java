@@ -24,7 +24,9 @@ public class FoodDAO {
 
 		try {
 
-			String sql = "SELECT * FROM tblfood ORDER BY food_date DESC";
+			String sql = String.format("select * from (select rownum as rnum, a.* from tblfood a) where rnum between %s and %s"
+					, map.get("begin")
+					, map.get("end"));
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -35,6 +37,7 @@ public class FoodDAO {
 
 				FoodDTO dto = new FoodDTO();
 				
+				dto.setRnum(rs.getString("rnum"));
 				dto.setFood_seq(rs.getString("food_seq"));
 				dto.setFood_date(rs.getString("food_date"));
 				dto.setContent(rs.getString("content"));
@@ -56,7 +59,7 @@ public class FoodDAO {
 	public List<FoodDTO> search(String searchType, String keyword) {
 		try {
 
-			String sql = String.format("SELECT * FROM tblfood where %s like '%%%s%%' ORDER BY food_date DESC", searchType, keyword);
+			String sql = String.format("SELECT * FROM (select rownum as rnum, a.* from tblfood a) where %s like '%%%s%%' ORDER BY food_date DESC", searchType, keyword);
 
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
@@ -67,6 +70,7 @@ public class FoodDAO {
 
 				FoodDTO dto = new FoodDTO();
 				
+				dto.setRnum(rs.getString("rnum"));
 				dto.setFood_seq(rs.getString("food_seq"));
 				dto.setFood_date(rs.getString("food_date"));
 				dto.setContent(rs.getString("content"));

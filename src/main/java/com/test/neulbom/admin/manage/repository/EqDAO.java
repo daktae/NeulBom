@@ -62,36 +62,6 @@ public class EqDAO {
 		return regList;
 	}
 
-	// 등록된 비품 목록 조회
-//	public List<EqDTO> eqList() {
-//
-//		try {
-//			
-//			String sql = "select * from tblEq order by eq_seq asc";
-//			
-//			stat = conn.createStatement();
-//			rs = stat.executeQuery(sql);
-//			
-//			List<EqDTO> eqList = new ArrayList<EqDTO>();
-//			
-//			while (rs.next()) {
-//				EqDTO eqDto = new EqDTO();
-//				
-//				eqDto.setEq_seq(rs.getString("eq_seq"));
-//				eqDto.setName(rs.getString("name"));
-//				eqDto.setQuantity(rs.getInt("quantity"));
-//				
-//				eqList.add(eqDto);
-//			}
-//			
-//			return eqList;
-//			
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return null;
-//	}
 
 	// 새로 등록할 비품 seq 구하기
 	public String getEqSeq() {
@@ -190,6 +160,7 @@ public class EqDAO {
 		return null;
 	}
 
+	// 비품 수정하기
 	public int editEquip(EqDTO eqDto) {
 		
 		try {
@@ -210,6 +181,7 @@ public class EqDAO {
 		return 0;
 	}
 
+	// 등록된 비품 목록 조회
 	public List<EqDTO> getEqList(HashMap<String, String> map) {
 		
 		List<EqDTO> eqList = new ArrayList<EqDTO>();
@@ -222,10 +194,7 @@ public class EqDAO {
                 where = String.format("where name like '%%%s%%'"
                                      , map.get("word"));
              }
-//            
-//            String sql = String.format("select * from tblEq %s order by eq_seq asc"
-//            							, where);
-            
+
             String sql = String.format("select * from (select rownum as rnum, a.* from (select * from tblEq %s order by eq_seq asc) a) where rnum between %s and %s"
                     , where
             		, map.get("begin")
@@ -261,27 +230,61 @@ public class EqDAO {
 	}
 	
 	
-	//DAO > getTotalCount 메소드
-	//자기 게시물에 맞게 수정
+	// 페이징
 	public int getTotalCount(HashMap<String, String> map, int size) {
 		
 		try {
 			
+			String where ="";
 
-			String sql = "select count(*) as cnt from tblEq";
+			
+            if (map.get("search").equals("y")) {
+                where = String.format("where name like '%%%s%%'"
+                                     , map.get("word"));
+             }
 
+            String sql = String.format("select count(*) as cnt from tblEq %s", where);
+            
 			pstat = conn.prepareStatement(sql);
 
 			rs = pstat.executeQuery();
 
 			if (rs.next()) {
 				
-				System.out.println("지금 한 페이지에 출력되는 게시물 수: " + size);
-				System.out.println("전체 게시물 수: " + rs.getInt("cnt"));
-				
 				return rs.getInt("cnt");
 			}
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	// 페이징
+	public int getRegEqTotalCount(HashMap<String, String> map, int size) {
+		
+		try {
+			
+//			String where ="";
+//			
+//			
+//			if (map.get("search").equals("y")) {
+//				where = String.format("where name like '%%%s%%'"
+//						, map.get("word"));
+//			}
+			
+			String sql = "select count(*) as cnt from tblRegEq";
+			
+			pstat = conn.prepareStatement(sql);
+			
+			rs = pstat.executeQuery();
+			
+			if (rs.next()) {
+				
+				return rs.getInt("cnt");
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

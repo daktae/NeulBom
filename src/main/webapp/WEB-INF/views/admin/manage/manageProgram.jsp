@@ -101,18 +101,22 @@
                        <option value="content">내용</option>
                        <option value="place">장소</option>
                    </select><!-- select_search_item -->
-                   <input type="text" name="word" class="search_input" placeholder="프로그램 정보를 입력하세요." required maxlength="10">
-                  <input class="btn btn-primary search_button" type="submit" value="검색하기">
+                   <input type="text" name="word" class="search_input" 
+                   placeholder="프로그램 정보를 입력하세요." required maxlength="10">
+                   <input class="btn btn-primary search_button" 
+                   type="submit" value="검색하기">
                   </form>
+                  
+                  
 
              	</div><!-- semi_title -->
         <c:if test="${map.search == 'y'}">
 		<div id="searchResult">
-			<span>'${map.word}'(으)로 검색한 결과입니다.</span>
+			<span>'${map.word}'(으)로 검색한 결과 ${totalCount} 건이 있습니다.</span>
 		</div>
 		</c:if>
             <div class="main-box">
-            <table class="table table-striped table-hover table-bordered" style="table-layout: fixed">
+            <table class="table table-hover table-bordered" style="table-layout: fixed">
             <colgroup>
             	<col width=5%>
 				<col width=15%>

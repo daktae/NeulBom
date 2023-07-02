@@ -11,7 +11,9 @@
 <%@ include file="/WEB-INF/views/inc/assetclient.jsp" %>
 
 <style>
-
+	.introducetitle {
+		background-size: cover;
+	}
 </style>
 </head>
 
@@ -30,7 +32,7 @@
 						href="/neulbom/client/board/notice.do"
 						class="list-group-item list-group-item-action">공지사항</a> <a
 						href="/neulbom/client/board/food.do" class="list-group-item list-group-item-action">식단표</a> <a
-						href="/neulbom/client/board/life.do" class="list-group-item list-group-item-action">생활</a>
+						href="/neulbom/client/board/life.do" class="list-group-item list-group-item-action" style="background-color: #e9ecef;">생활</a>
 				</div>
 			</div>
 		</span>
@@ -76,8 +78,8 @@
                 <tbody>	
                 <c:forEach items="${list}" var="dto" varStatus="status">
                     <tr onclick="location.href='/neulbom/client/board/life_detail.do?life_seq=${dto.life_seq }';">
-                        <td>${fn:length(list) - status.index}</td>
-                        <td>${dto.title}</td>
+                        <td>${dto.rnum}</td>
+                        <td style="text-align: left;">${dto.title}</td>
                         <td>${fn:substring(dto.life_date.toString(), 0, 10)}</td>
                         <td>${dto.read}</td>
                     </tr>

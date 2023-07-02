@@ -10,6 +10,9 @@
 <%@ include file="/WEB-INF/views/inc/assetclient.jsp"%>
 
 <style>
+	.introducetitle {
+		background-size: cover;
+	}
 </style>
 </head>
 
@@ -27,7 +30,7 @@
 					<a href="#" class="list-group-item list-group-item-action active"
 						style="background-color: #043886;">알림 게시판</a> <a
 						href="/neulbom/client/board/notice.do"
-						class="list-group-item list-group-item-action">공지사항</a> <a
+						class="list-group-item list-group-item-action" style="background-color: #e9ecef;">공지사항</a> <a
 						href="/neulbom/client/board/food.do"
 						class="list-group-item list-group-item-action">식단표</a> <a
 						href="/neulbom/client/board/life.do"
@@ -84,9 +87,9 @@
 					<c:forEach items="${list}" var="dto" varStatus="status">
 						<tr
 							onclick="location.href='/neulbom/client/board/notice_detail.do?notice_seq=${dto.notice_seq }';">
-							<td>${fn:length(list) - status.index}</td>
-							<td>${dto.title}</td>
-							<td><c:choose>
+							<td>${dto.rnum}</td>
+							<td style="text-align: left;">${dto.title}</td>
+							<td style="text-align: left;"><c:choose>
 									<c:when test="${fn:length(dto.content) <= 50}">${dto.content}</c:when>
 									<c:otherwise>${fn:substring(dto.content, 0, 50)}...</c:otherwise>
 								</c:choose></td>

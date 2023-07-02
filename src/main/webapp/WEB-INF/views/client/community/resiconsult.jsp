@@ -14,13 +14,16 @@ a{
 	text-decoration:none;
 	color:#212529;
 }
+.introducetitle {
+		background-size: cover;
+	}
 </style>
 </head>
 
 <body>
 	<%@ include file="/WEB-INF/views/inc/headerclient.jsp" %>
 	
-	  <div id="consult" class="introducetitle" style="background-image: url('/neulbom/asset/mainimage/registwrite.jpg'); background-position: 50% 75%;">입주상담게시판</div>
+	  <div id="consult" class="introducetitle" style="background-image: url('/neulbom/asset/mainimage/registwrite.jpg'); background-position: 50% 75%;">커뮤니티</div>
 
 
 
@@ -31,8 +34,8 @@ a{
                 <div class="list-group list-group-flush"">
                     <a href="#" class="list-group-item list-group-item-action active" style="background-color: #043886;">커뮤니티</a>
                     <a href="/neulbom/client/board/resiconsult.do" class="list-group-item list-group-item-action" style="background-color: #e9ecef;">입주상담게시판</a>
-                    <a href="#" class="list-group-item list-group-item-action">문의게시판</a>
-                           <a href="#" class="list-group-item list-group-item-action">자유게시판</a>
+                    <a href="/neulbom/client/board/qna.do" class="list-group-item list-group-item-action">문의게시판</a>
+                           <a href="/neulbom/client/community/free.do" class="list-group-item list-group-item-action">자유게시판</a>
                 </div>
             </div>
         </span>
@@ -80,10 +83,17 @@ help
                     </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="dto" items="${list}">
+<c:set var="currentPage" value="${param.page != null ? param.page : 1}" />
+<c:set var="itemsPerPage" value="10" />
+<c:set var="startIndex" value="${(currentPage - 1) * itemsPerPage}" />
+
+<c:forEach var="dto" items="${list}" varStatus="loop">
   <input type="hidden" name="isreply" value="${dto.isreply}" />
   <tr>
-    <td>${dto.con_seq}</td>
+    <td>
+      <input type="hidden" name="con_seq" value="${dto.con_seq}" />
+      ${(startIndex + loop.index) + 1}
+    </td>
     <td style="text-align: left;">
       <c:choose>
         <c:when test="${dto.isreply == 'y'}">
@@ -95,7 +105,7 @@ help
     <td>${dto.nomem_name}</td>
     <td>${dto.con_date}</td>
   </tr>
-</c:forEach>  
+</c:forEach>
                 </tbody>
             </table>
              <div style="display: flex; justify-content: flex-end;">

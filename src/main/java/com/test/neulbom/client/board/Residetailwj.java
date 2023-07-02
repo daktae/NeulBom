@@ -29,11 +29,12 @@ public class Residetailwj extends HttpServlet {
 String con_seq = req.getParameter("con_seq");
 		
 	  NomemWjDAO dao = new NomemWjDAO();
-	  ConsultDTOWj dto = dao.show(con_seq);
-		
+	  ConsultDTOWj dto = new ConsultDTOWj();
+	  dto = dao.show(con_seq);
+	  
 	  req.setAttribute("dto", dto);
-	  	
-
+	  
+	  
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/board/residetailwj.jsp");
 		dispatcher.forward(req, resp);
 

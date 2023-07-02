@@ -80,13 +80,18 @@
 
 .add {
 	position: relative;
-	top: 50px;
+	top: 30px;
 	text-align: center;
 	display: inline-block;
 }
 
 #add_div {
 	float: right;
+}
+
+#paging {
+	position: relative;
+	top: 50px;
 }
 </style>
 </head>
@@ -108,15 +113,18 @@
 					</div>
 
 					<div class="select_boards life movable"
-					onclick="location.href='/neulbom/admin/board/life.do';">
+						onclick="location.href='/neulbom/admin/board/life.do';">
 						<span id="life_txt">생활게시판</span>
 					</div>
 
 					<div class="select_boards free movable"
-					onclick="location.href='/neulbom/admin/board/free.do';">
+						onclick="location.href='/neulbom/admin/board/free.do';">
 						<span id="free_txt">자유게시판</span>
 					</div>
 
+				</div>
+				<!-- semi_title -->
+				<div class="main-box">
 					<div>
 						<table class="table table-striped">
 							<colgroup>
@@ -145,7 +153,7 @@
 										<td>${dto.read}</td>
 										<td>
 											<div class="edit movable"
-											onclick="location.href='/neulbom/admin/board/editlife.do?seq=${dto.life_seq}'">
+												onclick="location.href='/neulbom/admin/board/editlife.do?seq=${dto.life_seq}'">
 												<span id="edit_txt">수정</span>
 											</div>
 											<div class="delete movable"
@@ -157,18 +165,18 @@
 								</c:forEach>
 							</tbody>
 						</table>
-					</div>
-
-					<div id="add_div">
-						<div class="add movable"
-							onclick="location.href='/neulbom/admin/board/addlife.do'">
-							<span id="add_txt">등록</span>
+						<c:if test="${list.size() != 0 }">
+							<div id="paging" class="pagination justify-content-center"
+								style="text-align: center; margin-bottom: 10px;">${pagination}</div>
+						</c:if>
+						<div id="add_div">
+							<div class="add movable"
+								onclick="location.href='/neulbom/admin/board/addlife.do'">
+								<span id="add_txt">등록</span>
+							</div>
 						</div>
 					</div>
-
 				</div>
-				<!-- semi_title -->
-				<div class="main-box"></div>
 				<!-- main-box -->
 			</div>
 			<!-- inner-box -->

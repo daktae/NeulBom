@@ -72,14 +72,14 @@
                     </tr>
                 </thead>
             </table>
+			<form method="POST" action="/neulbom/client/board/qnadel.do">
+				<button type="button" class="btn edit" onclick="history.back();">취소</button>
+		        <button type="submit" class="btn del" style="margin-right: 10px;">삭제하기</button>
+				<input type="hidden" name="qna_seq" value="${qna_seq}">
+			</form>
             </div>
             </div>
 	
-	<form method="POST" action="/neulbom/client/board/qnadel.do">
-		<button type="button" class="btn edit" onclick="history.back();">취소</button>
-        <button type="submit" class="btn del">삭제하기</button>
-		<input type="hidden" name="qna_seq" value="${qna_seq}">
-	</form>
      
     <hr>
             

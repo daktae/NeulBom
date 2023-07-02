@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<%@ include file="/WEB-INF/views/inc/assetclient.jsp" %>
 <style>
     html,body {
         margin: 0px;
@@ -20,20 +21,7 @@
         overflow-x: hidden;
     }
 
-    .introducetitle {
-        width: 100vw;
-        height: 162px;
-        background: url(../늘봄.jpg);
-        color: #ffffff; 
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        padding: 10px;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 3rem;
-        margin-bottom: 50px;
-    }
+    
 
     .mainmenu {
         display: flex;
@@ -93,6 +81,10 @@
     .right-align {
         text-align: right;
     }
+    
+    .introducetitle {
+		background-size: cover;
+	}
 
 
 
@@ -100,57 +92,13 @@
 
 <link rel="stylesheet" href="./asset/css/bootstrap.css">
 <link rel="stylesheet" href="./asset/css/footer.css">
-<link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 
 <body>
-    <div class="container">
-        <div class="userinfo_wj">
-            <div class="userinfo_item">
-                <button type="button" class="btn btn-primary btn-sm">로그인</button>
-                <button type="button" class="btn btn-secondary btn-sm btn-light">회원가입</button>
-            </div>
-        </div>
-        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 
-        ">
-            <a href="https://getbootstrap.kr/"
-                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <svg class="bi me-2" width="40" height="32">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-                <span><img src="../logo/clover.png" style="width:30px; height:30px; margin-right:10px;"></span>
-                <span class="fs-4">
-                    <h2>늘봄</h2>
-                </span>
-            </a>
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a href="https://getbootstrap.kr/docs/5.2/examples/headers/#" class="nav-link"
-                        aria-current="page">늘봄소개</a></li>
-                <li class="nav-item"><a href="https://getbootstrap.kr/docs/5.2/examples/headers/#"
-                        class="nav-link">입주안내</a></li>
-                <li class="nav-item"><a href="https://getbootstrap.kr/docs/5.2/examples/headers/#"
-                        class="nav-link">서비스</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                        aria-expanded="false">늘봄소식</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Separated link</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a href="https://getbootstrap.kr/docs/5.2/examples/headers/#"
-                        class="nav-link">자원봉사</a></li>
-
-            </ul>
-        </header>
-    </div>
     
-    <div class="introducetitle">알림게시판</div>
+    <%@ include file="/WEB-INF/views/inc/headerclient.jsp" %>
+    
+    <div class="introducetitle">늘봄 소개</div>
 
 
     <div class="mainmenu text-center">
@@ -158,9 +106,9 @@
             <div class="bg-light border-right">
                 <div class="list-group list-group-flush">
                     <a href="#" class="list-group-item list-group-item-action active" style="background-color: #043886;">늘봄 소개</a>
-                    <a href="http://localhost:8090/NeulBom/greetings.do" class="list-group-item list-group-item-action">인사말</a>
-                    <a href="#" class="list-group-item list-group-item-action">시설 소개</a>
-                    <a href="#" class="list-group-item list-group-item-action">오시는 길</a>
+                    <a href="http://localhost:8090/neulBom/client/board/greetings.do" class="list-group-item list-group-item-action">인사말</a>
+                    <a href="/neulbom/client/board/neulbomintroduce.do" class="list-group-item list-group-item-action">시설 소개</a>
+                    <a href="/neulbom/client/board/directions.do" class="list-group-item list-group-item-action" style="background-color: #e9ecef;">오시는 길</a>
                 </div>
             </div>
         </span>
@@ -192,40 +140,7 @@
     </div>
 
     
-    <footer class="footer_hee">
-        <div class="container_hee">
-            <div class="row_hee">
-                <div class="col_hee">
-                    <a class="logo_hee" href="#" aria-label="Bootstrap">
-                        <img src="../logo/clover.png" class="icon" style="width:25px; height:25px;">
-                        <span class="title_hee">늘봄</span>
-                    </a>
-                </div>
-                <div class="smalltitle_hee">
-                    <h5>이용약관</h5>
-                    <ul class="list-unstyled_hee">
-                        <li class="mb_hee1">대표 : 이동재</a></li>
-                        <li class="mb_hee">서울 강남구 테헤란로132</a></li>
-                    </ul>
-                </div>
-                <div class="smalltitle_hee">
-                    <h5>개인정보처리방침</h5>
-                    <ul class="list-unstyled_hee">
-                        <li class="mb_hee1">전화 : 02-1234-5678</a></li>
-                        <li class="mb_hee">개인정보책임관리 : 양진영</a></li>
-                    </ul>
-                </div>
-                <div class="smalltitle_hee">
-                    <h5>책임의 한계와 법적 고지</h5>
-                    <ul class="list-unstyled_hee">
-                        <li class="mb_hee1">이메일 : dongjae97@naver.com</li>
-                    </ul>
-                </div>
-                <div>ⓒ2023 Company NewulBom.Allrights reserved</div>
-            </div>
-        </div>
-
-    </footer>
+    <%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
 
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=015fae8b95c2d0f2c4d727e44d11a138"></script>

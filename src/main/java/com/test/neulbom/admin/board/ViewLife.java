@@ -29,7 +29,7 @@ public class ViewLife extends HttpServlet {
 		content = content.replace("<", "&lt;").replace(">", "&gt;");
 
 		// 글 내용 개행 문자 처리
-		content = content.replace("\r", "<br><br>");
+		content = content.replace("\r", "<br>");
 		content = content.replace("\r\n", "<br>");
 		
 		dto.setContent(content);

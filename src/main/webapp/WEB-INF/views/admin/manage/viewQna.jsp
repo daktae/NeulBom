@@ -87,7 +87,11 @@ td.comment {
 }
 
 #headline {
-	background-color: rgba(39, 174, 96, 0.2);
+	background-color: rgba(39, 166, 174, 0.2);
+}
+
+#headline>span {
+	color: #5888CE;
 }
 
 #rcontent {
@@ -116,6 +120,16 @@ td.comment {
 	overflow: auto;
 	border: none;
 }
+
+.scrollable {
+	clear: both;
+	width: auto;
+	height: 650px;
+	display: block;
+	overflow: auto;
+	overflow-x: hidden;
+	padding: 10px;
+}
 </style>
 </head>
 <body>
@@ -132,8 +146,10 @@ td.comment {
 
 				</div>
 				<!-- semi_title -->
-				<div class="main-box">
-					<form method="POST" action="/neulbom/admin/manage/viewqna.do">
+				<div class="main-box scrollable">
+					<form method="POST" action="/neulbom/admin/manage/viewqna.do"
+						enctype="multipart/form-data">
+						<input type="hidden" name="seq" value="${dto.qna_seq}">
 						<table class="table" style="table-layout: fixed;">
 							<colgroup>
 								<col width=25%>
@@ -143,21 +159,19 @@ td.comment {
 							</colgroup>
 							<tr>
 								<td>제목</td>
-								<td colspan="3"><b>${dto.title}</b></td>
+								<td><b>${dto.title}</b></td>
+								<td>등록일</td>
+								<td>${dto.qna_date}</td>
 							</tr>
 							<tr>
 								<td>글쓴이</td>
 
-								<td colspan="3"><c:if test="${not empty dto.pname}">
+								<td><c:if test="${not empty dto.pname}">
 										${dto.pname}(${dto.type})
 										</c:if> <c:if test="${not empty dto.rname}">
 										${dto.rname}(${dto.type})
 										</c:if></td>
-							</tr>
 
-							<tr>
-								<td>등록일</td>
-								<td>${dto.qna_date}</td>
 								<td>조회수</td>
 								<td>${dto.read}</td>
 							</tr>
@@ -172,20 +186,24 @@ td.comment {
 							</tr>
 
 							<tr>
-								<td colspan="4" id="headline">답글</td>
+								<td colspan="4" id="headline"><span>답글</span></td>
 							</tr>
-							
+
 							<c:if test="${dto.isReply eq 'y'}">
 								<tr>
 									<td>제목</td>
 									<td>${qdto.title}</td>
-									<td>조회수</td>
-									<td>${qdto.read}</td>
+									<td>작성자</td>
+									<td>${qdto.replier}</td>
 								</tr>
 								<tr id="comment">
 									<td>내용</td>
-									<td colspan="3" id="comment-content"><pre>${qdto.content}</pre>
-									</td>
+									<td colspan="3" id="comment-content"><c:if
+											test="${not empty qdto.fname}">
+											<div id="attachment">
+												<img src="/neulbom/asset/qreply/${qdto.fname}">
+											</div>
+										</c:if> <pre>${qdto.content}</pre></td>
 								</tr>
 							</c:if>
 
@@ -193,16 +211,22 @@ td.comment {
 
 								<tr>
 									<td>제목</td>
-									<td colspan="3" id="rtitle-input"><textarea id="rtitle" name="rtitle" 
-											autofocus></textarea></td>
+									<td colspan="3" id="rtitle-input"><textarea id="rtitle"
+											name="rtitle" autofocus></textarea></td>
 								</tr>
 								<tr>
 									<td>내용</td>
-									<td colspan="3" id="rcontent-input"><textarea id="rcontent"
-											name="rcontent"></textarea></td>
+									<td colspan="3" id="rcontent-input"><textarea
+											id="rcontent" name="rcontent"></textarea></td>
+								</tr>
+								<tr>
+									<td>첨부파일</td>
+									<td colspan="3" style="text-align: left;"><input
+										type="file" name="fname" id="fname" /></td>
 								</tr>
 
 							</c:if>
+
 
 							<tr>
 								<td colspan="4" id="button-td">
@@ -235,13 +259,12 @@ td.comment {
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script>
-	
-	 var rtitle = document.getElementById("rtitle");
-	  rtitle.placeholder = "제목을 입력하세요";
-	  
-		 var rcontent = document.getElementById("rcontent");
-		  rcontent.placeholder = "내용을 입력하세요";
-	
+		var rtitle = document.getElementById("rtitle");
+		rtitle.placeholder = "제목을 입력하세요";
+
+		var rcontent = document.getElementById("rcontent");
+		rcontent.placeholder = "내용을 입력하세요";
+
 		$('#reply').click(function() {
 			$('form').submit();
 		});

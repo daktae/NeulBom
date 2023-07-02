@@ -37,7 +37,7 @@ public class NomemWjDAO {
 	public ConsultDTOWj show(String con_seq) {
 		try {
 
-			String sql = "select * from vwconsult where con_seq = ?";
+			String sql = "select * from (select rownum as rnum, a.* from (select * from vwconsult order by con_seq desc) a) where con_seq = ?";
 
 			pstat = conn.prepareStatement(sql);
 			pstat.setString(1, con_seq);
@@ -54,6 +54,7 @@ public class NomemWjDAO {
 				dto.setRetitle(rs.getString("title"));
 				dto.setIsreply(rs.getString("isreply"));
 				dto.setRecontent(rs.getString("content"));
+				dto.setRnum(rs.getString("rnum"));
 				return dto;
 			}
 

@@ -52,6 +52,15 @@ public class DetailProgram extends HttpServlet {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");	
 		String limitDate = dateFormat.format(limit);
 		
+		//마감 날짜 구하기 (현재날짜 -14일)
+		Date date = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -14);	//현재 날짜 -14
+		Date limit = cal.getTime();
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");	//날짜 형식 변경
+		String limitDate = dateFormat.format(limit);
+		
 		
 		req.setAttribute("dto", dto);
 		req.setAttribute("result", result);

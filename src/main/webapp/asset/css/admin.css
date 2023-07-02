@@ -5,6 +5,7 @@
     font-style: normal;
 }
 
+
 html {
     font-family: 'IBMPlexSansKR-Regular';
 }
@@ -31,8 +32,9 @@ table td {
     align-items: flex-start;
 }
 
-.menu:hover {
+.menu:hover, .menu1:hover, .menu2:hover {
 	cursor: pointer;
+	color: red;
 	
 }
 
@@ -63,6 +65,10 @@ table td {
     padding-top: 7px;
 }
 
+.logout:hover {
+	cursor: pointer;
+}
+
 .menubox {
     top: 200px;
     height: 525px;
@@ -86,7 +92,12 @@ table td {
     
 }
 
-.menu {
+.profile-img {
+	width: 150px;
+	height: 150px;
+	border-radius: 10px;
+}
+.menu, .menu1, .menu2 {
     color: #333;
     padding-bottom: 10px;
     text-align: center;
@@ -97,8 +108,10 @@ table td {
     justify-content: center;
     align-items: center;
     font-weight: bold;
+    text-decoration: none;
 
 }
+
 .profilename { 
     color:rgba(51, 51, 51, 1);
     width:56px;
@@ -282,9 +295,6 @@ table td {
     
 }
 
-.menu:hover {
-	color: red;
-}
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
 
 :root {

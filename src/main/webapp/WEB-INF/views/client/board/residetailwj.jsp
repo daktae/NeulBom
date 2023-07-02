@@ -146,7 +146,8 @@ pre{
             <table class="table table-bordered table-hover content-head_wj">
                 <thead>
                     <tr>
-                      <th>${dto.con_seq }</th>
+                    	 <input type="hidden" name="con_seq" value="${dto.con_seq}" />
+                      <th>${dto.rnum }</th>
                       <th style="text-align: left;">${dto.title }</th>
                       <th>${dto.name }</th>
                       <c:set var="date" value="${dto.con_date}" />
@@ -162,7 +163,8 @@ pre{
         <table class="table table-bordered table-hover content-head_wj">
             <thead>
                 <tr>
-                    <th>${dto.con_seq}</th>
+                                    	 <input type="hidden" name="con_seq" value="${dto.con_seq}" />
+                    <th>${dto.rnum}</th>
                     <th style="text-align: left;">${dto.retitle}</th>
                     <th>관리자</th>
                       <c:set var="date" value="${dto.con_date}" />

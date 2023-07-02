@@ -52,10 +52,11 @@
                 <thead>
                     <tr>
                       <%-- <th>${dto.qna_seq}</th> --%>
-                      <th style="text-align: left;"><input type="text" name="title" id="title" required value="${dto.title}" style="width:100%;"></th>
+                      <th style="text-align: left;"><input type="text" name="title" required value="${dto.title}" style="width:100%;"></th>
+                      <c:if test="${dto.fname != null}">
                       <th>${dto.fname}</th>
+                      </c:if>
                       <th>${dto.qna_date}</th>
-                      <th>${dto.read}</th>
                     </tr>
                     <tr>
                     	<th text-align="center" colspan=5>

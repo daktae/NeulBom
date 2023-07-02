@@ -21,7 +21,6 @@ public class ManageEquip extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// ManageEquip.java
-		
 		HttpSession session = req.getSession();
 		
 		//jsp 에서 page 받아오기
@@ -73,7 +72,7 @@ public class ManageEquip extends HttpServlet {
 		
 		// 페이징 작업
 		// 총 게시물
-		totalCount = dao.getTotalCount(map, size);
+		totalCount = dao.getRegEqTotalCount(map, size);
 		totalPage = (int) Math.ceil((double) totalCount / pageSize);
 		
 		loop = 1;	//루프 변수

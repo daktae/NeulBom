@@ -30,7 +30,7 @@
                 <div class="list-group list-group-flush">
                     <a href="#" class="list-group-item list-group-item-action active" style="background-color: #043886;">알림게시판</a>
                     <a href="/neulbom/client/board/notice.do" class="list-group-item list-group-item-action">공지사항</a>
-                    <a href="/neulbom/client/board/food.do" class="list-group-item list-group-item-action">식단표</a>
+                    <a href="/neulbom/client/board/food.do" class="list-group-item list-group-item-action" style="background-color: #e9ecef;">식단표</a>
                     <a href="/neulbom/client/board/life.do" class="list-group-item list-group-item-action">생활</a>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                 </thead>
             </table>
             <div class="content_wj" style="text-align:left;">
-              <img src="/neulbom/asset/image/${dto.content}">
+              <img src="/neulbom/asset/food/${dto.content}">
             </div>
             <hr>
             <button type="button" class="btn btn-primary btn-sm" style="width:100px; height:40px; margin-right:10px; font-size: 20px; float:left;" onclick="history.back()">돌아가기</button>

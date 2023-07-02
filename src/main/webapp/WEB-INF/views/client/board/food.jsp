@@ -11,7 +11,9 @@
 <%@ include file="/WEB-INF/views/inc/assetclient.jsp" %>
 
 <style>
-
+	.introducetitle {
+		background-size: cover;
+	}
 </style>
 </head>
 
@@ -29,7 +31,7 @@
 						style="background-color: #043886;">알림 게시판</a> <a
 						href="/neulbom/client/board/notice.do"
 						class="list-group-item list-group-item-action">공지사항</a> <a
-						href="/neulbom/client/board/food.do" class="list-group-item list-group-item-action">식단표</a> <a
+						href="/neulbom/client/board/food.do" class="list-group-item list-group-item-action" style="background-color: #e9ecef;">식단표</a> <a
 						href="/neulbom/client/board/life.do" class="list-group-item list-group-item-action">생활</a>
 				</div>
 			</div>
@@ -74,8 +76,8 @@
                 <tbody>
                 <c:forEach items="${list}" var="dto" varStatus="status">
                     <tr onclick="location.href='/neulbom/client/board/food_detail.do?food_seq=${dto.food_seq }';">
-                        <td>${fn:length(list) - status.index}</td>
-                        <td>${dto.title}</td>
+                        <td>${dto.rnum}</td>
+                        <td style="text-align: left;">${dto.title}</td>
                         <td>${fn:substring(dto.food_date.toString(), 0, 10)}</td>
                         <td>${dto.read}</td>
                     </tr>
@@ -93,7 +95,7 @@
 			</a></li>
 			<c:forEach begin="1" end="${totalPage}" var="pageNumber">
 				<li class="page-item"><a class="page-link"
-					href="<%=request.getContextPath() %>/client/board/notice.do?page=${pageNumber}">${pageNumber}</a>
+					href="<%=request.getContextPath() %>/client/board/food.do?page=${pageNumber}">${pageNumber}</a>
 				</li>
 			</c:forEach>
 			<li class="page-item"><a class="page-link" href="#"

@@ -64,11 +64,6 @@
 	color: #4F4F4F;
 }
 
-.table {
-	position: relative;
-	top: 50px;
-}
-
 .table thead tr th {
 	text-align: center;
 }
@@ -104,6 +99,26 @@
 #delete_txt {
 	color: #EB7257;
 }
+
+.add {
+	position: relative;
+	top: 30px;
+	text-align: center;
+	display: inline-block;
+}
+
+#add_div {
+	float: right;
+}
+
+#paging {
+	position: relative;
+	top: 50px;
+}
+
+#title, .edit, .delete {
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -133,6 +148,9 @@
 						<span id="free_txt">자유게시판</span>
 					</div>
 
+				</div>
+				<!-- semi_title -->
+				<div class="main-box">
 					<div>
 						<table class="table table-striped">
 							<colgroup>
@@ -156,16 +174,18 @@
 
 									<tr>
 										<td>${dto.displayed_seq}</td>
-										<td onclick="location.href='/neulbom/admin/board/viewfood.do?seq=${dto.food_seq}'">
+										<td id="title"
+											onclick="location.href='/neulbom/admin/board/viewfood.do?seq=${dto.food_seq}'">
 											${dto.title}</td>
 										<td>${dto.food_date}</td>
 										<td>${dto.read}</td>
 										<td>
-											<div class="edit">
+											<div class="edit"
+											onclick="location.href='/neulbom/admin/board/editfood.do?seq=${dto.food_seq}'">
 												<span id="edit_txt">수정</span>
 											</div>
-											<div class="delete" 
-											onclick="location.href='/neulbom/admin/board/deletefood.do?seq=${dto.food_seq}'">
+											<div class="delete"
+												onclick="location.href='/neulbom/admin/board/deletefood.do?seq=${dto.food_seq}'">
 												<span id="delete_txt">삭제</span>
 											</div>
 										</td>
@@ -173,11 +193,19 @@
 								</c:forEach>
 							</tbody>
 						</table>
+						<!-- 페이징 -->
+						<c:if test="${list.size() != 0 }">
+							<div id="paging" class="pagination justify-content-center"
+								style="text-align: center; margin-bottom: 10px;">${pagination}</div>
+						</c:if>
+						<div id="add_div">
+							<div class="add movable"
+							onclick="location.href='/neulbom/admin/board/addfood.do'">
+								<span id="add_txt">등록</span>
+							</div>
+						</div>
 					</div>
-
 				</div>
-				<!-- semi_title -->
-				<div class="main-box"></div>
 				<!-- main-box -->
 			</div>
 			<!-- inner-box -->

@@ -46,59 +46,53 @@ body {
 					<div class="profile">
 
 						<c:set var="dto" value="${dto}" />
-						<img src="/html/images/01.jpg" id="profileimg">
+						<img src="/neulbom/asset/images/user.png" id="profileimg">
 						<h1 class="profilename">${dto.name}님</h1>
 						<h1 class="profilename_id">(${dto.id})</h1>
 
 					</div>
 					<div class="menubox">
-						<div class="menu" id="create_account">
-							<span class="material-symbols-outlined">person</span> 내정보
-						</div>
-						<!-- 						<div class="menu" id="manage_money">
-							<span class="material-symbols-outlined"> credit_card </span> 결제신청
-						</div> -->
-						<div class="menu" id="search_staff">
-							<span class="material-symbols-outlined"> credit_score </span>
-							결제관리
-						</div>
+                  <div class="menu" id="create_account"
+                     onclick="location.href='/neulbom/client/mypage/mypage_info.do';">
+                     <span class="material-symbols-outlined">person</span> 내정보
+                  </div>
+                  <div class="menu" id="search_staff"
+                     onclick="location.href='/neulbom/client/mypage/mypage_payment_details.do';">
+                     <span class="material-symbols-outlined">
+                        credit_score </span> 결제관리
+                  </div>
 
+                  <div class="menu" id="manage_account"
+                     onclick="location.href='/neulbom/client/mypage/mypage_meet.do';">
+                     <span class="material-symbols-outlined">
+                        pending_actions </span> 면회관리
+                  </div>
 
-						<div class="menu" id="manage_account">
-							<span class="material-symbols-outlined"> pending_actions </span>
-							면회관리
-						</div>
+                  <div class="menu" id="staff_salary"
+                     onclick="location.href='/neulbom/client/mypage/program.do';">
+                     <span class="material-symbols-outlined btnprog"> groups_2
+                     </span> 복지프로그램관리
+                  </div>
+                  <div class="menu" id="manage_equip"
+                     onclick="location.href='/neulbom/client/mypage/mypage_inquiry.do';">
+                     <span class="material-symbols-outlined">
+                        support_agent </span> 내 문의
+                  </div>
 
-
-						<div class="menu" id="staff_salary">
-							<span class="material-symbols-outlined"> groups_2 </span>
-							복지프로그램관리
-						</div>
-						<div class="menu" id="manage_equip">
-							<span class="material-symbols-outlined"> support_agent </span> 내
-							문의
-						</div>
-
-						<hr>
-						<div class="menu" id="manage_qna_consult">
-							<span class="material-symbols-outlined"> help </span> 늘봄
-						</div>
-
-
-					</div>
-					<!-- <div class="logout">
-                        로그아웃
-                </div> -->
-
-				</div>
-			</div>
+                  <hr>
+                  <div class="menu" id="manage_qna_consult">
+                     <span class="material-symbols-outlined"> help </span> 늘봄
+                  </div>
+               </div>
+            </div>
+         </div>
 
 
 
 			<div class="col-md-9">
-				<div class="box">
+				<div class="box" style="height:100%;">
 					<div class="title">면회신청</div>
-					<hr>
+					<hr style="margin-bottom: 120px;">
 					<div class="row justify-content-center">
 						<form method="post" action="/neulbom/client/mypage/mypage_meetadd.do">
 						<table class="table">
@@ -139,7 +133,7 @@ body {
 								<td><div class="content">${dto.email}</div></td>
 							</tr> --%>
 						</table>
-						<hr>
+						<hr style="margin-top: 120px; margin-bottom: 120px;">
 							<div class="d-grid gap-2 col-6 mx-auto">
 								<button class="btn btn-outline-primary" type="submit" onclick="location.href='/neulbom/client/mypage/mypage_meetadd.do';">면회 신청</button>
 								<button class="btn btn-outline-primary" type="button" onclick="history.back()">취소</button>

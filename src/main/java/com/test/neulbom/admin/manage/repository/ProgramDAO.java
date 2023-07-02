@@ -167,7 +167,7 @@ public class ProgramDAO {
              }
 			
 			
-			String sql = String.format("select * from (select rownum as rnum, a.* from  (select prog_seq, title, to_char(prog_date, 'yyyy-mm-dd') as prog_date, content, place, people from tblProgram %s order by prog_seq asc, prog_date asc) a) where rnum between %s and %s"
+			String sql = String.format("select * from (select rownum as rnum, a.* from  (select prog_seq, title, to_char(prog_date, 'yyyy-mm-dd') as prog_date, content, place, people from tblProgram %s order by prog_seq desc, prog_date desc) a) where rnum between %s and %s"
 									, where
 									, map.get("begin")
 									, map.get("end"));
@@ -204,7 +204,13 @@ public class ProgramDAO {
 		
 		try {
 
-			String sql = "select count(*) as cnt from tblProgram";
+			String where ="";
+			
+			if (map.get("search").equals("y")) {
+				where = String.format("where %s like '%%%s%%'", map.get("column"), map.get("word") );
+			}
+			
+			String sql = String.format("select count(*) as cnt from tblProgram %s", where); 
 
 			pstat = conn.prepareStatement(sql);
 

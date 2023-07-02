@@ -111,7 +111,7 @@
           	
           	<c:if test="${map.search == 'y'}">
 			<div id="searchResult">
-				<span>'${map.word}'(으)로 검색한 결과입니다.</span>
+				<span>'${map.word}'(으)로 검색한 결과 ${totalCount} 건이 있습니다.</span>
 			</div>
 			</c:if>
           	

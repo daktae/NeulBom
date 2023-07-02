@@ -14,5 +14,5 @@ public class ConsultDTOWj {
 	private String name;
 	private String retitle;
 	private String recontent;
-	
+	private String rnum;
 }

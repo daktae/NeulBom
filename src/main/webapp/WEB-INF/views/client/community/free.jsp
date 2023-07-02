@@ -12,6 +12,7 @@
 <style>
 .introducetitle {
 	background-image: url("/neulbom/asset/image/자유게시판 사진.jpg");
+	background-size: cover;
 }
 
 tr:hover {
@@ -49,13 +50,12 @@ a {
 	<div class="mainmenu text-center">
 		<span class="sidebar">
 			<div class="bg-light border-right">
-				<div class="list-group list-group-flush">
-					<a href="#" class="list-group-item list-group-item-action active"
-						style="background-color: #043886;">커뮤니티</a> <a href="#"
-						class="list-group-item list-group-item-action">입주상담 게시판</a> <a
-						href="#" class="list-group-item list-group-item-action">문의게시판</a>
-					<a href="#" class="list-group-item list-group-item-action">자유게시판</a>
-				</div>
+				<div class="list-group list-group-flush"">
+                    <a href="#" class="list-group-item list-group-item-action active" style="background-color: #043886;">커뮤니티</a>
+                    <a href="/neulbom/client/board/resiconsult.do" class="list-group-item list-group-item-action" >입주상담게시판</a>
+                    <a href="/neulbom/client/board/qna.do" class="list-group-item list-group-item-action">문의게시판</a>
+                           <a href="/neulbom/client/community/free.do" class="list-group-item list-group-item-action" style="background-color: #e9ecef;">자유게시판</a>
+                </div>
 			</div>
 		</span>
 

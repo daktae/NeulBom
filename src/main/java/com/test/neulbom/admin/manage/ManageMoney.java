@@ -38,10 +38,40 @@ public class ManageMoney extends HttpServlet {
 		
 		List<SpendDTO> latestSpendList = moneyDao.getLatestSpend();
 		
-		req.setAttribute("latestSpendList", latestSpendList);
+		
+		// 최근 지출 내역 총합 
+		String spendSum = moneyDao.getSpendSum();
+		
 
+		// 월별 지출 내역
+//		List<SpendDTO> monthlySpendList = moneyDao.getMonthlySpendList();
+//		
+//		req.setAttribute("monthlySpendList", monthlySpendList);
+		
+
+		List<SpendDTO> monthlySpendList = moneyDao.getMonthlySpendList();
+		
+		
+		
+		
+		req.setAttribute("latestSpendList", latestSpendList);
+		req.setAttribute("spendSum", spendSum);
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/admin/manage/manageMoney.jsp");
 		dispatcher.forward(req, resp);
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

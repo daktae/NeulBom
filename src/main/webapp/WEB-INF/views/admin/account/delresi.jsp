@@ -29,9 +29,12 @@
 	            <div class="main-box">
 					<form method="POST" action="/neulbom/admin/account/delresi.do">
 						<div>
-							<button type="button" class="back"
-								onclick="history.back();">돌아가기</button>
-							<button type="submit" class="del primary">삭제하기</button>	
+							<h1>정말로 삭제하시겠습니까?</h1>
+							<div style="margin: 20px;">
+								<button type="button" class="btn btn-light"
+									onclick="history.back();">돌아가기</button>
+								<button type="submit" class="btn btn-primary" style="margin-left: 10px;">삭제하기</button>	
+							</div>
 						</div>
 						
 						<input type="hidden" name="resi_seq" value="${resi_seq}">
