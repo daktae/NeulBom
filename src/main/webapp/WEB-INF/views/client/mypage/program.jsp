@@ -52,18 +52,14 @@ body {
 }
 
 #summary {
-	width: 100%;
-	margin: 30px auto;
+	width: 100%; margin : 30px auto;
 	font-weight: bold;
+	margin: 30px auto;
 }
 
 .search {
-
 	margin: 0 10px;
 }
-
-
-
 </style>
 
 
@@ -77,7 +73,8 @@ body {
 			<div class="col-md-3">
 				<div class="sidebox">
 					<div class="profile">
-						<img src="/neulbom/asset/images/user.png" id="profileimg" style="width: 150px; height: 140px; margin: none;">
+						<img src="/neulbom/asset/images/user.png" id="profileimg"
+							style="width: 150px; height: 140px; margin: none;">
 						<h1 class="profilename">'${name }'님</h1>
 						<h1 class="profilename_id" style="margin-right: 120px;">(${id})</h1>
 					</div>
@@ -122,58 +119,42 @@ body {
 				<div class="box" style="height: 100%; width: 100%;">
 					<!-- 버튼 -->
 					<div>
-						<input type="button" class="btn btn-primary" style="font-size: 20px; margin-right: 20px;" name="btnradio"
-							id="btn1" checked onclick="location.href='/neulbom/client/mypage/program.do';" value="복지프로그램 신청">
-
-						<input type="button" class="btn btn-secondary"  style="font-size: 20px;" name="btnradio"
-							id="btn2" selected onclick="location.href='/neulbom/client/mypage/myprogram.do?resi_seq=${resi_seq}';" value="내 신청내역">
+						<input type="button" class="btn btn-primary"
+							style="font-size: 20px; margin-right: 20px;" name="btnradio"
+							id="btn1" checked
+							onclick="location.href='/neulbom/client/mypage/program.do';"
+							value="복지프로그램 신청"> <input type="button"
+							class="btn btn-secondary" style="font-size: 20px;"
+							name="btnradio" id="btn2" selected
+							onclick="location.href='/neulbom/client/mypage/myprogram.do?resi_seq=${resi_seq}';"
+							value="내 신청내역">
 					</div>
-					
-					<!-- <form class="d-flex" role="search" style="max-width: 50%;"
-		action="/neulbom/client/board/resiconsult.do" method="GET">
-		
-		<select class="form-select" name="search_option"
-			style="width: 100px; margin-right: 10px;"
-			aria-label="Default select example" onchange="toggleDateInputs(this)">
-			<option value="title">제목</option>
-			<option value="author">작성자</option>
-			<option value="date">날짜</option>
-		</select> 
-		<input class="form-control_wj"
-			style="width: 200px; margin-right: 10px; display: none;" type="date"
-			name="start_date" placeholder="시작일" aria-label="Start Date">
-		<span class="separate" style="display: none; margin-right: 10px;">~</span>
-		<input class="form-control_wj" type="date"
-			style="width: 200px; margin-right: 10px; display: none;"
-			name="end_date" placeholder="종료일" aria-label="End Date"> <input
-			class="form-control_wj" style="width: 200px; margin-right: 10px;"
-			type="text" name="search_keyword" placeholder="검색"
-			aria-label="Search">
-		<button class="btn btn-light" type="submit"
-			style="width: 74px !important; height: 38px !important; white-space: nowrap;">검색</button>
-	</form> -->
-					
 
 					<br> <br>
 					<form method="GET" action="/neulbom/client/mypage/program.do">
-                      <div class="selec">
-                         <input type="date" name="start_date" class="search"><div style="font-size: 20px;"> ~ </div><input type="date" class="search" name="end_date">
-                       <button type="submit" class="btn " style="background-color: #AAA; color: white;">검색</button>
-                    </div>
-                    </form>
+						<div class="selec">
+							<input type="date" name="start_date" class="search">
+							<div style="font-size: 20px;">~</div>
+							<input type="date" class="search" name="end_date">
+							<button type="submit" class="btn "
+								style="background-color: #AAA; color: white;">검색</button>
+						</div>
+					</form>
 					<hr>
 
 					<c:if test="${map.start_date != null}">
-                    <div id="summary">${map.start_date} ~ ${map.end_date} 복지 프로그램 내역이 총 ${totalCount}건이 있습니다.</div>
-               </c:if>
-               <c:if test="${map.start_date == null}">
-                    <div id="summary">복지 프로그램 내역이 총 ${totalCount}건이 있습니다.</div>
-                    </c:if>
+						<div id="summary">${map.start_date}~ ${map.end_date} 복지 프로그램
+							내역이 총 ${totalCount}건이 있습니다.</div>
+					</c:if>
+					<c:if test="${map.start_date == null}">
+						<div id="summary">복지 프로그램 내역이 총 ${totalCount}건이 있습니다.</div>
+					</c:if>
 
 
 					<form method="POST" action="/neulbom/client/mypage/program.do">
-						<div class="row justify-content-center" style="width: 100%; margin-left: 1px;">
-							<table class="table" >
+						<div class="row justify-content-center"
+							style="width: 100%; margin-left: 1px;">
+							<table class="table">
 								<thead>
 									<tr>
 										<th scope="col">번호</th>
@@ -194,14 +175,15 @@ body {
 											<td style="text-align: justify">${dto.title}</td>
 											<td style="text-align: justify">${dto.content}</td>
 											<td>${dto.place}</td>
-											<td>${dto.apply} / ${dto.people}</td>
-											<c:if test="${dto.apply >= dto.people || dto.prog_date < limitDate}">
+											<td>${dto.apply}/ ${dto.people}</td>
+
+											<c:if
+												test="${dto.apply >= dto.people || dto.prog_date < limitDate}">
 												<td style="font-weight: bold; color: #AAA;">마감</td>
 											</c:if>
-											<c:if test="${dto.apply < dto.people && dto.prog_date >= limitDate}">
-
+											<c:if
+												test="${dto.apply < dto.people && dto.prog_date >= limitDate}">
 												<td style="font-weight: bold; color: blue">신청 가능</td>
-
 											</c:if>
 										</tr>
 
@@ -227,7 +209,7 @@ body {
 		</div>
 	</div>
 
-	
+
 
 
 
@@ -239,27 +221,24 @@ body {
 		location.href = "/neulbom/client/mypage/myprogram.do?resi_seq=${resi_seq}";
 
 	}
-	
-	
-	function toggleDateInputs(selectElement) {
-	    const startDateInput = document.getElementsByName('start_date')[0];
-	    const endDateInput = document.getElementsByName('end_date')[0];
-	    const searchKeywordInput = document.getElementsByName('search_keyword')[0];
-	    const separateElement = document.querySelector('.separate');
 
-	    if (selectElement.value === 'date') {
-	        startDateInput.style.display = 'inline-block';
-	        endDateInput.style.display = 'inline-block';
-	        separateElement.style.display = 'inline-block';
-	        searchKeywordInput.style.display = 'none';
-	    } else {
-	        startDateInput.style.display = 'none';
-	        endDateInput.style.display = 'none';
-	        separateElement.style.display = 'none';
-	        searchKeywordInput.style.display = 'inline-block';
-	    }
+	function toggleDateInputs(selectElement) {
+		const startDateInput = document.getElementsByName('start_date')[0];
+		const endDateInput = document.getElementsByName('end_date')[0];
+		const searchKeywordInput = document.getElementsByName('search_keyword')[0];
+		const separateElement = document.querySelector('.separate');
+
+		if (selectElement.value === 'date') {
+			startDateInput.style.display = 'inline-block';
+			endDateInput.style.display = 'inline-block';
+			separateElement.style.display = 'inline-block';
+			searchKeywordInput.style.display = 'none';
+		} else {
+			startDateInput.style.display = 'none';
+			endDateInput.style.display = 'none';
+			separateElement.style.display = 'none';
+			searchKeywordInput.style.display = 'inline-block';
+		}
 	}
-	
-	
 </script>
 </html>

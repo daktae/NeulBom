@@ -70,14 +70,10 @@ public class ViewFree extends HttpServlet {
 		
 		
 		
-		//HTML 태그 이스케이프 > 꺽쇠 처리 > 엔터 처리 보다 먼저 처리해야함
-		content = content.replace("<", "&lt;").replace(">", "&gt;");
-		
 //		dto.setId((String)session.getAttribute("id"));	//로그인 한 사람의 ID > 세션안에 있는거라 아무데서나 쓸 수 있음
 		dto.setContent(content);
 		req.setAttribute("dto", dto);
 		
-		System.out.println(dto.getFile());
 //		String protId = dao.getProtId(free_seq);
 		
 		//댓글 목록 가져오기

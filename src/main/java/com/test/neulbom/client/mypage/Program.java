@@ -165,10 +165,11 @@ public class Program extends HttpServlet {
 		//마감 날짜 구하기 (현재날짜 -14일)
 		Date date = new Date();
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, -14);	//현재 날짜 -14
+		cal.add(Calendar.DATE, -14); //현재 날짜구한 후 -14일
 		Date limit = cal.getTime();
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");	//날짜 형식 변경
+		//날짜 형식 변경
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");	
 		String limitDate = dateFormat.format(limit);
 		
 		

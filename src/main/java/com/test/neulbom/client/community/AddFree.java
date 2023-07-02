@@ -73,6 +73,9 @@ public class AddFree extends HttpServlet {
 			FreeDTO dto = new FreeDTO();
 			ClientDAO dao = new ClientDAO();
 			
+			
+			
+			
 			String free_seq = dao.addSeq();
 			
 			dto.setFree_seq(free_seq); //DB에 있는 free_seq 최대값 + 1
@@ -86,6 +89,9 @@ public class AddFree extends HttpServlet {
 			
 			int thread = -1;
 			int depth = -1;
+			
+			
+			
 			
 			
 			

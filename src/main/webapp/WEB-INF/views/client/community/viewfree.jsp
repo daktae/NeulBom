@@ -121,11 +121,9 @@ margin-bottom: 50px;
 
 }
 
-img {
-
-	
-
-}
+/* pre{
+    white-space: pre-wrap; /* pre tag내에 word wrap */
+}  */ 
 
 
 
@@ -256,7 +254,7 @@ img {
             </c:if>
             
             <form id="delfree" method="POST" action="/neulbom/client/community/delfree.do">
-            <button type="button" class="btn btn-primary btn-sm" style="float: left;" onclick="history.back();">돌아가기</button>
+            <button type="button" class="btn btn-primary btn-sm" style="float: left;" onclick="location.href='/neulbom/client/community/free.do';">목록보기</button>
             <c:if test="${not empty id && (id != dto.id)}">
             <%-- <button type="button" class="btn btn-primary btn-sm" 
             onclick="location.href='/client/community/addfree.do?mode=reply&thread=${dto.thread}&depth=${dto.depth }';">답변하기</button> --%>
