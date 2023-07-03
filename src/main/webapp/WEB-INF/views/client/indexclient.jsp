@@ -37,6 +37,10 @@
    object-fit:cover;
 }
 
+span {
+	font-weight: bold;
+}
+
 </style>
 </head>
 
@@ -45,7 +49,7 @@
      <div class="imagecontainer_wj">
         <img src="/neulbom/asset/mainimage/frontimages.png" class="img-fluid" style="width:100vw; object-position: 0px -100px;">
         <div class="infotext_wj">
-            <h1 style="color:white;">안녕하세요 늘봄입니다.</h1>
+            <h1 style="color:white;">안녕하세요 <span>늘봄</span>입니다.</h1>
 
             <div class="shadow p-3 mb-5 bg-body rounded">
                 <span class="notice_wj_line"></span>

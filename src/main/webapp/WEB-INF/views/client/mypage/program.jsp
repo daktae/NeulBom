@@ -73,16 +73,13 @@ body {
 			<div class="col-md-3">
 				<div class="sidebox">
 					<div class="profile">
-<<<<<<< HEAD
 						<img src="/neulbom/asset/images/user.png" id="profileimg"
 							style="width: 150px; height: 140px; margin: none;">
 						<h1 class="profilename">'${name }'님</h1>
 						<h1 class="profilename_id" style="margin-right: 120px;">(${id})</h1>
-=======
-						<img src="/neulbom/asset/images/user.png" id="profileimg">
-						<h1 class="profilename">${sessionScope.name}님</h1>
-						<h1 class="profilename_id">(${sessionScope.id})</h1>
->>>>>>> d33e8ca156eae4523b6c649c0504e48642b22404
+						<!-- <img src="/neulbom/asset/images/user.png" id="profileimg"> -->
+						<%-- <h1 class="profilename">${sessionScope.name}님</h1>
+						<h1 class="profilename_id">(${sessionScope.id})</h1> --%>
 					</div>
 					<div class="menubox">
                   <div class="menu" id="create_account"

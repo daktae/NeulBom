@@ -142,14 +142,12 @@ body {
 									<th class="tr" scope="col">인원수</th>
 									<td>${dto.apply}/ ${dto.people }</td>
 								</tr>
-<<<<<<< HEAD
 
 							</table>
 
 							<hr>
 
-							<div
-								style="text-align: center; font-weight: bold; font-size: 23px;">
+							<div style="text-align: center; font-weight: bold; font-size: 23px;">
 								<c:if test="${dto.apply >= dto.people || dto.prog_date <= limitDate}">
 									<td style="color: red">이번 프로그램은 마감되었습니다.</td>
 								</c:if>
@@ -169,30 +167,9 @@ body {
 							</div>
 							<input type="hidden" name="prog_seq" value="${dto.prog_seq }">
 							<input type="hidden" name="resi_seq" value="${resi_seq }">
-=======
 								
 						</table>
-						
-					<hr>
 					
-						<div style="text-align: center; font-weight: bold; font-size: 23px;">
-						<c:if test="${dto.apply >= dto.people || dto.prog_date <= limitDate}">
-										<td style="color: red">이번 프로그램은 마감되었습니다.</td>
-						</c:if>
-						
-						<c:if test="${dto.apply < dto.people && result == null && dto.prog_date > limitDate}">
-										<td style="padding-bottom: 0px; padding-top: 0.25rem;">
-										<button type="button" class="btn btn-primary btn-sm regi" 
-										onclick="confirmRegiProgram()">신청하기</button></td>
-						</c:if>
-						
-						<c:if test ="${dto.apply < dto.people && result != null && dto.prog_date > limitDate}">
-						<td style="color: #00007C">이미 신청하신 프로그램입니다.</td>
-						</c:if> 
-						
-						<input style="float: left" type="button" class="btn btn-secondary" name="btnreturn" onclick="history.back()" value="돌아가기">
->>>>>>> d33e8ca156eae4523b6c649c0504e48642b22404
-						</div>
 					</form>
 				</div>
 			</div>
