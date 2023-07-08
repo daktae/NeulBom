@@ -20,7 +20,7 @@ a{
 <body>
 	<%@ include file="/WEB-INF/views/inc/headerclient.jsp" %>
 	
-	  <div id="consult" class="introducetitle" style="background-image: url('/neulbom/asset/mainimage/registwrite.jpg'); background-position: 50% 75%;">입주상담게시판</div>
+	  <div id="consult" class="introducetitle" style="background-image: url('/neulbom/asset/mainimage/registwrite.jpg'); background-position: 50% 75%;">커뮤니티</div>
 
 
 
@@ -80,14 +80,29 @@ help
                     </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="dto" items="${list}">
-                    <tr>
-  <td>${dto.con_seq}</td>
-  <td style="text-align: left;"><a href="/neulbom/client/board/residetailwj.do?con_seq=${dto.con_seq}">${dto.con_title}</a></td>
-  <td>${dto.nomem_name}</td>
-  <td>${dto.con_date}</td>
-</tr>
-                </c:forEach>    
+<c:set var="currentPage" value="${param.page != null ? param.page : 1}" />
+<c:set var="itemsPerPage" value="10" />
+<c:set var="startIndex" value="${(currentPage - 1) * itemsPerPage}" />
+
+<c:forEach var="dto" items="${list}" varStatus="loop">
+  <input type="hidden" name="isreply" value="${dto.isreply}" />
+  <tr>
+    <td>
+      <input type="hidden" name="con_seq" value="${dto.con_seq}" />
+      ${(startIndex + loop.index) + 1}
+    </td>
+    <td style="text-align: left;">
+      <c:choose>
+        <c:when test="${dto.isreply == 'y'}">
+           <span style="color: tomato;">[답변완료]</span>
+        </c:when>
+      </c:choose>
+      <a href="/neulbom/client/community/residetailcheck.do?con_seq=${dto.con_seq}">${dto.con_title}</a>
+    </td>
+    <td>${dto.nomem_name}</td>
+    <td>${dto.con_date}</td>
+  </tr>
+</c:forEach>
                 </tbody>
             </table>
              <div style="display: flex; justify-content: flex-end;">

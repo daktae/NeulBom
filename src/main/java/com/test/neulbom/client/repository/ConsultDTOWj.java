@@ -12,5 +12,7 @@ public class ConsultDTOWj {
 	private String isreply;
 	private String nomem_seq;
 	private String name;
-	
+	private String retitle;
+	private String recontent;
+	private String rnum;
 }

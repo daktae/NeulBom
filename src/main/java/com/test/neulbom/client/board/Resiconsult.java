@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.test.neulbom.client.repository.BoardWjDAO;
 import com.test.neulbom.client.repository.BoardWjDTO;
+import com.test.neulbom.client.repository.ConsultDTOWj;
 
 @WebServlet("/client/board/resiconsult.do")
 public class Resiconsult extends HttpServlet {
@@ -66,7 +67,7 @@ public class Resiconsult extends HttpServlet {
 
 				
 				BoardWjDAO dao = new BoardWjDAO();
-
+				ConsultDTOWj dto = new ConsultDTOWj();
 				List<BoardWjDTO> list = dao.view(map);
 				
 
@@ -157,7 +158,8 @@ public class Resiconsult extends HttpServlet {
 				req.setAttribute("nowPage", nowPage);
 				req.setAttribute("list", list);
 				req.setAttribute("pagination", sb);
-
+				req.setAttribute("dto", dto);
+				
 				RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/client/community/resiconsult.jsp");
 				dispatcher.forward(req, resp);
 

@@ -33,7 +33,7 @@
             </a>
             <ul class="nav nav-pills">
                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="" role="button"
                         aria-expanded="false">늘봄소개</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/neulbom/client/greetings.do">인사말</a></li>

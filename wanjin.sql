@@ -1,3 +1,5 @@
+-- NeulBom sql
+
 SELECT * FROM tblprotect WHERE id = '9wfsicg023';
 
 select * from tblresident;
@@ -16,6 +18,7 @@ select * from tblconsult order by con_seq;
 select * from tblcreply order by creply_seq;
 select * from tblnomem;
 
+drop sequence nomemseq;
 create sequence nomemseq start with 70;
 insert into tblnomem(nomem_seq, name, tel) values(52, '이순신', '010-1288-7766');
 
@@ -96,14 +99,43 @@ ORDER BY tc.con_seq desc;
 commit;
 
 INSERT INTO tblconsult (con_seq, title, content, con_date, isreply, nomem_seq, thread, depth)
-VALUES (conseq.nextVal, '하하하', '하하하', sysdate, 'n', nomemseq.nextVal, '0', '0');
+VALUES (conseq.nextVal, '하하하', '하하하', sysdate, 'n', nsequence.nextVal, '0', '0');
+INSERT INTO tblconsult (con_seq, title, content, con_date, isreply, nomem_seq, thread, depth)
+VALUES (conseq.nextVal, '하하하', '하하하', sysdate, 'n', nsequence.nextVal, '0', '0');
+INSERT INTO tblconsult (con_seq, title, content, con_date, isreply, nomem_seq, thread, depth)
+VALUES (conseq.nextVal, '하하하', '하하하', sysdate, 'n', nsequence.nextVal, '0', '0');
+
+drop sequence conseq;
+create sequence conseq start with 72;
+delete from tblconsult where con_seq > 73;
+
+commit;
+
+select * from tblconsult order by con_seq desc;
+select * from tblnomem order by nomem_seq desc;
+
+rollback;
+
+
+commit;
 
 select * from tblnomem order by nomem_seq desc;
 
 delete tblnomem where nomem_seq > 70;
+drop sequence nsequence;
+create sequence nsequence start with 70;
+
+commit;
+
+select * from tblnomem;
+
+
+delete from tblnomem where nomem_seq > 70;
+
+select * from tblnomem;
 
 select tn.nomem_seq, tn.name, tc.con_seq, tc.title, tc.content, to_char(tc.con_date, 'yyyy-mm-dd') as con_date,
-tc.isreply from tblnomem tn inner join tblconsult tc on tn.nomem_seq = tc.nomem_seq where con_seq = '111';
+tc.isreply from tblnomem tn inner join tblconsult tc on tn.nomem_seq = tc.nomem_seq where con_seq = '75';
 
 select * from vwconsult;
 
@@ -111,22 +143,64 @@ select * from vwconsult order by con_date desc;
 
 select * from tblconsult;
 
-select * from (select rownum as rnum, a.* from (select * from tblqna order by qna_seq desc) a);
+delete from tblconsult where con_seq > 71;
+delete from tblnomem where nomem_seq > 71;
 
-select rnum, con_seq, con_title, nomem_name, TO_CHAR(con_date, 'YYYY-MM-DD') 
-as con_date from (select rownum as rnum, a.* from (select * from vwconsult order by con_seq desc) a)
-where rnum between 1 and 10; 
+delete sequence nomem_seq;
+commit;
+
+commit;
+
+select * from tblnomem order by nomem_seq desc;
+select * from tblconsult order by con_seq desc;
+
+select * from (select rownum as rnum, a.* from (select * from vwconsult order by con_seq desc) a) where nomem_name = '우자소';
+
+select * from vwconsult order by con_seq desc;
+
+select * from tblconsult order by con_seq desc;
+
+delete from tblconsult where con_seq > 70;
+
+commit;
+
+select * from tblprotect order by protect_seq desc;
+
+delete from tblconsult where con_seq > 70;
+
+
+
+
+select * from tblnomem order by nomem_Seq desc;
+
+delete from tblnomem where nomem_seq > 71;
+
+select * from tblnomem order by nomem_seq desc;
+
+select rnum, con_seq, con_title, nomem_name, TO_CHAR(con_date, 'YYYY-MM-DD')
+as con_date, isreply from (select rownum as rnum, a.* from (select * from vwconsult order by con_seq desc) a);
+
+select * from tblconsult order by con_seq desc;
 
 SELECT rnum, con_seq, con_title, nomem_name, TO_CHAR(con_date, 'YYYY-MM-DD') AS con_date 
 FROM (
     SELECT ROWNUM AS rnum, a.* 
     FROM (
-        SELECT * 
-        FROM vwconsult 
-        WHERE con_date BETWEEN TO_DATE('2023-06-01', 'YYYY-MM-DD') AND TO_DATE('2023-06-20', 'YYYY-MM-DD')
+  SELECT * 
+FROM vwconsult 
+WHERE con_date >= TO_DATE('2023-06-01', 'YYYY-MM-DD') 
+    AND con_date <= TO_DATE('2023-06-11 23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+
     ) a
 ) WHERE rnum BETWEEN 1 AND 10
 ORDER BY con_seq DESC;
+
+select * from vwconsult order by con_seq desc;
+
+SELECT RANK() OVER (order by con_seq desc) AS rank, t.*
+FROM vwconsult t;
+
+select * from vwconsult;
 
 select * from tblprotect;
 
@@ -134,5 +208,15 @@ select * from tblnomem;
 
 create sequence conseq start with 70;
 
+select * from vwconsult;
 
+select * from tblconsult;
 
+UPDATE tblconsult SET title = '호호호', content = '히히히' WHERE con_seq = '53';
+
+delete from tblconsult where con_seq = 92;
+rollback;
+
+select * from tblresident;
+
+select sysdate from dual;

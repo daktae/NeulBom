@@ -30,7 +30,8 @@
 
 
 
-<form action="/neulbom/client/community/residetailcheck.do" method="post"> 
+<form action="/neulbom/client/community/residetailcheck.do" method="post">
+ <input type="hidden" name="con_seq" value="${con_seq}">	 
     <div class="mainmenu text-center d-flex justify-content-center" style="width:600px; margin:0 auto;">
        <div class="card" style="width:500px;">
   <div class="card-body">

@@ -13,6 +13,7 @@
   #write {
         width: 100px;
         height: 40px;
+        background-color: #043886;
         color: #ffffff;
         border: none;
         font-size: 20px;
@@ -167,8 +168,9 @@ assignment_add
             </nav>
             <hr>
            
-        	    <form method="POST" action="/neulbom/client/board/resiconsultwrite.do" onsubmit="showAlert()">
-
+        	    <form method="POST" action="/neulbom/client/board/unmemedit.do" onsubmit="showAlert()">
+<input type="hidden" name="con_seq" value="${param.con_seq}">
+<input type="hidden" name="pname" value="${param.pname}">
                 <table id="table">
                     <tr>
                         <th class="th">제목</th>
@@ -179,12 +181,10 @@ assignment_add
                         <td class="td"><textarea name="content" id="content" required class="full"" placeholder="내용을 입력하세요." maxlength="900"></textarea>
                     </tr>
                     </table>
-                    
-                   <input type="hidden" name="nomem_seq" value="${param.nomem_seq}">
+
                     <div class="btn1">
-                    <input type="submit" style="width:100px; height:40px;" class="btn btn-primary btn-sm" name="write" id="write" value="글쓰기"> 
-                    <input type="button" class="btn btn-secondary btn-sm btn-light" name="cancle" id="cancle" value="취소하기" onclick="history.back();"> 
-                    
+                    <input type="submit" name="write" id="write" value="수정하기"> 
+                    <input type="button" name="cancle" id="cancle" value="취소하기" onclick="history.back();"> 
                     
                     </div>
                     
@@ -199,7 +199,7 @@ assignment_add
 	<%@ include file="/WEB-INF/views/inc/footerclient.jsp" %>
 <script>
 function showAlert() {
-    alert("글이 등록 되었습니다!");
+    alert("글이 수정 되었습니다!");
   }
 </script>
 </body>

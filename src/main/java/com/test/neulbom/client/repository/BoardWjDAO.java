@@ -29,7 +29,7 @@ public class BoardWjDAO {
 	        String endDate = map.get("end_date");
 
 	        StringBuilder sqlBuilder = new StringBuilder();
-	        sqlBuilder.append("SELECT rnum, con_seq, con_title, nomem_name, TO_CHAR(con_date, 'YYYY-MM-DD') AS con_date ");
+	        sqlBuilder.append("SELECT rnum, con_seq, con_title, nomem_name, TO_CHAR(con_date, 'YYYY-MM-DD') AS con_date, isreply ");
 	        sqlBuilder.append("FROM ( ");
 	        sqlBuilder.append("    SELECT ROWNUM AS rnum, a.* ");
 	        sqlBuilder.append("    FROM ( ");
@@ -40,7 +40,7 @@ public class BoardWjDAO {
 	            sqlBuilder.append("WHERE con_date >= TO_DATE(?, 'YYYY-MM-DD') AND con_date < TO_DATE(?, 'YYYY-MM-DD') + 1 ");
 	        } else if (searchOption != null && searchOption.equals("title") && searchKeyword != null) {
 	            sqlBuilder.append("WHERE UPPER(con_title) LIKE '%' || UPPER(?) || '%' ");
-	        } else if (searchOption != null && searchOption.equals("name") && searchKeyword != null) {
+	        } else if (searchOption != null && searchOption.equals("author") && searchKeyword != null) {
 	            sqlBuilder.append("WHERE UPPER(nomem_name) LIKE '%' || UPPER(?) || '%' ");
 	        }
 
@@ -54,7 +54,7 @@ public class BoardWjDAO {
 	            pstat.setString(parameterIndex++, startDate);
 	            pstat.setString(parameterIndex++, endDate);
 	        } else if ((searchOption != null && searchOption.equals("title") && searchKeyword != null) ||
-	                (searchOption != null && searchOption.equals("name") && searchKeyword != null)) {
+	                (searchOption != null && searchOption.equals("author") && searchKeyword != null)) {
 	            pstat.setString(parameterIndex++, searchKeyword);
 	        }
 
@@ -71,7 +71,7 @@ public class BoardWjDAO {
 	            dto.setCon_title(rs.getString("con_title"));
 	            dto.setNomem_name(rs.getString("nomem_name"));
 	            dto.setCon_date(rs.getString("con_date"));      
-	            
+	            dto.setIsreply(rs.getString("isreply"));
 	            list.add(dto);
 	        }
 
@@ -96,7 +96,7 @@ public class BoardWjDAO {
 	        sqlBuilder.append(" WHERE con_date >= TO_DATE(?, 'YYYY-MM-DD') AND con_date < TO_DATE(?, 'YYYY-MM-DD') + 1");
 	    } else if (searchOption != null && searchOption.equals("title") && map.get("search_keyword") != null) {
 	        sqlBuilder.append(" WHERE UPPER(con_title) LIKE '%' || UPPER(?) || '%'");
-	    } else if (searchOption != null && searchOption.equals("name") && map.get("search_keyword") != null) {
+	    } else if (searchOption != null && searchOption.equals("author") && map.get("search_keyword") != null) {
 	        sqlBuilder.append(" WHERE UPPER(nomem_name) LIKE '%' || UPPER(?) || '%'");
 	    }
 
@@ -109,7 +109,7 @@ public class BoardWjDAO {
 	            pstat.setString(parameterIndex++, startDate);
 	            pstat.setString(parameterIndex++, endDate);
 	        } else if ((searchOption != null && searchOption.equals("title") && map.get("search_keyword") != null) ||
-	                (searchOption != null && searchOption.equals("name") && map.get("search_keyword") != null)) {
+	                (searchOption != null && searchOption.equals("author") && map.get("search_keyword") != null)) {
 	            pstat.setString(parameterIndex++, map.get("search_keyword"));
 	        }
 
@@ -144,6 +144,36 @@ public class BoardWjDAO {
 	        e.printStackTrace();
 	    }
 	    return 0;
+	}
+	public int delete(String con_seq) {
+		 try {
+		    	String sql = "delete from tblconsult where con_seq = ?";
+
+		    	pstat = conn.prepareStatement(sql);
+		    	pstat.setString(1, con_seq);
+
+		    	return pstat.executeUpdate();
+		        
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		    return 0;
+		}
+	public int edit(BoardWjDTO dto) {
+		 try {
+		    	String sql = "UPDATE tblconsult SET title = ?, content = ? WHERE con_seq = ?";
+
+		    	pstat = conn.prepareStatement(sql);
+		    	pstat.setString(1, dto.getCon_title());
+		    	pstat.setString(2, dto.getCon_content());
+		    	pstat.setString(3, dto.getCon_seq());
+
+		    	return pstat.executeUpdate();
+		        
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
+		    return 0;
 	}
 	
 

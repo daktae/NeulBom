@@ -561,7 +561,8 @@ function validateId() {
     // 정규식: 영문, 숫자 최소 1개 포함 4~12자 이내
 
       if (regex.test(userId)) {
-    	  const childWindow = window.open("idcheck.do?userId=" + encodeURIComponent(userId), '_blank', "width=500,height=300,left=1000,top=200"); // 새 창을 여는 URL을 지정
+    	  const childWindow = window.open("idcheck.do?userId=" + encodeURIComponent(userId), '_blank', "width=500,height=300,left=1000,top=200"); 
+    	  // 새 창을 여는 URL을 지정
 
           // 자식 창이 로드되었을 때 실행되는 이벤트 리스너
           childWindow.addEventListener("load", function() {
