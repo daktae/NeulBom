@@ -446,6 +446,7 @@ public class ClientDAO {
 		return 0;
 	}
 
+	//댓글 seq +1씩 더해주는 메소드
 	private int getNextCommnetSeq() {
 
 		try {

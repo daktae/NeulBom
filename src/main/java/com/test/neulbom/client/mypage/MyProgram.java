@@ -186,7 +186,8 @@ public class MyProgram extends HttpServlet {
 		cal.add(Calendar.DATE, -3);	//현재 날짜 -3
 		Date limit = cal.getTime();
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");	//날짜 형식 변경
+		//날짜 형식 변경
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");	
 		String limitDate = dateFormat.format(limit);
 		
 		
